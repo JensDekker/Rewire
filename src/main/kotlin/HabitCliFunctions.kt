@@ -1,18 +1,67 @@
 import java.time.*
 
-fun cliDeleteHabit(manager: HabitManager) {
+// =====================
+// Habit Functions (Completion + CRUD)
+// =====================
+fun cliCompleteHabit(manager: HabitManager) {
     val habits = manager.listHabits()
     if (habits.isEmpty()) {
-        println("No habits to delete.")
+        println("No habits to complete.")
         return
     }
     println("Available habits:")
     habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit to delete (number): ")
+    print("Select habit to complete (number): ")
     val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val nameToDelete = habits[index - 1]
-    manager.deleteHabit(nameToDelete)
-    println("🗑️ Habit '$nameToDelete' deleted.")
+    val name = habits[index - 1]
+    manager.completeHabit(name)
+    println("✅ Habit '$name' marked as completed.")
+}
+
+fun cliAddHabit(manager: HabitManager) {
+    print("Enter habit name: ")
+    val name = readLine()?.takeIf { it.isNotBlank() } ?: return
+    println("Select recurrence type:")
+    RecurrenceType.values().forEachIndexed { i, type -> println("${i + 1}. $type") }
+    print("Recurrence type (1-${RecurrenceType.values().size}): ")
+    val recInput = readLine()?.toIntOrNull()
+    val recurrence = recInput?.let { RecurrenceType.values().getOrNull(it - 1) } ?: RecurrenceType.DAILY
+    print("Preferred time (HH:mm): ")
+    val timeInput = readLine()?.takeIf { it.isNotBlank() }
+    val preferredTime = try { timeInput?.let { LocalTime.parse(it) } } catch (e: Exception) { null }
+    print("Estimated time in minutes: ")
+    val minsInput = readLine()?.toIntOrNull() ?: 0
+    manager.addHabit(Habit(name, recurrence, preferredTime, minsInput))
+    println("✅ Habit '$name' added.")
+}
+
+fun cliListHabits(manager: HabitManager) {
+    val habits = manager.listHabits()
+    if (habits.isEmpty()) {
+        println("No habits found.")
+        return
+    }
+    println("Habits:")
+    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
+}
+
+fun cliShowHabitDetails(manager: HabitManager) {
+    val habits = manager.listHabits()
+    if (habits.isEmpty()) {
+        println("No habits to show.")
+        return
+    }
+    println("Available habits:")
+    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
+    print("Select habit to view details (number): ")
+    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
+    val habit = manager.getHabit(habits[index - 1]) ?: return
+    println("Name: ${habit.name}")
+    println("Recurrence: ${habit.recurrence}")
+    println("Preferred time: ${habit.preferredTime}")
+    println("Estimated minutes: ${habit.estimatedMinutes}")
+    println("Notes: ${habit.notes}")
+    println("Completions: ${habit.completions}")
 }
 
 fun cliEditHabit(manager: HabitManager) {
@@ -61,51 +110,24 @@ fun cliEditHabit(manager: HabitManager) {
     println("✅ Habit updated.")
 }
 
-fun cliAddHabit(manager: HabitManager) {
-    print("Enter habit name: ")
-    val name = readLine()?.takeIf { it.isNotBlank() } ?: return
-    println("Select recurrence type:")
-    RecurrenceType.values().forEachIndexed { i, type -> println("${i + 1}. $type") }
-    print("Recurrence type (1-${RecurrenceType.values().size}): ")
-    val recInput = readLine()?.toIntOrNull()
-    val recurrence = recInput?.let { RecurrenceType.values().getOrNull(it - 1) } ?: RecurrenceType.DAILY
-    print("Preferred time (HH:mm): ")
-    val timeInput = readLine()?.takeIf { it.isNotBlank() }
-    val preferredTime = try { timeInput?.let { LocalTime.parse(it) } } catch (e: Exception) { null }
-    print("Estimated time in minutes: ")
-    val minsInput = readLine()?.toIntOrNull() ?: 0
-    manager.addHabit(Habit(name, recurrence, preferredTime, minsInput))
-    println("✅ Habit '$name' added.")
-}
-
-fun cliListHabits(manager: HabitManager) {
+fun cliDeleteHabit(manager: HabitManager) {
     val habits = manager.listHabits()
     if (habits.isEmpty()) {
-        println("No habits found.")
-        return
-    }
-    println("Habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-}
-
-fun cliShowHabitDetails(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to show.")
+        println("No habits to delete.")
         return
     }
     println("Available habits:")
     habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit to view details (number): ")
+    print("Select habit to delete (number): ")
     val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val habit = manager.getHabit(habits[index - 1]) ?: return
-    println("Name: ${habit.name}")
-    println("Recurrence: ${habit.recurrence}")
-    println("Preferred time: ${habit.preferredTime}")
-    println("Estimated minutes: ${habit.estimatedMinutes}")
-    println("Notes: ${habit.notes}")
-    println("Completions: ${habit.completions}")
+    val nameToDelete = habits[index - 1]
+    manager.deleteHabit(nameToDelete)
+    println("🗑️ Habit '$nameToDelete' deleted.")
 }
+
+// =====================
+// Habit Note Functions (CRUD)
+// =====================
 
 fun cliAddHabitNote(manager: HabitManager) {
     val habits = manager.listHabits()
@@ -193,3 +215,15 @@ fun cliDeleteHabitNote(manager: HabitManager) {
     manager.deleteNote(name, noteIndex - 1)
     println("🗑️ Note deleted.")
 }
+
+// CLI functions for habits and habit notes
+// Move all habit-related CLI functions here from CliFunctions.kt
+
+// Example stub
+// fun cliAddHabit(manager: HabitManager) { /* ... */ }
+// fun cliListHabits(manager: HabitManager) { /* ... */ }
+// fun cliShowHabitDetails(manager: HabitManager) { /* ... */ }
+// fun cliAddHabitNote(manager: HabitManager) { /* ... */ }
+// fun cliListHabitNotes(manager: HabitManager) { /* ... */ }
+// fun cliEditHabitNote(manager: HabitManager) { /* ... */ }
+// fun cliDeleteHabitNote(manager: HabitManager) { /* ... */ }
