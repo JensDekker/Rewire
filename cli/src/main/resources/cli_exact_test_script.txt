@@ -1,0 +1,102 @@
+====================
+CLI Exact Test Script
+====================
+
+Step 1: Start CLI
+------------------
+- Verify main menu appears.
+- At main menu, enter:
+  - Blank input (just press Enter) → confirm error message.
+  - Out-of-range number (e.g., 0, 99) → confirm error message.
+  - Non-numeric input (e.g., "abc") → confirm error message.
+- Select "Habits" (option 1).
+
+Step 2: Habits Menu
+-------------------
+- At habits menu, enter blank, out-of-range, and non-numeric input → confirm error message.
+- List habits (should be empty).
+- Select "Add Habit" (option 2):
+  - Enter blank, out-of-range, non-numeric input → confirm error message.
+  - Enter habit name: "Exercise".
+- Select "Add Habit" again:
+  - Enter habit name: "Read".
+- List habits (should show "Exercise" and "Read").
+- Select "Select Habit" (option 3):
+  - Enter blank, out-of-range, non-numeric input → confirm error message.
+  - Select "Exercise".
+
+Step 3: Habit Actions ("Exercise")
+----------------------------------
+- At habit actions menu, enter blank, out-of-range, non-numeric input → confirm error message.
+- Edit habit: Change name to "Morning Exercise".
+- Show habit details.
+- Complete habit.
+- Select "Habit Notes":
+  - At notes menu, enter blank, out-of-range, non-numeric input → confirm error message.
+  - List notes (should be empty).
+  - Add note: Date = today, Note = "Started running."
+  - List notes (should show the new note).
+  - Edit note: Change to "Ran 5km."
+  - Delete note.
+  - List notes (should be empty).
+- Back to habit menu, delete habit.
+- List habits (should show only "Read").
+- Select "Select Habit", choose "Read":
+  - Add note: Date = today, Note = "Read 20 pages."
+  - List notes.
+  - Delete habit.
+- List habits (should be empty).
+- Back to main menu.
+
+Step 4: Addictions Menu
+-----------------------
+- At addictions menu, enter blank, out-of-range, non-numeric input → confirm error message.
+- List addictions (should be empty).
+- Add addiction: Name = "Sugar".
+- Add addiction: Name = "Caffeine".
+- List addictions (should show both).
+- Select "Select Addiction":
+  - Enter blank, out-of-range, non-numeric input → confirm error message.
+  - Select "Sugar".
+
+Step 5: Addiction Actions ("Sugar")
+-----------------------------------
+- At addiction actions menu, enter blank, out-of-range, non-numeric input → confirm error message.
+- View details.
+- Edit addiction: Change name to "No Sugar".
+- Log usage: Date = today.
+- Select "Addiction Notes":
+  - At notes menu, enter blank, out-of-range, non-numeric input → confirm error message.
+  - Add note: Date = today, Note = "Craving after lunch."
+  - List notes.
+  - Edit note: Change to "Resisted craving."
+  - Delete note.
+  - List notes (should be empty).
+- Select "Usage Plan":
+  - At usage plan menu, enter blank, out-of-range, non-numeric input → confirm error message.
+  - Add plan item: Description = "No sugar for a week", Period = "WEEKLY", Value = 7, Repeat = 1.
+  - List plan items.
+  - Edit plan item: Change description to "No sugar for two weeks", Value = 14.
+  - Delete plan item.
+  - List plan items (should be empty).
+  - Add multiple plan items.
+  - Clear usage plan.
+  - List plan items (should be empty).
+- Back to addiction menu, delete addiction.
+- List addictions (should show only "Caffeine").
+- Select "Select Addiction", choose "Caffeine":
+  - Add note: Date = today, Note = "Had coffee in the morning."
+  - List notes.
+  - Delete addiction.
+- List addictions (should be empty).
+- Back to main menu.
+
+Step 6: Data Persistence (if supported)
+---------------------------------------
+- Exit the CLI and restart.
+- Verify that habits/addictions/notes/usage plans persist or reset as expected.
+
+Step 7: Final Checks
+--------------------
+- Confirm all error messages display for invalid actions.
+- Confirm all menu navigation works as expected.
