@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.11.1" type="incidents">
+
+    <incident
+        id="AndroidGradlePluginVersion"
+        severity="warning"
+        message="A newer version of com.android.application than 8.11.1 is available: 8.12.0">
+        <fix-replace
+            description="Replace with 8.12.0"
+            family="Update versions"
+            oldString="8.11.1"
+            replacement="8.12.0"
+            priority="0"/>
+        <location
+            file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+            line="2"
+            column="7"
+            startOffset="17"
+            endLine="2"
+            endColumn="15"
+            endOffset="25"/>
+        <map>
+            <entry
+                name="coordinate"
+                string="com.android.application"/>
+            <entry
+                name="revision"
+                string="8.12.0"/>
+        </map>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.16.0">
+        <fix-replace
+            description="Change to 1.16.0"
+            family="Update versions"
+            oldString="1.10.1"
+            replacement="1.16.0"
+            priority="0"/>
+        <location
+            file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+            line="4"
+            column="11"
+            startOffset="54"
+            endLine="4"
+            endColumn="19"
+            endOffset="62"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0">
+        <fix-replace
+            description="Change to 1.3.0"
+            family="Update versions"
+            oldString="1.1.5"
+            replacement="1.3.0"
+            priority="0"/>
+        <location
+            file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+            line="6"
+            column="16"
+            startOffset="95"
+            endLine="6"
+            endColumn="23"
+            endOffset="102"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0">
+        <fix-replace
+            description="Change to 3.7.0"
+            family="Update versions"
+            oldString="3.5.1"
+            replacement="3.7.0"
+            priority="0"/>
+        <location
+            file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+            line="7"
+            column="16"
+            startOffset="118"
+            endLine="7"
+            endColumn="23"
+            endOffset="125"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.1">
+        <fix-replace
+            description="Change to 1.7.1"
+            family="Update versions"
+            oldString="1.6.1"
+            replacement="1.7.1"
+            priority="0"/>
+        <location
+            file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+            line="8"
+            column="13"
+            startOffset="138"
+            endLine="8"
+            endColumn="20"
+            endOffset="145"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of com.google.android.material:material than 1.10.0 is available: 1.12.0">
+        <fix-replace
+            description="Change to 1.12.0"
+            family="Update versions"
+            oldString="1.10.0"
+            replacement="1.12.0"
+            priority="0"/>
+        <location
+            file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+            line="9"
+            column="12"
+            startOffset="157"
+            endLine="9"
+            endColumn="20"
+            endOffset="165"/>
+    </incident>
+
+    <incident
+        id="NewerVersionAvailable"
+        severity="warning"
+        message="A newer version of org.jetbrains.kotlin.android than 2.0.21 is available: 2.2.0">
+        <fix-replace
+            description="Change to 2.2.0"
+            family="Update versions"
+            oldString="2.0.21"
+            replacement="2.2.0"
+            priority="0"/>
+        <location
+            file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+            line="3"
+            column="10"
+            startOffset="35"
+            endLine="3"
+            endColumn="18"
+            endOffset="43"/>
+    </incident>
+
+</incidents>

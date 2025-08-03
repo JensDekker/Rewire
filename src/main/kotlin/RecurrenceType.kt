@@ -1,3 +1,0 @@
-enum class RecurrenceType {
-    DAILY, WEEKLY, MONTHLY, QUARTERLY, WEEKDAYS, WEEKENDS
-}

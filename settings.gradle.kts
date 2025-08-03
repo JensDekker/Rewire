@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Rewire"
-include(":app")
+include(":app", ":cli", ":core")

@@ -1,0 +1,8 @@
+Summary of steps:
+
+1. Create a new folder cli in your project root.
+2. Move your CLI Kotlin files (e.g., Main.kt) to cli/src/main/kotlin.
+3. Add a cli/build.gradle.kts with the application plugin and main class configuration.
+4. Add include(":cli") to your settings.gradle.kts.
+5. Run your CLI with:
+   .\gradlew :cli:run
