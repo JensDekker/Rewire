@@ -15,14 +15,16 @@ class HabitManager {
         newName: String?,
         newRecurrence: RecurrenceType?,
         newPreferredTime: LocalTime,
-        newEstimatedMinutes: Int?
+        newEstimatedMinutes: Int?,
+        newCustomDays: Set<DayOfWeek>? = null
     ) {
         getHabit(name)?.let { old ->
             val updated = old.copy(
                 name = newName ?: old.name,
                 recurrence = newRecurrence ?: old.recurrence,
                 preferredTime = newPreferredTime,
-                estimatedMinutes = newEstimatedMinutes ?: old.estimatedMinutes
+                estimatedMinutes = newEstimatedMinutes ?: old.estimatedMinutes,
+                customDays = newCustomDays ?: old.customDays
             )
             habits.remove(old)
             habits.add(updated)
@@ -36,4 +38,5 @@ class HabitManager {
     fun deleteNote(name: String, date: LocalDate) = getHabit(name)?.deleteNote(date)
     fun getCompletions(name: String): Set<LocalDate> = getHabit(name)?.completions ?: emptySet()
     fun getNotes(name: String): Map<LocalDate, String> = getHabit(name)?.notes ?: emptyMap()
+    fun getNoteDays(name: String): List<LocalDate> = getNotes(name).keys.sorted()
 }

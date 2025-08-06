@@ -8,35 +8,36 @@ import com.example.rewire.core.RecurrenceType
 // =====================
 // Habit Functions (Completion + CRUD)
 // =====================
-fun cliCompleteHabit(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to complete.")
-        return
-    }
-    println("Available habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit to complete (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val name = habits[index - 1]
-    manager.markHabitComplete(name)
-    println("✅ Habit '$name' marked as completed.")
+fun cliDeleteHabit(manager: HabitManager, habitName: String) {
+    manager.deleteHabit(habitName)
+    println("🗑️ Habit '$habitName' deleted.")
 }
 
 fun cliAddHabit(manager: HabitManager) {
     print("Enter habit name: ")
-    val name = readLine()?.takeIf { it.isNotBlank() } ?: return
+    val name = readLine()?.takeIf { it.isNotBlank() }
+    if (name == null) {
+        printError("No habit has been created. Habit name cannot be blank.")
+        return
+    }
     println("Select recurrence type:")
     RecurrenceType.values().forEachIndexed { i, type -> println("${i + 1}. $type") }
     print("Recurrence type (1-${RecurrenceType.values().size}): ")
     val recInput = readLine()?.toIntOrNull()
     val recurrence = recInput?.let { RecurrenceType.values().getOrNull(it - 1) } ?: RecurrenceType.DAILY
+    var customDays: Set<java.time.DayOfWeek>? = null
+    if (recurrence == RecurrenceType.CUSTOM_WEEKLY) {
+        customDays = promptCustomDays()
+    }
+    print("Start date (YYYY-MM-DD, leave blank for today): ")
+    val startDateInput = readLine()?.takeIf { it.isNotBlank() }
+    val startDate = try { startDateInput?.let { java.time.LocalDate.parse(it) } ?: java.time.LocalDate.now() } catch (e: Exception) { java.time.LocalDate.now() }
     print("Preferred time (HH:mm): ")
     val timeInput = readLine()?.takeIf { it.isNotBlank() }
     val preferredTime = try { timeInput?.let { LocalTime.parse(it) } ?: LocalTime.of(9, 0) } catch (e: Exception) { LocalTime.of(9, 0) }
     print("Estimated time in minutes: ")
     val minsInput = readLine()?.toIntOrNull() ?: 0
-    manager.addHabit(Habit(name, recurrence, preferredTime, minsInput))
+    manager.addHabit(Habit(name, recurrence, preferredTime, minsInput, customDays = customDays, startDate = startDate))
     println("✅ Habit '$name' added.")
 }
 
@@ -50,38 +51,23 @@ fun cliListHabits(manager: HabitManager) {
     habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
 }
 
-fun cliShowHabitDetails(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to show.")
-        return
-    }
-    println("Available habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit to view details (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val habit = manager.getHabit(habits[index - 1]) ?: return
+fun cliShowHabitDetails(manager: HabitManager, habitName: String) {
+    val habit = manager.getHabit(habitName) ?: return
     println("Name: ${habit.name}")
     println("Recurrence: ${habit.recurrence}")
+    println("Start date: ${habit.startDate}")
+    if (habit.recurrence == RecurrenceType.CUSTOM_WEEKLY) {
+        println("Custom days: ${formatCustomDays(habit.customDays)}")
+    }
     println("Preferred time: ${habit.preferredTime}")
     println("Estimated minutes: ${habit.estimatedMinutes}")
     println("Notes: ${habit.notes}")
     println("Completions: ${habit.completions}")
 }
 
-fun cliEditHabit(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to edit.")
-        return
-    }
-    println("Available habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit to edit (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val oldName = habits[index - 1]
-
-    val habit = manager.getHabit(oldName) ?: return
+fun cliEditHabit(manager: HabitManager, habitName: String): String? {
+    val oldName = habitName
+    val habit = manager.getHabit(oldName) ?: return null
 
     println("Editing habit: $oldName")
     print("New name (leave blank to keep '${habit.name}'): ")
@@ -92,6 +78,14 @@ fun cliEditHabit(manager: HabitManager) {
     print("New recurrence type (1-${RecurrenceType.values().size}): ")
     val recInput = readLine()?.toIntOrNull()
     val newRecurrence = recInput?.let { RecurrenceType.values().getOrNull(it - 1) }
+    var newCustomDays: Set<java.time.DayOfWeek>? = habit.customDays
+    if (newRecurrence == RecurrenceType.CUSTOM_WEEKLY) {
+        newCustomDays = promptCustomDays()
+    }
+
+    print("New start date (YYYY-MM-DD) or leave blank to keep '${habit.startDate}'): ")
+    val startDateInput = readLine()?.takeIf { it.isNotBlank() }
+    val newStartDate = try { startDateInput?.let { java.time.LocalDate.parse(it) } ?: habit.startDate } catch (e: Exception) { habit.startDate }
 
     print("New preferred time (HH:mm) or leave blank to keep '${habit.preferredTime}'): ")
     val timeInput = readLine()?.takeIf { it.isNotBlank() }
@@ -110,111 +104,70 @@ fun cliEditHabit(manager: HabitManager) {
         newName = newName,
         newRecurrence = newRecurrence,
         newPreferredTime = newPreferredTime,
-        newEstimatedMinutes = newEstimatedMinutes
+        newEstimatedMinutes = newEstimatedMinutes,
+        newCustomDays = newCustomDays
     )
+    // Directly update startDate if changed
+    val updatedHabit = manager.getHabit(newName ?: oldName)
+    if (updatedHabit != null) {
+        updatedHabit.startDate = newStartDate
+    }
     println("✅ Habit updated.")
+    return newName ?: oldName
 }
 
-fun cliDeleteHabit(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to delete.")
+fun cliCompleteHabit(manager: HabitManager, habitName: String) {
+    val habit = manager.getHabit(habitName)
+    if (habit == null) {
+        println("Habit not found.")
         return
     }
-    println("Available habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit to delete (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val nameToDelete = habits[index - 1]
-    manager.deleteHabit(nameToDelete)
-    println("🗑️ Habit '$nameToDelete' deleted.")
+    val today = java.time.LocalDate.now()
+    if (habit.isComplete(today)) {
+        println("ℹ️ Habit '$habitName' was already marked as completed for today.")
+    } else {
+        manager.markHabitComplete(habitName, today)
+        println("✅ Habit '$habitName' marked as completed.")
+    }
 }
 
 // =====================
 // Habit Note Functions (CRUD)
 // =====================
 
-fun cliAddHabitNote(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to add notes to.")
-        return
+fun cliAddHabitNote(manager: HabitManager, habitName: String) {
+    print("Enter date for note (YYYY-MM-DD, leave blank for today): ")
+    val dateStr = readLine()
+    val date = if (dateStr.isNullOrBlank()) java.time.LocalDate.now() else try { java.time.LocalDate.parse(dateStr) } catch (e: Exception) { println("Invalid date format."); return }
+    if (manager.getNotes(habitName).containsKey(date)) {
+        println("A note already exists for $date. Adding a new note will overwrite the previous one.")
+        print("Do you want to proceed? (y/n): ")
+        val confirm = readLine()?.trim()?.lowercase()
+        if (confirm != "y") {
+            println("Note not added.")
+            return
+        }
     }
-    println("Available habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val name = habits[index - 1]
-    print("Enter date for note (YYYY-MM-DD): ")
-    val dateStr = readLine()?.takeIf { it.isNotBlank() } ?: return
-    val date = try { java.time.LocalDate.parse(dateStr) } catch (e: Exception) { println("Invalid date format."); return }
     print("Enter note: ")
     val note = readLine()?.takeIf { it.isNotBlank() } ?: return
-    manager.addNote(name, date, note)
-    println("📝 Note added to '$name'.")
+    manager.addNote(habitName, date, note)
+    println("📝 Note added to '$habitName'.")
 }
 
-fun cliListHabitNotes(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to list notes for.")
-        return
-    }
-    println("Available habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val name = habits[index - 1]
-    val notes = manager.getNotes(name)
+fun cliListHabitNotes(manager: HabitManager, habitName: String) {
+    val notes = manager.getNotes(habitName)
     if (notes.isEmpty()) {
-        println("No notes for '$name'.")
+        println("No notes for '$habitName'.")
         return
     }
-    println("Notes for '$name':")
+    println("Notes for '$habitName':")
     notes.entries.forEachIndexed { i: Int, entry: Map.Entry<java.time.LocalDate, String> -> println("${i + 1}. ${entry.key}: ${entry.value}") }
 }
 
-fun cliEditHabitNote(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to edit notes for.")
-        return
-    }
-    println("Available habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val name = habits[index - 1]
-    val notes = manager.getNotes(name)
+fun cliDeleteHabitNote(manager: HabitManager, habitName: String) {
+    val notes = manager.getNotes(habitName)
     if (notes.isEmpty()) {
-        println("No notes for '$name'.")
-        return
-    }
-    println("Notes:")
-    notes.entries.forEachIndexed { i: Int, entry: Map.Entry<java.time.LocalDate, String> -> println("${i + 1}. ${entry.key}: ${entry.value}") }
-    print("Select note to edit (number): ")
-    val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size } ?: return
-    val date = notes.keys.toList()[noteIndex - 1]
-    print("Enter new note: ")
-    val newNote = readLine()?.takeIf { it.isNotBlank() } ?: return
-    manager.editNote(name, date, newNote)
-    println("✏️ Note updated.")
-}
-
-fun cliDeleteHabitNote(manager: HabitManager) {
-    val habits = manager.listHabits()
-    if (habits.isEmpty()) {
-        println("No habits to delete notes from.")
-        return
-    }
-    println("Available habits:")
-    habits.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select habit (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..habits.size } ?: return
-    val name = habits[index - 1]
-    val notes = manager.getNotes(name)
-    if (notes.isEmpty()) {
-        println("No notes for '$name'.")
+        println("No notes for '$habitName'.")
         return
     }
     println("Notes:")
@@ -222,8 +175,37 @@ fun cliDeleteHabitNote(manager: HabitManager) {
     print("Select note to delete (number): ")
     val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size } ?: return
     val date = notes.keys.toList()[noteIndex - 1]
-    manager.deleteNote(name, date)
+    manager.deleteNote(habitName, date)
     println("🗑️ Note deleted.")
+}
+
+fun cliEditHabitNote(manager: HabitManager, habitName: String) {
+    val notes = manager.getNotes(habitName)
+    if (notes.isEmpty()) {
+        println("No notes for '$habitName'.")
+        return
+    }
+    println("Notes:")
+    notes.entries.forEachIndexed { i, entry -> println("${i + 1}. ${entry.key}: ${entry.value}") }
+    print("Select note to edit (number): ")
+    val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size }
+    if (noteIndex == null) {
+        println("Invalid selection.")
+        return
+    }
+    val date = notes.keys.toList()[noteIndex - 1]
+    print("Enter new note: ")
+    val newNote = readLine()?.takeIf { it.isNotBlank() }
+    if (newNote == null) {
+        println("Note cannot be blank.")
+        return
+    }
+    manager.editNote(habitName, date, newNote)
+    println("✏️ Note updated.")
+}
+
+fun getHabitNoteDays(manager: HabitManager, habitName: String): List<java.time.LocalDate> {
+    return manager.getNotes(habitName).keys.sorted()
 }
 
 // CLI functions for habits and habit notes

@@ -25,162 +25,151 @@ fun cliListAddictions(manager: AddictionManager) {
     addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
 }
 
-fun cliViewAddiction(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions to view.")
-        return
+fun cliViewAddiction(manager: AddictionManager, addictionName: String? = null) {
+    val nameToView = addictionName ?: run {
+        val addictions = manager.listAddictions()
+        if (addictions.isEmpty()) {
+            println("No addictions to view.")
+            return
+        }
+        println("Available addictions:")
+        addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
+        print("Select addiction to view (number): ")
+        val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
+        addictions[index - 1]
     }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction to view (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    manager.printAddictionStats(addictions[index - 1])
+    manager.printAddictionStats(nameToView)
 }
 
-fun cliEditAddiction(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions to edit.")
-        return
+fun cliEditAddiction(manager: AddictionManager, addictionName: String? = null) {
+    val nameToEdit = addictionName ?: run {
+        val addictions = manager.listAddictions()
+        if (addictions.isEmpty()) {
+            println("No addictions to edit.")
+            return
+        }
+        println("Available addictions:")
+        addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
+        print("Select addiction to edit (number): ")
+        val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
+        addictions[index - 1]
     }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction to edit (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val oldName = addictions[index - 1]
-    print("New name (leave blank to keep '$oldName'): ")
+    print("New name (leave blank to keep '$nameToEdit'): ")
     val newName = readLine()?.takeIf { it.isNotBlank() }
-    manager.renameAddiction(oldName, newName ?: oldName)
+    manager.renameAddiction(nameToEdit, newName ?: nameToEdit)
     println("✏️ Addiction updated.")
 }
 
-fun cliDeleteAddiction(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions to delete.")
-        return
+fun cliDeleteAddiction(manager: AddictionManager, addictionName: String? = null) {
+    val nameToDelete = addictionName ?: run {
+        val addictions = manager.listAddictions()
+        if (addictions.isEmpty()) {
+            println("No addictions to delete.")
+            return
+        }
+        println("Available addictions:")
+        addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
+        print("Select addiction to delete (number): ")
+        val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
+        addictions[index - 1]
     }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction to delete (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val nameToDelete = addictions[index - 1]
     manager.deleteAddiction(nameToDelete)
     println("🗑️ Addiction '$nameToDelete' deleted.")
 }
 
-fun cliLogAddictionUsage(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions to log usage for.")
-        return
+fun cliLogAddictionUsage(manager: AddictionManager, addictionName: String? = null) {
+    val name = addictionName ?: run {
+        val addictions = manager.listAddictions()
+        if (addictions.isEmpty()) {
+            println("No addictions to log usage for.")
+            return
+        }
+        println("Available addictions:")
+        addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
+        print("Select addiction (number): ")
+        val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
+        addictions[index - 1]
     }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    print("Enter usage date (YYYY-MM-DD): ")
-    val dateStr = readLine()?.takeIf { it.isNotBlank() } ?: return
-    val date = try { java.time.LocalDate.parse(dateStr) } catch (e: Exception) { println("Invalid date format."); return }
-    manager.logUsage(name, date)
-    println("📋 Usage for '$name' logged.")
+    print("Enter usage date (YYYY-MM-DD, leave blank for today): ")
+    val dateStr = readLine()
+    val date = if (dateStr.isNullOrBlank()) java.time.LocalDate.now() else try { java.time.LocalDate.parse(dateStr) } catch (e: Exception) { println("Invalid date format."); return }
+    print("Enter usage time (HH:mm, leave blank to not log time): ")
+    val timeStr = readLine()
+    val time = if (timeStr.isNullOrBlank()) null else try { java.time.LocalTime.parse(timeStr) } catch (e: Exception) { println("Invalid time format."); return }
+    manager.logUsage(name, date, time)
+    println("📋 Usage for '$name' logged." + if (time != null) " at $time" else "")
 }
 
 // =====================
 // Addiction Note Functions (CRUD)
 // =====================
 
-fun cliAddAddictionNote(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions to add notes to.")
-        return
+fun cliAddAddictionNote(manager: AddictionManager, addictionName: String) {
+    print("Enter date for note (YYYY-MM-DD, leave blank for today): ")
+    val dateStr = readLine()
+    val date = if (dateStr.isNullOrBlank()) java.time.LocalDate.now() else try { java.time.LocalDate.parse(dateStr) } catch (e: Exception) { println("Invalid date format."); return }
+    if (manager.getNotes(addictionName).containsKey(date)) {
+        println("A note already exists for $date. Adding a new note will overwrite the previous one.")
+        print("Do you want to proceed? (y/n): ")
+        val confirm = readLine()?.trim()?.lowercase()
+        if (confirm != "y") {
+            println("Note not added.")
+            return
+        }
     }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
     print("Enter note: ")
     val note = readLine()?.takeIf { it.isNotBlank() } ?: return
-    val date = LocalDate.now()
-    manager.addNote(name, date, note)
-    println("📝 Note added to '$name'.")
+    manager.addNote(addictionName, date, note)
+    println("📝 Note added to '$addictionName'.")
 }
 
-fun cliListAddictionNotes(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions to list notes for.")
-        return
-    }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    val notes = manager.getNotes(name)
+fun cliListAddictionNotes(manager: AddictionManager, addictionName: String) {
+    val notes = manager.getNotes(addictionName)
     if (notes.isEmpty()) {
-        println("No notes for '$name'.")
+        println("No notes for '$addictionName'.")
         return
     }
-    println("Notes for '$name':")
-    notes.entries.forEachIndexed { i: Int, entry: Map.Entry<LocalDate, String> -> println("${i + 1}. ${entry.key}: ${entry.value}") }
+    println("Notes for '$addictionName':")
+    notes.entries.forEachIndexed { i: Int, entry: Map.Entry<java.time.LocalDate, String> -> println("${i + 1}. ${entry.key}: ${entry.value}") }
 }
 
-fun cliEditAddictionNote(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions to edit notes for.")
-        return
-    }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    val notes = manager.getNotes(name)
+fun cliEditAddictionNote(manager: AddictionManager, addictionName: String) {
+    val notes = manager.getNotes(addictionName)
     if (notes.isEmpty()) {
-        println("No notes for '$name'.")
+        println("No notes for '$addictionName'.")
         return
     }
-    val noteDates = notes.keys.toList()
     println("Notes:")
-    noteDates.forEachIndexed { i: Int, date: LocalDate -> println("${i + 1}. $date: ${notes[date]}") }
+    notes.entries.forEachIndexed { i, entry -> println("${i + 1}. ${entry.key}: ${entry.value}") }
     print("Select note to edit (number): ")
-    val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..noteDates.size } ?: return
-    val date = noteDates[noteIndex - 1]
+    val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size }
+    if (noteIndex == null) {
+        println("Invalid selection.")
+        return
+    }
+    val date = notes.keys.toList()[noteIndex - 1]
     print("Enter new note: ")
-    val newNote = readLine()?.takeIf { it.isNotBlank() } ?: return
-    manager.editNote(name, date, newNote)
+    val newNote = readLine()?.takeIf { it.isNotBlank() }
+    if (newNote == null) {
+        println("Note cannot be blank.")
+        return
+    }
+    manager.editNote(addictionName, date, newNote)
     println("✏️ Note updated.")
 }
 
-fun cliDeleteAddictionNote(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions to delete notes from.")
-        return
-    }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    val notes = manager.getNotes(name)
+fun cliDeleteAddictionNote(manager: AddictionManager, addictionName: String) {
+    val notes = manager.getNotes(addictionName)
     if (notes.isEmpty()) {
-        println("No notes for '$name'.")
+        println("No notes for '$addictionName'.")
         return
     }
-    val noteDates = notes.keys.toList()
     println("Notes:")
-    noteDates.forEachIndexed { i: Int, date: LocalDate -> println("${i + 1}. $date: ${notes[date]}") }
+    notes.entries.forEachIndexed { i, entry -> println("${i + 1}. ${entry.key}: ${entry.value}") }
     print("Select note to delete (number): ")
-    val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..noteDates.size } ?: return
-    val date = noteDates[noteIndex - 1]
-    manager.deleteNote(name, date)
+    val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size } ?: return
+    val date = notes.keys.toList()[noteIndex - 1]
+    manager.deleteNote(addictionName, date)
     println("🗑️ Note deleted.")
 }
 
@@ -188,130 +177,78 @@ fun cliDeleteAddictionNote(manager: AddictionManager) {
 // Usage Plan Functions (CRUD)
 // =====================
 
-fun cliListUsagePlan(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions found.")
-        return
-    }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    val plan = manager.getUsagePlan(name)
+fun cliListUsagePlan(manager: AddictionManager, addictionName: String) {
+    val plan = manager.getUsagePlan(addictionName)
     if (plan.isEmpty()) {
-        println("No usage plan for '$name'.")
+        println("No usage plan for '$addictionName'.")
         return
     }
-    println("Usage plan for '$name':")
-    plan.forEachIndexed { i, item -> println("${i + 1}. $item") }
+    println("Usage plan for '$addictionName':")
+    plan.forEachIndexed { i, item ->
+        println("${i + 1}. ${item.value} use(s) permitted per ${item.recurrence}, x${item.repeatCount}")
+    }
 }
 
-fun cliAddUsagePlanItem(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions found.")
-        return
-    }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    print("Enter goal description: ")
-    val description = readLine()?.takeIf { it.isNotBlank() } ?: return
-    print("Enter goal period (e.g., DAILY, WEEKLY, MONTHLY): ")
-    val periodStr = readLine()?.takeIf { it.isNotBlank() } ?: return
-    val period = try { com.example.rewire.core.GoalPeriod.valueOf(periodStr.uppercase()) } catch (e: Exception) { println("Invalid period."); return }
-    print("Enter target count (integer): ")
-    val count = readLine()?.toIntOrNull() ?: return
-    // Prompt for value and repeatCount
-    print("Enter goal value (integer): ")
+fun cliAddUsagePlanItem(manager: AddictionManager, addictionName: String) {
+    print("Enter recurrence type (DAILY, WEEKLY, MONTHLY, QUARTERLY, WEEKDAYS, WEEKENDS, CUSTOM_WEEKLY): ")
+    val recurrenceStr = readLine()?.takeIf { it.isNotBlank() } ?: return
+    val recurrence = try { com.example.rewire.core.RecurrenceType.valueOf(recurrenceStr.uppercase()) } catch (e: Exception) { println("Invalid recurrence type."); return }
+    print("Enter permitted uses per recurrence (integer): ")
     val value = readLine()?.toIntOrNull() ?: return
     print("Enter repeat count (integer, default 1): ")
     val repeatCountInput = readLine()
     val repeatCount = repeatCountInput?.toIntOrNull() ?: 1
-    val goal = com.example.rewire.core.AbstinenceGoal(period, value, repeatCount)
-    manager.addUsagePlanItem(name, goal)
-    println("✅ Usage plan item added to '$name'.")
+    val goal = com.example.rewire.core.AbstinenceGoal(recurrence, value, repeatCount)
+    manager.addUsagePlanItem(addictionName, goal)
+    println("✅ Usage plan item added to '$addictionName'.")
 }
 
-fun cliEditUsagePlanItem(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions found.")
-        return
-    }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    val plan = manager.getUsagePlan(name)
+fun cliEditUsagePlanItem(manager: AddictionManager, addictionName: String) {
+    val plan = manager.getUsagePlan(addictionName)
     if (plan.isEmpty()) {
-        println("No usage plan for '$name'.")
+        println("No usage plan for '$addictionName'.")
         return
     }
     println("Usage plan items:")
-    plan.forEachIndexed { i, item -> println("${i + 1}. $item") }
+    plan.forEachIndexed { i, item ->
+        println("${i + 1}. ${item.value} use(s) permitted per ${item.recurrence}, x${item.repeatCount}")
+    }
     print("Select item to edit (number): ")
     val itemIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..plan.size } ?: return
-    print("Enter new goal description: ")
-    val description = readLine()?.takeIf { it.isNotBlank() } ?: return
-    print("Enter new goal period (e.g., DAILY, WEEKLY, MONTHLY): ")
-    val periodStr = readLine()?.takeIf { it.isNotBlank() } ?: return
-    val period = try { com.example.rewire.core.GoalPeriod.valueOf(periodStr.uppercase()) } catch (e: Exception) { println("Invalid period."); return }
-    print("Enter new target count (integer): ")
-    val count = readLine()?.toIntOrNull() ?: return
-    // Prompt for value and repeatCount
-    print("Enter new goal value (integer): ")
+    print("Enter new recurrence type (DAILY, WEEKLY, MONTHLY, QUARTERLY, WEEKDAYS, WEEKENDS, CUSTOM_WEEKLY): ")
+    val recurrenceStr = readLine()?.takeIf { it.isNotBlank() } ?: return
+    val recurrence = try { com.example.rewire.core.RecurrenceType.valueOf(recurrenceStr.uppercase()) } catch (e: Exception) { println("Invalid recurrence type."); return }
+    print("Enter new permitted uses per recurrence (integer): ")
     val value = readLine()?.toIntOrNull() ?: return
     print("Enter new repeat count (integer, default 1): ")
     val repeatCountInput = readLine()
     val repeatCount = repeatCountInput?.toIntOrNull() ?: 1
-    val goal = com.example.rewire.core.AbstinenceGoal(period, value, repeatCount)
-    manager.editUsagePlanItem(name, itemIndex - 1, goal)
+    val goal = com.example.rewire.core.AbstinenceGoal(recurrence, value, repeatCount)
+    manager.editUsagePlanItem(addictionName, itemIndex - 1, goal)
     println("✏️ Usage plan item updated.")
 }
 
-fun cliDeleteUsagePlanItem(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions found.")
-        return
-    }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    val plan = manager.getUsagePlan(name)
+fun cliDeleteUsagePlanItem(manager: AddictionManager, addictionName: String) {
+    val plan = manager.getUsagePlan(addictionName)
     if (plan.isEmpty()) {
-        println("No usage plan for '$name'.")
+        println("No usage plan for '$addictionName'.")
         return
     }
     println("Usage plan items:")
     plan.forEachIndexed { i, item -> println("${i + 1}. $item") }
     print("Select item to delete (number): ")
     val itemIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..plan.size } ?: return
-    manager.deleteUsagePlanItem(name, itemIndex - 1)
+    manager.deleteUsagePlanItem(addictionName, itemIndex - 1)
     println("🗑️ Usage plan item deleted.")
 }
 
-fun cliClearUsagePlan(manager: AddictionManager) {
-    val addictions = manager.listAddictions()
-    if (addictions.isEmpty()) {
-        println("No addictions found.")
-        return
-    }
-    println("Available addictions:")
-    addictions.forEachIndexed { i, name -> println("${i + 1}. $name") }
-    print("Select addiction (number): ")
-    val index = readLine()?.toIntOrNull()?.takeIf { it in 1..addictions.size } ?: return
-    val name = addictions[index - 1]
-    manager.clearUsagePlan(name)
-    println("🧹 Usage plan for '$name' cleared.")
+fun cliClearUsagePlan(manager: AddictionManager, addictionName: String) {
+    manager.clearUsagePlan(addictionName)
+    println("🧹 Usage plan for '$addictionName' cleared.")
+}
+
+fun getAddictionNoteDays(manager: AddictionManager, addictionName: String): List<java.time.LocalDate> {
+    return manager.getNoteDays(addictionName)
 }
 
 

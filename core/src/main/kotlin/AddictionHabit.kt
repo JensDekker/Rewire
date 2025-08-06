@@ -9,43 +9,68 @@ data class AddictionHabit(
     var startDate: LocalDate,
     var useLog: MutableMap<LocalDate, Int> = mutableMapOf(),
     var usagePlan: List<AbstinenceGoal> = emptyList(),
-    var dailyNotes: MutableMap<LocalDate, String> = mutableMapOf()
+    var dailyNotes: MutableMap<LocalDate, String> = mutableMapOf(),
+    var useTimeLog: MutableMap<LocalDate, MutableList<java.time.LocalTime?>> = mutableMapOf()
 ) {
-    fun logUse(date: LocalDate = LocalDate.now()) { useLog[date] = (useLog[date] ?: 0) + 1 }
+    fun logUse(date: LocalDate = LocalDate.now(), time: java.time.LocalTime? = null) {
+        useLog[date] = (useLog[date] ?: 0) + 1
+        if (time != null) {
+            useTimeLog.getOrPut(date) { mutableListOf() }.add(time)
+        }
+    }
     fun addNote(date: LocalDate, note: String) { dailyNotes[date] = note }
-    fun getPeriodIndex(current: LocalDate, goal: AbstinenceGoal): Int =
-        when (goal.period) {
-            GoalPeriod.WEEKLY -> ChronoUnit.WEEKS.between(startDate, current).toInt()
-            GoalPeriod.MONTHLY -> ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), current.withDayOfMonth(1)).toInt()
+    fun getRecurrenceIndex(current: LocalDate, goal: AbstinenceGoal): Int =
+        when (goal.recurrence) {
+            RecurrenceType.WEEKLY, RecurrenceType.WEEKDAYS, RecurrenceType.WEEKENDS, RecurrenceType.CUSTOM_WEEKLY -> ChronoUnit.WEEKS.between(startDate, current).toInt()
+            RecurrenceType.MONTHLY -> ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), current.withDayOfMonth(1)).toInt()
+            RecurrenceType.DAILY -> ChronoUnit.DAYS.between(startDate, current).toInt()
+            RecurrenceType.QUARTERLY -> ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), current.withDayOfMonth(1)).toInt() / 3
         }
     fun getCurrentGoal(current: LocalDate): AbstinenceGoal? {
         var index = 0
         for (goal in usagePlan) {
             val repeat = goal.repeatCount
-            if (getPeriodIndex(current, goal) < index + repeat) return goal
+            if (getRecurrenceIndex(current, goal) < index + repeat) return goal
             index += repeat
         }
         return usagePlan.lastOrNull()
     }
-    fun countRestDaysInPeriod(current: LocalDate, goal: AbstinenceGoal): Int {
-        val start = when (goal.period) {
-            GoalPeriod.WEEKLY -> current.with(DayOfWeek.MONDAY)
-            GoalPeriod.MONTHLY -> current.withDayOfMonth(1)
+
+    /**
+     * Returns the number of uses in the current period for the given goal.
+     */
+    fun countUsesInRecurrence(current: LocalDate, goal: AbstinenceGoal): Int {
+        // For each recurrence type, determine the window and sum uses in that window
+        val dates = when (goal.recurrence) {
+            RecurrenceType.DAILY -> listOf(current)
+            RecurrenceType.WEEKLY, RecurrenceType.WEEKDAYS, RecurrenceType.WEEKENDS, RecurrenceType.CUSTOM_WEEKLY -> {
+                val start = current.with(java.time.DayOfWeek.MONDAY)
+                val end = start.plusDays(6)
+                (0L..ChronoUnit.DAYS.between(start, end)).map { start.plusDays(it) }
+            }
+            RecurrenceType.MONTHLY -> {
+                val start = current.withDayOfMonth(1)
+                val end = start.withDayOfMonth(start.lengthOfMonth())
+                (0L..ChronoUnit.DAYS.between(start, end)).map { start.plusDays(it) }
+            }
+            RecurrenceType.QUARTERLY -> {
+                val start = current.withDayOfMonth(1).withMonth(((current.monthValue - 1) / 3) * 3 + 1)
+                val end = start.plusMonths(2).withDayOfMonth(start.plusMonths(2).lengthOfMonth())
+                (0L..ChronoUnit.DAYS.between(start, end)).map { start.plusDays(it) }
+            }
         }
-        val end = when (goal.period) {
-            GoalPeriod.WEEKLY -> start.plusDays(6)
-            GoalPeriod.MONTHLY -> start.withDayOfMonth(start.lengthOfMonth())
-        }
-        return (0L..ChronoUnit.DAYS.between(start, end)).count { i ->
-            val date = start.plusDays(i)
-            (useLog[date] ?: 0) == 0
-        }
+        return dates.sumOf { useLog[it] ?: 0 }
     }
+
+    /**
+     * Returns true if the number of uses in the period is less than or equal to the permitted value.
+     */
     fun isGoalMet(current: LocalDate): Boolean {
         val goal = getCurrentGoal(current) ?: return false
-        return countRestDaysInPeriod(current, goal) >= goal.value
+        return countUsesInRecurrence(current, goal) <= goal.value
     }
     fun getDailyUseSummary(): List<Pair<LocalDate, Int>> = useLog.entries.sortedBy { it.key }.map { it.toPair() }
+    fun getTimeLogForDate(date: LocalDate): List<java.time.LocalTime?> = useTimeLog[date] ?: emptyList()
 
     fun editNote(date: LocalDate, newNote: String) {
         if (dailyNotes.containsKey(date)) {
@@ -72,4 +97,6 @@ data class AddictionHabit(
             usagePlan = usagePlan.toMutableList().apply { removeAt(index) }
         }
     }
+
+    fun getNoteDays(): List<LocalDate> = dailyNotes.keys.sorted()
 }

@@ -49,20 +49,30 @@ class AddictionManager {
         }
     }
     fun printUsagePlan(name: String) {
-        getAddiction(name)?.usagePlan?.forEachIndexed { i, g -> println("${i + 1}. ${g.value} rest day(s) / ${g.period}, x${g.repeatCount}") }
+        getAddiction(name)?.usagePlan?.forEachIndexed { i, g -> println("${i + 1}. ${g.value} use(s) permitted per ${g.recurrence}, x${g.repeatCount}") }
     }
     fun printAddictionStats(name: String, date: LocalDate = LocalDate.now()) {
         val addiction = getAddiction(name) ?: return
         println("Addiction: ${addiction.name}")
         println("Log:")
-        addiction.getDailyUseSummary().forEach { (d, count) -> println("$d: $count use(s)") }
+        addiction.getDailyUseSummary().forEach { (d, count) ->
+            val times = addiction.getTimeLogForDate(d)
+            val timeStr = if (times.isNotEmpty()) times.joinToString(", ") { t -> t?.toString() ?: "-" } else "-"
+            println("$d: $count use(s) at $timeStr")
+        }
         val goal = addiction.getCurrentGoal(date)
-        println("Current goal: ${goal?.value ?: "-"} rest day(s) per ${goal?.period}")
-        println("Goal met: ${addiction.isGoalMet(date)}")
+        if (goal != null) {
+            val used = addiction.countUsesInRecurrence(date, goal)
+            println("Current goal: ${goal.value} use(s) permitted per ${goal.recurrence}")
+            println("Used this recurrence: $used")
+            println("Goal met: ${addiction.isGoalMet(date)}")
+        } else {
+            println("No current usage plan goal.")
+        }
     }
 
-    fun logUsage(name: String, date: LocalDate = LocalDate.now()) {
-        getAddiction(name)?.logUse(date)
+    fun logUsage(name: String, date: LocalDate = LocalDate.now(), time: java.time.LocalTime? = null) {
+        getAddiction(name)?.logUse(date, time)
     }
 
     fun addNote(name: String, date: LocalDate, note: String) {
@@ -99,4 +109,6 @@ class AddictionManager {
             addAddiction(it.copy(usagePlan = emptyList()))
         }
     }
+
+    fun getNoteDays(name: String): List<LocalDate> = getNotes(name).keys.sorted()
 }

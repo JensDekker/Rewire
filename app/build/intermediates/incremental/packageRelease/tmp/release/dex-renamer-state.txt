@@ -1,4 +1,4 @@
-#Sat Aug 02 09:18:08 EDT 2025
+#Wed Aug 06 10:28:29 EDT 2025
 base.0=C\:\\Users\\Jens\\AndroidStudioProjects\\Rewire\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

@@ -1,44 +1,103 @@
-# Rewire
 
-Rewire is a Kotlin-based habit and addiction tracker designed to help users build positive habits and manage addictive behaviors. The project is structured for maintainability and extensibility, with clear separation of concerns and modular code organization.
+# Rewire Habit & Addiction Tracker CLI
+
+Rewire is a Kotlin command-line application for tracking habits and managing addiction usage plans with flexible recurrence and permitted use models.
 
 ## Features
 
-- **Habit Tracking:**
-  - Create, edit, and delete habits
-  - Add notes and completions to habits
-  - List and manage all habits
+- **Habits**
+  - Add, edit, delete, and list habits
+  - Mark habits as completed for today
+  - Add, edit, and delete notes for each habit (with date)
+  - View all days with notes for a habit
 
-- **Addiction Management:**
-  - Create, edit, and delete addiction habits
-  - Define and manage usage plans (formerly abstinence goals)
-  - Track daily usage and progress toward goals
-  - Print addiction statistics and usage plans
+- **Addictions**
+  - Add, edit, delete, and list addictions
+  - Log usage events (date and optional time)
+  - Add, edit, and delete notes for each addiction (with date)
+  - Flexible usage plans:
+    - Set permitted uses per recurrence (e.g., 7 uses per WEEKLY, 2 per WEEKENDS, etc.)
+    - Recurrence options: DAILY, WEEKLY, MONTHLY, QUARTERLY, WEEKDAYS, WEEKENDS, CUSTOM_WEEKLY
+    - Multiple plan items per addiction supported
+    - Edit, delete, and clear usage plans
+    - Usage plan enforcement and stats
 
-- **Usage Plan Operations:**
-  - Add, update, delete, and reorder usage plan items
-  - Replace or clear entire usage plans
+- **Menus & Navigation**
+  - Main menu: Habits, Addictions, Exit
+  - Context-persistent selection for editing and logging
+  - Robust error handling for invalid input
 
-- **CLI Functions:**
-  - Command-line interface for managing habits and addictions
-  - Interactive menu navigation for habits and addictions
-  - Robust error handling for invalid, blank, and out-of-range inputs
-  - "Back" and "Exit" options in all menus
-  - Habit features: list, add, edit, delete, complete, show details, manage notes (CRUD)
-  - Addiction features: list, add, edit, delete, view details, log usage, manage notes (CRUD), manage usage plans (CRUD)
-  - Usage plan features: list, add, edit, delete, clear, add multiple items
-  - Data persistence (if supported): habits, addictions, notes, and usage plans persist or reset as expected
+- **Data Persistence**
+  - (If supported) Data persists between CLI sessions (habits, addictions, notes, usage plans)
+
+- **Manual Test Script**
+  - See `cli/src/main/resources/cli_exact_test_script.txt` for a step-by-step test script and expected outputs
+
+## Usage
+
+1. **Build and Run**
+   - Use Gradle to build and run the CLI:
+     ```sh
+     ./gradlew run
+     ```
+     Or on Windows:
+     ```sh
+     gradlew.bat run
+     ```
+
+2. **Follow the Menus**
+   - Use the number keys to navigate menus and perform actions
+   - Enter blank, out-of-range, or non-numeric input to test error handling
+
+3. **Add Habits and Addictions**
+   - Add new habits and addictions from their respective menus
+   - For addictions, set up usage plans with permitted uses and recurrence
+
+4. **Log Usage and Notes**
+   - Log usage for addictions (date and optional time)
+   - Add notes for both habits and addictions (date and text)
+
+5. **Edit and Manage**
+   - Edit names, notes, and usage plans
+   - Delete or clear items as needed
+
+6. **Persistence**
+   - (If supported) Data will persist between CLI sessions
+
+## Recurrence Types
+
+- `DAILY`: Every day
+- `WEEKLY`: Every week
+- `MONTHLY`: Every month
+- `QUARTERLY`: Every three months
+- `WEEKDAYS`: Monday to Friday
+- `WEEKENDS`: Saturday and Sunday
+- `CUSTOM_WEEKLY`: Custom weekly recurrence (if implemented)
+
+## Example Usage Plan
+
+- "7 use(s) permitted per WEEKLY, x1" (7 uses allowed per week, for 1 week)
+- Multiple plan items can be added for different recurrences
+
+## Testing
+
+- See `cli/src/main/resources/cli_exact_test_script.txt` for a comprehensive manual test script
+- The script covers all menu flows, error handling, and expected outputs
 
 ## File Structure
 
 - `src/main/kotlin/Habit.kt` — Habit data class and note/completion management
 - `src/main/kotlin/HabitManager.kt` — CRUD operations for habits
-- `src/main/kotlin/AddictionHabit.kt` — AddictionHabit data class and goal logic
+- `src/main/kotlin/AddictionHabit.kt` — AddictionHabit data class and recurrence/usage logic
 - `src/main/kotlin/AddictionManager.kt` — CRUD operations for addiction habits and usage plans
-- `src/main/kotlin/AbstinenceGoal.kt` — AbstinenceGoal data class and GoalPeriod enum
+- `src/main/kotlin/AbstinenceGoal.kt` — Usage plan data class (recurrence, permitted uses, repeat count)
 - `src/main/kotlin/RecurrenceType.kt` — RecurrenceType enum
 - `src/main/kotlin/CliFunctions.kt` — CLI functions for user interaction
-- `src/main/kotlin/Main.kt` — Entry point (template)
+- `src/main/kotlin/Main.kt` — Entry point
+
+## Contributing
+
+Pull requests and suggestions are welcome!
 
 ## Getting Started
 
