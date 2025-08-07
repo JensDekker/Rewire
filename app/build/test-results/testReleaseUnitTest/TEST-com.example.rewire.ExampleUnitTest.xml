@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.rewire.ExampleUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-08-06T14:28:03.999Z" hostname="LAPTOP-RUSMEGN4" time="0.008">
+<testsuite name="com.example.rewire.ExampleUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-08-07T12:40:39.086Z" hostname="LAPTOP-RUSMEGN4" time="0.007">
   <properties/>
-  <testcase name="addition_isCorrect" classname="com.example.rewire.ExampleUnitTest" time="0.008"/>
+  <testcase name="addition_isCorrect" classname="com.example.rewire.ExampleUnitTest" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,0 +1,42 @@
+RoomDB Implementation Plan
+=========================
+
+1. Add RoomDB Dependencies
+- Add to build.gradle.kts:
+  implementation("androidx.room:room-runtime:2.6.1")
+  kapt("androidx.room:room-compiler:2.6.1")
+  implementation("androidx.room:room-ktx:2.6.1")
+- Apply the Kotlin KAPT plugin if not already present.
+
+2. Define Room Entities
+- Annotate data classes (Habit, AddictionHabit, AbstinenceGoal, Note, etc.) with @Entity.
+- Add @PrimaryKey and other relevant Room annotations.
+
+3. Create Data Access Objects (DAOs)
+- For each entity, create a @Dao interface.
+- Define CRUD methods using @Insert, @Update, @Delete, @Query.
+
+4. Define the Room Database
+- Create an abstract class extending RoomDatabase.
+- Add DAOs as abstract properties.
+- Annotate with @Database and list all entities.
+
+5. Initialize Room Database
+- In Main.kt or your entry point, initialize the database with Room.databaseBuilder(...).
+- For CLI/JVM, use an in-memory or file-based Room DB and provide a suitable context.
+
+6. Refactor Managers to Use DAOs
+- Update HabitManager, AddictionManager, etc. to use DAOs for all data operations.
+- Replace in-memory/file storage logic with DAO calls.
+
+7. Migrate Existing Data (Optional)
+- If needed, write a migration script to import existing data into RoomDB.
+
+8. Test Persistence
+- Run the CLI and verify data persists between sessions.
+- Use the manual test script to confirm all features work.
+
+9. Update Documentation
+- Update README to mention RoomDB and persistent storage.
+
+Let me know if you want code samples for any step!

@@ -1,0 +1,7 @@
+Merge notes into separate subclass to make move to RoomDB easier
+
+Think about the dynamic nature of habits and addictions
+    Plans keep updating and modifying habits should be part of the process
+    How I had the typing and lectures as a daily task, but pivoted when it didn't work for me
+
+Find all the ways to merge Habits and Addictions into nearly the same class for simplicity

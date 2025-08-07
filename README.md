@@ -64,6 +64,13 @@ Rewire is a Kotlin command-line application for tracking habits and managing add
 6. **Persistence**
    - (If supported) Data will persist between CLI sessions
 
+## Unified Notes System
+
+- Both habits and addictions now use a shared `Note` class for all note-taking features
+- Notes are associated with a parent type (habit or addiction), a parent name, a date, and text
+- All note-related CLI commands and displays are unified for a consistent experience
+- When viewing details for a habit or addiction, all associated notes are shown
+
 ## Recurrence Types
 
 - `DAILY`: Every day
@@ -79,6 +86,17 @@ Rewire is a Kotlin command-line application for tracking habits and managing add
 - "7 use(s) permitted per WEEKLY, x1" (7 uses allowed per week, for 1 week)
 - Multiple plan items can be added for different recurrences
 
+## Notes System Overview
+
+- The `Note` class is used for both habits and addictions, providing a unified way to add, edit, delete, and display notes.
+- Each note contains:
+  - `parentType`: Indicates whether the note belongs to a habit or addiction
+  - `parentNameOrId`: The name (or ID) of the parent habit or addiction
+  - `date`: The date the note is associated with
+  - `text`: The note content
+- All note-related CLI commands (add, edit, delete, list) work the same for both habits and addictions.
+- When viewing details for a habit or addiction, all associated notes are displayed in a consistent format.
+
 ## Testing
 
 - See `cli/src/main/resources/cli_exact_test_script.txt` for a comprehensive manual test script
@@ -86,10 +104,11 @@ Rewire is a Kotlin command-line application for tracking habits and managing add
 
 ## File Structure
 
-- `src/main/kotlin/Habit.kt` — Habit data class and note/completion management
-- `src/main/kotlin/HabitManager.kt` — CRUD operations for habits
-- `src/main/kotlin/AddictionHabit.kt` — AddictionHabit data class and recurrence/usage logic
-- `src/main/kotlin/AddictionManager.kt` — CRUD operations for addiction habits and usage plans
+- `src/main/kotlin/Note.kt` — Shared Note data class for both habits and addictions
+- `src/main/kotlin/Habit.kt` — Habit data class (uses shared Note)
+- `src/main/kotlin/HabitManager.kt` — CRUD operations for habits and habit notes
+- `src/main/kotlin/AddictionHabit.kt` — AddictionHabit data class (uses shared Note)
+- `src/main/kotlin/AddictionManager.kt` — CRUD operations for addictions, usage plans, and addiction notes
 - `src/main/kotlin/AbstinenceGoal.kt` — Usage plan data class (recurrence, permitted uses, repeat count)
 - `src/main/kotlin/RecurrenceType.kt` — RecurrenceType enum
 - `src/main/kotlin/CliFunctions.kt` — CLI functions for user interaction

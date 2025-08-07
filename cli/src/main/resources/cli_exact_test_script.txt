@@ -48,6 +48,7 @@ Step 3: Habit Actions ("Exercise")
   - Delete second note.
   - List notes (should be empty).
   - Call function to list all days with notes for this habit (should be empty).
+  - (New) Add a note to a habit, then add a note to an addiction with the same date. List notes for both and confirm they are managed independently but use the same note system.
 - Back to habit menu, delete habit.
 - List habits (should show only "Read").
 - Select "Select Habit", choose "Read":
@@ -83,6 +84,7 @@ Step 5: Addiction Actions ("Sugar")
   - Edit note: Change to "Resisted craving."
   - Delete note.
   - List notes (should be empty).
+  - (New) Add a note to an addiction, then add a note to a habit with the same date. List notes for both and confirm they are managed independently but use the same note system.
 - Select "Usage Plan":
   - At usage plan menu, enter blank, out-of-range, non-numeric input → confirm error message.
   - Add plan item: Recurrence = "WEEKLY", Permitted uses = 7, Repeat = 1.

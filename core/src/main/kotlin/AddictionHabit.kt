@@ -9,7 +9,6 @@ data class AddictionHabit(
     var startDate: LocalDate,
     var useLog: MutableMap<LocalDate, Int> = mutableMapOf(),
     var usagePlan: List<AbstinenceGoal> = emptyList(),
-    var dailyNotes: MutableMap<LocalDate, String> = mutableMapOf(),
     var useTimeLog: MutableMap<LocalDate, MutableList<java.time.LocalTime?>> = mutableMapOf()
 ) {
     fun logUse(date: LocalDate = LocalDate.now(), time: java.time.LocalTime? = null) {
@@ -18,7 +17,7 @@ data class AddictionHabit(
             useTimeLog.getOrPut(date) { mutableListOf() }.add(time)
         }
     }
-    fun addNote(date: LocalDate, note: String) { dailyNotes[date] = note }
+    // Note management is now handled by AddictionManager using the shared Note class
     fun getRecurrenceIndex(current: LocalDate, goal: AbstinenceGoal): Int =
         when (goal.recurrence) {
             RecurrenceType.WEEKLY, RecurrenceType.WEEKDAYS, RecurrenceType.WEEKENDS, RecurrenceType.CUSTOM_WEEKLY -> ChronoUnit.WEEKS.between(startDate, current).toInt()
@@ -72,16 +71,6 @@ data class AddictionHabit(
     fun getDailyUseSummary(): List<Pair<LocalDate, Int>> = useLog.entries.sortedBy { it.key }.map { it.toPair() }
     fun getTimeLogForDate(date: LocalDate): List<java.time.LocalTime?> = useTimeLog[date] ?: emptyList()
 
-    fun editNote(date: LocalDate, newNote: String) {
-        if (dailyNotes.containsKey(date)) {
-            dailyNotes[date] = newNote
-        }
-    }
-
-    fun deleteNote(date: LocalDate) {
-        dailyNotes.remove(date)
-    }
-
     fun addUsagePlanItem(goal: AbstinenceGoal) {
         usagePlan = usagePlan + goal
     }
@@ -98,5 +87,5 @@ data class AddictionHabit(
         }
     }
 
-    fun getNoteDays(): List<LocalDate> = dailyNotes.keys.sorted()
+    // Note management is now handled by AddictionManager using the shared Note class
 }

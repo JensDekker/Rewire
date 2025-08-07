@@ -12,7 +12,7 @@ fun cliAddAddiction(manager: AddictionManager) {
     print("Enter addiction name: ")
     val name = readLine()?.takeIf { it.isNotBlank() } ?: return
     manager.addAddiction(AddictionHabit(name, LocalDate.now()))
-    println("✅ Addiction '$name' added.")
+    println("Addiction '$name' added.")
 }
 
 fun cliListAddictions(manager: AddictionManager) {
@@ -39,6 +39,14 @@ fun cliViewAddiction(manager: AddictionManager, addictionName: String? = null) {
         addictions[index - 1]
     }
     manager.printAddictionStats(nameToView)
+    // Show notes for the addiction, similar to habits
+    val notes = manager.getNotes(nameToView)
+    println("Notes:")
+    if (notes.isEmpty()) {
+        println("  (none)")
+    } else {
+        notes.forEach { note -> println("  ${note.date}: ${note.text}") }
+    }
 }
 
 fun cliEditAddiction(manager: AddictionManager, addictionName: String? = null) {
@@ -57,7 +65,7 @@ fun cliEditAddiction(manager: AddictionManager, addictionName: String? = null) {
     print("New name (leave blank to keep '$nameToEdit'): ")
     val newName = readLine()?.takeIf { it.isNotBlank() }
     manager.renameAddiction(nameToEdit, newName ?: nameToEdit)
-    println("✏️ Addiction updated.")
+    println("Addiction updated.")
 }
 
 fun cliDeleteAddiction(manager: AddictionManager, addictionName: String? = null) {
@@ -74,7 +82,7 @@ fun cliDeleteAddiction(manager: AddictionManager, addictionName: String? = null)
         addictions[index - 1]
     }
     manager.deleteAddiction(nameToDelete)
-    println("🗑️ Addiction '$nameToDelete' deleted.")
+    println("Addiction '$nameToDelete' deleted.")
 }
 
 fun cliLogAddictionUsage(manager: AddictionManager, addictionName: String? = null) {
@@ -108,7 +116,8 @@ fun cliAddAddictionNote(manager: AddictionManager, addictionName: String) {
     print("Enter date for note (YYYY-MM-DD, leave blank for today): ")
     val dateStr = readLine()
     val date = if (dateStr.isNullOrBlank()) java.time.LocalDate.now() else try { java.time.LocalDate.parse(dateStr) } catch (e: Exception) { println("Invalid date format."); return }
-    if (manager.getNotes(addictionName).containsKey(date)) {
+    val notes = manager.getNotes(addictionName)
+    if (notes.any { it.date == date }) {
         println("A note already exists for $date. Adding a new note will overwrite the previous one.")
         print("Do you want to proceed? (y/n): ")
         val confirm = readLine()?.trim()?.lowercase()
@@ -120,7 +129,7 @@ fun cliAddAddictionNote(manager: AddictionManager, addictionName: String) {
     print("Enter note: ")
     val note = readLine()?.takeIf { it.isNotBlank() } ?: return
     manager.addNote(addictionName, date, note)
-    println("📝 Note added to '$addictionName'.")
+    println("Note added to '$addictionName'.")
 }
 
 fun cliListAddictionNotes(manager: AddictionManager, addictionName: String) {
@@ -130,7 +139,7 @@ fun cliListAddictionNotes(manager: AddictionManager, addictionName: String) {
         return
     }
     println("Notes for '$addictionName':")
-    notes.entries.forEachIndexed { i: Int, entry: Map.Entry<java.time.LocalDate, String> -> println("${i + 1}. ${entry.key}: ${entry.value}") }
+    notes.forEachIndexed { i, note -> println("${i + 1}. ${note.date}: ${note.text}") }
 }
 
 fun cliEditAddictionNote(manager: AddictionManager, addictionName: String) {
@@ -140,14 +149,14 @@ fun cliEditAddictionNote(manager: AddictionManager, addictionName: String) {
         return
     }
     println("Notes:")
-    notes.entries.forEachIndexed { i, entry -> println("${i + 1}. ${entry.key}: ${entry.value}") }
+    notes.forEachIndexed { i, note -> println("${i + 1}. ${note.date}: ${note.text}") }
     print("Select note to edit (number): ")
     val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size }
     if (noteIndex == null) {
         println("Invalid selection.")
         return
     }
-    val date = notes.keys.toList()[noteIndex - 1]
+    val date = notes[noteIndex - 1].date
     print("Enter new note: ")
     val newNote = readLine()?.takeIf { it.isNotBlank() }
     if (newNote == null) {
@@ -155,7 +164,7 @@ fun cliEditAddictionNote(manager: AddictionManager, addictionName: String) {
         return
     }
     manager.editNote(addictionName, date, newNote)
-    println("✏️ Note updated.")
+    println("Note updated.")
 }
 
 fun cliDeleteAddictionNote(manager: AddictionManager, addictionName: String) {
@@ -165,12 +174,12 @@ fun cliDeleteAddictionNote(manager: AddictionManager, addictionName: String) {
         return
     }
     println("Notes:")
-    notes.entries.forEachIndexed { i, entry -> println("${i + 1}. ${entry.key}: ${entry.value}") }
+    notes.forEachIndexed { i, note -> println("${i + 1}. ${note.date}: ${note.text}") }
     print("Select note to delete (number): ")
     val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size } ?: return
-    val date = notes.keys.toList()[noteIndex - 1]
+    val date = notes[noteIndex - 1].date
     manager.deleteNote(addictionName, date)
-    println("🗑️ Note deleted.")
+    println("Note deleted.")
 }
 
 // =====================
@@ -200,7 +209,7 @@ fun cliAddUsagePlanItem(manager: AddictionManager, addictionName: String) {
     val repeatCount = repeatCountInput?.toIntOrNull() ?: 1
     val goal = com.example.rewire.core.AbstinenceGoal(recurrence, value, repeatCount)
     manager.addUsagePlanItem(addictionName, goal)
-    println("✅ Usage plan item added to '$addictionName'.")
+    println("Usage plan item added to '$addictionName'.")
 }
 
 fun cliEditUsagePlanItem(manager: AddictionManager, addictionName: String) {
@@ -225,7 +234,7 @@ fun cliEditUsagePlanItem(manager: AddictionManager, addictionName: String) {
     val repeatCount = repeatCountInput?.toIntOrNull() ?: 1
     val goal = com.example.rewire.core.AbstinenceGoal(recurrence, value, repeatCount)
     manager.editUsagePlanItem(addictionName, itemIndex - 1, goal)
-    println("✏️ Usage plan item updated.")
+    println("Usage plan item updated.")
 }
 
 fun cliDeleteUsagePlanItem(manager: AddictionManager, addictionName: String) {
@@ -239,12 +248,12 @@ fun cliDeleteUsagePlanItem(manager: AddictionManager, addictionName: String) {
     print("Select item to delete (number): ")
     val itemIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..plan.size } ?: return
     manager.deleteUsagePlanItem(addictionName, itemIndex - 1)
-    println("🗑️ Usage plan item deleted.")
+    println("Usage plan item deleted.")
 }
 
 fun cliClearUsagePlan(manager: AddictionManager, addictionName: String) {
     manager.clearUsagePlan(addictionName)
-    println("🧹 Usage plan for '$addictionName' cleared.")
+    println("Usage plan for '$addictionName' cleared.")
 }
 
 fun getAddictionNoteDays(manager: AddictionManager, addictionName: String): List<java.time.LocalDate> {

@@ -3,6 +3,7 @@ package com.example.rewire.core
 import java.time.LocalDate
 
 class AddictionManager {
+    private val notes = mutableListOf<Note>() // Shared notes for all addictions
     fun updateUsagePlanItem(name: String, index: Int, updatedGoal: AbstinenceGoal) {
         getAddiction(name)?.let {
             val plan = it.usagePlan.toMutableList()
@@ -76,19 +77,24 @@ class AddictionManager {
     }
 
     fun addNote(name: String, date: LocalDate, note: String) {
-        getAddiction(name)?.addNote(date, note)
+        val addiction = getAddiction(name) ?: return
+        notes.removeIf { it.parentType == "ADDICTION" && it.parentNameOrId == addiction.name && it.date == date }
+        notes.add(Note(parentType = "ADDICTION", parentNameOrId = addiction.name, date = date, text = note))
     }
 
-    fun getNotes(name: String): Map<LocalDate, String> {
-        return getAddiction(name)?.dailyNotes ?: emptyMap()
-    }
+    fun getNotes(name: String): List<Note> = notes.filter { it.parentType == "ADDICTION" && it.parentNameOrId == name }
 
     fun editNote(name: String, date: LocalDate, newNote: String) {
-        getAddiction(name)?.editNote(date, newNote)
+        val addiction = getAddiction(name) ?: return
+        notes.find { it.parentType == "ADDICTION" && it.parentNameOrId == addiction.name && it.date == date }?.let {
+            notes.remove(it)
+            notes.add(it.copy(text = newNote))
+        }
     }
 
     fun deleteNote(name: String, date: LocalDate) {
-        getAddiction(name)?.deleteNote(date)
+        val addiction = getAddiction(name) ?: return
+        notes.removeIf { it.parentType == "ADDICTION" && it.parentNameOrId == addiction.name && it.date == date }
     }
 
     fun getUsagePlan(name: String): List<AbstinenceGoal> {
@@ -110,5 +116,5 @@ class AddictionManager {
         }
     }
 
-    fun getNoteDays(name: String): List<LocalDate> = getNotes(name).keys.sorted()
+    fun getNoteDays(name: String): List<LocalDate> = getNotes(name).map { it.date }.sorted()
 }

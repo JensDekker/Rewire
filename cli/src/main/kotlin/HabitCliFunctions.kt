@@ -10,7 +10,7 @@ import com.example.rewire.core.RecurrenceType
 // =====================
 fun cliDeleteHabit(manager: HabitManager, habitName: String) {
     manager.deleteHabit(habitName)
-    println("🗑️ Habit '$habitName' deleted.")
+    println("Habit '$habitName' deleted.")
 }
 
 fun cliAddHabit(manager: HabitManager) {
@@ -38,7 +38,7 @@ fun cliAddHabit(manager: HabitManager) {
     print("Estimated time in minutes: ")
     val minsInput = readLine()?.toIntOrNull() ?: 0
     manager.addHabit(Habit(name, recurrence, preferredTime, minsInput, customDays = customDays, startDate = startDate))
-    println("✅ Habit '$name' added.")
+    println("Habit '$name' added.")
 }
 
 fun cliListHabits(manager: HabitManager) {
@@ -61,7 +61,13 @@ fun cliShowHabitDetails(manager: HabitManager, habitName: String) {
     }
     println("Preferred time: ${habit.preferredTime}")
     println("Estimated minutes: ${habit.estimatedMinutes}")
-    println("Notes: ${habit.notes}")
+    val notes = manager.getNotes(habitName)
+    println("Notes:")
+    if (notes.isEmpty()) {
+        println("  (none)")
+    } else {
+        notes.forEach { note -> println("  ${note.date}: ${note.text}") }
+    }
     println("Completions: ${habit.completions}")
 }
 
@@ -112,7 +118,7 @@ fun cliEditHabit(manager: HabitManager, habitName: String): String? {
     if (updatedHabit != null) {
         updatedHabit.startDate = newStartDate
     }
-    println("✅ Habit updated.")
+    println("Habit updated.")
     return newName ?: oldName
 }
 
@@ -124,10 +130,10 @@ fun cliCompleteHabit(manager: HabitManager, habitName: String) {
     }
     val today = java.time.LocalDate.now()
     if (habit.isComplete(today)) {
-        println("ℹ️ Habit '$habitName' was already marked as completed for today.")
+        println("Habit '$habitName' was already marked as completed for today.")
     } else {
         manager.markHabitComplete(habitName, today)
-        println("✅ Habit '$habitName' marked as completed.")
+        println("Habit '$habitName' marked as completed.")
     }
 }
 
@@ -139,7 +145,8 @@ fun cliAddHabitNote(manager: HabitManager, habitName: String) {
     print("Enter date for note (YYYY-MM-DD, leave blank for today): ")
     val dateStr = readLine()
     val date = if (dateStr.isNullOrBlank()) java.time.LocalDate.now() else try { java.time.LocalDate.parse(dateStr) } catch (e: Exception) { println("Invalid date format."); return }
-    if (manager.getNotes(habitName).containsKey(date)) {
+    val notes = manager.getNotes(habitName)
+    if (notes.any { it.date == date }) {
         println("A note already exists for $date. Adding a new note will overwrite the previous one.")
         print("Do you want to proceed? (y/n): ")
         val confirm = readLine()?.trim()?.lowercase()
@@ -151,7 +158,7 @@ fun cliAddHabitNote(manager: HabitManager, habitName: String) {
     print("Enter note: ")
     val note = readLine()?.takeIf { it.isNotBlank() } ?: return
     manager.addNote(habitName, date, note)
-    println("📝 Note added to '$habitName'.")
+    println("Note added to '$habitName'.")
 }
 
 fun cliListHabitNotes(manager: HabitManager, habitName: String) {
@@ -161,7 +168,7 @@ fun cliListHabitNotes(manager: HabitManager, habitName: String) {
         return
     }
     println("Notes for '$habitName':")
-    notes.entries.forEachIndexed { i: Int, entry: Map.Entry<java.time.LocalDate, String> -> println("${i + 1}. ${entry.key}: ${entry.value}") }
+    notes.forEachIndexed { i, note -> println("${i + 1}. ${note.date}: ${note.text}") }
 }
 
 fun cliDeleteHabitNote(manager: HabitManager, habitName: String) {
@@ -171,12 +178,12 @@ fun cliDeleteHabitNote(manager: HabitManager, habitName: String) {
         return
     }
     println("Notes:")
-    notes.entries.forEachIndexed { i: Int, entry: Map.Entry<java.time.LocalDate, String> -> println("${i + 1}. ${entry.key}: ${entry.value}") }
+    notes.forEachIndexed { i, note -> println("${i + 1}. ${note.date}: ${note.text}") }
     print("Select note to delete (number): ")
     val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size } ?: return
-    val date = notes.keys.toList()[noteIndex - 1]
+    val date = notes[noteIndex - 1].date
     manager.deleteNote(habitName, date)
-    println("🗑️ Note deleted.")
+    println("Note deleted.")
 }
 
 fun cliEditHabitNote(manager: HabitManager, habitName: String) {
@@ -186,14 +193,14 @@ fun cliEditHabitNote(manager: HabitManager, habitName: String) {
         return
     }
     println("Notes:")
-    notes.entries.forEachIndexed { i, entry -> println("${i + 1}. ${entry.key}: ${entry.value}") }
+    notes.forEachIndexed { i, note -> println("${i + 1}. ${note.date}: ${note.text}") }
     print("Select note to edit (number): ")
     val noteIndex = readLine()?.toIntOrNull()?.takeIf { it in 1..notes.size }
     if (noteIndex == null) {
         println("Invalid selection.")
         return
     }
-    val date = notes.keys.toList()[noteIndex - 1]
+    val date = notes[noteIndex - 1].date
     print("Enter new note: ")
     val newNote = readLine()?.takeIf { it.isNotBlank() }
     if (newNote == null) {
@@ -201,11 +208,11 @@ fun cliEditHabitNote(manager: HabitManager, habitName: String) {
         return
     }
     manager.editNote(habitName, date, newNote)
-    println("✏️ Note updated.")
+    println("Note updated.")
 }
 
 fun getHabitNoteDays(manager: HabitManager, habitName: String): List<java.time.LocalDate> {
-    return manager.getNotes(habitName).keys.sorted()
+    return manager.getNoteDays(habitName)
 }
 
 // CLI functions for habits and habit notes

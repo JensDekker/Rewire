@@ -8,7 +8,6 @@ data class Habit(
     var recurrence: RecurrenceType = RecurrenceType.DAILY,
     var preferredTime: LocalTime = LocalTime.of(9, 0),
     var estimatedMinutes: Int = 10,
-    var notes: MutableMap<LocalDate, String> = mutableMapOf(),
     var completions: MutableSet<LocalDate> = mutableSetOf(),
     var customDays: Set<DayOfWeek>? = null,
     var startDate: LocalDate = LocalDate.now()
@@ -32,19 +31,5 @@ data class Habit(
 
     fun isComplete(date: LocalDate = LocalDate.now()): Boolean = completions.contains(date)
 
-    fun addNote(date: LocalDate, note: String) {
-        notes[date] = note
-    }
-
-    fun editNote(date: LocalDate, newNote: String) {
-        if (notes.containsKey(date)) {
-            notes[date] = newNote
-        }
-    }
-
-    fun deleteNote(date: LocalDate) {
-        notes.remove(date)
-    }
-
-    fun getNoteDays(): List<LocalDate> = notes.keys.sorted()
+    // Note management is now handled by HabitManager using the shared Note class
 }
