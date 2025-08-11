@@ -239,8 +239,8 @@ class RewireDatabaseTest {
         assertNotNull(loaded)
         assertEquals(3, loaded?.allowedUses)
         val updated = loaded!!.copy(allowedUses = 5)
-        addictionHabitDao.update(updated)
-        val loaded2 = addictionHabitDao.getById(id)
+            val goal1 = AbstinenceGoalEntity(id = 3001, addictionId = 200L, recurrence = "daily", value = 1, repeatCount = 1)
+            val goal2 = AbstinenceGoalEntity(id = 3002, addictionId = 200L, recurrence = "weekly", value = 2, repeatCount = 2)
         assertEquals(5, loaded2?.allowedUses)
         addictionHabitDao.delete(updated)
         assertNull(addictionHabitDao.getById(id))
@@ -330,7 +330,7 @@ class RewireDatabaseTest {
         )
         addictionHabitDao.insert(addiction)
         // Insert an abstinence goal for this addiction
-        val goal = AbstinenceGoalEntity(id = 301, addictionId = 30, startDate = "2025-08-01", endDate = "2025-08-31")
+        val goal = AbstinenceGoalEntity(id = 301, addictionId = 30L, recurrence = "monthly", value = 1, repeatCount = 1)
         abstinenceGoalDao.insert(goal)
         // Query all goals for this addiction
         val goals = abstinenceGoalDao.getAll().filter { it.addictionId == 30L }
