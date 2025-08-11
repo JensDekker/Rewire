@@ -22,7 +22,14 @@ class RewireDatabaseTest {
 
     @Test
     fun updateParent_doesNotAffectNotesOrGoals() = runBlocking {
-        val habit = HabitEntity(id = 400, name = "Original", description = "desc", frequency = "daily", isActive = true)
+        val habit = HabitEntity(
+            id = 400,
+            name = "Original",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 10,
+            startDate = "2025-08-01"
+        )
         habitDao.insert(habit)
         val note = HabitNoteEntity(id = 4001, habitId = 400, content = "Note", timestamp = "2025-08-08T12:00:00Z")
         habitNoteDao.insert(note)
@@ -41,7 +48,14 @@ class RewireDatabaseTest {
 
     @Test
     fun bulkInsertUpdateDeleteHabitNotes() = runBlocking {
-        val habit = HabitEntity(id = 600, name = "Bulk", description = "desc", frequency = "daily", isActive = true)
+        val habit = HabitEntity(
+            id = 600,
+            name = "Bulk",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 10,
+            startDate = "2025-08-01"
+        )
         habitDao.insert(habit)
         val notes = (1..10).map {
             HabitNoteEntity(id = 6000 + it, habitId = 600, content = "Bulk $it", timestamp = "2025-08-08T12:00:00Z")
@@ -59,8 +73,22 @@ class RewireDatabaseTest {
 
     @Test
     fun edgeCase_multipleParentTypes() = runBlocking {
-        val habit = HabitEntity(id = 700, name = "Edge", description = "desc", frequency = "daily", isActive = true)
-        val addiction = AddictionHabitEntity(id = 701, name = "EdgeAddiction", allowedUses = 1, recurrence = "daily", isActive = true)
+        val habit = HabitEntity(
+            id = 700,
+            name = "Edge",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 10,
+            startDate = "2025-08-01"
+        )
+        val addiction = AddictionHabitEntity(
+            id = 701,
+            name = "EdgeAddiction",
+            startDate = "2025-08-01",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 1
+        )
         habitDao.insert(habit)
         addictionHabitDao.insert(addiction)
         val note1 = HabitNoteEntity(id = 7001, habitId = 700, content = "HabitNote", timestamp = "2025-08-08T12:00:00Z")
@@ -75,7 +103,14 @@ class RewireDatabaseTest {
 
     @Test
     fun dateTimeFieldHandling() = runBlocking {
-        val habit = HabitEntity(id = 800, name = "DateTest", description = "desc", frequency = "daily", isActive = true)
+        val habit = HabitEntity(
+            id = 800,
+            name = "DateTest",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 10,
+            startDate = "2025-08-01"
+        )
         habitDao.insert(habit)
         val note = HabitNoteEntity(id = 8001, habitId = 800, content = "DateNote", timestamp = "2025-08-08T15:30:00+02:00")
         habitNoteDao.insert(note)
@@ -102,7 +137,14 @@ class RewireDatabaseTest {
     @Test
     fun deletingHabit_deletesAssociatedNotes() = runBlocking {
         // Insert a habit
-        val habit = HabitEntity(id = 100, name = "Cascade Habit", description = "desc", frequency = "daily", isActive = true)
+        val habit = HabitEntity(
+            id = 100,
+            name = "Cascade Habit",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 10,
+            startDate = "2025-08-01"
+        )
         habitDao.insert(habit)
         // Insert notes for this habit
         val note1 = HabitNoteEntity(id = 1001, habitId = 100, content = "Cascade Note 1", timestamp = "2025-08-08T12:00:00Z")
@@ -119,7 +161,14 @@ class RewireDatabaseTest {
     @Test
     fun deletingAddiction_deletesAssociatedNotes() = runBlocking {
         // Insert an addiction habit
-        val addiction = AddictionHabitEntity(id = 200, name = "Cascade Addiction", allowedUses = 2, recurrence = "daily", isActive = true)
+        val addiction = AddictionHabitEntity(
+            id = 200,
+            name = "Cascade Addiction",
+            startDate = "2025-08-01",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 2
+        )
         addictionHabitDao.insert(addiction)
         // Insert notes for this addiction
         val note1 = AddictionNoteEntity(id = 2001, addictionId = 200, content = "Cascade A Note 1", timestamp = "2025-08-08T14:00:00Z")
@@ -155,7 +204,14 @@ class RewireDatabaseTest {
 
     @Test
     fun habitDao_crudOperations() = runBlocking {
-        val habit = HabitEntity(id = 1, name = "Test Habit", description = "desc", frequency = "daily", isActive = true)
+        val habit = HabitEntity(
+            id = 1,
+            name = "Test Habit",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 10,
+            startDate = "2025-08-01"
+        )
         val id = habitDao.insert(habit)
         val loaded = habitDao.getById(id)
         assertNotNull(loaded)
@@ -170,7 +226,14 @@ class RewireDatabaseTest {
 
     @Test
     fun addictionHabitDao_crudOperations() = runBlocking {
-        val addiction = AddictionHabitEntity(id = 1, name = "Test Addiction", allowedUses = 3, recurrence = "weekly", isActive = true)
+        val addiction = AddictionHabitEntity(
+            id = 1,
+            name = "Test Addiction",
+            startDate = "2025-08-01",
+            recurrence = "weekly",
+            preferredTime = "09:00",
+            estimatedMinutes = 3
+        )
         val id = addictionHabitDao.insert(addiction)
         val loaded = addictionHabitDao.getById(id)
         assertNotNull(loaded)
@@ -212,7 +275,14 @@ class RewireDatabaseTest {
     @Test
     fun habitNotes_relationship_with_habit() = runBlocking {
         // Insert a habit
-        val habit = HabitEntity(id = 10, name = "Habit with Notes", description = "desc", frequency = "daily", isActive = true)
+        val habit = HabitEntity(
+            id = 10,
+            name = "Habit with Notes",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 10,
+            startDate = "2025-08-01"
+        )
         habitDao.insert(habit)
         // Insert notes for this habit
         val note1 = HabitNoteEntity(id = 101, habitId = 10, content = "Note 1", timestamp = "2025-08-08T12:00:00Z")
@@ -229,7 +299,14 @@ class RewireDatabaseTest {
     @Test
     fun addictionNotes_relationship_with_addictionHabit() = runBlocking {
         // Insert an addiction habit
-        val addiction = AddictionHabitEntity(id = 20, name = "Addiction with Notes", allowedUses = 2, recurrence = "daily", isActive = true)
+        val addiction = AddictionHabitEntity(
+            id = 20,
+            name = "Addiction with Notes",
+            startDate = "2025-08-01",
+            recurrence = "daily",
+            preferredTime = "09:00",
+            estimatedMinutes = 2
+        )
         addictionHabitDao.insert(addiction)
         // Insert notes for this addiction
         val note1 = AddictionNoteEntity(id = 201, addictionId = 20, content = "A Note 1", timestamp = "2025-08-08T14:00:00Z")
@@ -243,7 +320,14 @@ class RewireDatabaseTest {
     @Test
     fun abstinenceGoal_relationship_with_addictionHabit() = runBlocking {
         // Insert an addiction habit
-        val addiction = AddictionHabitEntity(id = 30, name = "Addiction for Goal", allowedUses = 1, recurrence = "monthly", isActive = true)
+        val addiction = AddictionHabitEntity(
+            id = 30,
+            name = "Addiction for Goal",
+            startDate = "2025-08-01",
+            recurrence = "monthly",
+            preferredTime = "09:00",
+            estimatedMinutes = 1
+        )
         addictionHabitDao.insert(addiction)
         // Insert an abstinence goal for this addiction
         val goal = AbstinenceGoalEntity(id = 301, addictionId = 30, startDate = "2025-08-01", endDate = "2025-08-31")
