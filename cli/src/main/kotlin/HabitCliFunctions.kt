@@ -37,7 +37,17 @@ fun cliAddHabit(manager: HabitManager) {
     val preferredTime = try { timeInput?.let { LocalTime.parse(it) } ?: LocalTime.of(9, 0) } catch (e: Exception) { LocalTime.of(9, 0) }
     print("Estimated time in minutes: ")
     val minsInput = readLine()?.toIntOrNull() ?: 0
-    manager.addHabit(Habit(name, recurrence, preferredTime, minsInput, customDays = customDays, startDate = startDate))
+    manager.addHabit(
+        Habit(
+            name = name,
+            recurrence = recurrence,
+            preferredTime = preferredTime,
+            estimatedMinutes = minsInput,
+            customDays = customDays,
+            startDate = startDate
+            // id uses default
+        )
+    )
     println("Habit '$name' added.")
 }
 

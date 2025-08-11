@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeReleaseResources-29:/values-hdpi-v4/values-hdpi-v4.xml",
+            "outputFile": "com.example.rewire.app-mergeReleaseResources-33:/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\1882ce2e44f85ec2af5f4e077f45e20b\\transformed\\appcompat-1.6.1\\res\\values-hdpi-v4\\values-hdpi-v4.xml",

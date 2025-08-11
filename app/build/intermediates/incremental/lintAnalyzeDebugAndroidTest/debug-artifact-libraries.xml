@@ -3,6 +3,54 @@
       name=":@@:app::debug"
       project=":app"/>
   <library
+      name="androidx.room:room-migration:2.6.1@jar"
+      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\androidx.room\room-migration\2.6.1\8d8218e4ccfe9b34485619a8ca68f8760840301d\room-migration-2.6.1.jar"
+      resolved="androidx.room:room-migration:2.6.1"/>
+  <library
+      name="androidx.room:room-common:2.6.1@jar"
+      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\androidx.room\room-common\2.6.1\ff1b9580850a9b7eef56554e356628d225785265\room-common-2.6.1.jar"
+      resolved="androidx.room:room-common:2.6.1"/>
+  <library
+      name="androidx.room:room-ktx:2.6.1@aar"
+      jars="C:\Users\Jens\.gradle\caches\8.13\transforms\8511fcb2ae7d00110c6ff2b0b26cadf5\transformed\room-ktx-2.6.1\jars\classes.jar"
+      resolved="androidx.room:room-ktx:2.6.1"
+      provided="true"
+      folder="C:\Users\Jens\.gradle\caches\8.13\transforms\8511fcb2ae7d00110c6ff2b0b26cadf5\transformed\room-ktx-2.6.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.room:room-runtime:2.6.1@aar"
+      jars="C:\Users\Jens\.gradle\caches\8.13\transforms\91088a302addb51a44b91bbc3a418839\transformed\room-runtime-2.6.1\jars\classes.jar"
+      resolved="androidx.room:room-runtime:2.6.1"
+      folder="C:\Users\Jens\.gradle\caches\8.13\transforms\91088a302addb51a44b91bbc3a418839\transformed\room-runtime-2.6.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.room:room-testing:2.6.1@aar"
+      jars="C:\Users\Jens\.gradle\caches\8.13\transforms\ca2c41a7de71e83b3e7b25558150795a\transformed\room-testing-2.6.1\jars\classes.jar"
+      resolved="androidx.room:room-testing:2.6.1"
+      folder="C:\Users\Jens\.gradle\caches\8.13\transforms\ca2c41a7de71e83b3e7b25558150795a\transformed\room-testing-2.6.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="androidx.test.ext:junit:1.1.5@aar"
       jars="C:\Users\Jens\.gradle\caches\8.13\transforms\89ca25ac3561e79fb2b4cb94e70df27b\transformed\junit-1.1.5\jars\classes.jar"
       resolved="androidx.test.ext:junit:1.1.5"
@@ -465,6 +513,44 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.1@jar"
+      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core-jvm\1.7.1\63a0779cf668e2a47d13fda7c3b0c4f8dc7762f4\kotlinx-coroutines-core-jvm-1.7.1.jar"
+      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.1"/>
+  <library
+      name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1@jar"
+      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-android\1.7.1\c2d86b569f10b7fc7e28d3f50c0eed97897d77a7\kotlinx-coroutines-android-1.7.1.jar"
+      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"/>
+  <library
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22@jar"
+      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.8.22\b25c86d47d6b962b9cf0f8c3f320c8a10eea3dd1\kotlin-stdlib-jdk8-1.8.22.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"/>
+  <library
+      name="androidx.sqlite:sqlite-framework:2.4.0@aar"
+      jars="C:\Users\Jens\.gradle\caches\8.13\transforms\a7cdb07af3e321ba8ef352c213c9f291\transformed\sqlite-framework-2.4.0\jars\classes.jar"
+      resolved="androidx.sqlite:sqlite-framework:2.4.0"
+      folder="C:\Users\Jens\.gradle\caches\8.13\transforms\a7cdb07af3e321ba8ef352c213c9f291\transformed\sqlite-framework-2.4.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.sqlite:sqlite:2.4.0@aar"
+      jars="C:\Users\Jens\.gradle\caches\8.13\transforms\24c69a3e579bd02f84d2dbabe5ccbe4b\transformed\sqlite-2.4.0\jars\classes.jar"
+      resolved="androidx.sqlite:sqlite:2.4.0"
+      folder="C:\Users\Jens\.gradle\caches\8.13\transforms\24c69a3e579bd02f84d2dbabe5ccbe4b\transformed\sqlite-2.4.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="androidx.cursoradapter:cursoradapter:1.0.0@aar"
       jars="C:\Users\Jens\.gradle\caches\8.13\transforms\4ba0d3abdabdadf661ea7df78d845b8c\transformed\cursoradapter-1.0.0\jars\classes.jar"
       resolved="androidx.cursoradapter:cursoradapter:1.0.0"
@@ -544,11 +630,10 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="androidx.arch.core:core-runtime:2.1.0@aar"
-      jars="C:\Users\Jens\.gradle\caches\8.13\transforms\a0a0a9accbecf22a320e6c584bf813c3\transformed\core-runtime-2.1.0\jars\classes.jar"
-      resolved="androidx.arch.core:core-runtime:2.1.0"
-      provided="true"
-      folder="C:\Users\Jens\.gradle\caches\8.13\transforms\a0a0a9accbecf22a320e6c584bf813c3\transformed\core-runtime-2.1.0"
+      name="androidx.arch.core:core-runtime:2.2.0@aar"
+      jars="C:\Users\Jens\.gradle\caches\8.13\transforms\62714df3db00673b443bdf02a26d6f00\transformed\core-runtime-2.2.0\jars\classes.jar"
+      resolved="androidx.arch.core:core-runtime:2.2.0"
+      folder="C:\Users\Jens\.gradle\caches\8.13\transforms\62714df3db00673b443bdf02a26d6f00\transformed\core-runtime-2.2.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -560,8 +645,7 @@
   <library
       name="androidx.arch.core:core-common:2.2.0@jar"
       jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\androidx.arch.core\core-common\2.2.0\5e1b8b81dfd5f52c56a8d53b18ca759c19a301f3\core-common-2.2.0.jar"
-      resolved="androidx.arch.core:core-common:2.2.0"
-      provided="true"/>
+      resolved="androidx.arch.core:core-common:2.2.0"/>
   <library
       name="androidx.documentfile:documentfile:1.0.0@aar"
       jars="C:\Users\Jens\.gradle\caches\8.13\transforms\7ee04c6995aa0c2bd8802e63275ab9da\transformed\documentfile-1.0.0\jars\classes.jar"
@@ -609,27 +693,17 @@
       jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\androidx.annotation\annotation-jvm\1.6.0\a7257339a052df0f91433cf9651231bbb802b502\annotation-jvm-1.6.0.jar"
       resolved="androidx.annotation:annotation-jvm:1.6.0"/>
   <library
-      name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4@jar"
-      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core-jvm\1.6.4\2c997cd1c0ef33f3e751d3831929aeff1390cb30\kotlinx-coroutines-core-jvm-1.6.4.jar"
-      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"/>
-  <library
-      name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4@jar"
-      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-android\1.6.4\f955fc8b2ad196e2f4429598440e15f7492eeb2b\kotlinx-coroutines-android-1.6.4.jar"
-      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"/>
-  <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0@jar"
-      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.8.0\ed04f49e186a116753ad70d34f0ac2925d1d8020\kotlin-stdlib-jdk8-1.8.0.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"
-      provided="true"/>
-  <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0@jar"
-      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.8.0\3c91271347f678c239607abb676d4032a7898427\kotlin-stdlib-jdk7-1.8.0.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"
-      provided="true"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22@jar"
+      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.8.22\4dabb8248310d833bb6a8b516024a91fd3d275c\kotlin-stdlib-jdk7-1.8.22.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"/>
   <library
       name="org.jetbrains.kotlin:kotlin-stdlib:2.0.21@jar"
       jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\2.0.21\618b539767b4899b4660a83006e052b63f1db551\kotlin-stdlib-2.0.21.jar"
       resolved="org.jetbrains.kotlin:kotlin-stdlib:2.0.21"/>
+  <library
+      name="org.jetbrains:annotations:23.0.0@jar"
+      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\23.0.0\8cc20c07506ec18e0834947b84a864bfc094484e\annotations-23.0.0.jar"
+      resolved="org.jetbrains:annotations:23.0.0"/>
   <library
       name="junit:junit:4.13.2@jar"
       jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\junit\junit\4.13.2\8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12\junit-4.13.2.jar"
@@ -646,10 +720,6 @@
       name="org.hamcrest:hamcrest-core:1.3@jar"
       jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-core\1.3\42a25dc3219429f0e5d060061f71acb49bf010a0\hamcrest-core-1.3.jar"
       resolved="org.hamcrest:hamcrest-core:1.3"/>
-  <library
-      name="org.jetbrains:annotations:13.0@jar"
-      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar"
-      resolved="org.jetbrains:annotations:13.0"/>
   <library
       name="androidx.tracing:tracing:1.0.0@aar"
       jars="C:\Users\Jens\.gradle\caches\8.13\transforms\dd9720468118bd4ff70e5f5fcaecb640\transformed\tracing-1.0.0\jars\classes.jar"
@@ -702,4 +772,8 @@
       jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\androidx.constraintlayout\constraintlayout-solver\2.0.1\30988fe2d77f3fe3bf7551bb8a8b795fad7e7226\constraintlayout-solver-2.0.1.jar"
       resolved="androidx.constraintlayout:constraintlayout-solver:2.0.1"
       provided="true"/>
+  <library
+      name="com.google.code.gson:gson:2.9.0@jar"
+      jars="C:\Users\Jens\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.9.0\8a1167e089096758b49f9b34066ef98b2f4b37aa\gson-2.9.0.jar"
+      resolved="com.google.code.gson:gson:2.9.0"/>
 </libraries>

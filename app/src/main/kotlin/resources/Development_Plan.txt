@@ -1,0 +1,59 @@
+Development Plan for Rewire App
+===============================
+
+1. RoomDB Setup in App Module
+-----------------------------
+- Move all RoomDB-related code (entities, DAOs, database class) to the Android app module.
+- Remove Room dependencies from non-Android modules.
+- Create Room entities for Habit, AddictionHabit, AbstinenceGoal, Note, etc.
+- Define DAOs for each entity with CRUD operations.
+- Create the Room database class and include all DAOs.
+
+2. Write Instrumented Tests for RoomDB
+--------------------------------------
+- Use the `androidTest` directory to write tests for DAOs and database logic.
+- Use an in-memory Room database for fast, isolated tests.
+- Test all CRUD operations, relationships, and edge cases.
+- Ensure migrations (if any) work as expected.
+
+3. Implement Repository/Manager Layer
+-------------------------------------
+- Create repository or manager classes to abstract RoomDB access.
+- Expose suspend functions or LiveData/Flow for use in ViewModels and UI.
+- Keep business logic and data access separate from UI code.
+
+4. Design and Build the UI (Frontend)
+-------------------------------------
+- Design screens for:
+  - Habit list, detail, add/edit
+  - Addiction list, detail, add/edit
+  - Notes management
+  - Usage plan management
+- Use ViewModel and LiveData/Flow to connect UI to repository layer.
+- Implement navigation and user flows.
+
+5. Integrate UI with RoomDB
+---------------------------
+- Connect UI screens to the repository/manager layer.
+- Ensure all user actions (add, edit, delete, complete, log usage, notes) update the database and UI correctly.
+- Handle loading, error, and empty states in the UI.
+
+6. Test the Full App
+--------------------
+- Manually test all features using the UI.
+- Add more instrumented/UI tests for critical flows and edge cases.
+- Fix bugs and polish user experience.
+
+7. Polish and Document
+----------------------
+- Refine UI/UX, handle edge cases, and improve error handling.
+- Update documentation and README to reflect the final architecture and usage.
+- Prepare the app for release (icons, splash screen, Play Store requirements, etc.).
+
+---
+
+**Summary:**
+- Set up and test RoomDB in the app module.
+- Build a repository layer for clean architecture.
+- Develop the UI and connect it to your data layer.
+- Test, polish, and document the app for release.

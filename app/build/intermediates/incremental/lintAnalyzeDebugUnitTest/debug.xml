@@ -6,8 +6,9 @@
     debuggable="true"
     mergedManifest="build\intermediates\merged_manifest\debug\processDebugMainManifest\AndroidManifest.xml"
     partialResultsDir="build\intermediates\unit_test_lint_partial_results\debug\lintAnalyzeDebugUnitTest\out"
-    desugaredMethodsFiles="C:\Users\Jens\.gradle\caches\8.13\transforms\e35242686e42709ce0e2a154ec2cf84f\transformed\D8BackportedDesugaredMethods.txt">
+    desugaredMethodsFiles="C:\Users\Jens\.gradle\caches\8.13\transforms\ad2c886eaab1761d1ef7e2858a829637\transformed\desugar_jdk_libs_configuration-2.0.4-desugar-lint.txt;C:\Users\Jens\.gradle\caches\8.13\transforms\9d2535c487f196f5344e7a4e1e9952db\transformed\D8BackportedDesugaredMethods.txt">
   <buildFeatures
+      coreLibraryDesugaring="true"
       namespacing="REQUIRED"/>
   <sourceProviders>
   </sourceProviders>

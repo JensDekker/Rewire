@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeDebugResources-29:/values/values.xml",
+            "outputFile": "com.example.rewire.app-mergeDebugResources-33:/values/values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\6ec7377f14876e1ba79d038cb4d637d4\\transformed\\savedstate-1.2.1\\res\\values\\values.xml",

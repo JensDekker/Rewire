@@ -5,8 +5,12 @@ import java.time.temporal.ChronoUnit
 
 // --- Addiction Habit ---
 data class AddictionHabit(
+    var id: Long = 0,
     var name: String,
     var startDate: LocalDate,
+    var recurrence: RecurrenceType = RecurrenceType.DAILY,
+    var preferredTime: java.time.LocalTime? = null,
+    var estimatedMinutes: Int? = null,
     var useLog: MutableMap<LocalDate, Int> = mutableMapOf(),
     var usagePlan: List<AbstinenceGoal> = emptyList(),
     var useTimeLog: MutableMap<LocalDate, MutableList<java.time.LocalTime?>> = mutableMapOf()

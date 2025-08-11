@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeReleaseResources-29:/values-th/values-th.xml",
+            "outputFile": "com.example.rewire.app-mergeReleaseResources-33:/values-th/values-th.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\9872908cba98e5e33e4cf214bad52a11\\transformed\\core-1.10.1\\res\\values-th\\values-th.xml",

@@ -8,4 +8,10 @@ import com.example.rewire.core.RecurrenceType
  * recurrence = when usage is allowed (see RecurrenceType)
  * repeatCount = how many recurrences this plan applies for
  */
-data class AbstinenceGoal(val recurrence: RecurrenceType, val value: Int, val repeatCount: Int = 1)
+data class AbstinenceGoal(
+    val id: Long = 0,
+    val addictionId: Long = 0,
+    val recurrence: RecurrenceType,
+    val value: Int,
+    val repeatCount: Int = 1
+)

@@ -177,9 +177,9 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 7 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 20 warnings</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Sat Aug 02 08:05:32 EDT 2025 by AGP (8.11.1)</nav>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Mon Aug 11 04:58:20 EDT 2025 by AGP (8.11.1)</nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -187,8 +187,10 @@ document.getElementById(id).style.display = 'none';
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#AndroidGradlePluginVersion"><i class="material-icons warning-icon">warning</i>Obsolete Android Gradle Plugin Version (1)</a>
-      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (5)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (11)</a>
       <a class="mdl-navigation__link" href="#NewerVersionAvailable"><i class="material-icons warning-icon">warning</i>Newer Library Versions Available (1)</a>
+      <a class="mdl-navigation__link" href="#KaptUsageInsteadOfKsp"><i class="material-icons warning-icon">warning</i>Kapt usage should be replaced with KSP (1)</a>
+      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (6)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -207,11 +209,21 @@ document.getElementById(id).style.display = 'none';
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#AndroidGradlePluginVersion">AndroidGradlePluginVersion</a>: Obsolete Android Gradle Plugin Version</td></tr>
 <tr>
-<td class="countColumn">5</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">11</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#NewerVersionAvailable">NewerVersionAvailable</a>: Newer Library Versions Available</td></tr>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#KaptUsageInsteadOfKsp">KaptUsageInsteadOfKsp</a>: Kapt usage should be replaced with KSP</td></tr>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Productivity">Productivity</a>
+</td></tr>
+<tr>
+<td class="countColumn">6</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#UseTomlInstead">UseTomlInstead</a>: Use TOML Version Catalog Instead</td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (20)</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (39)</a>
@@ -277,6 +289,67 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:45</span>: <span class="message">A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5</span><br /><pre class="errorlines">
+<span class="lineno"> 42 </span>dependencies {
+<span class="lineno"> 43 </span>
+<span class="lineno"> 44 </span>    // Core library desugaring for java.time support on API &lt; 26
+<span class="caretline"><span class="lineno"> 45 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 46 </span>
+<span class="lineno"> 47 </span>    implementation(libs.androidx.core.ktx)
+<span class="lineno"> 48 </span>    implementation(libs.androidx.appcompat)
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:53</span>: <span class="message">A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 50 </span>    implementation(project(":core"))
+<span class="lineno"> 51 </span>
+<span class="lineno"> 52 </span>    // Room dependencies
+<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 51 </span>
+<span class="lineno"> 52 </span>    // Room dependencies
+<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno"> 54 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:55</span>: <span class="message">A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 52 </span>    // Room dependencies
+<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="caretline"><span class="lineno"> 55 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="caretline"><span class="lineno"> 56 </span>    testImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 58 </span>
+<span class="lineno"> 59 </span>    testImplementation(libs.junit)
+</pre>
+
+<button class="mdl-button mdl-js-button mdl-button--primary" id="GradleDependencyDivLink" onclick="reveal('GradleDependencyDiv');" />+ 6 More Occurrences...</button>
+<div id="GradleDependencyDiv" style="display: none">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:57</span>: <span class="message">A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="caretline"><span class="lineno"> 57 </span>    androidTestImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 58 </span>
+<span class="lineno"> 59 </span>    testImplementation(libs.junit)
+<span class="lineno"> 60 </span>    androidTestImplementation(libs.androidx.junit)
+</pre>
+
 <span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:4</span>: <span class="message">A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.16.0</span><br /><pre class="errorlines">
 <span class="lineno">  1 </span>[versions]
 <span class="lineno">  2 </span>agp = "8.11.1"
@@ -326,6 +399,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 12 </span>androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 </pre>
 
+</div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationGradleDependency" style="display: none;">
 This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
@@ -396,6 +470,150 @@ To suppress this error, use the issue id "NewerVersionAvailable" as explained in
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationNewerVersionAvailableLink" onclick="reveal('explanationNewerVersionAvailable');">
 Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="NewerVersionAvailableCardLink" onclick="hideid('NewerVersionAvailableCard');">
+Dismiss</button>            </div>
+            </div>
+          </section>
+<a name="Performance"></a>
+<a name="KaptUsageInsteadOfKsp"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="KaptUsageInsteadOfKspCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Kapt usage should be replaced with KSP</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">This library supports using KSP instead of kapt, which greatly improves performance. Learn more: <a href="https://developer.android.com/studio/build/migrate-to-ksp">https://developer.android.com/studio/build/migrate-to-ksp</a></span><br /><pre class="errorlines">
+<span class="lineno"> 51 </span>
+<span class="lineno"> 52 </span>    // Room dependencies
+<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno"> 54 </span>    <span class="warning">kapt("androidx.room:room-compiler:2.6.1")</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationKaptUsageInsteadOfKsp" style="display: none;">
+KSP is a more efficient replacement for kapt. For libraries that support both, KSP should be used to improve build times.<br/><div class="moreinfo">More info: <a href="https://developer.android.com/studio/build/migrate-to-ksp">https://developer.android.com/studio/build/migrate-to-ksp</a>
+</div>To suppress this error, use the issue id "KaptUsageInsteadOfKsp" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">KaptUsageInsteadOfKsp</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Performance</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationKaptUsageInsteadOfKspLink" onclick="reveal('explanationKaptUsageInsteadOfKsp');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="KaptUsageInsteadOfKspCardLink" onclick="hideid('KaptUsageInsteadOfKspCard');">
+Dismiss</button>            </div>
+            </div>
+          </section>
+<a name="Productivity"></a>
+<a name="UseTomlInstead"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="UseTomlInsteadCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Use TOML Version Catalog Instead</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:45</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 42 </span>dependencies {
+<span class="lineno"> 43 </span>
+<span class="lineno"> 44 </span>    // Core library desugaring for java.time support on API &lt; 26
+<span class="caretline"><span class="lineno"> 45 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 46 </span>
+<span class="lineno"> 47 </span>    implementation(libs.androidx.core.ktx)
+<span class="lineno"> 48 </span>    implementation(libs.androidx.appcompat)
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:53</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 50 </span>    implementation(project(":core"))
+<span class="lineno"> 51 </span>
+<span class="lineno"> 52 </span>    // Room dependencies
+<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 51 </span>
+<span class="lineno"> 52 </span>    // Room dependencies
+<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno"> 54 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:55</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 52 </span>    // Room dependencies
+<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="caretline"><span class="lineno"> 55 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="caretline"><span class="lineno"> 56 </span>    testImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 58 </span>
+<span class="lineno"> 59 </span>    testImplementation(libs.junit)
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:57</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="caretline"><span class="lineno"> 57 </span>    androidTestImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 58 </span>
+<span class="lineno"> 59 </span>    testImplementation(libs.junit)
+<span class="lineno"> 60 </span>    androidTestImplementation(libs.androidx.junit)
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationUseTomlInstead" style="display: none;">
+If your project is using a <code>libs.versions.toml</code> file, you should place all Gradle dependencies in the TOML file. This lint check looks for version declarations outside of the TOML file and suggests moving them (and in the IDE, provides a quickfix to performing the operation automatically).<br/>To suppress this error, use the issue id "UseTomlInstead" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">UseTomlInstead</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Productivity</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUseTomlInsteadLink" onclick="reveal('explanationUseTomlInstead');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="UseTomlInsteadCardLink" onclick="hideid('UseTomlInsteadCard');">
 Dismiss</button>            </div>
             </div>
           </section>

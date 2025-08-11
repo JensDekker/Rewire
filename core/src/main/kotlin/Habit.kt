@@ -4,6 +4,7 @@ import java.time.*
 
 // --- Habit Class ---
 data class Habit(
+    var id: Long = 0,
     var name: String,
     var recurrence: RecurrenceType = RecurrenceType.DAILY,
     var preferredTime: LocalTime = LocalTime.of(9, 0),

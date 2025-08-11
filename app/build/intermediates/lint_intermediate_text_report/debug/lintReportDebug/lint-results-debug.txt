@@ -9,6 +9,24 @@ agp = "8.11.1"
    with an older version. However, you may simply not be aware that a more
    recent version is available, and that is what this lint check helps find.
 
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:45: Warning: A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5 [GradleDependency]
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:53: Warning: A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.7.2 [GradleDependency]
+    implementation("androidx.room:room-runtime:2.6.1")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:54: Warning: A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.7.2 [GradleDependency]
+    kapt("androidx.room:room-compiler:2.6.1")
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:55: Warning: A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.7.2 [GradleDependency]
+    implementation("androidx.room:room-ktx:2.6.1")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:56: Warning: A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2 [GradleDependency]
+    testImplementation("androidx.room:room-testing:2.6.1")
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:57: Warning: A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2 [GradleDependency]
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 C:\Users\Jens\AndroidStudioProjects\Rewire\gradle\libs.versions.toml:4: Warning: A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.16.0 [GradleDependency]
 coreKtx = "1.10.1"
           ~~~~~~~~
@@ -44,4 +62,39 @@ kotlin = "2.0.21"
    MavenCentral dependency, and connects to the library every time, which
    makes it more flexible but also much slower.
 
-0 errors, 7 warnings
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:54: Warning: This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp [KaptUsageInsteadOfKsp]
+    kapt("androidx.room:room-compiler:2.6.1")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "KaptUsageInsteadOfKsp":
+   KSP is a more efficient replacement for kapt. For libraries that support
+   both, KSP should be used to improve build times.
+
+   https://developer.android.com/studio/build/migrate-to-ksp
+
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:45: Warning: Use version catalog instead [UseTomlInstead]
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:53: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.room:room-runtime:2.6.1")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:54: Warning: Use version catalog instead [UseTomlInstead]
+    kapt("androidx.room:room-compiler:2.6.1")
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:55: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.room:room-ktx:2.6.1")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:56: Warning: Use version catalog instead [UseTomlInstead]
+    testImplementation("androidx.room:room-testing:2.6.1")
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens\AndroidStudioProjects\Rewire\app\build.gradle.kts:57: Warning: Use version catalog instead [UseTomlInstead]
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UseTomlInstead":
+   If your project is using a libs.versions.toml file, you should place all
+   Gradle dependencies in the TOML file. This lint check looks for version
+   declarations outside of the TOML file and suggests moving them (and in the
+   IDE, provides a quickfix to performing the operation automatically).
+
+0 errors, 20 warnings

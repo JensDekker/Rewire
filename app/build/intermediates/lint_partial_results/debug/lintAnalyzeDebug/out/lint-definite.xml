@@ -32,6 +32,126 @@
     <incident
         id="GradleDependency"
         severity="warning"
+        message="A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5">
+        <fix-replace
+            description="Change to 2.1.5"
+            family="Update versions"
+            oldString="2.0.4"
+            replacement="2.1.5"
+            priority="0"/>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="45"
+            column="27"
+            startOffset="1026"
+            endLine="45"
+            endColumn="69"
+            endOffset="1068"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.7.2">
+        <fix-replace
+            description="Change to 2.7.2"
+            family="Update versions"
+            oldString="2.6.1"
+            replacement="2.7.2"
+            priority="0"/>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="53"
+            column="20"
+            startOffset="1274"
+            endLine="53"
+            endColumn="54"
+            endOffset="1308"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.7.2">
+        <fix-replace
+            description="Change to 2.7.2"
+            family="Update versions"
+            oldString="2.6.1"
+            replacement="2.7.2"
+            priority="0"/>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="54"
+            column="10"
+            startOffset="1319"
+            endLine="54"
+            endColumn="45"
+            endOffset="1354"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.7.2">
+        <fix-replace
+            description="Change to 2.7.2"
+            family="Update versions"
+            oldString="2.6.1"
+            replacement="2.7.2"
+            priority="0"/>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="55"
+            column="20"
+            startOffset="1375"
+            endLine="55"
+            endColumn="50"
+            endOffset="1405"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2">
+        <fix-replace
+            description="Change to 2.7.2"
+            family="Update versions"
+            oldString="2.6.1"
+            replacement="2.7.2"
+            priority="0"/>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="56"
+            column="24"
+            startOffset="1430"
+            endLine="56"
+            endColumn="58"
+            endOffset="1464"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2">
+        <fix-replace
+            description="Change to 2.7.2"
+            family="Update versions"
+            oldString="2.6.1"
+            replacement="2.7.2"
+            priority="0"/>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="57"
+            column="31"
+            startOffset="1496"
+            endLine="57"
+            endColumn="65"
+            endOffset="1530"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
         message="A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.16.0">
         <fix-replace
             description="Change to 1.16.0"
@@ -147,6 +267,323 @@
             endLine="3"
             endColumn="18"
             endOffset="43"/>
+    </incident>
+
+    <incident
+        id="KaptUsageInsteadOfKsp"
+        severity="warning"
+        message="This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp">
+        <show-url
+            description="Learn about how to enable KSP and use the KSP processor for this dependency instead"
+            url="https://developer.android.com/studio/build/migrate-to-ksp"/>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="54"
+            column="5"
+            startOffset="1314"
+            endLine="54"
+            endColumn="46"
+            endOffset="1355"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for tools-desugar_jdk_libs"
+            robot="true">
+            <fix-replace
+                description="Replace with desugar_jdk_libsVersion = &quot;2.0.4&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="desugar_jdk_libsVersion = &quot;2.0.4&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="26"
+                    endOffset="26"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with tools-desugar_jdk_libs = { module = &quot;com.android.tools:desugar_jdk_libs&quot;, version.ref = &quot;desugar_jdk_libsVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="tools-desugar_jdk_libs = { module = &quot;com.android.tools:desugar_jdk_libs&quot;, version.ref = &quot;desugar_jdk_libsVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="748"
+                    endOffset="748"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.tools.desugar.jdk.libs"
+                robot="true"
+                replacement="libs.tools.desugar.jdk.libs"
+                priority="0">
+                <range
+                    file="${:app*projectDir}/build.gradle.kts"
+                    startOffset="1026"
+                    endOffset="1068"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="45"
+            column="27"
+            startOffset="1026"
+            endLine="45"
+            endColumn="69"
+            endOffset="1068"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for androidx-room-room-runtime2"
+            robot="true">
+            <fix-replace
+                description="Replace with androidxRoomRuntimeVersion = &quot;2.6.1&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidxRoomRuntimeVersion = &quot;2.6.1&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="26"
+                    endOffset="26"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with androidx-room-room-runtime2 = { module = &quot;androidx.room:room-runtime&quot;, version.ref = &quot;androidxRoomRuntimeVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidx-room-room-runtime2 = { module = &quot;androidx.room:room-runtime&quot;, version.ref = &quot;androidxRoomRuntimeVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="271"
+                    endOffset="271"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.androidx.room.room.runtime2"
+                robot="true"
+                replacement="libs.androidx.room.room.runtime2"
+                priority="0">
+                <range
+                    file="${:app*projectDir}/build.gradle.kts"
+                    startOffset="1274"
+                    endOffset="1308"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="53"
+            column="20"
+            startOffset="1274"
+            endLine="53"
+            endColumn="54"
+            endOffset="1308"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for androidx-room-room-compiler2"
+            robot="true">
+            <fix-replace
+                description="Replace with androidxRoomCompilerVersion = &quot;2.6.1&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidxRoomCompilerVersion = &quot;2.6.1&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="26"
+                    endOffset="26"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with androidx-room-room-compiler2 = { module = &quot;androidx.room:room-compiler&quot;, version.ref = &quot;androidxRoomCompilerVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidx-room-room-compiler2 = { module = &quot;androidx.room:room-compiler&quot;, version.ref = &quot;androidxRoomCompilerVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="271"
+                    endOffset="271"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.androidx.room.room.compiler2"
+                robot="true"
+                replacement="libs.androidx.room.room.compiler2"
+                priority="0">
+                <range
+                    file="${:app*projectDir}/build.gradle.kts"
+                    startOffset="1319"
+                    endOffset="1354"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="54"
+            column="10"
+            startOffset="1319"
+            endLine="54"
+            endColumn="45"
+            endOffset="1354"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for androidx-room-room-ktx2"
+            robot="true">
+            <fix-replace
+                description="Replace with androidxRoomKtxVersion = &quot;2.6.1&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidxRoomKtxVersion = &quot;2.6.1&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="26"
+                    endOffset="26"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with androidx-room-room-ktx2 = { module = &quot;androidx.room:room-ktx&quot;, version.ref = &quot;androidxRoomKtxVersion&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidx-room-room-ktx2 = { module = &quot;androidx.room:room-ktx&quot;, version.ref = &quot;androidxRoomKtxVersion&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="271"
+                    endOffset="271"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.androidx.room.room.ktx2"
+                robot="true"
+                replacement="libs.androidx.room.room.ktx2"
+                priority="0">
+                <range
+                    file="${:app*projectDir}/build.gradle.kts"
+                    startOffset="1375"
+                    endOffset="1405"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="55"
+            column="20"
+            startOffset="1375"
+            endLine="55"
+            endColumn="50"
+            endOffset="1405"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for androidx-room-room-testing5"
+            robot="true">
+            <fix-replace
+                description="Replace with androidxRoomRoomTesting3 = &quot;2.6.1&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidxRoomRoomTesting3 = &quot;2.6.1&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="26"
+                    endOffset="26"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with androidx-room-room-testing5 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomRoomTesting3&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidx-room-room-testing5 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomRoomTesting3&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="271"
+                    endOffset="271"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.androidx.room.room.testing5"
+                robot="true"
+                replacement="libs.androidx.room.room.testing5"
+                priority="0">
+                <range
+                    file="${:app*projectDir}/build.gradle.kts"
+                    startOffset="1430"
+                    endOffset="1464"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="56"
+            column="24"
+            startOffset="1430"
+            endLine="56"
+            endColumn="58"
+            endOffset="1464"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for androidx-room-room-testing6"
+            robot="true">
+            <fix-replace
+                description="Replace with androidxRoomRoomTesting4 = &quot;2.6.1&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidxRoomRoomTesting4 = &quot;2.6.1&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="26"
+                    endOffset="26"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with androidx-room-room-testing6 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomRoomTesting4&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidx-room-room-testing6 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomRoomTesting4&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
+                    startOffset="271"
+                    endOffset="271"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.androidx.room.room.testing6"
+                robot="true"
+                replacement="libs.androidx.room.room.testing6"
+                priority="0">
+                <range
+                    file="${:app*projectDir}/build.gradle.kts"
+                    startOffset="1496"
+                    endOffset="1530"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="57"
+            column="31"
+            startOffset="1496"
+            endLine="57"
+            endColumn="65"
+            endOffset="1530"/>
     </incident>
 
 </incidents>

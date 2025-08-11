@@ -11,7 +11,13 @@ import com.example.rewire.core.AddictionHabit
 fun cliAddAddiction(manager: AddictionManager) {
     print("Enter addiction name: ")
     val name = readLine()?.takeIf { it.isNotBlank() } ?: return
-    manager.addAddiction(AddictionHabit(name, LocalDate.now()))
+    manager.addAddiction(
+        AddictionHabit(
+            name = name,
+            startDate = LocalDate.now()
+            // id, recurrence, preferredTime, estimatedMinutes use defaults
+        )
+    )
     println("Addiction '$name' added.")
 }
 
@@ -207,7 +213,12 @@ fun cliAddUsagePlanItem(manager: AddictionManager, addictionName: String) {
     print("Enter repeat count (integer, default 1): ")
     val repeatCountInput = readLine()
     val repeatCount = repeatCountInput?.toIntOrNull() ?: 1
-    val goal = com.example.rewire.core.AbstinenceGoal(recurrence, value, repeatCount)
+    val goal = com.example.rewire.core.AbstinenceGoal(
+        recurrence = recurrence,
+        value = value,
+        repeatCount = repeatCount
+        // id and addictionId use defaults
+    )
     manager.addUsagePlanItem(addictionName, goal)
     println("Usage plan item added to '$addictionName'.")
 }
@@ -232,7 +243,12 @@ fun cliEditUsagePlanItem(manager: AddictionManager, addictionName: String) {
     print("Enter new repeat count (integer, default 1): ")
     val repeatCountInput = readLine()
     val repeatCount = repeatCountInput?.toIntOrNull() ?: 1
-    val goal = com.example.rewire.core.AbstinenceGoal(recurrence, value, repeatCount)
+    val goal = com.example.rewire.core.AbstinenceGoal(
+        recurrence = recurrence,
+        value = value,
+        repeatCount = repeatCount
+        // id and addictionId use defaults
+    )
     manager.editUsagePlanItem(addictionName, itemIndex - 1, goal)
     println("Usage plan item updated.")
 }
