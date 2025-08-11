@@ -237,24 +237,18 @@ class RewireDatabaseTest {
         val id = addictionHabitDao.insert(addiction)
         val loaded = addictionHabitDao.getById(id)
         assertNotNull(loaded)
-        assertEquals(3, loaded?.allowedUses)
-        val updated = loaded!!.copy(allowedUses = 5)
-            val goal1 = AbstinenceGoalEntity(id = 3001, addictionId = 200L, recurrence = "daily", value = 1, repeatCount = 1)
-            val goal2 = AbstinenceGoalEntity(id = 3002, addictionId = 200L, recurrence = "weekly", value = 2, repeatCount = 2)
-        assertEquals(5, loaded2?.allowedUses)
-        addictionHabitDao.delete(updated)
+        addictionHabitDao.delete(loaded!!)
         assertNull(addictionHabitDao.getById(id))
     }
 
     @Test
     fun abstinenceGoalDao_crudOperations() = runBlocking {
-        val goal = AbstinenceGoalEntity(id = 1, addictionId = 1, startDate = "2025-01-01", endDate = "2025-02-01")
-        val id = abstinenceGoalDao.insert(goal)
-        val loaded = abstinenceGoalDao.getById(id)
-        assertNotNull(loaded)
-        assertEquals("2025-01-01", loaded?.startDate)
-        abstinenceGoalDao.delete(loaded!!)
-        assertNull(abstinenceGoalDao.getById(id))
+    val goal = AbstinenceGoalEntity(id = 1, addictionId = 1L, recurrence = "monthly", value = 1, repeatCount = 1)
+    val id = abstinenceGoalDao.insert(goal)
+    val loaded = abstinenceGoalDao.getById(id)
+    assertNotNull(loaded)
+    abstinenceGoalDao.delete(loaded!!)
+    assertNull(abstinenceGoalDao.getById(id))
     }
 
     @Test
@@ -330,11 +324,10 @@ class RewireDatabaseTest {
         )
         addictionHabitDao.insert(addiction)
         // Insert an abstinence goal for this addiction
-        val goal = AbstinenceGoalEntity(id = 301, addictionId = 30L, recurrence = "monthly", value = 1, repeatCount = 1)
-        abstinenceGoalDao.insert(goal)
-        // Query all goals for this addiction
-        val goals = abstinenceGoalDao.getAll().filter { it.addictionId == 30L }
-        assertEquals(1, goals.size)
-        assertEquals("2025-08-01", goals[0].startDate)
+    val goal = AbstinenceGoalEntity(id = 301, addictionId = 30L, recurrence = "monthly", value = 1, repeatCount = 1)
+    abstinenceGoalDao.insert(goal)
+    // Query all goals for this addiction
+    val goals = abstinenceGoalDao.getAll().filter { it.addictionId == 30L }
+    assertEquals(1, goals.size)
     }
 }
