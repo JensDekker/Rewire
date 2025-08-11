@@ -112,7 +112,7 @@ class RewireDatabaseTest {
             startDate = "2025-08-01"
         )
         habitDao.insert(habit)
-        val note = HabitNoteEntity(id = 8001, habitId = 800L, content = "DateNote", timestamp = "2025-08-08T15:30:00+02:00")
+    val note = HabitNoteEntity(id = 8001, habitId = 800L, content = "DateNote", timestamp = "2025-08-08T15:30:00+02:00")
         habitNoteDao.insert(note)
         val loaded = habitNoteDao.getById(8001)
         assertNotNull(loaded)
