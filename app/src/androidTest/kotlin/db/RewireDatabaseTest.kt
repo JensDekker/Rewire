@@ -264,6 +264,17 @@ class RewireDatabaseTest {
     @Test
     fun abstinenceGoalDao_crudOperations() {
         runBlocking {
+            // Insert parent addiction first
+            val addiction = AddictionHabitEntity(
+                id = 1L,
+                name = "Test Addiction",
+                startDate = "2025-08-01",
+                recurrence = "monthly",
+                preferredTime = "09:00",
+                estimatedMinutes = 1
+            )
+            addictionHabitDao.insert(addiction)
+
             val goal = AbstinenceGoalEntity(id = 1L, addictionId = 1L, recurrence = "monthly", value = 1, repeatCount = 1)
             val id = abstinenceGoalDao.insert(goal)
             val loaded = abstinenceGoalDao.getById(id)
@@ -276,6 +287,17 @@ class RewireDatabaseTest {
     @Test
     fun habitNoteDao_crudOperations() {
         runBlocking {
+            // Insert parent habit first
+            val habit = HabitEntity(
+                id = 1L,
+                name = "Test Habit",
+                recurrence = "daily",
+                preferredTime = "09:00",
+                estimatedMinutes = 10,
+                startDate = "2025-08-01"
+            )
+            habitDao.insert(habit)
+
             val note = HabitNoteEntity(id = 1L, habitId = 1L, content = "Test note", timestamp = "2025-08-08T12:00:00Z")
             val id = habitNoteDao.insert(note)
             val loaded = habitNoteDao.getById(id)
