@@ -6,7 +6,7 @@ import java.time.*
 data class Habit(
     var id: Long = 0,
     var name: String,
-    var recurrence: RecurrenceType = RecurrenceType.DAILY,
+    var recurrence: RecurrenceType = RecurrenceType.Daily,
     var preferredTime: LocalTime = LocalTime.of(9, 0),
     var estimatedMinutes: Int = 10,
     var completions: MutableSet<LocalDate> = mutableSetOf(),
