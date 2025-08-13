@@ -23,11 +23,13 @@ data class AddictionHabit(
     }
     // Note management is now handled by AddictionManager using the shared Note class
     fun getRecurrenceIndex(current: LocalDate, goal: AbstinenceGoal): Int =
-        when (goal.recurrence) {
-            RecurrenceType.WEEKLY, RecurrenceType.WEEKDAYS, RecurrenceType.WEEKENDS, RecurrenceType.CUSTOM_WEEKLY -> ChronoUnit.WEEKS.between(startDate, current).toInt()
-            RecurrenceType.MONTHLY -> ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), current.withDayOfMonth(1)).toInt()
-            RecurrenceType.DAILY -> ChronoUnit.DAYS.between(startDate, current).toInt()
-            RecurrenceType.QUARTERLY -> ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), current.withDayOfMonth(1)).toInt() / 3
+        when (val r = goal.recurrence) {
+            is RecurrenceType.Daily -> ChronoUnit.DAYS.between(startDate, current).toInt()
+            is RecurrenceType.Weekly -> ChronoUnit.WEEKS.between(startDate, current).toInt()
+            is RecurrenceType.MonthlyByDate, is RecurrenceType.MonthlyByWeekday -> ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), current.withDayOfMonth(1)).toInt()
+            is RecurrenceType.QuarterlyByDate, is RecurrenceType.QuarterlyByWeekday -> ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), current.withDayOfMonth(1)).toInt() / 3
+            is RecurrenceType.CustomWeekly -> ChronoUnit.WEEKS.between(startDate, current).toInt()
+            else -> 0
         }
     fun getCurrentGoal(current: LocalDate): AbstinenceGoal? {
         var index = 0
@@ -44,23 +46,24 @@ data class AddictionHabit(
      */
     fun countUsesInRecurrence(current: LocalDate, goal: AbstinenceGoal): Int {
         // For each recurrence type, determine the window and sum uses in that window
-        val dates = when (goal.recurrence) {
-            RecurrenceType.DAILY -> listOf(current)
-            RecurrenceType.WEEKLY, RecurrenceType.WEEKDAYS, RecurrenceType.WEEKENDS, RecurrenceType.CUSTOM_WEEKLY -> {
+        val dates = when (val r = goal.recurrence) {
+            is RecurrenceType.Daily -> listOf(current)
+            is RecurrenceType.Weekly, is RecurrenceType.CustomWeekly -> {
                 val start = current.with(java.time.DayOfWeek.MONDAY)
                 val end = start.plusDays(6)
                 (0L..ChronoUnit.DAYS.between(start, end)).map { start.plusDays(it) }
             }
-            RecurrenceType.MONTHLY -> {
+            is RecurrenceType.MonthlyByDate, is RecurrenceType.MonthlyByWeekday -> {
                 val start = current.withDayOfMonth(1)
                 val end = start.withDayOfMonth(start.lengthOfMonth())
                 (0L..ChronoUnit.DAYS.between(start, end)).map { start.plusDays(it) }
             }
-            RecurrenceType.QUARTERLY -> {
+            is RecurrenceType.QuarterlyByDate, is RecurrenceType.QuarterlyByWeekday -> {
                 val start = current.withDayOfMonth(1).withMonth(((current.monthValue - 1) / 3) * 3 + 1)
                 val end = start.plusMonths(2).withDayOfMonth(start.plusMonths(2).lengthOfMonth())
                 (0L..ChronoUnit.DAYS.between(start, end)).map { start.plusDays(it) }
             }
+            else -> listOf(current)
         }
         return dates.sumOf { useLog[it] ?: 0 }
     }

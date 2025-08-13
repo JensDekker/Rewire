@@ -20,15 +20,61 @@ fun cliAddHabit(manager: HabitManager) {
         printError("No habit has been created. Habit name cannot be blank.")
         return
     }
+    val recurrenceOptions = listOf(
+        "Daily",
+        "Weekly",
+        "Monthly by date",
+        "Monthly by weekday",
+        "Quarterly by date",
+        "Quarterly by weekday",
+        "Custom weekly"
+    )
     println("Select recurrence type:")
-    RecurrenceType.values().forEachIndexed { i, type -> println("${i + 1}. $type") }
-    print("Recurrence type (1-${RecurrenceType.values().size}): ")
+    recurrenceOptions.forEachIndexed { i, type -> println("${i + 1}. $type") }
+    print("Recurrence type (1-${recurrenceOptions.size}): ")
     val recInput = readLine()?.toIntOrNull()
-    val recurrence = recInput?.let { RecurrenceType.values().getOrNull(it - 1) } ?: RecurrenceType.DAILY
-    var customDays: Set<java.time.DayOfWeek>? = null
-    if (recurrence == RecurrenceType.CUSTOM_WEEKLY) {
-        customDays = promptCustomDays()
+    val recurrence = when (recInput) {
+        1 -> com.example.rewire.core.RecurrenceType.Daily
+        2 -> com.example.rewire.core.RecurrenceType.Weekly
+        3 -> {
+            print("Enter day of month (1-31): ")
+            val day = readLine()?.toIntOrNull() ?: 1
+            com.example.rewire.core.RecurrenceType.MonthlyByDate(day)
+        }
+        4 -> {
+            print("Enter week of month (1-5): ")
+            val week = readLine()?.toIntOrNull() ?: 1
+            print("Enter day of week (e.g., MONDAY): ")
+            val dayStr = readLine()?.uppercase() ?: "MONDAY"
+            val day = com.example.rewire.core.DayOfWeek.valueOf(dayStr)
+            com.example.rewire.core.RecurrenceType.MonthlyByWeekday(week, day)
+        }
+        5 -> {
+            print("Enter day of month (1-31): ")
+            val day = readLine()?.toIntOrNull() ?: 1
+            print("Enter month offset (0 for Jan/Apr/Jul/Oct, 1 for Feb/May/Aug/Nov, 2 for Mar/Jun/Sep/Dec): ")
+            val offset = readLine()?.toIntOrNull() ?: 0
+            com.example.rewire.core.RecurrenceType.QuarterlyByDate(day, offset)
+        }
+        6 -> {
+            print("Enter week of month (1-5): ")
+            val week = readLine()?.toIntOrNull() ?: 1
+            print("Enter day of week (e.g., MONDAY): ")
+            val dayStr = readLine()?.uppercase() ?: "MONDAY"
+            val day = com.example.rewire.core.DayOfWeek.valueOf(dayStr)
+            print("Enter month offset (0 for Jan/Apr/Jul/Oct, 1 for Feb/May/Aug/Nov, 2 for Mar/Jun/Sep/Dec): ")
+            val offset = readLine()?.toIntOrNull() ?: 0
+            com.example.rewire.core.RecurrenceType.QuarterlyByWeekday(week, day, offset)
+        }
+        7 -> {
+            println("Enter days of week separated by commas (e.g., MONDAY,THURSDAY): ")
+            val daysStr = readLine()?.split(",")?.map { it.trim().uppercase() } ?: listOf("MONDAY")
+            val days = daysStr.map { com.example.rewire.core.DayOfWeek.valueOf(it) }
+            com.example.rewire.core.RecurrenceType.CustomWeekly(days)
+        }
+        else -> com.example.rewire.core.RecurrenceType.Daily
     }
+    var customDays: Set<java.time.DayOfWeek>? = null // legacy, not used with new types
     print("Start date (YYYY-MM-DD, leave blank for today): ")
     val startDateInput = readLine()?.takeIf { it.isNotBlank() }
     val startDate = try { startDateInput?.let { java.time.LocalDate.parse(it) } ?: java.time.LocalDate.now() } catch (e: Exception) { java.time.LocalDate.now() }
@@ -89,15 +135,61 @@ fun cliEditHabit(manager: HabitManager, habitName: String): String? {
     print("New name (leave blank to keep '${habit.name}'): ")
     val newName = readLine()?.takeIf { it.isNotBlank() }
 
+    val recurrenceOptions = listOf(
+        "Daily",
+        "Weekly",
+        "Monthly by date",
+        "Monthly by weekday",
+        "Quarterly by date",
+        "Quarterly by weekday",
+        "Custom weekly"
+    )
     println("Select new recurrence type or leave blank:")
-    RecurrenceType.values().forEachIndexed { i, type -> println("${i + 1}. $type") }
-    print("New recurrence type (1-${RecurrenceType.values().size}): ")
+    recurrenceOptions.forEachIndexed { i, type -> println("${i + 1}. $type") }
+    print("New recurrence type (1-${recurrenceOptions.size}): ")
     val recInput = readLine()?.toIntOrNull()
-    val newRecurrence = recInput?.let { RecurrenceType.values().getOrNull(it - 1) }
-    var newCustomDays: Set<java.time.DayOfWeek>? = habit.customDays
-    if (newRecurrence == RecurrenceType.CUSTOM_WEEKLY) {
-        newCustomDays = promptCustomDays()
+    val newRecurrence = when (recInput) {
+        1 -> com.example.rewire.core.RecurrenceType.Daily
+        2 -> com.example.rewire.core.RecurrenceType.Weekly
+        3 -> {
+            print("Enter day of month (1-31): ")
+            val day = readLine()?.toIntOrNull() ?: 1
+            com.example.rewire.core.RecurrenceType.MonthlyByDate(day)
+        }
+        4 -> {
+            print("Enter week of month (1-5): ")
+            val week = readLine()?.toIntOrNull() ?: 1
+            print("Enter day of week (e.g., MONDAY): ")
+            val dayStr = readLine()?.uppercase() ?: "MONDAY"
+            val day = com.example.rewire.core.DayOfWeek.valueOf(dayStr)
+            com.example.rewire.core.RecurrenceType.MonthlyByWeekday(week, day)
+        }
+        5 -> {
+            print("Enter day of month (1-31): ")
+            val day = readLine()?.toIntOrNull() ?: 1
+            print("Enter month offset (0 for Jan/Apr/Jul/Oct, 1 for Feb/May/Aug/Nov, 2 for Mar/Jun/Sep/Dec): ")
+            val offset = readLine()?.toIntOrNull() ?: 0
+            com.example.rewire.core.RecurrenceType.QuarterlyByDate(day, offset)
+        }
+        6 -> {
+            print("Enter week of month (1-5): ")
+            val week = readLine()?.toIntOrNull() ?: 1
+            print("Enter day of week (e.g., MONDAY): ")
+            val dayStr = readLine()?.uppercase() ?: "MONDAY"
+            val day = com.example.rewire.core.DayOfWeek.valueOf(dayStr)
+            print("Enter month offset (0 for Jan/Apr/Jul/Oct, 1 for Feb/May/Aug/Nov, 2 for Mar/Jun/Sep/Dec): ")
+            val offset = readLine()?.toIntOrNull() ?: 0
+            com.example.rewire.core.RecurrenceType.QuarterlyByWeekday(week, day, offset)
+        }
+        7 -> {
+            println("Enter days of week separated by commas (e.g., MONDAY,THURSDAY): ")
+            val daysStr = readLine()?.split(",")?.map { it.trim().uppercase() } ?: listOf("MONDAY")
+            val days = daysStr.map { com.example.rewire.core.DayOfWeek.valueOf(it) }
+            com.example.rewire.core.RecurrenceType.CustomWeekly(days)
+        }
+        else -> null
     }
+    var newCustomDays: Set<java.time.DayOfWeek>? = habit.customDays // legacy, not used with new types
 
     print("New start date (YYYY-MM-DD) or leave blank to keep '${habit.startDate}'): ")
     val startDateInput = readLine()?.takeIf { it.isNotBlank() }
