@@ -1,3 +1,4 @@
+
 package com.example.rewire.db
 
 import android.content.Context
@@ -8,6 +9,7 @@ import androidx.test.filters.SmallTest
 import com.example.rewire.db.dao.*
 import com.example.rewire.db.entity.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -17,7 +19,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class RewireDatabaseTest {
-import kotlinx.coroutines.launch
 
     @Test
     fun bulkInsertUpdateDeleteHabits() {
