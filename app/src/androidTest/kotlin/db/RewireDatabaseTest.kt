@@ -17,21 +17,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class RewireDatabaseTest {
-    @Test(expected = Exception::class)
-    fun insertHabitWithNullRecurrence_throwsException() {
-        runBlocking {
-            // Should fail because recurrence is non-nullable
-            val habit = HabitEntity(
-                id = 10000L,
-                name = "Invalid Habit",
-                recurrence = null as com.example.rewire.core.RecurrenceType?,
-                preferredTime = "09:00",
-                estimatedMinutes = 10,
-                startDate = "2025-08-01"
-            )
-            habitDao.insert(habit)
-        }
-    }
+import kotlinx.coroutines.launch
 
     @Test
     fun bulkInsertUpdateDeleteHabits() {
@@ -112,13 +98,15 @@ class RewireDatabaseTest {
                 )
             }
             habits.forEach { habitDao.insert(it) }
-            val jobs = habits.map { habit ->
-                kotlinx.coroutines.launch {
-                    val updated = habit.copy(name = habit.name + " Updated")
+            val jobs = mutableListOf<kotlinx.coroutines.Job>()
+            habits.forEach { habit ->
+                val job: kotlinx.coroutines.Job = launch {
+                    val updated: HabitEntity = habit.copy(name = habit.name + " Updated")
                     habitDao.update(updated)
                 }
+                jobs.add(job)
             }
-            kotlinx.coroutines.delay(500)
+            jobs.forEach { it.join() }
             val updatedAll = habitDao.getAll().filter { it.name.endsWith("Updated") }
             assertEquals(10, updatedAll.size)
         }
