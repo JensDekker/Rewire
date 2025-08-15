@@ -74,7 +74,7 @@ fun cliAddHabit(manager: HabitManager) {
         }
         else -> com.example.rewire.core.RecurrenceType.Daily
     }
-    var customDays: Set<java.time.DayOfWeek>? = null // legacy, not used with new types
+    var customDays: Set<com.example.rewire.core.DayOfWeek>? = null // unified type
     print("Start date (YYYY-MM-DD, leave blank for today): ")
     val startDateInput = readLine()?.takeIf { it.isNotBlank() }
     val startDate = try { startDateInput?.let { java.time.LocalDate.parse(it) } ?: java.time.LocalDate.now() } catch (e: Exception) { java.time.LocalDate.now() }
@@ -112,7 +112,7 @@ fun cliShowHabitDetails(manager: HabitManager, habitName: String) {
     println("Name: ${habit.name}")
     println("Recurrence: ${habit.recurrence}")
     println("Start date: ${habit.startDate}")
-    if (habit.recurrence == RecurrenceType.CUSTOM_WEEKLY) {
+    if (habit.recurrence is com.example.rewire.core.RecurrenceType.CustomWeekly) {
         println("Custom days: ${formatCustomDays(habit.customDays)}")
     }
     println("Preferred time: ${habit.preferredTime}")
@@ -189,7 +189,7 @@ fun cliEditHabit(manager: HabitManager, habitName: String): String? {
         }
         else -> null
     }
-    var newCustomDays: Set<java.time.DayOfWeek>? = habit.customDays // legacy, not used with new types
+    var newCustomDays: Set<com.example.rewire.core.DayOfWeek>? = habit.customDays // unified type
 
     print("New start date (YYYY-MM-DD) or leave blank to keep '${habit.startDate}'): ")
     val startDateInput = readLine()?.takeIf { it.isNotBlank() }

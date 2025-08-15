@@ -2,7 +2,7 @@ package com.example.rewire.cli
 
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.DayOfWeek
+import com.example.rewire.core.DayOfWeek
 
 fun promptDate(message: String): LocalDate? {
     while (true) {
@@ -56,7 +56,7 @@ fun waitForEnter(message: String = "Press Enter to continue...") {
 fun promptCustomDays(): Set<DayOfWeek>? {
     println("Select days of the week for reminders.")
     println("Enter numbers separated by commas (e.g., 1,3,6 for Monday, Wednesday, Saturday):")
-    DayOfWeek.values().forEach { println("${it.value}. ${it}") }
+        DayOfWeek.values().forEachIndexed { i, day -> println("${i + 1}. $day") }
     while (true) {
         print("Days (1=Monday ... 7=Sunday): ")
         val input = readLine()?.trim()
@@ -65,7 +65,7 @@ fun promptCustomDays(): Set<DayOfWeek>? {
             continue
         }
         val dayNumbers = input.split(",").mapNotNull { it.trim().toIntOrNull() }
-        val validDays = dayNumbers.filter { it in 1..7 }.map { DayOfWeek.of(it) }.toSet()
+            val validDays = dayNumbers.filter { it in 1..7 }.map { DayOfWeek.values()[it - 1] }.toSet()
         if (validDays.isEmpty()) {
             printError("No valid days entered. Please enter numbers between 1 and 7.")
             continue
@@ -78,7 +78,7 @@ fun promptCustomDays(): Set<DayOfWeek>? {
  * Returns a user-friendly string for a set of DayOfWeek (e.g., "Monday, Wednesday, Saturday").
  */
 fun formatCustomDays(days: Set<DayOfWeek>?): String {
-    return days?.sortedBy { it.value }?.joinToString(", ") { it.name.capitalize() } ?: "None"
+    return days?.sortedBy { it.ordinal }?.joinToString(", ") { it.name.capitalize() } ?: "None"
 }
 // Place shared menu logic, input helpers, or utilities here
 
