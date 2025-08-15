@@ -1,0 +1,10 @@
+logUsage
+addNote
+getNotes
+editNote
+deleteNote
+getUsagePlan
+addUsagePlanItem
+editUsagePlanItem
+deleteUsagePlanItem
+clearUsagePlan

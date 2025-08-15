@@ -1,8 +1,0 @@
-C:\Users\Jens\AndroidStudioProjects\Rewire\core\src\main\kotlin\Note.kt
-C:\Users\Jens\AndroidStudioProjects\Rewire\core\src\main\kotlin\Habit.kt
-C:\Users\Jens\AndroidStudioProjects\Rewire\core\src\main\kotlin\HabitManager.kt
-C:\Users\Jens\AndroidStudioProjects\Rewire\core\src\main\kotlin\RecurrenceType.kt
-C:\Users\Jens\AndroidStudioProjects\Rewire\core\src\main\kotlin\AddictionManager.kt
-C:\Users\Jens\AndroidStudioProjects\Rewire\core\src\main\kotlin\AddictionHabit.kt
-C:\Users\Jens\AndroidStudioProjects\Rewire\core\src\main\kotlin\AbstinenceGoal.kt
-C:\Users\Jens\AndroidStudioProjects\Rewire\core\src\main\kotlin\com\example\rewire\core\Note.kt

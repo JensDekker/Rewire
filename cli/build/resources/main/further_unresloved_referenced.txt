@@ -1,0 +1,10 @@
+5. Unresolved reference 'forEachIndexed':
+   - Use forEachIndexed only on collections, not on String or nullable types.
+   - For habit notes, use notes.entries.forEachIndexed { i: Int, entry: Map.Entry<LocalDate, String> -> ... }
+
+6. Cannot infer type for lambda parameters:
+   - Specify parameter types explicitly in lambda expressions, e.g. { i: Int, entry: Map.Entry<LocalDate, String> -> ... }
+
+7. Overload resolution ambiguity for plus:
+   - Use + only on compatible types (e.g., String + String, List + element).
+   - Prefer string interpolation: println("${i + 1}. ${entry.key}: ${entry.value}")

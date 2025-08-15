@@ -1,0 +1,66 @@
+CLI Testing Procedure
+====================
+
+1. General Navigation & Error Handling
+-------------------------------------
+- Start the CLI and verify main menu appears.
+- Try invalid inputs (e.g., blank, out-of-range numbers) at each menu.
+- Test "Back" and "Exit" options in all menus.
+
+2. Habits
+--------
+- List habits (should be empty initially).
+- Add a new habit.
+- List habits (should show the new habit).
+- Select the habit:
+  - Edit habit details.
+  - Show habit details.
+  - Complete habit.
+  - Manage habit notes:
+    - List notes (should be empty).
+    - Add a note.
+    - List notes (should show the new note).
+    - Edit the note.
+    - Delete the note.
+    - List notes (should be empty again).
+  - Delete the habit.
+- List habits (should be empty).
+
+3. Addictions
+-------------
+- List addictions (should be empty initially).
+- Add a new addiction.
+- List addictions (should show the new addiction).
+- Select the addiction:
+  - View addiction details.
+  - Edit addiction details.
+  - Log usage for the addiction.
+  - Manage addiction notes:
+    - List notes (should be empty).
+    - Add a note.
+    - List notes (should show the new note).
+    - Edit the note.
+    - Delete the note.
+    - List notes (should be empty again).
+  - Manage usage plan:
+    - List plan items (should be empty).
+    - Add a plan item.
+    - List plan items (should show the new item).
+    - Edit the plan item.
+    - Delete the plan item.
+    - List plan items (should be empty again).
+    - Add multiple plan items.
+    - Clear the usage plan.
+    - List plan items (should be empty).
+  - Delete the addiction.
+- List addictions (should be empty).
+
+4. Data Persistence (if supported)
+----------------------------------
+- Exit the CLI and restart.
+- Verify that habits/addictions/notes/usage plans persist or reset as expected.
+
+5. Final Checks
+---------------
+- Confirm all error messages display for invalid actions.
+- Confirm all menu navigation works as expected.
