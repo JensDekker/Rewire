@@ -239,6 +239,21 @@ fun cliCompleteHabit(manager: HabitManager, habitName: String) {
     }
 }
 
+fun cliUnmarkHabitComplete(manager: HabitManager, habitName: String) {
+    val habit = manager.getHabit(habitName)
+    if (habit == null) {
+        println("Habit not found.")
+        return
+    }
+    val today = java.time.LocalDate.now()
+    if (!habit.isComplete(today)) {
+        println("Habit '$habitName' is not marked as completed for today.")
+    } else {
+        manager.unmarkHabitComplete(habitName, today)
+        println("Habit '$habitName' marked as incomplete.")
+    }
+}
+
 // =====================
 // Habit Note Functions (CRUD)
 // =====================

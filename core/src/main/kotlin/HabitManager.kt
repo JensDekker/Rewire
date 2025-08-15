@@ -36,6 +36,7 @@ class HabitManager {
 
     fun getHabitsForDate(date: LocalDate): List<Habit> = habits.filter { it.isDueOn(date) }.sortedBy { it.preferredTime }
     fun markHabitComplete(name: String, date: LocalDate = LocalDate.now()) = getHabit(name)?.markComplete(date)
+    fun unmarkHabitComplete(name: String, date: LocalDate = LocalDate.now()) = getHabit(name)?.unmarkComplete(date)
     fun addNote(name: String, date: LocalDate, note: String) {
         val habit = getHabit(name) ?: return
         notes.removeIf { it.parentType == "HABIT" && it.parentNameOrId == habit.name && it.date == date }

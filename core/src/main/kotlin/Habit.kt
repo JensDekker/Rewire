@@ -42,6 +42,10 @@ data class Habit(
         completions.add(date)
     }
 
+    fun unmarkComplete(date: LocalDate = LocalDate.now()) {
+        completions.remove(date)
+    }
+
     fun isComplete(date: LocalDate = LocalDate.now()): Boolean = completions.contains(date)
 
     // Note management is now handled by HabitManager using the shared Note class

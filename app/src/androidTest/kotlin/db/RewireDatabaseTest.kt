@@ -19,6 +19,41 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class RewireDatabaseTest {
+    @Test
+    fun habitCompletion_integrationTest() {
+        runBlocking {
+            // Insert a habit
+            val habit = HabitEntity(
+                id = 10001L,
+                name = "Integration Habit",
+                recurrence = com.example.rewire.core.RecurrenceType.Daily,
+                preferredTime = "07:00",
+                estimatedMinutes = 15,
+                startDate = "2025-08-01"
+            )
+            habitDao.insert(habit)
+
+            // Mark habit complete for today
+            val today = java.time.LocalDate.now().toString()
+            val completion = HabitCompletionEntity(habitId = 10001L, date = today)
+            db.habitCompletionDao().insertCompletion(completion)
+            val completions = db.habitCompletionDao().getCompletionsForHabit(10001L)
+            assertTrue(completions.any { it.date == today })
+
+            // Unmark habit complete
+            db.habitCompletionDao().deleteCompletion(10001L, today)
+            val completionsAfterDelete = db.habitCompletionDao().getCompletionsForHabit(10001L)
+            assertTrue(completionsAfterDelete.none { it.date == today })
+
+            // Ensure habit still exists and can be updated
+            val loadedHabit = habitDao.getById(10001L)
+            assertNotNull(loadedHabit)
+            val updatedHabit = loadedHabit!!.copy(name = "Integration Habit Updated")
+            habitDao.update(updatedHabit)
+            val loadedUpdated = habitDao.getById(10001L)
+            assertEquals("Integration Habit Updated", loadedUpdated?.name)
+        }
+    }
 
     @Test
     fun bulkInsertUpdateDeleteHabits() {
