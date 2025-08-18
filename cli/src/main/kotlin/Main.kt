@@ -75,7 +75,6 @@ fun selectHabitMenu(manager: HabitManager) {
                 "Edit Habit",
                 "Show Habit Details",
                 "Delete Habit",
-                "Complete Habit",
                 "Habit Notes",
                 "Back"
             ),
@@ -94,9 +93,8 @@ fun selectHabitMenu(manager: HabitManager) {
                 cliDeleteHabit(manager, currentHabitName)
                 running = false // Return to habits menu after deletion
             }
-            3 -> cliCompleteHabit(manager, currentHabitName)
-            4 -> habitNotesMenu(manager, currentHabitName)
-            5 -> running = false
+            3 -> habitNotesMenu(manager, currentHabitName)
+            4 -> running = false
         }
     }
 }

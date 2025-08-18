@@ -1,8 +1,8 @@
 package com.example.rewire.core
 
 import java.time.*
-
 import java.time.LocalDate
+// ...existing code...
 
 class HabitManager {
     private val habits = mutableListOf<Habit>()
@@ -35,7 +35,7 @@ class HabitManager {
     }
 
     fun getHabitsForDate(date: LocalDate): List<Habit> = habits.filter { it.isDueOn(date) }.sortedBy { it.preferredTime }
-    fun markHabitComplete(name: String, date: LocalDate = LocalDate.now()) = getHabit(name)?.markComplete(date)
+    // All RoomDB access must be handled in the app module. Only pure business logic and core models here.
     fun addNote(name: String, date: LocalDate, note: String) {
         val habit = getHabit(name) ?: return
         notes.removeIf { it.parentType == "HABIT" && it.parentNameOrId == habit.name && it.date == date }
@@ -54,7 +54,6 @@ class HabitManager {
         val habit = getHabit(name) ?: return
         notes.removeIf { it.parentType == "HABIT" && it.parentNameOrId == habit.name && it.date == date }
     }
-    fun getCompletions(name: String): Set<LocalDate> = getHabit(name)?.completions ?: emptySet()
     fun getNotes(name: String): List<Note> = notes.filter { it.parentType == "HABIT" && it.parentNameOrId == name }
     fun getNoteDays(name: String): List<LocalDate> = getNotes(name).map { it.date }.sorted()
 }

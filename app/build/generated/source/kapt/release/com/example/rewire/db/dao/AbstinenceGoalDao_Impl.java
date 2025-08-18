@@ -13,6 +13,8 @@ import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
+import com.example.rewire.core.RecurrenceType;
+import com.example.rewire.db.converter.RecurrenceTypeConverter;
 import com.example.rewire.db.entity.AbstinenceGoalEntity;
 import java.lang.Class;
 import java.lang.Exception;
@@ -36,6 +38,8 @@ public final class AbstinenceGoalDao_Impl implements AbstinenceGoalDao {
 
   private final EntityInsertionAdapter<AbstinenceGoalEntity> __insertionAdapterOfAbstinenceGoalEntity;
 
+  private final RecurrenceTypeConverter __recurrenceTypeConverter = new RecurrenceTypeConverter();
+
   private final EntityDeletionOrUpdateAdapter<AbstinenceGoalEntity> __deletionAdapterOfAbstinenceGoalEntity;
 
   private final EntityDeletionOrUpdateAdapter<AbstinenceGoalEntity> __updateAdapterOfAbstinenceGoalEntity;
@@ -56,10 +60,11 @@ public final class AbstinenceGoalDao_Impl implements AbstinenceGoalDao {
           @NonNull final AbstinenceGoalEntity entity) {
         statement.bindLong(1, entity.getId());
         statement.bindLong(2, entity.getAddictionId());
-        if (entity.getRecurrence() == null) {
+        final String _tmp = __recurrenceTypeConverter.fromRecurrenceType(entity.getRecurrence());
+        if (_tmp == null) {
           statement.bindNull(3);
         } else {
-          statement.bindString(3, entity.getRecurrence());
+          statement.bindString(3, _tmp);
         }
         statement.bindLong(4, entity.getValue());
         statement.bindLong(5, entity.getRepeatCount());
@@ -90,10 +95,11 @@ public final class AbstinenceGoalDao_Impl implements AbstinenceGoalDao {
           @NonNull final AbstinenceGoalEntity entity) {
         statement.bindLong(1, entity.getId());
         statement.bindLong(2, entity.getAddictionId());
-        if (entity.getRecurrence() == null) {
+        final String _tmp = __recurrenceTypeConverter.fromRecurrenceType(entity.getRecurrence());
+        if (_tmp == null) {
           statement.bindNull(3);
         } else {
-          statement.bindString(3, entity.getRecurrence());
+          statement.bindString(3, _tmp);
         }
         statement.bindLong(4, entity.getValue());
         statement.bindLong(5, entity.getRepeatCount());
@@ -213,12 +219,14 @@ public final class AbstinenceGoalDao_Impl implements AbstinenceGoalDao {
             _tmpId = _cursor.getLong(_cursorIndexOfId);
             final long _tmpAddictionId;
             _tmpAddictionId = _cursor.getLong(_cursorIndexOfAddictionId);
-            final String _tmpRecurrence;
+            final RecurrenceType _tmpRecurrence;
+            final String _tmp;
             if (_cursor.isNull(_cursorIndexOfRecurrence)) {
-              _tmpRecurrence = null;
+              _tmp = null;
             } else {
-              _tmpRecurrence = _cursor.getString(_cursorIndexOfRecurrence);
+              _tmp = _cursor.getString(_cursorIndexOfRecurrence);
             }
+            _tmpRecurrence = __recurrenceTypeConverter.toRecurrenceType(_tmp);
             final int _tmpValue;
             _tmpValue = _cursor.getInt(_cursorIndexOfValue);
             final int _tmpRepeatCount;
@@ -260,12 +268,14 @@ public final class AbstinenceGoalDao_Impl implements AbstinenceGoalDao {
             _tmpId = _cursor.getLong(_cursorIndexOfId);
             final long _tmpAddictionId;
             _tmpAddictionId = _cursor.getLong(_cursorIndexOfAddictionId);
-            final String _tmpRecurrence;
+            final RecurrenceType _tmpRecurrence;
+            final String _tmp;
             if (_cursor.isNull(_cursorIndexOfRecurrence)) {
-              _tmpRecurrence = null;
+              _tmp = null;
             } else {
-              _tmpRecurrence = _cursor.getString(_cursorIndexOfRecurrence);
+              _tmp = _cursor.getString(_cursorIndexOfRecurrence);
             }
+            _tmpRecurrence = __recurrenceTypeConverter.toRecurrenceType(_tmp);
             final int _tmpValue;
             _tmpValue = _cursor.getInt(_cursorIndexOfValue);
             final int _tmpRepeatCount;

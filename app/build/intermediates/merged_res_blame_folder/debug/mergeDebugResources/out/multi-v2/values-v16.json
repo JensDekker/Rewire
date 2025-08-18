@@ -4,7 +4,7 @@
             "outputFile": "com.example.rewire.app-mergeDebugResources-33:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\9872908cba98e5e33e4cf214bad52a11\\transformed\\core-1.10.1\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\5275ca40946d06d48f3f451d74f9ad73\\transformed\\core-1.10.1\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\1882ce2e44f85ec2af5f4e077f45e20b\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\6ddf8821d67d613cd071c162dd398352\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

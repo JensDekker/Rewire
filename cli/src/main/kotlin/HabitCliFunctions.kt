@@ -74,7 +74,7 @@ fun cliAddHabit(manager: HabitManager) {
         }
         else -> com.example.rewire.core.RecurrenceType.Daily
     }
-    var customDays: Set<java.time.DayOfWeek>? = null // legacy, not used with new types
+    var customDays: Set<com.example.rewire.core.DayOfWeek>? = null // legacy, not used with new types
     print("Start date (YYYY-MM-DD, leave blank for today): ")
     val startDateInput = readLine()?.takeIf { it.isNotBlank() }
     val startDate = try { startDateInput?.let { java.time.LocalDate.parse(it) } ?: java.time.LocalDate.now() } catch (e: Exception) { java.time.LocalDate.now() }
@@ -112,8 +112,8 @@ fun cliShowHabitDetails(manager: HabitManager, habitName: String) {
     println("Name: ${habit.name}")
     println("Recurrence: ${habit.recurrence}")
     println("Start date: ${habit.startDate}")
-    if (habit.recurrence == RecurrenceType.CUSTOM_WEEKLY) {
-        println("Custom days: ${formatCustomDays(habit.customDays)}")
+    if (habit.recurrence is com.example.rewire.core.RecurrenceType.CustomWeekly) {
+        println("Custom days: ${habit.customDays}")
     }
     println("Preferred time: ${habit.preferredTime}")
     println("Estimated minutes: ${habit.estimatedMinutes}")
@@ -124,7 +124,7 @@ fun cliShowHabitDetails(manager: HabitManager, habitName: String) {
     } else {
         notes.forEach { note -> println("  ${note.date}: ${note.text}") }
     }
-    println("Completions: ${habit.completions}")
+        // Completions are managed by the app module (RoomDB). Not available in core logic.
 }
 
 fun cliEditHabit(manager: HabitManager, habitName: String): String? {
@@ -189,7 +189,7 @@ fun cliEditHabit(manager: HabitManager, habitName: String): String? {
         }
         else -> null
     }
-    var newCustomDays: Set<java.time.DayOfWeek>? = habit.customDays // legacy, not used with new types
+    var newCustomDays: Set<com.example.rewire.core.DayOfWeek>? = habit.customDays // legacy, not used with new types
 
     print("New start date (YYYY-MM-DD) or leave blank to keep '${habit.startDate}'): ")
     val startDateInput = readLine()?.takeIf { it.isNotBlank() }
@@ -224,20 +224,6 @@ fun cliEditHabit(manager: HabitManager, habitName: String): String? {
     return newName ?: oldName
 }
 
-fun cliCompleteHabit(manager: HabitManager, habitName: String) {
-    val habit = manager.getHabit(habitName)
-    if (habit == null) {
-        println("Habit not found.")
-        return
-    }
-    val today = java.time.LocalDate.now()
-    if (habit.isComplete(today)) {
-        println("Habit '$habitName' was already marked as completed for today.")
-    } else {
-        manager.markHabitComplete(habitName, today)
-        println("Habit '$habitName' marked as completed.")
-    }
-}
 
 // =====================
 // Habit Note Functions (CRUD)

@@ -7,9 +7,13 @@
 }
 -keep enum j$.time.DayOfWeek {
   public static j$.time.DayOfWeek[] values();
+  j$.time.DayOfWeek FRIDAY;
   j$.time.DayOfWeek MONDAY;
   j$.time.DayOfWeek SATURDAY;
   j$.time.DayOfWeek SUNDAY;
+  j$.time.DayOfWeek THURSDAY;
+  j$.time.DayOfWeek TUESDAY;
+  j$.time.DayOfWeek WEDNESDAY;
 }
 -keep class j$.time.Duration {
   public int compareTo(j$.time.Duration);
@@ -106,7 +110,6 @@
   j$.time.LocalTime MIN;
 }
 -keep enum j$.time.Month {
-  public int getValue();
   public static j$.time.Month[] values();
 }
 -keep class j$.time.OffsetDateTime {

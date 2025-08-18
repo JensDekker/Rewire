@@ -1,4 +1,4 @@
-#Mon Aug 11 08:58:49 EDT 2025
+#Mon Aug 18 03:30:11 EDT 2025
 base.2=C\:\\Users\\Jens\\AndroidStudioProjects\\Rewire\\app\\build\\intermediates\\desugar_lib_dex\\release\\l8DexDesugarLibRelease\\classes1000.dex
 path.2=classes1000.dex
 base.1=C\:\\Users\\Jens\\AndroidStudioProjects\\Rewire\\app\\build\\intermediates\\global_synthetics_dex\\release\\mergeReleaseGlobalSynthetics\\classes.dex

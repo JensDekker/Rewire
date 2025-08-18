@@ -13,6 +13,8 @@ import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
+import com.example.rewire.core.RecurrenceType;
+import com.example.rewire.db.converter.RecurrenceTypeConverter;
 import com.example.rewire.db.entity.HabitEntity;
 import java.lang.Class;
 import java.lang.Exception;
@@ -35,6 +37,8 @@ public final class HabitDao_Impl implements HabitDao {
   private final RoomDatabase __db;
 
   private final EntityInsertionAdapter<HabitEntity> __insertionAdapterOfHabitEntity;
+
+  private final RecurrenceTypeConverter __recurrenceTypeConverter = new RecurrenceTypeConverter();
 
   private final EntityDeletionOrUpdateAdapter<HabitEntity> __deletionAdapterOfHabitEntity;
 
@@ -60,10 +64,11 @@ public final class HabitDao_Impl implements HabitDao {
         } else {
           statement.bindString(2, entity.getName());
         }
-        if (entity.getRecurrence() == null) {
+        final String _tmp = __recurrenceTypeConverter.fromRecurrenceType(entity.getRecurrence());
+        if (_tmp == null) {
           statement.bindNull(3);
         } else {
-          statement.bindString(3, entity.getRecurrence());
+          statement.bindString(3, _tmp);
         }
         if (entity.getPreferredTime() == null) {
           statement.bindNull(4);
@@ -107,10 +112,11 @@ public final class HabitDao_Impl implements HabitDao {
         } else {
           statement.bindString(2, entity.getName());
         }
-        if (entity.getRecurrence() == null) {
+        final String _tmp = __recurrenceTypeConverter.fromRecurrenceType(entity.getRecurrence());
+        if (_tmp == null) {
           statement.bindNull(3);
         } else {
-          statement.bindString(3, entity.getRecurrence());
+          statement.bindString(3, _tmp);
         }
         if (entity.getPreferredTime() == null) {
           statement.bindNull(4);
@@ -241,12 +247,14 @@ public final class HabitDao_Impl implements HabitDao {
             } else {
               _tmpName = _cursor.getString(_cursorIndexOfName);
             }
-            final String _tmpRecurrence;
+            final RecurrenceType _tmpRecurrence;
+            final String _tmp;
             if (_cursor.isNull(_cursorIndexOfRecurrence)) {
-              _tmpRecurrence = null;
+              _tmp = null;
             } else {
-              _tmpRecurrence = _cursor.getString(_cursorIndexOfRecurrence);
+              _tmp = _cursor.getString(_cursorIndexOfRecurrence);
             }
+            _tmpRecurrence = __recurrenceTypeConverter.toRecurrenceType(_tmp);
             final String _tmpPreferredTime;
             if (_cursor.isNull(_cursorIndexOfPreferredTime)) {
               _tmpPreferredTime = null;
@@ -302,12 +310,14 @@ public final class HabitDao_Impl implements HabitDao {
             } else {
               _tmpName = _cursor.getString(_cursorIndexOfName);
             }
-            final String _tmpRecurrence;
+            final RecurrenceType _tmpRecurrence;
+            final String _tmp;
             if (_cursor.isNull(_cursorIndexOfRecurrence)) {
-              _tmpRecurrence = null;
+              _tmp = null;
             } else {
-              _tmpRecurrence = _cursor.getString(_cursorIndexOfRecurrence);
+              _tmp = _cursor.getString(_cursorIndexOfRecurrence);
             }
+            _tmpRecurrence = __recurrenceTypeConverter.toRecurrenceType(_tmp);
             final String _tmpPreferredTime;
             if (_cursor.isNull(_cursorIndexOfPreferredTime)) {
               _tmpPreferredTime = null;

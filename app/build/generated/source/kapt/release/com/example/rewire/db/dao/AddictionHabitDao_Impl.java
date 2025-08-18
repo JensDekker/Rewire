@@ -13,6 +13,8 @@ import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
+import com.example.rewire.core.RecurrenceType;
+import com.example.rewire.db.converter.RecurrenceTypeConverter;
 import com.example.rewire.db.entity.AddictionHabitEntity;
 import java.lang.Class;
 import java.lang.Exception;
@@ -36,6 +38,8 @@ public final class AddictionHabitDao_Impl implements AddictionHabitDao {
   private final RoomDatabase __db;
 
   private final EntityInsertionAdapter<AddictionHabitEntity> __insertionAdapterOfAddictionHabitEntity;
+
+  private final RecurrenceTypeConverter __recurrenceTypeConverter = new RecurrenceTypeConverter();
 
   private final EntityDeletionOrUpdateAdapter<AddictionHabitEntity> __deletionAdapterOfAddictionHabitEntity;
 
@@ -66,10 +70,11 @@ public final class AddictionHabitDao_Impl implements AddictionHabitDao {
         } else {
           statement.bindString(3, entity.getStartDate());
         }
-        if (entity.getRecurrence() == null) {
+        final String _tmp = __recurrenceTypeConverter.fromRecurrenceType(entity.getRecurrence());
+        if (_tmp == null) {
           statement.bindNull(4);
         } else {
-          statement.bindString(4, entity.getRecurrence());
+          statement.bindString(4, _tmp);
         }
         if (entity.getPreferredTime() == null) {
           statement.bindNull(5);
@@ -117,10 +122,11 @@ public final class AddictionHabitDao_Impl implements AddictionHabitDao {
         } else {
           statement.bindString(3, entity.getStartDate());
         }
-        if (entity.getRecurrence() == null) {
+        final String _tmp = __recurrenceTypeConverter.fromRecurrenceType(entity.getRecurrence());
+        if (_tmp == null) {
           statement.bindNull(4);
         } else {
-          statement.bindString(4, entity.getRecurrence());
+          statement.bindString(4, _tmp);
         }
         if (entity.getPreferredTime() == null) {
           statement.bindNull(5);
@@ -259,12 +265,14 @@ public final class AddictionHabitDao_Impl implements AddictionHabitDao {
             } else {
               _tmpStartDate = _cursor.getString(_cursorIndexOfStartDate);
             }
-            final String _tmpRecurrence;
+            final RecurrenceType _tmpRecurrence;
+            final String _tmp;
             if (_cursor.isNull(_cursorIndexOfRecurrence)) {
-              _tmpRecurrence = null;
+              _tmp = null;
             } else {
-              _tmpRecurrence = _cursor.getString(_cursorIndexOfRecurrence);
+              _tmp = _cursor.getString(_cursorIndexOfRecurrence);
             }
+            _tmpRecurrence = __recurrenceTypeConverter.toRecurrenceType(_tmp);
             final String _tmpPreferredTime;
             if (_cursor.isNull(_cursorIndexOfPreferredTime)) {
               _tmpPreferredTime = null;
@@ -325,12 +333,14 @@ public final class AddictionHabitDao_Impl implements AddictionHabitDao {
             } else {
               _tmpStartDate = _cursor.getString(_cursorIndexOfStartDate);
             }
-            final String _tmpRecurrence;
+            final RecurrenceType _tmpRecurrence;
+            final String _tmp;
             if (_cursor.isNull(_cursorIndexOfRecurrence)) {
-              _tmpRecurrence = null;
+              _tmp = null;
             } else {
-              _tmpRecurrence = _cursor.getString(_cursorIndexOfRecurrence);
+              _tmp = _cursor.getString(_cursorIndexOfRecurrence);
             }
+            _tmpRecurrence = __recurrenceTypeConverter.toRecurrenceType(_tmp);
             final String _tmpPreferredTime;
             if (_cursor.isNull(_cursorIndexOfPreferredTime)) {
               _tmpPreferredTime = null;

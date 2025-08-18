@@ -177,9 +177,9 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 20 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 32 warnings</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Mon Aug 11 08:58:20 EDT 2025 by AGP (8.11.1)</nav>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Mon Aug 18 03:29:58 EDT 2025 by AGP (8.11.1)</nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -187,10 +187,10 @@ document.getElementById(id).style.display = 'none';
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#AndroidGradlePluginVersion"><i class="material-icons warning-icon">warning</i>Obsolete Android Gradle Plugin Version (1)</a>
-      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (11)</a>
-      <a class="mdl-navigation__link" href="#NewerVersionAvailable"><i class="material-icons warning-icon">warning</i>Newer Library Versions Available (1)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (15)</a>
+      <a class="mdl-navigation__link" href="#NewerVersionAvailable"><i class="material-icons warning-icon">warning</i>Newer Library Versions Available (4)</a>
       <a class="mdl-navigation__link" href="#KaptUsageInsteadOfKsp"><i class="material-icons warning-icon">warning</i>Kapt usage should be replaced with KSP (1)</a>
-      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (6)</a>
+      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (11)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -209,10 +209,10 @@ document.getElementById(id).style.display = 'none';
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#AndroidGradlePluginVersion">AndroidGradlePluginVersion</a>: Obsolete Android Gradle Plugin Version</td></tr>
 <tr>
-<td class="countColumn">11</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">15</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr>
-<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">4</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#NewerVersionAvailable">NewerVersionAvailable</a>: Newer Library Versions Available</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
@@ -222,7 +222,7 @@ document.getElementById(id).style.display = 'none';
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Productivity">Productivity</a>
 </td></tr>
 <tr>
-<td class="countColumn">6</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">11</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UseTomlInstead">UseTomlInstead</a>: Use TOML Version Catalog Instead</td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (20)</a>
 </td></tr>
@@ -247,8 +247,8 @@ Dismiss</button>            </div>
 <div class="warningslist">
 <span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:2</span>: <span class="message">A newer version of com.android.application than 8.11.1 is available: 8.12.0</span><br /><pre class="errorlines">
 <span class="lineno">  1 </span>[versions]
-<span class="caretline"><span class="lineno">  2 </span>agp = <span class="warning">"8.11.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  3 </span>kotlin = "2.0.21"
+<span class="caretline"><span class="lineno">  2 </span>agp = <span class="warning">"8.11.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  3 </span>kotlin = "1.9.25"
 <span class="lineno">  4 </span>coreKtx = "1.10.1"
 <span class="lineno">  5 </span>junit = "4.13.2"
 </pre>
@@ -289,82 +289,116 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:45</span>: <span class="message">A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5</span><br /><pre class="errorlines">
-<span class="lineno"> 42 </span>dependencies {
-<span class="lineno"> 43 </span>
-<span class="lineno"> 44 </span>    // Core library desugaring for java.time support on API &lt; 26
-<span class="caretline"><span class="lineno"> 45 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 46 </span>
-<span class="lineno"> 47 </span>    implementation(libs.androidx.core.ktx)
-<span class="lineno"> 48 </span>    implementation(libs.androidx.appcompat)
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:46</span>: <span class="message">A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5</span><br /><pre class="errorlines">
+<span class="lineno"> 43 </span>dependencies {
+<span class="lineno"> 44 </span>
+<span class="lineno"> 45 </span>    // Core library desugaring for java.time support on API &lt; 26
+<span class="caretline"><span class="lineno"> 46 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 47 </span>
+<span class="lineno"> 48 </span>    implementation(libs.androidx.core.ktx)
+<span class="lineno"> 49 </span>    implementation(libs.androidx.appcompat)
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:53</span>: <span class="message">A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
-<span class="lineno"> 50 </span>    implementation(project(":core"))
-<span class="lineno"> 51 </span>
-<span class="lineno"> 52 </span>    // Room dependencies
-<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:55</span>: <span class="message">A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 52 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno"> 53 </span>
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="caretline"><span class="lineno"> 55 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 56 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
-<span class="lineno"> 51 </span>
-<span class="lineno"> 52 </span>    // Room dependencies
-<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="caretline"><span class="lineno"> 54 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
-<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 53 </span>
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno"> 56 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 59 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:55</span>: <span class="message">A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
-<span class="lineno"> 52 </span>    // Room dependencies
-<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="caretline"><span class="lineno"> 55 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
-<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:57</span>: <span class="message">A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 56 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="caretline"><span class="lineno"> 57 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 59 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
-<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="caretline"><span class="lineno"> 56 </span>    testImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
-<span class="lineno"> 58 </span>
-<span class="lineno"> 59 </span>    testImplementation(libs.junit)
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:58</span>: <span class="message">A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 56 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="caretline"><span class="lineno"> 58 </span>    testImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 59 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 60 </span>
+<span class="lineno"> 61 </span>    testImplementation(libs.junit)
 </pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="GradleDependencyDivLink" onclick="reveal('GradleDependencyDiv');" />+ 6 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="GradleDependencyDivLink" onclick="reveal('GradleDependencyDiv');" />+ 10 More Occurrences...</button>
 <div id="GradleDependencyDiv" style="display: none">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:57</span>: <span class="message">A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
-<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
-<span class="caretline"><span class="lineno"> 57 </span>    androidTestImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 58 </span>
-<span class="lineno"> 59 </span>    testImplementation(libs.junit)
-<span class="lineno"> 60 </span>    androidTestImplementation(libs.androidx.junit)
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:59</span>: <span class="message">A newer version of androidx.room:room-testing than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
+<span class="lineno"> 56 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="caretline"><span class="lineno"> 59 </span>    androidTestImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 60 </span>
+<span class="lineno"> 61 </span>    testImplementation(libs.junit)
+<span class="lineno"> 62 </span>    // AndroidX Test dependencies (explicit versions for stability)
 </pre>
 
-<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:4</span>: <span class="message">A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.16.0</span><br /><pre class="errorlines">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:63</span>: <span class="message">A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0</span><br /><pre class="errorlines">
+<span class="lineno"> 60 </span>
+<span class="lineno"> 61 </span>    testImplementation(libs.junit)
+<span class="lineno"> 62 </span>    // AndroidX Test dependencies (explicit versions for stability)
+<span class="caretline"><span class="lineno"> 63 </span>    androidTestImplementation(<span class="warning">"androidx.test.ext:junit:1.1.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 64 </span>    androidTestImplementation("androidx.test:runner:1.5.2")
+<span class="lineno"> 65 </span>    androidTestImplementation("androidx.test:rules:1.5.0")
+<span class="lineno"> 66 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:64</span>: <span class="message">A newer version of androidx.test:runner than 1.5.2 is available: 1.7.0</span><br /><pre class="errorlines">
+<span class="lineno"> 61 </span>    testImplementation(libs.junit)
+<span class="lineno"> 62 </span>    // AndroidX Test dependencies (explicit versions for stability)
+<span class="lineno"> 63 </span>    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="caretline"><span class="lineno"> 64 </span>    androidTestImplementation(<span class="warning">"androidx.test:runner:1.5.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 65 </span>    androidTestImplementation("androidx.test:rules:1.5.0")
+<span class="lineno"> 66 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="lineno"> 67 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:65</span>: <span class="message">A newer version of androidx.test:rules than 1.5.0 is available: 1.7.0</span><br /><pre class="errorlines">
+<span class="lineno"> 62 </span>    // AndroidX Test dependencies (explicit versions for stability)
+<span class="lineno"> 63 </span>    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno"> 64 </span>    androidTestImplementation("androidx.test:runner:1.5.2")
+<span class="caretline"><span class="lineno"> 65 </span>    androidTestImplementation(<span class="warning">"androidx.test:rules:1.5.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 66 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="lineno"> 67 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:66</span>: <span class="message">A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0</span><br /><pre class="errorlines">
+<span class="lineno"> 63 </span>    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno"> 64 </span>    androidTestImplementation("androidx.test:runner:1.5.2")
+<span class="lineno"> 65 </span>    androidTestImplementation("androidx.test:rules:1.5.0")
+<span class="caretline"><span class="lineno"> 66 </span>    androidTestImplementation(<span class="warning">"androidx.test.espresso:espresso-core:3.5.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 67 </span>}</pre>
+
+<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:4</span>: <span class="message">A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0</span><br /><pre class="errorlines">
 <span class="lineno">  1 </span>[versions]
 <span class="lineno">  2 </span>agp = "8.11.1"
-<span class="lineno">  3 </span>kotlin = "2.0.21"
-<span class="caretline"><span class="lineno">  4 </span>coreKtx = <span class="warning">"1.10.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  3 </span>kotlin = "1.9.25"
+<span class="caretline"><span class="lineno">  4 </span>coreKtx = <span class="warning">"1.10.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  5 </span>junit = "4.13.2"
 <span class="lineno">  6 </span>junitVersion = "1.1.5"
 <span class="lineno">  7 </span>espressoCore = "3.5.1"
 </pre>
 
 <span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:6</span>: <span class="message">A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0</span><br /><pre class="errorlines">
-<span class="lineno">  3 </span>kotlin = "2.0.21"
+<span class="lineno">  3 </span>kotlin = "1.9.25"
 <span class="lineno">  4 </span>coreKtx = "1.10.1"
 <span class="lineno">  5 </span>junit = "4.13.2"
-<span class="caretline"><span class="lineno">  6 </span>junitVersion = <span class="warning">"1.1.5"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">  6 </span>junitVersion = <span class="warning">"1.1.5"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  7 </span>espressoCore = "3.5.1"
 <span class="lineno">  8 </span>appcompat = "1.6.1"
 <span class="lineno">  9 </span>material = "1.10.0"
@@ -374,16 +408,17 @@ Dismiss</button>            </div>
 <span class="lineno">  4 </span>coreKtx = "1.10.1"
 <span class="lineno">  5 </span>junit = "4.13.2"
 <span class="lineno">  6 </span>junitVersion = "1.1.5"
-<span class="caretline"><span class="lineno">  7 </span>espressoCore = <span class="warning">"3.5.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">  7 </span>espressoCore = <span class="warning">"3.5.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  8 </span>appcompat = "1.6.1"
 <span class="lineno">  9 </span>material = "1.10.0"
+<span class="lineno"> 10 </span>
 </pre>
 
 <span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:8</span>: <span class="message">A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.1</span><br /><pre class="errorlines">
 <span class="lineno">  5 </span>junit = "4.13.2"
 <span class="lineno">  6 </span>junitVersion = "1.1.5"
 <span class="lineno">  7 </span>espressoCore = "3.5.1"
-<span class="caretline"><span class="lineno">  8 </span>appcompat = <span class="warning">"1.6.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">  8 </span>appcompat = <span class="warning">"1.6.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  9 </span>material = "1.10.0"
 <span class="lineno"> 10 </span>
 <span class="lineno"> 11 </span>[libraries]
@@ -393,7 +428,7 @@ Dismiss</button>            </div>
 <span class="lineno">  6 </span>junitVersion = "1.1.5"
 <span class="lineno">  7 </span>espressoCore = "3.5.1"
 <span class="lineno">  8 </span>appcompat = "1.6.1"
-<span class="caretline"><span class="lineno">  9 </span>material = <span class="warning">"1.10.0"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">  9 </span>material = <span class="warning">"1.10.0"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 10 </span>
 <span class="lineno"> 11 </span>[libraries]
 <span class="lineno"> 12 </span>androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -436,10 +471,39 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:3</span>: <span class="message">A newer version of org.jetbrains.kotlin.android than 2.0.21 is available: 2.2.0</span><br /><pre class="errorlines">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:5</span>: <span class="message">A newer version of org.jetbrains.kotlin.plugin.serialization than 1.9.0 is available: 2.2.10</span><br /><pre class="errorlines">
+<span class="lineno">  2 </span>    alias(libs.plugins.android.application)
+<span class="lineno">  3 </span>    alias(libs.plugins.kotlin.android)
+<span class="lineno">  4 </span>    id("org.jetbrains.kotlin.kapt")
+<span class="caretline"><span class="lineno">  5 </span>    id("org.jetbrains.kotlin.plugin.serialization") version <span class="warning">"1.9.0"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  6 </span>}
+<span class="lineno">  7 </span>
+<span class="lineno">  8 </span>android {
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:52</span>: <span class="message">A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.6.3 is available: 1.9.0</span><br /><pre class="errorlines">
+<span class="lineno"> 49 </span>    implementation(libs.androidx.appcompat)
+<span class="lineno"> 50 </span>    implementation(libs.material)
+<span class="lineno"> 51 </span>    implementation(project(":core"))
+<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 53 </span>
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
+</pre>
+
+<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:3</span>: <span class="message">A newer version of org.jetbrains.kotlin.android than 1.9.25 is available: 2.2.10</span><br /><pre class="errorlines">
 <span class="lineno">  1 </span>[versions]
 <span class="lineno">  2 </span>agp = "8.11.1"
-<span class="caretline"><span class="lineno">  3 </span>kotlin = <span class="warning">"2.0.21"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">  3 </span>kotlin = <span class="warning">"1.9.25"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  4 </span>coreKtx = "1.10.1"
+<span class="lineno">  5 </span>junit = "4.13.2"
+<span class="lineno">  6 </span>junitVersion = "1.1.5"
+</pre>
+
+<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:3</span>: <span class="message">A newer version of org.jetbrains.kotlin.plugin.compose than 1.9.25 is available: 2.2.10</span><br /><pre class="errorlines">
+<span class="lineno">  1 </span>[versions]
+<span class="lineno">  2 </span>agp = "8.11.1"
+<span class="caretline"><span class="lineno">  3 </span>kotlin = <span class="warning">"1.9.25"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  4 </span>coreKtx = "1.10.1"
 <span class="lineno">  5 </span>junit = "4.13.2"
 <span class="lineno">  6 </span>junitVersion = "1.1.5"
@@ -483,14 +547,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">This library supports using KSP instead of kapt, which greatly improves performance. Learn more: <a href="https://developer.android.com/studio/build/migrate-to-ksp">https://developer.android.com/studio/build/migrate-to-ksp</a></span><br /><pre class="errorlines">
-<span class="lineno"> 51 </span>
-<span class="lineno"> 52 </span>    // Room dependencies
-<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="caretline"><span class="lineno"> 54 </span>    <span class="warning">kapt("androidx.room:room-compiler:2.6.1")</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
-<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">This library supports using KSP instead of kapt, which greatly improves performance. Learn more: <a href="https://developer.android.com/studio/build/migrate-to-ksp">https://developer.android.com/studio/build/migrate-to-ksp</a></span><br /><pre class="errorlines">
+<span class="lineno"> 53 </span>
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno"> 56 </span>    <span class="warning">kapt("androidx.room:room-compiler:2.6.1")</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 59 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
 </pre>
 
 </div>
@@ -531,65 +595,112 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:45</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 42 </span>dependencies {
-<span class="lineno"> 43 </span>
-<span class="lineno"> 44 </span>    // Core library desugaring for java.time support on API &lt; 26
-<span class="caretline"><span class="lineno"> 45 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 46 </span>
-<span class="lineno"> 47 </span>    implementation(libs.androidx.core.ktx)
-<span class="lineno"> 48 </span>    implementation(libs.androidx.appcompat)
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:46</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 43 </span>dependencies {
+<span class="lineno"> 44 </span>
+<span class="lineno"> 45 </span>    // Core library desugaring for java.time support on API &lt; 26
+<span class="caretline"><span class="lineno"> 46 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 47 </span>
+<span class="lineno"> 48 </span>    implementation(libs.androidx.core.ktx)
+<span class="lineno"> 49 </span>    implementation(libs.androidx.appcompat)
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:53</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 50 </span>    implementation(project(":core"))
-<span class="lineno"> 51 </span>
-<span class="lineno"> 52 </span>    // Room dependencies
-<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
-</pre>
-
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 51 </span>
-<span class="lineno"> 52 </span>    // Room dependencies
-<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="caretline"><span class="lineno"> 54 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
-<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:52</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 49 </span>    implementation(libs.androidx.appcompat)
+<span class="lineno"> 50 </span>    implementation(libs.material)
+<span class="lineno"> 51 </span>    implementation(project(":core"))
+<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 53 </span>
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:55</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 52 </span>    // Room dependencies
-<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="caretline"><span class="lineno"> 55 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
-<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 52 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno"> 53 </span>
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="caretline"><span class="lineno"> 55 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 56 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 53 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="caretline"><span class="lineno"> 56 </span>    testImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 57 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
-<span class="lineno"> 58 </span>
-<span class="lineno"> 59 </span>    testImplementation(libs.junit)
+<span class="lineno"> 53 </span>
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno"> 56 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 59 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:57</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 54 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno"> 55 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno"> 56 </span>    testImplementation("androidx.room:room-testing:2.6.1")
-<span class="caretline"><span class="lineno"> 57 </span>    androidTestImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 58 </span>
-<span class="lineno"> 59 </span>    testImplementation(libs.junit)
-<span class="lineno"> 60 </span>    androidTestImplementation(libs.androidx.junit)
+<span class="lineno"> 54 </span>    // Room dependencies
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 56 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="caretline"><span class="lineno"> 57 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 59 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
 </pre>
 
+<button class="mdl-button mdl-js-button mdl-button--primary" id="UseTomlInsteadDivLink" onclick="reveal('UseTomlInsteadDiv');" />+ 6 More Occurrences...</button>
+<div id="UseTomlInsteadDiv" style="display: none">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:58</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 55 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 56 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="caretline"><span class="lineno"> 58 </span>    testImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 59 </span>    androidTestImplementation("androidx.room:room-testing:2.6.1")
+<span class="lineno"> 60 </span>
+<span class="lineno"> 61 </span>    testImplementation(libs.junit)
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:59</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 56 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 57 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 58 </span>    testImplementation("androidx.room:room-testing:2.6.1")
+<span class="caretline"><span class="lineno"> 59 </span>    androidTestImplementation(<span class="warning">"androidx.room:room-testing:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 60 </span>
+<span class="lineno"> 61 </span>    testImplementation(libs.junit)
+<span class="lineno"> 62 </span>    // AndroidX Test dependencies (explicit versions for stability)
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:63</span>: <span class="message">Use the existing version catalog reference (<code>libs.androidx.junit</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 60 </span>
+<span class="lineno"> 61 </span>    testImplementation(libs.junit)
+<span class="lineno"> 62 </span>    // AndroidX Test dependencies (explicit versions for stability)
+<span class="caretline"><span class="lineno"> 63 </span>    androidTestImplementation(<span class="warning">"androidx.test.ext:junit:1.1.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 64 </span>    androidTestImplementation("androidx.test:runner:1.5.2")
+<span class="lineno"> 65 </span>    androidTestImplementation("androidx.test:rules:1.5.0")
+<span class="lineno"> 66 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:64</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 61 </span>    testImplementation(libs.junit)
+<span class="lineno"> 62 </span>    // AndroidX Test dependencies (explicit versions for stability)
+<span class="lineno"> 63 </span>    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="caretline"><span class="lineno"> 64 </span>    androidTestImplementation(<span class="warning">"androidx.test:runner:1.5.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 65 </span>    androidTestImplementation("androidx.test:rules:1.5.0")
+<span class="lineno"> 66 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="lineno"> 67 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:65</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 62 </span>    // AndroidX Test dependencies (explicit versions for stability)
+<span class="lineno"> 63 </span>    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno"> 64 </span>    androidTestImplementation("androidx.test:runner:1.5.2")
+<span class="caretline"><span class="lineno"> 65 </span>    androidTestImplementation(<span class="warning">"androidx.test:rules:1.5.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 66 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="lineno"> 67 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:66</span>: <span class="message">Use the existing version catalog reference (<code>libs.androidx.espresso.core</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 63 </span>    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno"> 64 </span>    androidTestImplementation("androidx.test:runner:1.5.2")
+<span class="lineno"> 65 </span>    androidTestImplementation("androidx.test:rules:1.5.0")
+<span class="caretline"><span class="lineno"> 66 </span>    androidTestImplementation(<span class="warning">"androidx.test.espresso:espresso-core:3.5.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 67 </span>}</pre>
+
+</div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationUseTomlInstead" style="display: none;">
 If your project is using a <code>libs.versions.toml</code> file, you should place all Gradle dependencies in the TOML file. This lint check looks for version declarations outside of the TOML file and suggests moving them (and in the IDE, provides a quickfix to performing the operation automatically).<br/>To suppress this error, use the issue id "UseTomlInstead" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
