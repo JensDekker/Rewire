@@ -1,4 +1,3 @@
-
 package com.example.rewire.db
 
 import android.content.Context
@@ -222,6 +221,7 @@ class RewireDatabaseTest {
     }
     private lateinit var habitNoteDao: HabitNoteDao
     private lateinit var addictionNoteDao: AddictionNoteDao
+    private lateinit var habitCompletionDao: HabitCompletionDao
 
     @Test
     fun updateParent_doesNotAffectNotesOrGoals() {
@@ -402,6 +402,7 @@ class RewireDatabaseTest {
     private lateinit var habitDao: HabitDao
     private lateinit var addictionHabitDao: AddictionHabitDao
     private lateinit var abstinenceGoalDao: AbstinenceGoalDao
+    private lateinit var habitCompletionDao: HabitCompletionDao
 
     @Before
     fun createDb() {
@@ -414,6 +415,7 @@ class RewireDatabaseTest {
         abstinenceGoalDao = db.abstinenceGoalDao()
         habitNoteDao = db.habitNoteDao()
         addictionNoteDao = db.addictionNoteDao()
+        habitCompletionDao = db.habitCompletionDao()
     }
 
     @After
@@ -584,5 +586,50 @@ class RewireDatabaseTest {
             val goals = abstinenceGoalDao.getAll().filter { it.addictionId == 30L }
             assertEquals(1, goals.size)
         }
+    }
+
+    @Test
+    fun habitCompletionDao_crudOperations() = runBlocking {
+        val habit = HabitEntity(
+            id = 10000L,
+            name = "Completion Test Habit",
+            recurrence = com.example.rewire.core.RecurrenceType.Daily,
+            preferredTime = "07:00",
+            estimatedMinutes = 5,
+            startDate = "2025-08-01"
+        )
+        habitDao.insert(habit)
+        val completion = HabitCompletion(
+            habitId = 10000L,
+            date = "2025-08-18"
+        )
+        habitCompletionDao.insertCompletion(completion)
+        val completions = habitCompletionDao.getCompletionsForHabit(10000L)
+        assertEquals(1, completions.size)
+        assertEquals("2025-08-18", completions[0].date)
+        habitCompletionDao.deleteCompletion(10000L, "2025-08-18")
+        val completionsAfterDelete = habitCompletionDao.getCompletionsForHabit(10000L)
+        assertTrue(completionsAfterDelete.isEmpty())
+    }
+    @Test
+    fun habitCompletionDao_queryByDate() = runBlocking {
+        val habit = HabitEntity(
+            id = 20000L,
+            name = "Query Test Habit",
+            recurrence = com.example.rewire.core.RecurrenceType.Daily,
+            preferredTime = "07:00",
+            estimatedMinutes = 5,
+            startDate = "2025-08-01"
+        )
+        habitDao.insert(habit)
+        val completion1 = HabitCompletion(habitId = 20000L, date = "2025-08-17")
+        val completion2 = HabitCompletion(habitId = 20000L, date = "2025-08-18")
+        habitCompletionDao.insertCompletion(completion1)
+        habitCompletionDao.insertCompletion(completion2)
+        val completions = habitCompletionDao.getCompletionsForHabit(20000L)
+        assertEquals(2, completions.size)
+        val dates = completions.map { it.date }
+        assertTrue(dates.contains("2025-08-17"))
+        assertTrue(dates.contains("2025-08-18"))
     }
 }
