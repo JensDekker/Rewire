@@ -19,7 +19,8 @@ import com.example.rewire.db.entity.AddictionNoteEntity
         AddictionHabitEntity::class,
         AbstinenceGoalEntity::class,
         HabitNoteEntity::class,
-        AddictionNoteEntity::class
+        AddictionNoteEntity::class,
+        com.example.rewire.db.entity.HabitCompletion::class
     ],
     version = 1,
     exportSchema = false
