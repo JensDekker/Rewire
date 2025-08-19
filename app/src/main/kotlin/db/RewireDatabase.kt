@@ -30,4 +30,5 @@ abstract class RewireDatabase : RoomDatabase() {
     abstract fun abstinenceGoalDao(): AbstinenceGoalDao
     abstract fun habitNoteDao(): HabitNoteDao
     abstract fun addictionNoteDao(): AddictionNoteDao
+    abstract fun habitCompletionDao(): com.example.rewire.db.dao.HabitCompletionDao
 }
