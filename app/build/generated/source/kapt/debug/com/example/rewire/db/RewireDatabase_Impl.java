@@ -17,6 +17,8 @@ import com.example.rewire.db.dao.AddictionHabitDao;
 import com.example.rewire.db.dao.AddictionHabitDao_Impl;
 import com.example.rewire.db.dao.AddictionNoteDao;
 import com.example.rewire.db.dao.AddictionNoteDao_Impl;
+import com.example.rewire.db.dao.HabitCompletionDao;
+import com.example.rewire.db.dao.HabitCompletionDao_Impl;
 import com.example.rewire.db.dao.HabitDao;
 import com.example.rewire.db.dao.HabitDao_Impl;
 import com.example.rewire.db.dao.HabitNoteDao;
@@ -47,6 +49,8 @@ public final class RewireDatabase_Impl extends RewireDatabase {
 
   private volatile AddictionNoteDao _addictionNoteDao;
 
+  private volatile HabitCompletionDao _habitCompletionDao;
+
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
@@ -59,8 +63,9 @@ public final class RewireDatabase_Impl extends RewireDatabase {
         db.execSQL("CREATE TABLE IF NOT EXISTS `habit_notes` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habitId` INTEGER NOT NULL, `content` TEXT NOT NULL, `timestamp` TEXT NOT NULL, FOREIGN KEY(`habitId`) REFERENCES `habits`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_habit_notes_habitId` ON `habit_notes` (`habitId`)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `addiction_notes` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `addictionId` INTEGER NOT NULL, `content` TEXT NOT NULL, `timestamp` TEXT NOT NULL, FOREIGN KEY(`addictionId`) REFERENCES `addiction_habits`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `habit_completions` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habitId` INTEGER NOT NULL, `date` TEXT NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '82dfa338b943cbf0cad2e4e777587d64')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '87ec6815dab94ee54ddce466ca23e47a')");
       }
 
       @Override
@@ -70,6 +75,7 @@ public final class RewireDatabase_Impl extends RewireDatabase {
         db.execSQL("DROP TABLE IF EXISTS `abstinence_goals`");
         db.execSQL("DROP TABLE IF EXISTS `habit_notes`");
         db.execSQL("DROP TABLE IF EXISTS `addiction_notes`");
+        db.execSQL("DROP TABLE IF EXISTS `habit_completions`");
         final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
         if (_callbacks != null) {
           for (RoomDatabase.Callback _callback : _callbacks) {
@@ -193,9 +199,22 @@ public final class RewireDatabase_Impl extends RewireDatabase {
                   + " Expected:\n" + _infoAddictionNotes + "\n"
                   + " Found:\n" + _existingAddictionNotes);
         }
+        final HashMap<String, TableInfo.Column> _columnsHabitCompletions = new HashMap<String, TableInfo.Column>(3);
+        _columnsHabitCompletions.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsHabitCompletions.put("habitId", new TableInfo.Column("habitId", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsHabitCompletions.put("date", new TableInfo.Column("date", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysHabitCompletions = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesHabitCompletions = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoHabitCompletions = new TableInfo("habit_completions", _columnsHabitCompletions, _foreignKeysHabitCompletions, _indicesHabitCompletions);
+        final TableInfo _existingHabitCompletions = TableInfo.read(db, "habit_completions");
+        if (!_infoHabitCompletions.equals(_existingHabitCompletions)) {
+          return new RoomOpenHelper.ValidationResult(false, "habit_completions(com.example.rewire.db.entity.HabitCompletion).\n"
+                  + " Expected:\n" + _infoHabitCompletions + "\n"
+                  + " Found:\n" + _existingHabitCompletions);
+        }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "82dfa338b943cbf0cad2e4e777587d64", "a95a712bb5a8dd962766304abeb3c271");
+    }, "87ec6815dab94ee54ddce466ca23e47a", "326dc02b9d94ab28cde57c1176d5b6e2");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;
@@ -206,7 +225,7 @@ public final class RewireDatabase_Impl extends RewireDatabase {
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
     final HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
-    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "habits","addiction_habits","abstinence_goals","habit_notes","addiction_notes");
+    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "habits","addiction_habits","abstinence_goals","habit_notes","addiction_notes","habit_completions");
   }
 
   @Override
@@ -227,6 +246,7 @@ public final class RewireDatabase_Impl extends RewireDatabase {
       _db.execSQL("DELETE FROM `abstinence_goals`");
       _db.execSQL("DELETE FROM `habit_notes`");
       _db.execSQL("DELETE FROM `addiction_notes`");
+      _db.execSQL("DELETE FROM `habit_completions`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
@@ -249,6 +269,7 @@ public final class RewireDatabase_Impl extends RewireDatabase {
     _typeConvertersMap.put(AbstinenceGoalDao.class, AbstinenceGoalDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(HabitNoteDao.class, HabitNoteDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(AddictionNoteDao.class, AddictionNoteDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(HabitCompletionDao.class, HabitCompletionDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -333,6 +354,20 @@ public final class RewireDatabase_Impl extends RewireDatabase {
           _addictionNoteDao = new AddictionNoteDao_Impl(this);
         }
         return _addictionNoteDao;
+      }
+    }
+  }
+
+  @Override
+  public HabitCompletionDao habitCompletionDao() {
+    if (_habitCompletionDao != null) {
+      return _habitCompletionDao;
+    } else {
+      synchronized(this) {
+        if(_habitCompletionDao == null) {
+          _habitCompletionDao = new HabitCompletionDao_Impl(this);
+        }
+        return _habitCompletionDao;
       }
     }
   }

@@ -5,7 +5,6 @@ import com.example.rewire.repository.HabitCompletionRepository
 import com.example.rewire.repository.HabitNoteRepository
 import com.example.rewire.db.entity.HabitEntity
 import com.example.rewire.db.entity.HabitCompletion
-import com.example.rewire.db.entity.HabitNote
 import com.example.rewire.db.entity.HabitNoteEntity
 
 class HabitManager(
@@ -63,7 +62,7 @@ class HabitManager(
         return habitCompletionRepository.getCompletionsForHabit(habitId)
     }
 
-    suspend fun insertNote(note: HabitNote) {
+    suspend fun insertNote(note: HabitNoteEntity) {
         habitNoteRepository.insertNote(note)
     }
 
@@ -71,11 +70,11 @@ class HabitManager(
         habitNoteRepository.editNote(note)
     }
 
-    suspend fun deleteNote(note: HabitNote) {
+    suspend fun deleteNote(note: HabitNoteEntity) {
         habitNoteRepository.deleteNote(note)
     }
 
-    suspend fun getNotesForHabit(habitId: Long): List<HabitNote> {
+    suspend fun getNotesForHabit(habitId: Long): List<HabitNoteEntity> {
         return habitNoteRepository.getNotesForHabit(habitId)
     }
 

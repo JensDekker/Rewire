@@ -50,8 +50,10 @@
   public int getMonthValue();
   public int getYear();
   public int hashCode();
+  public boolean isAfter(j$.time.chrono.ChronoLocalDate);
   public boolean isBefore(j$.time.chrono.ChronoLocalDate);
   public int lengthOfMonth();
+  public j$.time.LocalDate minusDays(long);
   public static j$.time.LocalDate now();
   public static j$.time.LocalDate of(int, int, int);
   public static j$.time.LocalDate ofEpochDay(long);
