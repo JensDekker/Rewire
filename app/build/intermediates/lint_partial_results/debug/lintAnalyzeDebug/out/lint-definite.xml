@@ -4,12 +4,12 @@
     <incident
         id="AndroidGradlePluginVersion"
         severity="warning"
-        message="A newer version of com.android.application than 8.11.1 is available: 8.12.0">
+        message="A newer version of com.android.application than 8.11.1 is available: 8.12.1">
         <fix-replace
-            description="Replace with 8.12.0"
+            description="Replace with 8.12.1"
             family="Update versions"
             oldString="8.11.1"
-            replacement="8.12.0"
+            replacement="8.12.1"
             priority="0"/>
         <location
             file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
@@ -25,7 +25,7 @@
                 string="com.android.application"/>
             <entry
                 name="revision"
-                string="8.12.0"/>
+                string="8.12.1"/>
         </map>
     </incident>
 
