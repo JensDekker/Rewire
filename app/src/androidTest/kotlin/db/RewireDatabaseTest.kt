@@ -221,6 +221,7 @@ class RewireDatabaseTest {
     }
     private lateinit var habitNoteDao: HabitNoteDao
     private lateinit var addictionNoteDao: AddictionNoteDao
+    private lateinit var habitCompletionDao: HabitCompletionDao
 
     @Test
     fun updateParent_doesNotAffectNotesOrGoals() {
