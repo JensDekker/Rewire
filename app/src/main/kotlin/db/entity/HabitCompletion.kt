@@ -1,4 +1,4 @@
-package com.example.rewire.app.src.main.kotlin.db.entity
+package com.example.rewire.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

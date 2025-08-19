@@ -1,6 +1,6 @@
-package com.example.rewire.app.src.main.kotlin.db.dao
+package com.example.rewire.db.dao
 
-import com.example.rewire.app.src.main.kotlin.db.entity.HabitCompletion
+import com.example.rewire.db.entity.HabitCompletion
 
 import androidx.room.Dao
 import androidx.room.Insert
