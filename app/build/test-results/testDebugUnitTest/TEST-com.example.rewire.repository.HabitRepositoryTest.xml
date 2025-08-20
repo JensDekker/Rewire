@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.rewire.repository.HabitRepositoryTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2025-08-20T06:45:14.251Z" hostname="LAPTOP-RUSMEGN4" time="0.105">
+  <properties/>
+  <testcase name="testGetHabitsByDate" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.004"/>
+  <testcase name="testInsertHabit_duplicate" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.004"/>
+  <testcase name="testGetHabitStreak" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.028"/>
+  <testcase name="testDeleteHabit" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.007"/>
+  <testcase name="testGetCompletedHabits" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.005"/>
+  <testcase name="testUpdateHabit" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.006"/>
+  <testcase name="testGetHabitsPaged" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.017"/>
+  <testcase name="testGetHabitById" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.004"/>
+  <testcase name="testInsertHabit" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.003"/>
+  <testcase name="testGetAllHabits_empty" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.002"/>
+  <testcase name="testDeleteHabits" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.003"/>
+  <testcase name="testGetAllHabits" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.003"/>
+  <testcase name="testSearchHabits" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.004"/>
+  <testcase name="testGetHabitById_invalid" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.003"/>
+  <testcase name="testInsertHabits" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.004"/>
+  <testcase name="testGetHabitsByRecurrence" classname="com.example.rewire.repository.HabitRepositoryTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

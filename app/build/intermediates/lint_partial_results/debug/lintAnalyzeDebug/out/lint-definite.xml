@@ -431,13 +431,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for tools-desugar_jdk_libs"
+            description="Replace with new library catalog declaration for com-android-tools-desugar_jdk_libs5"
             robot="true">
             <fix-replace
-                description="Replace with desugar_jdk_libsVersion = &quot;2.0.4&quot;..."
+                description="Replace with comAndroidToolsDesugar_jdk_libs4 = &quot;2.0.4&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="desugar_jdk_libsVersion = &quot;2.0.4&quot;&#xA;"
+                replacement="comAndroidToolsDesugar_jdk_libs4 = &quot;2.0.4&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
@@ -445,20 +445,20 @@
                     endOffset="28"/>
             </fix-replace>
             <fix-replace
-                description="Replace with tools-desugar_jdk_libs = { module = &quot;com.android.tools:desugar_jdk_libs&quot;, version.ref = &quot;desugar_jdk_libsVersion&quot; }..."
+                description="Replace with com-android-tools-desugar_jdk_libs5 = { module = &quot;com.android.tools:desugar_jdk_libs&quot;, version.ref = &quot;comAndroidToolsDesugar_jdk_libs4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="tools-desugar_jdk_libs = { module = &quot;com.android.tools:desugar_jdk_libs&quot;, version.ref = &quot;desugar_jdk_libsVersion&quot; }&#xA;"
+                replacement="com-android-tools-desugar_jdk_libs5 = { module = &quot;com.android.tools:desugar_jdk_libs&quot;, version.ref = &quot;comAndroidToolsDesugar_jdk_libs4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="765"
-                    endOffset="765"/>
+                    startOffset="283"
+                    endOffset="283"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.tools.desugar.jdk.libs"
+                description="Replace with libs.com.android.tools.desugar.jdk.libs5"
                 robot="true"
-                replacement="libs.tools.desugar.jdk.libs"
+                replacement="libs.com.android.tools.desugar.jdk.libs5"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -481,34 +481,34 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for jetbrains-kotlinx-serialization-json"
+            description="Replace with new library catalog declaration for org-jetbrains-kotlinx-kotlinx-serialization-json6"
             robot="true">
             <fix-replace
-                description="Replace with kotlinxSerializationJsonVersion = &quot;1.6.3&quot;..."
+                description="Replace with orgJetbrainsKotlinxKotlinxSerializationJson4 = &quot;1.6.3&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="kotlinxSerializationJsonVersion = &quot;1.6.3&quot;&#xA;"
+                replacement="orgJetbrainsKotlinxKotlinxSerializationJson4 = &quot;1.6.3&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="154"
-                    endOffset="154"/>
+                    startOffset="175"
+                    endOffset="175"/>
             </fix-replace>
             <fix-replace
-                description="Replace with jetbrains-kotlinx-serialization-json = { module = &quot;org.jetbrains.kotlinx:kotlinx-serialization-json&quot;, version.ref = &quot;kotlinxSerializationJsonVersion&quot; }..."
+                description="Replace with org-jetbrains-kotlinx-kotlinx-serialization-json6 = { module = &quot;org.jetbrains.kotlinx:kotlinx-serialization-json&quot;, version.ref = &quot;orgJetbrainsKotlinxKotlinxSerializationJson4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="jetbrains-kotlinx-serialization-json = { module = &quot;org.jetbrains.kotlinx:kotlinx-serialization-json&quot;, version.ref = &quot;kotlinxSerializationJsonVersion&quot; }&#xA;"
+                replacement="org-jetbrains-kotlinx-kotlinx-serialization-json6 = { module = &quot;org.jetbrains.kotlinx:kotlinx-serialization-json&quot;, version.ref = &quot;orgJetbrainsKotlinxKotlinxSerializationJson4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="283"
-                    endOffset="283"/>
+                    startOffset="765"
+                    endOffset="765"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.jetbrains.kotlinx.serialization.json"
+                description="Replace with libs.org.jetbrains.kotlinx.kotlinx.serialization.json6"
                 robot="true"
-                replacement="libs.jetbrains.kotlinx.serialization.json"
+                replacement="libs.org.jetbrains.kotlinx.kotlinx.serialization.json6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -531,34 +531,34 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for room-runtime"
+            description="Replace with new library catalog declaration for androidx-room-room-runtime6"
             robot="true">
             <fix-replace
-                description="Replace with roomRuntimeVersion = &quot;2.6.1&quot;..."
+                description="Replace with androidxRoomRoomRuntime4 = &quot;2.6.1&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="roomRuntimeVersion = &quot;2.6.1&quot;&#xA;"
+                replacement="androidxRoomRoomRuntime4 = &quot;2.6.1&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="175"
-                    endOffset="175"/>
+                    startOffset="28"
+                    endOffset="28"/>
             </fix-replace>
             <fix-replace
-                description="Replace with room-runtime = { module = &quot;androidx.room:room-runtime&quot;, version.ref = &quot;roomRuntimeVersion&quot; }..."
+                description="Replace with androidx-room-room-runtime6 = { module = &quot;androidx.room:room-runtime&quot;, version.ref = &quot;androidxRoomRoomRuntime4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="room-runtime = { module = &quot;androidx.room:room-runtime&quot;, version.ref = &quot;roomRuntimeVersion&quot; }&#xA;"
+                replacement="androidx-room-room-runtime6 = { module = &quot;androidx.room:room-runtime&quot;, version.ref = &quot;androidxRoomRoomRuntime4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="765"
-                    endOffset="765"/>
+                    startOffset="283"
+                    endOffset="283"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.room.runtime"
+                description="Replace with libs.androidx.room.room.runtime6"
                 robot="true"
-                replacement="libs.room.runtime"
+                replacement="libs.androidx.room.room.runtime6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -581,34 +581,34 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for room-compiler"
+            description="Replace with new library catalog declaration for androidx-room-room-compiler6"
             robot="true">
             <fix-replace
-                description="Replace with roomCompilerVersion = &quot;2.6.1&quot;..."
+                description="Replace with androidxRoomRoomCompiler4 = &quot;2.6.1&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="roomCompilerVersion = &quot;2.6.1&quot;&#xA;"
+                replacement="androidxRoomRoomCompiler4 = &quot;2.6.1&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="175"
-                    endOffset="175"/>
+                    startOffset="28"
+                    endOffset="28"/>
             </fix-replace>
             <fix-replace
-                description="Replace with room-compiler = { module = &quot;androidx.room:room-compiler&quot;, version.ref = &quot;roomCompilerVersion&quot; }..."
+                description="Replace with androidx-room-room-compiler6 = { module = &quot;androidx.room:room-compiler&quot;, version.ref = &quot;androidxRoomRoomCompiler4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="room-compiler = { module = &quot;androidx.room:room-compiler&quot;, version.ref = &quot;roomCompilerVersion&quot; }&#xA;"
+                replacement="androidx-room-room-compiler6 = { module = &quot;androidx.room:room-compiler&quot;, version.ref = &quot;androidxRoomRoomCompiler4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="765"
-                    endOffset="765"/>
+                    startOffset="283"
+                    endOffset="283"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.room.compiler"
+                description="Replace with libs.androidx.room.room.compiler6"
                 robot="true"
-                replacement="libs.room.compiler"
+                replacement="libs.androidx.room.room.compiler6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -631,34 +631,34 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for room-ktx"
+            description="Replace with new library catalog declaration for androidx-room-room-ktx6"
             robot="true">
             <fix-replace
-                description="Replace with roomKtxVersion = &quot;2.6.1&quot;..."
+                description="Replace with androidxRoomRoomKtx4 = &quot;2.6.1&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="roomKtxVersion = &quot;2.6.1&quot;&#xA;"
+                replacement="androidxRoomRoomKtx4 = &quot;2.6.1&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="175"
-                    endOffset="175"/>
+                    startOffset="28"
+                    endOffset="28"/>
             </fix-replace>
             <fix-replace
-                description="Replace with room-ktx = { module = &quot;androidx.room:room-ktx&quot;, version.ref = &quot;roomKtxVersion&quot; }..."
+                description="Replace with androidx-room-room-ktx6 = { module = &quot;androidx.room:room-ktx&quot;, version.ref = &quot;androidxRoomRoomKtx4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="room-ktx = { module = &quot;androidx.room:room-ktx&quot;, version.ref = &quot;roomKtxVersion&quot; }&#xA;"
+                replacement="androidx-room-room-ktx6 = { module = &quot;androidx.room:room-ktx&quot;, version.ref = &quot;androidxRoomRoomKtx4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="765"
-                    endOffset="765"/>
+                    startOffset="283"
+                    endOffset="283"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.room.ktx"
+                description="Replace with libs.androidx.room.room.ktx6"
                 robot="true"
-                replacement="libs.room.ktx"
+                replacement="libs.androidx.room.room.ktx6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -681,13 +681,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-room-room-testing"
+            description="Replace with new library catalog declaration for androidx-room-room-testing13"
             robot="true">
             <fix-replace
-                description="Replace with androidxRoomTesting = &quot;2.6.1&quot;..."
+                description="Replace with androidxRoomRoomTesting11 = &quot;2.6.1&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxRoomTesting = &quot;2.6.1&quot;&#xA;"
+                replacement="androidxRoomRoomTesting11 = &quot;2.6.1&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
@@ -695,10 +695,10 @@
                     endOffset="28"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-room-room-testing = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomTesting&quot; }..."
+                description="Replace with androidx-room-room-testing13 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomRoomTesting11&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-room-room-testing = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomTesting&quot; }&#xA;"
+                replacement="androidx-room-room-testing13 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomRoomTesting11&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
@@ -706,9 +706,9 @@
                     endOffset="283"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.room.room.testing"
+                description="Replace with libs.androidx.room.room.testing13"
                 robot="true"
-                replacement="libs.androidx.room.room.testing"
+                replacement="libs.androidx.room.room.testing13"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -731,13 +731,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-room-room-testing2"
+            description="Replace with new library catalog declaration for androidx-room-room-testing14"
             robot="true">
             <fix-replace
-                description="Replace with androidxRoomTestingVersion = &quot;2.6.1&quot;..."
+                description="Replace with androidxRoomRoomTesting12 = &quot;2.6.1&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxRoomTestingVersion = &quot;2.6.1&quot;&#xA;"
+                replacement="androidxRoomRoomTesting12 = &quot;2.6.1&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
@@ -745,10 +745,10 @@
                     endOffset="28"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-room-room-testing2 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomTestingVersion&quot; }..."
+                description="Replace with androidx-room-room-testing14 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomRoomTesting12&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-room-room-testing2 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomTestingVersion&quot; }&#xA;"
+                replacement="androidx-room-room-testing14 = { module = &quot;androidx.room:room-testing&quot;, version.ref = &quot;androidxRoomRoomTesting12&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
@@ -756,9 +756,9 @@
                     endOffset="283"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.room.room.testing2"
+                description="Replace with libs.androidx.room.room.testing14"
                 robot="true"
-                replacement="libs.androidx.room.room.testing2"
+                replacement="libs.androidx.room.room.testing14"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -806,34 +806,34 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for runner"
+            description="Replace with new library catalog declaration for androidx-test-runner5"
             robot="true">
             <fix-replace
-                description="Replace with runnerVersion = &quot;1.5.2&quot;..."
+                description="Replace with androidxTestRunner4 = &quot;1.5.2&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="runnerVersion = &quot;1.5.2&quot;&#xA;"
+                replacement="androidxTestRunner4 = &quot;1.5.2&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="175"
-                    endOffset="175"/>
+                    startOffset="28"
+                    endOffset="28"/>
             </fix-replace>
             <fix-replace
-                description="Replace with runner = { module = &quot;androidx.test:runner&quot;, version.ref = &quot;runnerVersion&quot; }..."
+                description="Replace with androidx-test-runner5 = { module = &quot;androidx.test:runner&quot;, version.ref = &quot;androidxTestRunner4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="runner = { module = &quot;androidx.test:runner&quot;, version.ref = &quot;runnerVersion&quot; }&#xA;"
+                replacement="androidx-test-runner5 = { module = &quot;androidx.test:runner&quot;, version.ref = &quot;androidxTestRunner4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="765"
-                    endOffset="765"/>
+                    startOffset="283"
+                    endOffset="283"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.runner"
+                description="Replace with libs.androidx.test.runner5"
                 robot="true"
-                replacement="libs.runner"
+                replacement="libs.androidx.test.runner5"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -856,34 +856,34 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for rules"
+            description="Replace with new library catalog declaration for androidx-test-rules5"
             robot="true">
             <fix-replace
-                description="Replace with rulesVersion = &quot;1.5.0&quot;..."
+                description="Replace with androidxTestRules4 = &quot;1.5.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="rulesVersion = &quot;1.5.0&quot;&#xA;"
+                replacement="androidxTestRules4 = &quot;1.5.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="175"
-                    endOffset="175"/>
+                    startOffset="28"
+                    endOffset="28"/>
             </fix-replace>
             <fix-replace
-                description="Replace with rules = { module = &quot;androidx.test:rules&quot;, version.ref = &quot;rulesVersion&quot; }..."
+                description="Replace with androidx-test-rules5 = { module = &quot;androidx.test:rules&quot;, version.ref = &quot;androidxTestRules4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="rules = { module = &quot;androidx.test:rules&quot;, version.ref = &quot;rulesVersion&quot; }&#xA;"
+                replacement="androidx-test-rules5 = { module = &quot;androidx.test:rules&quot;, version.ref = &quot;androidxTestRules4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/AndroidStudioProjects/Rewire/gradle/libs.versions.toml"
-                    startOffset="765"
-                    endOffset="765"/>
+                    startOffset="283"
+                    endOffset="283"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.rules"
+                description="Replace with libs.androidx.test.rules5"
                 robot="true"
-                replacement="libs.rules"
+                replacement="libs.androidx.test.rules5"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"

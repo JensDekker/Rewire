@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.rewire.repository.HabitNoteRepositoryTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-08-20T06:45:16.815Z" hostname="LAPTOP-RUSMEGN4" time="0.038">
+  <properties/>
+  <testcase name="testEditNote" classname="com.example.rewire.repository.HabitNoteRepositoryTest" time="0.006"/>
+  <testcase name="testInsertNote_duplicate" classname="com.example.rewire.repository.HabitNoteRepositoryTest" time="0.004"/>
+  <testcase name="testGetNotesForHabit" classname="com.example.rewire.repository.HabitNoteRepositoryTest" time="0.004"/>
+  <testcase name="testGetNotesForHabit_empty" classname="com.example.rewire.repository.HabitNoteRepositoryTest" time="0.005"/>
+  <testcase name="testInsertNote" classname="com.example.rewire.repository.HabitNoteRepositoryTest" time="0.004"/>
+  <testcase name="testDeleteNote" classname="com.example.rewire.repository.HabitNoteRepositoryTest" time="0.012"/>
+  <testcase name="testDeleteNote_invalid" classname="com.example.rewire.repository.HabitNoteRepositoryTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

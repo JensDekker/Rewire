@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HabitNoteDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-20T06:45:13.869Z" hostname="LAPTOP-RUSMEGN4" time="0.012">
+  <properties/>
+  <testcase name="testGetById" classname="HabitNoteDaoTest" time="0.003"/>
+  <testcase name="testDeleteAll" classname="HabitNoteDaoTest" time="0.002"/>
+  <testcase name="testDelete" classname="HabitNoteDaoTest" time="0.003"/>
+  <testcase name="testUpdate" classname="HabitNoteDaoTest" time="0.002"/>
+  <testcase name="testInsertAndGetAll" classname="HabitNoteDaoTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

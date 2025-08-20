@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.rewire.repository.HabitCompletionRepositoryTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-08-20T06:45:16.785Z" hostname="LAPTOP-RUSMEGN4" time="0.024">
+  <properties/>
+  <testcase name="testGetCompletionsForHabit" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.003"/>
+  <testcase name="testInsertCompletion" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.003"/>
+  <testcase name="testDeleteCompletion_invalid" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.006"/>
+  <testcase name="testInsertCompletion_duplicate" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.004"/>
+  <testcase name="testDeleteCompletion" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.004"/>
+  <testcase name="testGetCompletionsForHabit_empty" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
