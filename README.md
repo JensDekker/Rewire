@@ -1,284 +1,50 @@
+# Rewire Habit & Addiction Tracker
 
-# Rewire Habit & Addiction Tracker CLI
+Rewire is a Kotlin-based habit and addiction tracker, now available as both a command-line application and a modern Android app. The project features flexible recurrence models, robust data persistence, and a modular architecture.
 
-Rewire is a Kotlin command-line application for tracking habits and managing addiction usage plans with flexible recurrence and permitted use models.
+## Project Structure
 
-## Features
+- **CLI**: Command-line interface for habit/addiction tracking (see `cli/`)
+- **Android App**: Full-featured mobile app (see `app/`)
+  - **UI Components**: Composables for cards, modals, screens (`app/src/main/kotlin/ui/components/`, `ui/screens/`)
+  - **Navigation**: Jetpack Compose navigation (`ui/navigation/`)
+  - **Theming**: Custom colors, shapes, typography (`ui/theme/`)
+  - **Persistence**: Room database entities, DAOs, repositories (`db/entity/`, `db/dao/`, `repository/`)
+  - **Managers**: Business logic for habits and addictions (`manager/`)
 
-- **Habits**
-  - Add, edit, delete, and list habits
-  - Mark habits as completed for today
-  - Add, edit, and delete notes for each habit (with date)
-  - View all days with notes for a habit
+## Android App Features
 
-- **Addictions**
-  - Add, edit, delete, and list addictions
-  - Log usage events (date and optional time)
-  - Add, edit, and delete notes for each addiction (with date)
-  - Flexible usage plans:
-    - Set permitted uses per recurrence (e.g., 7 uses per WEEKLY, 2 per WEEKENDS, etc.)
-    - Recurrence options: DAILY, WEEKLY, MONTHLY, QUARTERLY, WEEKDAYS, WEEKENDS, CUSTOM_WEEKLY
-    - Multiple plan items per addiction supported
-    - Edit, delete, and clear usage plans
-    - Usage plan enforcement and stats
+- Add, edit, delete, and view habits/addictions
+- Mark habits as completed
+- Log addiction usage events
+- Add, edit, delete notes for habits/addictions
+- Flexible usage plans with recurrence (daily, weekly, monthly, etc.)
+- Data persists via Room database
+- Modern UI with Jetpack Compose
 
-- **Menus & Navigation**
-  - Main menu: Habits, Addictions, Exit
-  - Context-persistent selection for editing and logging
-  - Robust error handling for invalid input
+## Building & Running
 
-- **Data Persistence**
-  - (If supported) Data persists between CLI sessions (habits, addictions, notes, usage plans)
+### CLI
+- Build and run with Gradle:
+  ```sh
+  ./gradlew run
+  ```
+  Or on Windows:
+  ```sh
+  gradlew.bat run
+  ```
 
-- **Manual Test Script**
-  - See `cli/src/main/resources/cli_exact_test_script.txt` for a step-by-step test script and expected outputs
+### Android App
+- Open the project in Android Studio
+- Build and run on an emulator or device
 
-## Usage
-
-1. **Build and Run**
-   - Use Gradle to build and run the CLI:
-     ```sh
-     ./gradlew run
-     ```
-     Or on Windows:
-     ```sh
-     gradlew.bat run
-     ```
-
-2. **Follow the Menus**
-   - Use the number keys to navigate menus and perform actions
-   - Enter blank, out-of-range, or non-numeric input to test error handling
-
-3. **Add Habits and Addictions**
-   - Add new habits and addictions from their respective menus
-   - For addictions, set up usage plans with permitted uses and recurrence
-
-4. **Log Usage and Notes**
-   - Log usage for addictions (date and optional time)
-   - Add notes for both habits and addictions (date and text)
-
-5. **Edit and Manage**
-   - Edit names, notes, and usage plans
-   - Delete or clear items as needed
-
-6. **Persistence**
-   - (If supported) Data will persist between CLI sessions
-
-## Unified Notes System
-
-- Both habits and addictions now use a shared `Note` class for all note-taking features
-- Notes are associated with a parent type (habit or addiction), a parent name, a date, and text
-- All note-related CLI commands and displays are unified for a consistent experience
-- When viewing details for a habit or addiction, all associated notes are shown
-
-## Recurrence Types
-
-- `DAILY`: Every day
-- `WEEKLY`: Every week
-- `MONTHLY`: Every month
-- `QUARTERLY`: Every three months
-- `WEEKDAYS`: Monday to Friday
-- `WEEKENDS`: Saturday and Sunday
-- `CUSTOM_WEEKLY`: Custom weekly recurrence (if implemented)
-
-## Example Usage Plan
-
-- "7 use(s) permitted per WEEKLY, x1" (7 uses allowed per week, for 1 week)
-- Multiple plan items can be added for different recurrences
-
-## Notes System Overview
-
-- The `Note` class is used for both habits and addictions, providing a unified way to add, edit, delete, and display notes.
-- Each note contains:
-  - `parentType`: Indicates whether the note belongs to a habit or addiction
-  - `parentNameOrId`: The name (or ID) of the parent habit or addiction
-  - `date`: The date the note is associated with
-  - `text`: The note content
-- All note-related CLI commands (add, edit, delete, list) work the same for both habits and addictions.
-- When viewing details for a habit or addiction, all associated notes are displayed in a consistent format.
-
-## Testing
-
-- See `cli/src/main/resources/cli_exact_test_script.txt` for a comprehensive manual test script
-- The script covers all menu flows, error handling, and expected outputs
-
-## File Structure
-
-- `src/main/kotlin/Note.kt` — Shared Note data class for both habits and addictions
-- `src/main/kotlin/Habit.kt` — Habit data class (uses shared Note)
-- `src/main/kotlin/HabitManager.kt` — CRUD operations for habits and habit notes
-- `src/main/kotlin/AddictionHabit.kt` — AddictionHabit data class (uses shared Note)
-- `src/main/kotlin/AddictionManager.kt` — CRUD operations for addictions, usage plans, and addiction notes
-- `src/main/kotlin/AbstinenceGoal.kt` — Usage plan data class (recurrence, permitted uses, repeat count)
-- `src/main/kotlin/RecurrenceType.kt` — RecurrenceType enum
-- `src/main/kotlin/CliFunctions.kt` — CLI functions for user interaction
-- `src/main/kotlin/Main.kt` — Entry point
+## Manual Testing
+- See `cli/src/main/resources/cli_exact_test_script.txt` for CLI test script
+- For Android, use the app UI to test all flows
 
 ## Contributing
-
 Pull requests and suggestions are welcome!
 
-## Getting Started
+---
 
-1. **Clone the repository:**
-   ```
-   git clone https://github.com/JensDekker/Rewire.git
-   ```
-2. **Open in Android Studio or your preferred Kotlin IDE.**
-3. **Build and run the project.**
-## Manual CLI Testing Procedure
-
-The following steps ensure all CLI features and error handling are working as intended:
-
-### 1. General Navigation & Error Handling
-- Start the CLI and verify main menu appears.
-- Try invalid inputs (blank, out-of-range numbers, non-numeric) at each menu.
-- Test "Back" and "Exit" options in all menus.
-
-### 2. Habits
-- List habits (should be empty initially).
-- Add a new habit.
-- List habits (should show the new habit).
-- Select the habit:
-  - Edit habit details.
-  - Show habit details.
-  - Complete habit.
-  - Manage habit notes:
-    - List notes (should be empty).
-    - Add a note.
-    - List notes (should show the new note).
-    - Edit the note.
-    - Delete the note.
-    - List notes (should be empty again).
-  - Delete the habit.
-- List habits (should be empty).
-
-### 3. Addictions
-- List addictions (should be empty initially).
-- Add a new addiction.
-- List addictions (should show the new addiction).
-- Select the addiction:
-  - View addiction details.
-  - Edit addiction details.
-  - Log usage for the addiction.
-  - Manage addiction notes:
-    - List notes (should be empty).
-    - Add a note.
-    - List notes (should show the new note).
-    - Edit the note.
-    - Delete the note.
-    - List notes (should be empty again).
-  - Manage usage plan:
-    - List plan items (should be empty).
-    - Add a plan item.
-    - List plan items (should show the new item).
-    - Edit the plan item.
-    - Delete the plan item.
-    - List plan items (should be empty again).
-    - Add multiple plan items.
-    - Clear the usage plan.
-    - List plan items (should be empty).
-  - Delete the addiction.
-- List addictions (should be empty).
-
-### 4. Data Persistence (if supported)
-- Exit the CLI and restart.
-- Verify that habits/addictions/notes/usage plans persist or reset as expected.
-
-### 5. Final Checks
-- Confirm all error messages display for invalid actions.
-- Confirm all menu navigation works as expected.
-
-## Exact CLI Test Script
-
-For step-by-step verification, follow the detailed script below:
-
-1. **Start CLI**
-   - Verify main menu appears.
-   - Enter blank, out-of-range, and non-numeric input at main menu → confirm error message.
-   - Select "Habits".
-2. **Habits Menu**
-   - Enter blank, out-of-range, and non-numeric input → confirm error message.
-   - List habits (should be empty).
-   - Add habit: "Exercise".
-   - Add habit: "Read".
-   - List habits (should show both).
-   - Select "Select Habit", choose "Exercise":
-     - Edit habit: Change name to "Morning Exercise".
-     - Show habit details.
-     - Complete habit.
-     - Habit Notes:
-       - Enter blank, out-of-range, non-numeric input → confirm error message.
-       - List notes (should be empty).
-       - Add note: Date = today, Note = "Started running."
-       - List notes (should show the new note).
-       - Edit note: Change to "Ran 5km."
-       - Delete note.
-       - List notes (should be empty).
-     - Back to habit menu, delete habit.
-   - List habits (should show only "Read").
-   - Select "Select Habit", choose "Read":
-     - Add note: Date = today, Note = "Read 20 pages."
-     - List notes.
-     - Delete habit.
-   - List habits (should be empty).
-   - Back to main menu.
-3. **Addictions Menu**
-   - Enter blank, out-of-range, non-numeric input → confirm error message.
-   - List addictions (should be empty).
-   - Add addiction: "Sugar".
-   - Add addiction: "Caffeine".
-   - List addictions (should show both).
-   - Select "Select Addiction", choose "Sugar":
-     - View details.
-     - Edit addiction: Change name to "No Sugar".
-     - Log usage: Date = today.
-     - Addiction Notes:
-       - Enter blank, out-of-range, non-numeric input → confirm error message.
-       - Add note: Date = today, Note = "Craving after lunch."
-       - List notes.
-       - Edit note: Change to "Resisted craving."
-       - Delete note.
-       - List notes (should be empty).
-     - Usage Plan:
-       - Enter blank, out-of-range, non-numeric input → confirm error message.
-       - Add plan item: Description = "No sugar for a week", Period = "WEEKLY", Value = 7, Repeat = 1.
-       - List plan items.
-       - Edit plan item: Change description to "No sugar for two weeks", Value = 14.
-       - Delete plan item.
-       - List plan items (should be empty).
-       - Add multiple plan items.
-       - Clear usage plan.
-       - List plan items (should be empty).
-     - Back to addiction menu, delete addiction.
-   - List addictions (should show only "Caffeine").
-   - Select "Select Addiction", choose "Caffeine":
-     - Add note: Date = today, Note = "Had coffee in the morning."
-     - List notes.
-     - Delete addiction.
-   - List addictions (should be empty).
-   - Back to main menu.
-4. **Data Persistence**
-   - Exit the CLI and restart.
-   - Verify that habits/addictions/notes/usage plans persist or reset as expected.
-5. **Final Checks**
-   - Confirm all error messages display for invalid actions.
-   - Confirm all menu navigation works as expected.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
-
-## License
-
-This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) License.
-
-**Summary:**
-- You may use, share, and adapt the code for non-commercial purposes only.
-- Commercial use (selling, using in paid products/services) is not allowed.
-- You must provide appropriate credit to the original author.
-- For full license details, see: https://creativecommons.org/licenses/by-nc/4.0/
-
-## Author
-
-Jens Dekker
+*This README reflects the current status: both CLI and Android app are supported, with a modular, scalable codebase.*
