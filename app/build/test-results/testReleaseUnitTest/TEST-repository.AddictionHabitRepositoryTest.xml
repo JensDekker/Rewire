@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="repository.AddictionHabitRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-21T16:01:20.233Z" hostname="LAPTOP-RUSMEGN4" time="0.02">
+<testsuite name="repository.AddictionHabitRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-26T10:48:59.059Z" hostname="DESKTOP-LH13CTI" time="0.006">
   <properties/>
-  <testcase name="testInsertAndGetById" classname="repository.AddictionHabitRepositoryTest" time="0.004"/>
-  <testcase name="testDeleteAll" classname="repository.AddictionHabitRepositoryTest" time="0.003"/>
-  <testcase name="testDelete" classname="repository.AddictionHabitRepositoryTest" time="0.006"/>
-  <testcase name="testGetAll" classname="repository.AddictionHabitRepositoryTest" time="0.002"/>
-  <testcase name="testUpdate" classname="repository.AddictionHabitRepositoryTest" time="0.002"/>
+  <testcase name="testInsertAndGetById" classname="repository.AddictionHabitRepositoryTest" time="0.001"/>
+  <testcase name="testDeleteAll" classname="repository.AddictionHabitRepositoryTest" time="0.002"/>
+  <testcase name="testDelete" classname="repository.AddictionHabitRepositoryTest" time="0.002"/>
+  <testcase name="testGetAll" classname="repository.AddictionHabitRepositoryTest" time="0.0"/>
+  <testcase name="testUpdate" classname="repository.AddictionHabitRepositoryTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
