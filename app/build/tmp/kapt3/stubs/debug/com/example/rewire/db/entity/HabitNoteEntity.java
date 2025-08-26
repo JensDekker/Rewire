@@ -6,13 +6,13 @@ public final class HabitNoteEntity {
     @androidx.room.PrimaryKey(autoGenerate = true)
     private final long id = 0L;
     private final long habitId = 0L;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     private final java.lang.String content = null;
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     private final java.lang.String timestamp = null;
     
-    public HabitNoteEntity(long id, long habitId, @org.jetbrains.annotations.NotNull()
-    java.lang.String content, @org.jetbrains.annotations.NotNull()
+    public HabitNoteEntity(long id, long habitId, @org.jetbrains.annotations.NotNull
+    java.lang.String content, @org.jetbrains.annotations.NotNull
     java.lang.String timestamp) {
         super();
     }
@@ -25,12 +25,12 @@ public final class HabitNoteEntity {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final java.lang.String getContent() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final java.lang.String getTimestamp() {
         return null;
     }
@@ -43,36 +43,36 @@ public final class HabitNoteEntity {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final java.lang.String component3() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final java.lang.String component4() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull()
-    public final com.example.rewire.db.entity.HabitNoteEntity copy(long id, long habitId, @org.jetbrains.annotations.NotNull()
-    java.lang.String content, @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
+    public final com.example.rewire.db.entity.HabitNoteEntity copy(long id, long habitId, @org.jetbrains.annotations.NotNull
+    java.lang.String content, @org.jetbrains.annotations.NotNull
     java.lang.String timestamp) {
         return null;
     }
     
-    @java.lang.Override()
-    public boolean equals(@org.jetbrains.annotations.Nullable()
+    @java.lang.Override
+    public boolean equals(@org.jetbrains.annotations.Nullable
     java.lang.Object other) {
         return false;
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public int hashCode() {
         return 0;
     }
     
-    @java.lang.Override()
-    @org.jetbrains.annotations.NotNull()
+    @java.lang.Override
+    @org.jetbrains.annotations.NotNull
     public java.lang.String toString() {
         return null;
     }

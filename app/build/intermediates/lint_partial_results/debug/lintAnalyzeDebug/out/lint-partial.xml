@@ -1,9 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <incidents format="6" by="lint 8.11.1" type="partial_results">
     <map id="UnusedResources">
+        <location id="R.color.black"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
+            line="14"
+            column="12"
+            startOffset="599"
+            endLine="14"
+            endColumn="24"
+            endOffset="611"/>
+        <location id="R.color.purple_200"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
+            line="9"
+            column="12"
+            startOffset="368"
+            endLine="9"
+            endColumn="29"
+            endOffset="385"/>
+        <location id="R.color.purple_500"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
+            line="10"
+            column="12"
+            startOffset="415"
+            endLine="10"
+            endColumn="29"
+            endOffset="432"/>
+        <location id="R.color.purple_700"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
+            line="11"
+            column="12"
+            startOffset="462"
+            endLine="11"
+            endColumn="29"
+            endOffset="479"/>
+        <location id="R.color.teal_200"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
+            line="12"
+            column="12"
+            startOffset="509"
+            endLine="12"
+            endColumn="27"
+            endOffset="524"/>
+        <location id="R.color.teal_700"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
+            line="13"
+            column="12"
+            startOffset="554"
+            endLine="13"
+            endColumn="27"
+            endOffset="569"/>
+        <location id="R.color.white"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
+            line="15"
+            column="12"
+            startOffset="641"
+            endLine="15"
+            endColumn="24"
+            endOffset="653"/>
         <entry
             name="model"
-            string="attr[colorPrimaryVariant(R)],color[purple_200(U),purple_500(U),purple_700(U),teal_200(U),teal_700(U),black(U),white(U)],drawable[ic_launcher_background(U),ic_launcher_foreground(U),ic_launcher_foreground_1(R)],mipmap[ic_launcher(U),ic_launcher_round(U)],string[app_name(U)],style[Theme_Rewire(U),Theme_MaterialComponents_DayNight_DarkActionBar(R)],xml[data_extraction_rules(U),backup_rules(U)];9^a,b^8^9,c^8^9,e^f^2^3^7^4^5^6^0^1;;;"/>
+            string="color[colorPrimary(U),colorPrimaryVariant(U),colorOnPrimary(U),colorSecondary(U),colorSecondaryVariant(U),colorOnSecondary(U),purple_200(D),purple_500(D),purple_700(D),teal_200(D),teal_700(D),black(D),white(D)],drawable[ic_launcher_background(U),ic_launcher_foreground(U),ic_launcher_foreground_1(R)],mipmap[ic_launcher(U),ic_launcher_round(U)],string[app_name(U)],style[Theme_Rewire(U),Theme_MaterialComponents_DayNight_DarkActionBar(R)],xml[data_extraction_rules(U),backup_rules(U)];e^f,10^d^e,11^d^e,13^14^0^1^2^3^4^5;;;"/>
     </map>
 
 </incidents>

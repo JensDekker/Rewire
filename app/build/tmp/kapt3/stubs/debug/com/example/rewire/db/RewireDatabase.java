@@ -8,21 +8,21 @@ public abstract class RewireDatabase extends androidx.room.RoomDatabase {
         super();
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public abstract com.example.rewire.db.dao.HabitDao habitDao();
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public abstract com.example.rewire.db.dao.AddictionHabitDao addictionHabitDao();
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public abstract com.example.rewire.db.dao.AbstinenceGoalDao abstinenceGoalDao();
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public abstract com.example.rewire.db.dao.HabitNoteDao habitNoteDao();
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public abstract com.example.rewire.db.dao.AddictionNoteDao addictionNoteDao();
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public abstract com.example.rewire.db.dao.HabitCompletionDao habitCompletionDao();
 }

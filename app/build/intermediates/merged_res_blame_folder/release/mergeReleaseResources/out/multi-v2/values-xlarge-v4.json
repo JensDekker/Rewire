@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeReleaseResources-33:/values-xlarge-v4/values-xlarge-v4.xml",
+            "outputFile": "com.example.rewire.app-mergeReleaseResources-55:/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\6ddf8821d67d613cd071c162dd398352\\transformed\\appcompat-1.6.1\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
+                    "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\b21dbf879701bf4517357d7758744d5d\\transformed\\appcompat-1.6.1\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",

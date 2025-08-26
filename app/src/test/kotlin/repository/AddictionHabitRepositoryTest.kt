@@ -1,5 +1,7 @@
 package repository
 
+import com.example.rewire.core.RecurrenceType
+import com.example.rewire.core.DayOfWeek
 import com.example.rewire.db.entity.AddictionHabitEntity
 import com.example.rewire.repository.AddictionHabitRepository
 import kotlinx.coroutines.runBlocking
@@ -41,7 +43,14 @@ class AddictionHabitRepositoryTest {
 
     @Test
     fun testInsertAndGetById() = runBlocking {
-        val habit = AddictionHabitEntity(0, "Smoking", "Smoke less")
+        val habit = AddictionHabitEntity(
+            id = 0,
+            name = "Smoking",
+            startDate = "2025-08-20",
+            recurrence = RecurrenceType.Daily,
+            preferredTime = "08:00",
+            estimatedMinutes = 10
+        )
         val id = repo.insert(habit)
         val fetched = repo.getById(id)
         assertNotNull(fetched)
@@ -50,24 +59,24 @@ class AddictionHabitRepositoryTest {
 
     @Test
     fun testGetAll() = runBlocking {
-        repo.insert(AddictionHabitEntity(0, "Drinking", "Drink less"))
-        repo.insert(AddictionHabitEntity(0, "Gambling", "Gamble less"))
+        repo.insert(AddictionHabitEntity(id = 0, name = "Drinking", startDate = "2025-08-20", recurrence = RecurrenceType.Daily, preferredTime = "09:00", estimatedMinutes = 15))
+        repo.insert(AddictionHabitEntity(id = 0, name = "Gambling", startDate = "2025-08-20", recurrence = RecurrenceType.Weekly, preferredTime = "10:00", estimatedMinutes = 20))
         val all = repo.getAll()
         assertEquals(2, all.size)
     }
 
     @Test
     fun testUpdate() = runBlocking {
-        val id = repo.insert(AddictionHabitEntity(0, "Gaming", "Game less"))
-        val updated = AddictionHabitEntity(id, "Gaming", "Game responsibly")
+        val id = repo.insert(AddictionHabitEntity(id = 0, name = "Gaming", startDate = "2025-08-20", recurrence = RecurrenceType.Daily, preferredTime = "11:00", estimatedMinutes = 30))
+        val updated = AddictionHabitEntity(id = id, name = "Gaming", startDate = "2025-08-20", recurrence = RecurrenceType.MonthlyByDate(1), preferredTime = "12:00", estimatedMinutes = 45)
         repo.update(updated)
         val fetched = repo.getById(id)
-        assertEquals("Game responsibly", fetched?.description)
+        assertEquals("Gaming", fetched?.name)
     }
 
     @Test
     fun testDelete() = runBlocking {
-        val id = repo.insert(AddictionHabitEntity(0, "Shopping", "Shop less"))
+        val id = repo.insert(AddictionHabitEntity(0, "Shopping", "2025-08-20", RecurrenceType.Daily, "13:00", 25))
         val habit = repo.getById(id)!!
         repo.delete(habit)
         assertNull(repo.getById(id))
@@ -75,8 +84,8 @@ class AddictionHabitRepositoryTest {
 
     @Test
     fun testDeleteAll() = runBlocking {
-        repo.insert(AddictionHabitEntity(0, "Overeating", "Eat less"))
-        repo.insert(AddictionHabitEntity(0, "Procrastination", "Procrastinate less"))
+        repo.insert(AddictionHabitEntity(id = 0, name = "Overeating", startDate = "2025-08-20", recurrence = RecurrenceType.Daily, preferredTime = "14:00", estimatedMinutes = 35))
+        repo.insert(AddictionHabitEntity(id = 0, name = "Procrastination", startDate = "2025-08-20", recurrence = RecurrenceType.Weekly, preferredTime = "15:00", estimatedMinutes = 40))
         repo.deleteAll()
         assertTrue(repo.getAll().isEmpty())
     }

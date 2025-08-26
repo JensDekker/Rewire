@@ -1,5 +1,7 @@
 package repository
 
+import com.example.rewire.core.RecurrenceType
+import com.example.rewire.core.DayOfWeek
 import com.example.rewire.db.entity.AbstinenceGoalEntity
 import com.example.rewire.repository.AbstinenceGoalRepository
 import kotlinx.coroutines.runBlocking
@@ -41,33 +43,33 @@ class AbstinenceGoalRepositoryTest {
 
     @Test
     fun testInsertAndGetById() = runBlocking {
-        val goal = AbstinenceGoalEntity(0, "No sugar", "Avoid sugar for 30 days")
+        val goal = AbstinenceGoalEntity(id = 0, addictionId = 1L, recurrence = RecurrenceType.Daily, value = 30, repeatCount = 1)
         val id = repo.insert(goal)
         val fetched = repo.getById(id)
         assertNotNull(fetched)
-        assertEquals("No sugar", fetched?.name)
+        assertEquals(30, fetched?.value)
     }
 
     @Test
     fun testGetAll() = runBlocking {
-        repo.insert(AbstinenceGoalEntity(0, "No caffeine", "Avoid caffeine for 14 days"))
-        repo.insert(AbstinenceGoalEntity(0, "No alcohol", "Avoid alcohol for 60 days"))
+        repo.insert(AbstinenceGoalEntity(id = 0, addictionId = 1L, recurrence = RecurrenceType.Daily, value = 14, repeatCount = 1))
+        repo.insert(AbstinenceGoalEntity(id = 0, addictionId = 1L, recurrence = RecurrenceType.Weekly, value = 60, repeatCount = 2))
         val all = repo.getAll()
         assertEquals(2, all.size)
     }
 
     @Test
     fun testUpdate() = runBlocking {
-        val id = repo.insert(AbstinenceGoalEntity(0, "No TV", "Avoid TV for 7 days"))
-        val updated = AbstinenceGoalEntity(id, "No TV", "Avoid TV for 14 days")
+        val id = repo.insert(AbstinenceGoalEntity(id = 0, addictionId = 1L, recurrence = RecurrenceType.Daily, value = 7, repeatCount = 1))
+        val updated = AbstinenceGoalEntity(id = id, addictionId = 1L, recurrence = RecurrenceType.MonthlyByDate(1), value = 14, repeatCount = 2)
         repo.update(updated)
         val fetched = repo.getById(id)
-        assertEquals("Avoid TV for 14 days", fetched?.description)
+        assertEquals(14, fetched?.value)
     }
 
     @Test
     fun testDelete() = runBlocking {
-        val id = repo.insert(AbstinenceGoalEntity(0, "No games", "Avoid games for 21 days"))
+        val id = repo.insert(AbstinenceGoalEntity(0, 1L, RecurrenceType.Daily, 21, 1))
         val goal = repo.getById(id)!!
         repo.delete(goal)
         assertNull(repo.getById(id))
@@ -75,8 +77,8 @@ class AbstinenceGoalRepositoryTest {
 
     @Test
     fun testDeleteAll() = runBlocking {
-        repo.insert(AbstinenceGoalEntity(0, "No sweets", "Avoid sweets for 10 days"))
-        repo.insert(AbstinenceGoalEntity(0, "No soda", "Avoid soda for 10 days"))
+        repo.insert(AbstinenceGoalEntity(id = 0, addictionId = 1L, recurrence = RecurrenceType.Daily, value = 10, repeatCount = 1))
+        repo.insert(AbstinenceGoalEntity(id = 0, addictionId = 1L, recurrence = RecurrenceType.Weekly, value = 10, repeatCount = 2))
         repo.deleteAll()
         assertTrue(repo.getAll().isEmpty())
     }

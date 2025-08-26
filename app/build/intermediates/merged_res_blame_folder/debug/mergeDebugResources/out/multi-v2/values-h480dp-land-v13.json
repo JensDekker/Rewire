@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeDebugResources-33:/values-h480dp-land-v13/values-h480dp-land-v13.xml",
+            "outputFile": "com.example.rewire.app-mergeDebugResources-57:/values-h480dp-land-v13/values-h480dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\bd79dc13541cea5648c99da9a8cc3153\\transformed\\material-1.10.0\\res\\values-h480dp-land-v13\\values-h480dp-land-v13.xml",
+                    "source": "C:\\Users\\Jens\\.gradle\\caches\\8.13\\transforms\\422231bd7198177493b0c03404f40d9e\\transformed\\material-1.10.0\\res\\values-h480dp-land-v13\\values-h480dp-land-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",

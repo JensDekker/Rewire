@@ -1,5 +1,7 @@
 package manager
 
+import com.example.rewire.core.RecurrenceType
+import com.example.rewire.core.DayOfWeek
 import com.example.rewire.db.entity.AbstinenceGoalEntity
 import com.example.rewire.db.entity.AddictionHabitEntity
 import com.example.rewire.db.entity.AddictionNoteEntity
@@ -91,16 +93,29 @@ class AddictionManagerTest {
 
     @Test
     fun testAddAndGetAbstinenceGoal() = runBlocking {
-        val goal = AbstinenceGoalEntity(0, "No sugar", "Avoid sugar for 30 days")
+        val goal = AbstinenceGoalEntity(
+            id = 0,
+            addictionId = 1L,
+            recurrence = RecurrenceType.Daily,
+            value = 30,
+            repeatCount = 1
+        )
         val id = manager.addAbstinenceGoal(goal)
         val fetched = manager.getAbstinenceGoalById(id)
         assertNotNull(fetched)
-        assertEquals("No sugar", fetched?.name)
+        assertEquals(30, fetched?.value)
     }
 
     @Test
     fun testAddAndGetAddictionHabit() = runBlocking {
-        val habit = AddictionHabitEntity(0, "Smoking", "Smoke less")
+        val habit = AddictionHabitEntity(
+            id = 0,
+            name = "Smoking",
+            startDate = "2025-08-20",
+            recurrence = RecurrenceType.Daily,
+            preferredTime = "08:00",
+            estimatedMinutes = 10
+        )
         val id = manager.addAddictionHabit(habit)
         val fetched = manager.getAddictionHabitById(id)
         assertNotNull(fetched)
@@ -109,33 +124,38 @@ class AddictionManagerTest {
 
     @Test
     fun testAddAndGetAddictionNote() = runBlocking {
-        val note = AddictionNoteEntity(0, "First note", "This is a note.")
+        val note = AddictionNoteEntity(
+            id = 0,
+            addictionId = 1L,
+            content = "First note",
+            timestamp = "2025-08-20T09:00:00"
+        )
         val id = manager.addAddictionNote(note)
         val fetched = manager.getAddictionNoteById(id)
         assertNotNull(fetched)
-        assertEquals("First note", fetched?.title)
+        assertEquals("First note", fetched?.content)
     }
 
     @Test
     fun testDeleteAllAbstinenceGoals() = runBlocking {
-        manager.addAbstinenceGoal(AbstinenceGoalEntity(0, "No caffeine", "Avoid caffeine"))
-        manager.addAbstinenceGoal(AbstinenceGoalEntity(0, "No alcohol", "Avoid alcohol"))
+        manager.addAbstinenceGoal(AbstinenceGoalEntity(0, 1L, RecurrenceType.Daily, 14, 1))
+        manager.addAbstinenceGoal(AbstinenceGoalEntity(0, 1L, RecurrenceType.Weekly, 60, 2))
         manager.deleteAllAbstinenceGoals()
         assertTrue(manager.getAllAbstinenceGoals().isEmpty())
     }
 
     @Test
     fun testDeleteAllAddictionHabits() = runBlocking {
-        manager.addAddictionHabit(AddictionHabitEntity(0, "Drinking", "Drink less"))
-        manager.addAddictionHabit(AddictionHabitEntity(0, "Gambling", "Gamble less"))
+        manager.addAddictionHabit(AddictionHabitEntity(0, "Drinking", "2025-08-20", RecurrenceType.Daily, "09:00", 15))
+        manager.addAddictionHabit(AddictionHabitEntity(0, "Gambling", "2025-08-20", RecurrenceType.Weekly, "10:00", 20))
         manager.deleteAllAddictionHabits()
         assertTrue(manager.getAllAddictionHabits().isEmpty())
     }
 
     @Test
     fun testDeleteAllAddictionNotes() = runBlocking {
-        manager.addAddictionNote(AddictionNoteEntity(0, "Note 1", "Content 1"))
-        manager.addAddictionNote(AddictionNoteEntity(0, "Note 2", "Content 2"))
+        manager.addAddictionNote(AddictionNoteEntity(0, 1L, "Note 1", "2025-08-20T09:00:00"))
+        manager.addAddictionNote(AddictionNoteEntity(0, 1L, "Note 2", "2025-08-20T10:00:00"))
         manager.deleteAllAddictionNotes()
         assertTrue(manager.getAllAddictionNotes().isEmpty())
     }

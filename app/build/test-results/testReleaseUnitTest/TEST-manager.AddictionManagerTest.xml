@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="manager.AddictionManagerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-08-21T16:01:20.169Z" hostname="LAPTOP-RUSMEGN4" time="0.029">
+  <properties/>
+  <testcase name="testAddAndGetAbstinenceGoal" classname="manager.AddictionManagerTest" time="0.01"/>
+  <testcase name="testDeleteAllAddictionNotes" classname="manager.AddictionManagerTest" time="0.003"/>
+  <testcase name="testAddAndGetAddictionNote" classname="manager.AddictionManagerTest" time="0.003"/>
+  <testcase name="testDeleteAllAbstinenceGoals" classname="manager.AddictionManagerTest" time="0.003"/>
+  <testcase name="testAddAndGetAddictionHabit" classname="manager.AddictionManagerTest" time="0.004"/>
+  <testcase name="testDeleteAllAddictionHabits" classname="manager.AddictionManagerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
