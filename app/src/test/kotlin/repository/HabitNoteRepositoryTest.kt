@@ -49,6 +49,9 @@ class HabitNoteRepositoryTest {
         override suspend fun deleteAll() {
             noteList.clear()
         }
+        override suspend fun getNoteForHabitOnDate(habitId: Long, date: String): HabitNoteEntity? {
+            return noteList.find { it.habitId == habitId && it.timestamp == date }
+        }
     }
 
     private val repo = com.example.rewire.repository.HabitNoteRepository(dao)

@@ -177,9 +177,9 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 48 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 50 warnings</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Tue Aug 26 06:49:01 EDT 2025 by AGP (8.11.1)</nav>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Tue Aug 26 08:55:31 EDT 2025 by AGP (8.11.1)</nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -187,11 +187,11 @@ document.getElementById(id).style.display = 'none';
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#AndroidGradlePluginVersion"><i class="material-icons warning-icon">warning</i>Obsolete Android Gradle Plugin Version (1)</a>
-      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (19)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (20)</a>
       <a class="mdl-navigation__link" href="#NewerVersionAvailable"><i class="material-icons warning-icon">warning</i>Newer Library Versions Available (4)</a>
       <a class="mdl-navigation__link" href="#KaptUsageInsteadOfKsp"><i class="material-icons warning-icon">warning</i>Kapt usage should be replaced with KSP (1)</a>
       <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (7)</a>
-      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (16)</a>
+      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (17)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -210,7 +210,7 @@ document.getElementById(id).style.display = 'none';
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#AndroidGradlePluginVersion">AndroidGradlePluginVersion</a>: Obsolete Android Gradle Plugin Version</td></tr>
 <tr>
-<td class="countColumn">19</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">20</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr>
 <td class="countColumn">4</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -226,7 +226,7 @@ document.getElementById(id).style.display = 'none';
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Productivity">Productivity</a>
 </td></tr>
 <tr>
-<td class="countColumn">16</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">17</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UseTomlInstead">UseTomlInstead</a>: Use TOML Version Catalog Instead</td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (57)</a>
 </td></tr>
@@ -342,7 +342,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 59 </span>    /*
 </pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="GradleDependencyDivLink" onclick="reveal('GradleDependencyDiv');" />+ 14 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="GradleDependencyDivLink" onclick="reveal('GradleDependencyDiv');" />+ 15 More Occurrences...</button>
 <div id="GradleDependencyDiv" style="display: none">
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:57</span>: <span class="message">A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0</span><br /><pre class="errorlines">
 <span class="lineno"> 54 </span>        testImplementation("junit:junit:4.13.2")
@@ -411,7 +411,8 @@ Dismiss</button>            </div>
 <span class="caretline"><span class="lineno"> 91 </span>    implementation(<span class="warning">"androidx.compose.ui:ui-tooling-preview:1.5.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 92 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.5.3")
 <span class="lineno"> 93 </span>    implementation("androidx.activity:activity-compose:1.7.2")
-<span class="lineno"> 94 </span>}</pre>
+<span class="lineno"> 94 </span>    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+</pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:92</span>: <span class="message">A newer version of androidx.compose.ui:ui-tooling than 1.5.3 is available: 1.9.0</span><br /><pre class="errorlines">
 <span class="lineno"> 89 </span>    implementation("androidx.compose.ui:ui:1.5.3")
@@ -419,14 +420,23 @@ Dismiss</button>            </div>
 <span class="lineno"> 91 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
 <span class="caretline"><span class="lineno"> 92 </span>    debugImplementation(<span class="warning">"androidx.compose.ui:ui-tooling:1.5.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 93 </span>    implementation("androidx.activity:activity-compose:1.7.2")
-<span class="lineno"> 94 </span>}</pre>
+<span class="lineno"> 94 </span>    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+<span class="lineno"> 95 </span>}</pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:93</span>: <span class="message">A newer version of androidx.activity:activity-compose than 1.7.2 is available: 1.10.1</span><br /><pre class="errorlines">
 <span class="lineno"> 90 </span>    implementation("androidx.compose.material:material:1.5.3")
 <span class="lineno"> 91 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
 <span class="lineno"> 92 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.5.3")
 <span class="caretline"><span class="lineno"> 93 </span>    implementation(<span class="warning">"androidx.activity:activity-compose:1.7.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 94 </span>}</pre>
+<span class="lineno"> 94 </span>    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+<span class="lineno"> 95 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:94</span>: <span class="message">A newer version of androidx.compose.material:material-icons-extended than 1.5.3 is available: 1.7.8</span><br /><pre class="errorlines">
+<span class="lineno"> 91 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
+<span class="lineno"> 92 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.5.3")
+<span class="lineno"> 93 </span>    implementation("androidx.activity:activity-compose:1.7.2")
+<span class="caretline"><span class="lineno"> 94 </span>    implementation(<span class="warning">"androidx.compose.material:material-icons-extended:1.5.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 95 </span>}</pre>
 
 <span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:4</span>: <span class="message">A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0</span><br /><pre class="errorlines">
 <span class="lineno">  1 </span>[versions]
@@ -812,7 +822,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 57 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 </pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="UseTomlInsteadDivLink" onclick="reveal('UseTomlInsteadDiv');" />+ 11 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="UseTomlInsteadDivLink" onclick="reveal('UseTomlInsteadDiv');" />+ 12 More Occurrences...</button>
 <div id="UseTomlInsteadDiv" style="display: none">
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:55</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
 <span class="lineno"> 52 </span>    implementation(project(":core"))
@@ -900,7 +910,8 @@ Dismiss</button>            </div>
 <span class="caretline"><span class="lineno"> 91 </span>    implementation(<span class="warning">"androidx.compose.ui:ui-tooling-preview:1.5.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 92 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.5.3")
 <span class="lineno"> 93 </span>    implementation("androidx.activity:activity-compose:1.7.2")
-<span class="lineno"> 94 </span>}</pre>
+<span class="lineno"> 94 </span>    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+</pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:92</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
 <span class="lineno"> 89 </span>    implementation("androidx.compose.ui:ui:1.5.3")
@@ -908,14 +919,23 @@ Dismiss</button>            </div>
 <span class="lineno"> 91 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
 <span class="caretline"><span class="lineno"> 92 </span>    debugImplementation(<span class="warning">"androidx.compose.ui:ui-tooling:1.5.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 93 </span>    implementation("androidx.activity:activity-compose:1.7.2")
-<span class="lineno"> 94 </span>}</pre>
+<span class="lineno"> 94 </span>    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+<span class="lineno"> 95 </span>}</pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:93</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
 <span class="lineno"> 90 </span>    implementation("androidx.compose.material:material:1.5.3")
 <span class="lineno"> 91 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
 <span class="lineno"> 92 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.5.3")
 <span class="caretline"><span class="lineno"> 93 </span>    implementation(<span class="warning">"androidx.activity:activity-compose:1.7.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 94 </span>}</pre>
+<span class="lineno"> 94 </span>    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+<span class="lineno"> 95 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:94</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 91 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
+<span class="lineno"> 92 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.5.3")
+<span class="lineno"> 93 </span>    implementation("androidx.activity:activity-compose:1.7.2")
+<span class="caretline"><span class="lineno"> 94 </span>    implementation(<span class="warning">"androidx.compose.material:material-icons-extended:1.5.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 95 </span>}</pre>
 
 </div>
 </div>

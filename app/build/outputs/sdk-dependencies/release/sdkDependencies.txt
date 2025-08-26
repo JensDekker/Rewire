@@ -1271,6 +1271,27 @@ library {
 library {
   maven_library {
     groupId: "androidx.compose.material"
+    artifactId: "material-icons-extended"
+    version: "1.5.3"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.compose.material"
+    artifactId: "material-icons-extended-android"
+    version: "1.5.3"
+  }
+  digests {
+    sha256: "\000ib\003V\352\2215\350\004V1T4z\327\260\246\216\350>Gc\310\005\370\006]\3630\244\240"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.compose.material"
     artifactId: "material-ripple"
     version: "1.5.3"
   }
@@ -2113,7 +2134,7 @@ library_dependencies {
   library_dep_index: 75
   library_dep_index: 81
   library_dep_index: 108
-  library_dep_index: 110
+  library_dep_index: 112
   library_dep_index: 53
   library_dep_index: 57
   library_dep_index: 68
@@ -2124,6 +2145,7 @@ library_dependencies {
   library_dep_index: 3
   library_dep_index: 108
   library_dep_index: 110
+  library_dep_index: 112
 }
 library_dependencies {
   library_index: 108
@@ -2135,6 +2157,7 @@ library_dependencies {
   library_dep_index: 1
   library_dep_index: 106
   library_dep_index: 110
+  library_dep_index: 112
 }
 library_dependencies {
   library_index: 110
@@ -2142,12 +2165,26 @@ library_dependencies {
 }
 library_dependencies {
   library_index: 111
+  library_dep_index: 108
+  library_dep_index: 53
+  library_dep_index: 3
+  library_dep_index: 106
+  library_dep_index: 108
+  library_dep_index: 112
+}
+library_dependencies {
+  library_index: 112
+  library_dep_index: 113
+}
+library_dependencies {
+  library_index: 113
   library_dep_index: 77
   library_dep_index: 75
   library_dep_index: 53
   library_dep_index: 62
   library_dep_index: 106
   library_dep_index: 108
+  library_dep_index: 110
 }
 module_dependencies {
   module_name: "base"
@@ -2161,6 +2198,7 @@ module_dependencies {
   dependency_index: 106
   dependency_index: 72
   dependency_index: 51
+  dependency_index: 110
   dependency_index: 19
 }
 repositories {

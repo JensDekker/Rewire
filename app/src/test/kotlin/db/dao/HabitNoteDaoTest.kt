@@ -22,6 +22,9 @@ class HabitNoteDaoTest {
 		override suspend fun deleteAll() {
 			noteList.clear()
 		}
+		override suspend fun getNoteForHabitOnDate(habitId: Long, date: String): HabitNoteEntity? {
+            return noteList.find { it.habitId == habitId && it.timestamp == date }
+        }
 	}
 
 	@Test
@@ -70,6 +73,5 @@ class HabitNoteDaoTest {
 		dao.insert(HabitNoteEntity(6, 2, "B", "2025-08-19T15:00"))
 		dao.deleteAll()
 		assertTrue(noteList.isEmpty())
-    }
-// ...existing code...
+	}
 }

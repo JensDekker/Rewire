@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HabitDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-26T10:48:58.890Z" hostname="DESKTOP-LH13CTI" time="0.003">
+<testsuite name="HabitDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-26T12:55:29.804Z" hostname="DESKTOP-LH13CTI" time="0.003">
   <properties/>
   <testcase name="testGetById" classname="HabitDaoTest" time="0.001"/>
   <testcase name="testDeleteAll" classname="HabitDaoTest" time="0.0"/>

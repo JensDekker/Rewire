@@ -287,6 +287,61 @@ public final class HabitNoteDao_Impl implements HabitNoteDao {
     }, $completion);
   }
 
+  @Override
+  public Object getNoteForHabitOnDate(final long habitId, final String date,
+      final Continuation<? super HabitNoteEntity> $completion) {
+    final String _sql = "SELECT * FROM habit_notes WHERE habitId = ? AND timestamp = ? LIMIT 1";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, habitId);
+    _argIndex = 2;
+    if (date == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, date);
+    }
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<HabitNoteEntity>() {
+      @Override
+      @Nullable
+      public HabitNoteEntity call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfHabitId = CursorUtil.getColumnIndexOrThrow(_cursor, "habitId");
+          final int _cursorIndexOfContent = CursorUtil.getColumnIndexOrThrow(_cursor, "content");
+          final int _cursorIndexOfTimestamp = CursorUtil.getColumnIndexOrThrow(_cursor, "timestamp");
+          final HabitNoteEntity _result;
+          if (_cursor.moveToFirst()) {
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final long _tmpHabitId;
+            _tmpHabitId = _cursor.getLong(_cursorIndexOfHabitId);
+            final String _tmpContent;
+            if (_cursor.isNull(_cursorIndexOfContent)) {
+              _tmpContent = null;
+            } else {
+              _tmpContent = _cursor.getString(_cursorIndexOfContent);
+            }
+            final String _tmpTimestamp;
+            if (_cursor.isNull(_cursorIndexOfTimestamp)) {
+              _tmpTimestamp = null;
+            } else {
+              _tmpTimestamp = _cursor.getString(_cursorIndexOfTimestamp);
+            }
+            _result = new HabitNoteEntity(_tmpId,_tmpHabitId,_tmpContent,_tmpTimestamp);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, $completion);
+  }
+
   @NonNull
   public static List<Class<?>> getRequiredConverters() {
     return Collections.emptyList();

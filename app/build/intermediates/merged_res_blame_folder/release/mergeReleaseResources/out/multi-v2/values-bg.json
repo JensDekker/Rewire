@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeReleaseResources-55:/values-bg/values-bg.xml",
+            "outputFile": "com.example.rewire.app-mergeReleaseResources-56:/values-bg/values-bg.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Jens Dekker\\.gradle\\caches\\8.13\\transforms\\b21dbf879701bf4517357d7758744d5d\\transformed\\appcompat-1.6.1\\res\\values-bg\\values-bg.xml",

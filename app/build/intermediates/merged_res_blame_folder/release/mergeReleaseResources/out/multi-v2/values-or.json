@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeReleaseResources-55:/values-or/values-or.xml",
+            "outputFile": "com.example.rewire.app-mergeReleaseResources-56:/values-or/values-or.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Jens Dekker\\.gradle\\caches\\8.13\\transforms\\422231bd7198177493b0c03404f40d9e\\transformed\\material-1.10.0\\res\\values-or\\values-or.xml",

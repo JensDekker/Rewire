@@ -9,9 +9,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddNotes
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
+import androidx.compose.material.icons.filled.NoteAdd
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,7 +50,7 @@ fun HabitCard(
                 fontSize = 20.sp
             )
             Icon(
-                imageVector = Icons.Filled.AddNotes,
+                imageVector = Icons.Filled.NoteAdd,
                 contentDescription = "Add Note",
                 modifier = Modifier
                     .size(32.dp)

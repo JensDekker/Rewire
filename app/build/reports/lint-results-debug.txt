@@ -51,6 +51,9 @@ C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:92: Warning: A n
 C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:93: Warning: A newer version of androidx.activity:activity-compose than 1.7.2 is available: 1.10.1 [GradleDependency]
     implementation("androidx.activity:activity-compose:1.7.2")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:94: Warning: A newer version of androidx.compose.material:material-icons-extended than 1.5.3 is available: 1.7.8 [GradleDependency]
+    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:4: Warning: A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0 [GradleDependency]
 coreKtx = "1.10.1"
           ~~~~~~~~
@@ -208,6 +211,9 @@ C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:92: Warning: Use
 C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:93: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.activity:activity-compose:1.7.2")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:94: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Explanation for issues of type "UseTomlInstead":
    If your project is using a libs.versions.toml file, you should place all
@@ -215,4 +221,4 @@ C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:93: Warning: Use
    declarations outside of the TOML file and suggests moving them (and in the
    IDE, provides a quickfix to performing the operation automatically).
 
-0 errors, 48 warnings
+0 errors, 50 warnings

@@ -93,6 +93,9 @@ class HabitManagerTest {
         override suspend fun deleteAll() {
             noteList.clear()
         }
+        override suspend fun getNoteForHabitOnDate(habitId: Long, date: String): HabitNoteEntity? {
+            return noteList.find { it.habitId == habitId && it.timestamp == date }
+        }
     })
 
     private val manager = HabitManager(habitRepository, habitCompletionRepository, habitNoteRepository)

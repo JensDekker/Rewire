@@ -597,6 +597,20 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="androidx.compose.material:material-icons-extended-android:1.5.3@aar"
+      jars="C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\326621a1b3f29c88b63b024bb8cc6b2f\transformed\material-icons-extended-release\jars\classes.jar"
+      resolved="androidx.compose.material:material-icons-extended-android:1.5.3"
+      provided="true"
+      folder="C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\326621a1b3f29c88b63b024bb8cc6b2f\transformed\material-icons-extended-release"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="androidx.compose.material:material-android:1.5.3@aar"
       jars="C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\bf0cae5376e417727c9f5893887ad6b1\transformed\material-release\jars\classes.jar"
       resolved="androidx.compose.material:material-android:1.5.3"
