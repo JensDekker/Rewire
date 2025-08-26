@@ -20,4 +20,8 @@ class HabitNoteRepository(private val habitNoteDao: HabitNoteDao) {
     suspend fun getNotesForHabit(habitId: Long): List<HabitNoteEntity> = withContext(Dispatchers.IO) {
         habitNoteDao.getAll().filter { it.habitId == habitId }
     }
+
+    suspend fun getNoteForHabitOnDate(habitId: Long, date: String): String = withContext(Dispatchers.IO) {
+        habitNoteDao.getNoteForHabitOnDate(habitId, date)?.content ?: ""
+    }
 }

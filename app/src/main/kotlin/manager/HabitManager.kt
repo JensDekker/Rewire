@@ -81,4 +81,8 @@ class HabitManager(
     suspend fun getHabits(): List<HabitEntity> {
         return habitRepository.getAllHabits()
     }
+
+    suspend fun getNoteForHabitOnDate(habitId: Long, date: String): String {
+        return habitNoteRepository.getNoteForHabitOnDate(habitId, date)
+    }
 }
