@@ -4,7 +4,7 @@
     name=":app"
     type="APP"
     maven="Rewire:app:unspecified"
-    agpVersion="8.11.1"
+    agpVersion="8.12.1"
     buildFolder="build"
     bootClassPath="C:\Users\Jens Dekker\AppData\Local\Android\Sdk\platforms\android-36\android.jar;C:\Users\Jens Dekker\AppData\Local\Android\Sdk\build-tools\35.0.0\core-lambda-stubs.jar"
     javaSourceLevel="17"

@@ -19,6 +19,7 @@
   public int compareTo(j$.time.Duration);
   public int getNano();
   public long getSeconds();
+  public static j$.time.Duration ofMillis(long);
   public static j$.time.Duration ofSeconds(long, long);
   public long toMillis();
   j$.time.Duration ZERO;
@@ -125,6 +126,10 @@
   public int getMonths();
   public int getYears();
   public static j$.time.Period of(int, int, int);
+}
+-keep class j$.time.TimeConversions {
+  public static java.time.Duration convert(j$.time.Duration);
+  public static j$.time.Duration convert(java.time.Duration);
 }
 -keep class j$.time.ZoneId {
   public static java.util.Set getAvailableZoneIds();

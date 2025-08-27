@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.11.1">
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        severity="Warning"
-        message="A newer version of com.android.application than 8.11.1 is available: 8.12.1"
-        category="Correctness"
-        priority="4"
-        summary="Obsolete Android Gradle Plugin Version"
-        explanation="This detector looks for usage of the Android Gradle Plugin where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
-        errorLine1="agp = &quot;8.11.1&quot;"
-        errorLine2="      ~~~~~~~~">
-        <location
-            file="C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml"
-            line="2"
-            column="7"/>
-    </issue>
+<issues format="6" by="lint 8.12.1">
 
     <issue
         id="GradleDependency"
@@ -29,7 +13,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="49"
+            line="55"
             column="20"/>
     </issue>
 
@@ -45,7 +29,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="50"
+            line="56"
             column="10"/>
     </issue>
 
@@ -61,7 +45,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="51"
+            line="57"
             column="20"/>
     </issue>
 
@@ -77,7 +61,7 @@
         errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="55"
+            line="62"
             column="28"/>
     </issue>
 
@@ -93,7 +77,7 @@
         errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="56"
+            line="63"
             column="35"/>
     </issue>
 
@@ -109,7 +93,7 @@
         errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="57"
+            line="64"
             column="35"/>
     </issue>
 
@@ -125,7 +109,7 @@
         errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="86"
+            line="93"
             column="27"/>
     </issue>
 
@@ -141,7 +125,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="87"
+            line="94"
             column="20"/>
     </issue>
 
@@ -157,7 +141,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="88"
+            line="95"
             column="20"/>
     </issue>
 
@@ -173,56 +157,8 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="89"
+            line="96"
             column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        severity="Warning"
-        message="A newer version of androidx.compose.material:material than 1.5.3 is available: 1.9.0"
-        category="Correctness"
-        priority="4"
-        summary="Obsolete Gradle Dependency"
-        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
-        errorLine1="    implementation(&quot;androidx.compose.material:material:1.5.3&quot;)"
-        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="90"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        severity="Warning"
-        message="A newer version of androidx.compose.ui:ui-tooling-preview than 1.5.3 is available: 1.9.0"
-        category="Correctness"
-        priority="4"
-        summary="Obsolete Gradle Dependency"
-        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
-        errorLine1="    implementation(&quot;androidx.compose.ui:ui-tooling-preview:1.5.3&quot;)"
-        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="91"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        severity="Warning"
-        message="A newer version of androidx.compose.ui:ui-tooling than 1.5.3 is available: 1.9.0"
-        category="Correctness"
-        priority="4"
-        summary="Obsolete Gradle Dependency"
-        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
-        errorLine1="    debugImplementation(&quot;androidx.compose.ui:ui-tooling:1.5.3&quot;)"
-        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="92"
-            column="25"/>
     </issue>
 
     <issue
@@ -237,23 +173,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="93"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        severity="Warning"
-        message="A newer version of androidx.compose.material:material-icons-extended than 1.5.3 is available: 1.7.8"
-        category="Correctness"
-        priority="4"
-        summary="Obsolete Gradle Dependency"
-        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
-        errorLine1="    implementation(&quot;androidx.compose.material:material-icons-extended:1.5.3&quot;)"
-        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="94"
+            line="100"
             column="20"/>
     </issue>
 
@@ -356,6 +276,22 @@
     <issue
         id="NewerVersionAvailable"
         severity="Warning"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-core than 1.6.3 is available: 1.9.0"
+        category="Correctness"
+        priority="4"
+        summary="Newer Library Versions Available"
+        explanation="This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project. This is similar to the `GradleDependency` check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also **much** slower."
+        errorLine1="    implementation(&quot;org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3&quot;)"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
+            line="59"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        severity="Warning"
         message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.6.3 is available: 1.9.0"
         category="Correctness"
         priority="4"
@@ -365,7 +301,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="53"
+            line="60"
             column="20"/>
     </issue>
 
@@ -415,7 +351,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="50"
+            line="56"
             column="5"/>
     </issue>
 
@@ -543,7 +479,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="49"
+            line="55"
             column="20"/>
     </issue>
 
@@ -559,7 +495,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="50"
+            line="56"
             column="10"/>
     </issue>
 
@@ -575,7 +511,23 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="51"
+            line="57"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="UseTomlInstead"
+        severity="Warning"
+        message="Use version catalog instead"
+        category="Productivity"
+        priority="4"
+        summary="Use TOML Version Catalog Instead"
+        explanation="If your project is using a `libs.versions.toml` file, you should place all Gradle dependencies in the TOML file. This lint check looks for version declarations outside of the TOML file and suggests moving them (and in the IDE, provides a quickfix to performing the operation automatically)."
+        errorLine1="    implementation(&quot;org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3&quot;)"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
+            line="59"
             column="20"/>
     </issue>
 
@@ -591,7 +543,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="53"
+            line="60"
             column="20"/>
     </issue>
 
@@ -607,7 +559,7 @@
         errorLine2="                           ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="54"
+            line="61"
             column="28"/>
     </issue>
 
@@ -623,7 +575,7 @@
         errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="55"
+            line="62"
             column="28"/>
     </issue>
 
@@ -639,7 +591,7 @@
         errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="56"
+            line="63"
             column="35"/>
     </issue>
 
@@ -655,7 +607,7 @@
         errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="57"
+            line="64"
             column="35"/>
     </issue>
 
@@ -671,7 +623,7 @@
         errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="86"
+            line="93"
             column="27"/>
     </issue>
 
@@ -687,7 +639,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="87"
+            line="94"
             column="20"/>
     </issue>
 
@@ -703,7 +655,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="88"
+            line="95"
             column="20"/>
     </issue>
 
@@ -719,7 +671,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="89"
+            line="96"
             column="20"/>
     </issue>
 
@@ -731,11 +683,11 @@
         priority="4"
         summary="Use TOML Version Catalog Instead"
         explanation="If your project is using a `libs.versions.toml` file, you should place all Gradle dependencies in the TOML file. This lint check looks for version declarations outside of the TOML file and suggests moving them (and in the IDE, provides a quickfix to performing the operation automatically)."
-        errorLine1="    implementation(&quot;androidx.compose.material:material:1.5.3&quot;)"
+        errorLine1="    implementation(&quot;androidx.compose.material:material:1.9.0&quot;)"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="90"
+            line="97"
             column="20"/>
     </issue>
 
@@ -747,11 +699,11 @@
         priority="4"
         summary="Use TOML Version Catalog Instead"
         explanation="If your project is using a `libs.versions.toml` file, you should place all Gradle dependencies in the TOML file. This lint check looks for version declarations outside of the TOML file and suggests moving them (and in the IDE, provides a quickfix to performing the operation automatically)."
-        errorLine1="    implementation(&quot;androidx.compose.ui:ui-tooling-preview:1.5.3&quot;)"
+        errorLine1="    implementation(&quot;androidx.compose.ui:ui-tooling-preview:1.9.0&quot;)"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="91"
+            line="98"
             column="20"/>
     </issue>
 
@@ -763,11 +715,11 @@
         priority="4"
         summary="Use TOML Version Catalog Instead"
         explanation="If your project is using a `libs.versions.toml` file, you should place all Gradle dependencies in the TOML file. This lint check looks for version declarations outside of the TOML file and suggests moving them (and in the IDE, provides a quickfix to performing the operation automatically)."
-        errorLine1="    debugImplementation(&quot;androidx.compose.ui:ui-tooling:1.5.3&quot;)"
+        errorLine1="    debugImplementation(&quot;androidx.compose.ui:ui-tooling:1.9.0&quot;)"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="92"
+            line="99"
             column="25"/>
     </issue>
 
@@ -783,7 +735,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="93"
+            line="100"
             column="20"/>
     </issue>
 
@@ -795,11 +747,11 @@
         priority="4"
         summary="Use TOML Version Catalog Instead"
         explanation="If your project is using a `libs.versions.toml` file, you should place all Gradle dependencies in the TOML file. This lint check looks for version declarations outside of the TOML file and suggests moving them (and in the IDE, provides a quickfix to performing the operation automatically)."
-        errorLine1="    implementation(&quot;androidx.compose.material:material-icons-extended:1.5.3&quot;)"
+        errorLine1="    implementation(&quot;androidx.compose.material:material-icons-extended:1.7.8&quot;)"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts"
-            line="94"
+            line="101"
             column="20"/>
     </issue>
 

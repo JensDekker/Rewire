@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HabitNoteDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-26T12:55:29.017Z" hostname="DESKTOP-LH13CTI" time="0.004">
+<testsuite name="HabitNoteDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-27T13:14:07.885Z" hostname="DESKTOP-LH13CTI" time="0.003">
   <properties/>
-  <testcase name="testGetById" classname="HabitNoteDaoTest" time="0.0"/>
+  <testcase name="testGetById" classname="HabitNoteDaoTest" time="0.001"/>
   <testcase name="testDeleteAll" classname="HabitNoteDaoTest" time="0.0"/>
-  <testcase name="testDelete" classname="HabitNoteDaoTest" time="0.002"/>
-  <testcase name="testUpdate" classname="HabitNoteDaoTest" time="0.0"/>
-  <testcase name="testInsertAndGetAll" classname="HabitNoteDaoTest" time="0.001"/>
+  <testcase name="testDelete" classname="HabitNoteDaoTest" time="0.001"/>
+  <testcase name="testUpdate" classname="HabitNoteDaoTest" time="0.001"/>
+  <testcase name="testInsertAndGetAll" classname="HabitNoteDaoTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

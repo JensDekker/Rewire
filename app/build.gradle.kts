@@ -44,12 +44,19 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+        force("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    }
+}
 
 dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation(project(":core"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
         testImplementation("junit:junit:4.13.2")
         testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
@@ -87,9 +94,9 @@ dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.compose.ui:ui:1.5.3")
-    implementation("androidx.compose.material:material:1.5.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.5.3")
+    implementation("androidx.compose.material:material:1.9.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
     implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.material:material-icons-extended:1.5.3")
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
 }

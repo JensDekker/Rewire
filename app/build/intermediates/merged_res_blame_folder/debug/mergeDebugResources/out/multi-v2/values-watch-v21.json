@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeDebugResources-58:/values-watch-v21/values-watch-v21.xml",
+            "outputFile": "com.example.rewire.app-mergeDebugResources-51:/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Jens Dekker\\.gradle\\caches\\8.13\\transforms\\b21dbf879701bf4517357d7758744d5d\\transformed\\appcompat-1.6.1\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "source": "C:\\Users\\Jens Dekker\\.gradle\\caches\\8.13\\transforms\\59d48f329d03292c291d50fce8f2fee0\\transformed\\appcompat-1.6.1\\res\\values-watch-v21\\values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

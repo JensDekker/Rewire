@@ -1,29 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rewire.app-mergeDebugResources-58:/values-v28/values-v28.xml",
+            "outputFile": "com.example.rewire.app-mergeDebugResources-51:/values-v28/values-v28.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Jens Dekker\\.gradle\\caches\\8.13\\transforms\\b21dbf879701bf4517357d7758744d5d\\transformed\\appcompat-1.6.1\\res\\values-v28\\values-v28.xml",
-                    "from": {
-                        "startLines": "2,3,4,8",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,130,217,397",
-                        "endLines": "2,3,7,11",
-                        "endColumns": "74,86,12,12",
-                        "endOffsets": "125,212,392,584"
-                    },
-                    "to": {
-                        "startLines": "14,15,16,20",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "1141,1216,1303,1483",
-                        "endLines": "14,15,19,23",
-                        "endColumns": "74,86,12,12",
-                        "endOffsets": "1211,1298,1478,1670"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Jens Dekker\\.gradle\\caches\\8.13\\transforms\\422231bd7198177493b0c03404f40d9e\\transformed\\material-1.10.0\\res\\values-v28\\values-v28.xml",
+                    "source": "C:\\Users\\Jens Dekker\\.gradle\\caches\\8.13\\transforms\\655b0023126044ed277da4c8b4122a87\\transformed\\material-1.10.0\\res\\values-v28\\values-v28.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -39,6 +20,25 @@
                         "endLines": "2,3,4,5,6,7,8,9,10,11,12,13,27",
                         "endColumns": "97,94,94,97,87,87,87,87,86,86,86,86,10",
                         "endOffsets": "148,243,338,436,524,612,700,788,875,962,1049,1136,1957"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Jens Dekker\\.gradle\\caches\\8.13\\transforms\\59d48f329d03292c291d50fce8f2fee0\\transformed\\appcompat-1.6.1\\res\\values-v28\\values-v28.xml",
+                    "from": {
+                        "startLines": "2,3,4,8",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,130,217,397",
+                        "endLines": "2,3,7,11",
+                        "endColumns": "74,86,12,12",
+                        "endOffsets": "125,212,392,584"
+                    },
+                    "to": {
+                        "startLines": "14,15,16,20",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "1141,1216,1303,1483",
+                        "endLines": "14,15,19,23",
+                        "endColumns": "74,86,12,12",
+                        "endOffsets": "1211,1298,1478,1670"
                     }
                 }
             ]

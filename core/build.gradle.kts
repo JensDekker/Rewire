@@ -1,4 +1,3 @@
-
 plugins {
     kotlin("jvm")
     id("org.jetbrains.kotlin.kapt")
@@ -13,5 +12,13 @@ dependencies {
     // Add any dependencies needed for shared logic here
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+        force("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    }
 }
 

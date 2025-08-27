@@ -1,66 +1,70 @@
 [
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.rewire.app-release-56:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.example.rewire.app-release-56:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.rewire.app-main-59:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.rewire.app-release-56:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.example.rewire.app-release-56:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.rewire.app-release-56:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/xml_backup_rules.xml.flat",
-        "source": "com.example.rewire.app-main-59:/xml/backup_rules.xml"
+        "merged": "com.example.rewire.app-release-56:/drawable_ic_add_notes.xml.flat",
+        "source": "com.example.rewire.app-main-57:/drawable/ic_add_notes.xml"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.rewire.app-release-56:/xml_backup_rules.xml.flat",
+        "source": "com.example.rewire.app-main-57:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.example.rewire.app-release-56:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.rewire.app-main-57:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.rewire.app-release-56:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.rewire.app-main-57:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.example.rewire.app-release-56:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.example.rewire.app-release-56:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.example.rewire.app-release-56:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.rewire.app-main-59:/drawable/ic_launcher_background.xml"
+        "merged": "com.example.rewire.app-release-56:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.example.rewire.app-release-56:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.rewire.app-main-59:/xml/data_extraction_rules.xml"
+        "merged": "com.example.rewire.app-release-56:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.rewire.app-main-57:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.rewire.app-release-58:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rewire.app-main-59:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.rewire.app-release-56:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.rewire.app-release-56:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.rewire.app-main-57:/mipmap-hdpi/ic_launcher.webp"
     }
 ]

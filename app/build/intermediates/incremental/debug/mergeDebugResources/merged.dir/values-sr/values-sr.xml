@@ -32,6 +32,7 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Делите помоћу"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Делите помоћу апликације <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Скупи"</string>
+    <string msgid="389117264260014992" name="autofill">"Аутоматско попуњавање"</string>
     <string name="bottomsheet_action_collapse">Скупите доњу табелу</string>
     <string name="bottomsheet_action_expand">Проширите доњу табелу</string>
     <string name="bottomsheet_action_expand_halfway">Проширите до пола</string>
@@ -71,6 +72,7 @@
     <string name="material_timepicker_pm">PM</string>
     <string name="material_timepicker_select_time">Изаберите време</string>
     <string name="material_timepicker_text_input_mode_description">Пређите у режим уноса текста ради уноса времена.</string>
+    <string msgid="8471891128988107974" name="mc2_snackbar_pane_title">"Обавештење"</string>
     <string name="mtrl_badge_numberless_content_description">Ново обавештење</string>
     <string name="mtrl_chip_close_icon_content_description">Уклоните %1$s</string>
     <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Нових обавештења: више од %1$d</string>
@@ -115,15 +117,19 @@
     <string name="mtrl_timepicker_confirm">Потврди</string>
     <string msgid="542007171693138492" name="navigation_menu">"Мени за навигацију"</string>
     <string msgid="6610465462668679431" name="not_selected">"Није изабрано"</string>
-    <string msgid="875452955155264703" name="off">"Искључено"</string>
-    <string msgid="8655164131929253426" name="on">"Укључено"</string>
     <string name="password_toggle_content_description">Прикажи лозинку</string>
     <string msgid="5941395253238309765" name="range_end">"Крај опсега"</string>
     <string msgid="7097486360902471446" name="range_start">"Почетак опсега"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Претражите"</string>
     <string msgid="6043586758067023" name="selected">"Изабрано"</string>
+    <string msgid="2792228137354697160" name="snackbar_pane_title">"Обавештење"</string>
+    <string msgid="4139871816613051306" name="state_empty">"Празно"</string>
+    <string msgid="5834637030682409883" name="state_off">"Искључено"</string>
+    <string msgid="1490883874751719580" name="state_on">"Укључено"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string msgid="2561197295334830845" name="switch_role">"Прекидач"</string>
     <string msgid="1672349317127674378" name="tab">"Картица"</string>
     <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g> посто."</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"објашњење"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"прикажи објашњење"</string>
 </resources>
