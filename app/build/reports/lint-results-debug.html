@@ -177,20 +177,21 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 47 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 48 warnings</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Wed Aug 27 09:14:12 EDT 2025 by AGP (8.12.1)</nav>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Wed Sep 17 19:49:42 EDT 2025 by AGP (8.12.1)</nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Issue Types</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
-      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (16)</a>
+      <a class="mdl-navigation__link" href="#AndroidGradlePluginVersion"><i class="material-icons warning-icon">warning</i>Obsolete Android Gradle Plugin Version (1)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (15)</a>
       <a class="mdl-navigation__link" href="#NewerVersionAvailable"><i class="material-icons warning-icon">warning</i>Newer Library Versions Available (5)</a>
       <a class="mdl-navigation__link" href="#KaptUsageInsteadOfKsp"><i class="material-icons warning-icon">warning</i>Kapt usage should be replaced with KSP (1)</a>
       <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (7)</a>
-      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (18)</a>
+      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (19)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -206,7 +207,10 @@ document.getElementById(id).style.display = 'none';
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
 <tr>
-<td class="countColumn">16</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#AndroidGradlePluginVersion">AndroidGradlePluginVersion</a>: Obsolete Android Gradle Plugin Version</td></tr>
+<tr>
+<td class="countColumn">15</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr>
 <td class="countColumn">5</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -222,9 +226,9 @@ document.getElementById(id).style.display = 'none';
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Productivity">Productivity</a>
 </td></tr>
 <tr>
-<td class="countColumn">18</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">19</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UseTomlInstead">UseTomlInstead</a>: Use TOML Version Catalog Instead</td></tr>
-<tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (69)</a>
+<tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (63)</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (42)</a>
 </td></tr>
@@ -236,7 +240,51 @@ Dismiss</button>            </div>
             </div>
           </section>
 <a name="Correctness"></a>
-<a name="GradleDependency"></a>
+<a name="AndroidGradlePluginVersion"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="AndroidGradlePluginVersionCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Obsolete Android Gradle Plugin Version</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:2</span>: <span class="message">A newer version of com.android.application than 8.12.1 is available: 8.13.0. (There is also a newer version of 8.12.&#55349;&#56421; available, if upgrading to 8.13.0 is difficult: 8.12.3)</span><br /><pre class="errorlines">
+<span class="lineno">  1 </span>[versions]
+<span class="caretline"><span class="lineno">  2 </span>agp = <span class="warning">"8.12.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  3 </span>kotlin = "1.9.22"
+<span class="lineno">  4 </span>coreKtx = "1.10.1"
+<span class="lineno">  5 </span>junit = "4.13.2"
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationAndroidGradlePluginVersion" style="display: none;">
+This detector looks for usage of the Android Gradle Plugin where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+To suppress this error, use the issue id "AndroidGradlePluginVersion" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">AndroidGradlePluginVersion</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Correctness</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationAndroidGradlePluginVersionLink" onclick="reveal('explanationAndroidGradlePluginVersion');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="AndroidGradlePluginVersionCardLink" onclick="hideid('AndroidGradlePluginVersionCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="GradleDependency"></a>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="GradleDependencyCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
@@ -245,119 +293,105 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:55</span>: <span class="message">A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
-<span class="lineno">  52 </span>}
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">A newer version of androidx.compose:compose-bom than 2025.01.00 is available: 2025.09.00</span><br /><pre class="errorlines">
 <span class="lineno">  53 </span>
 <span class="lineno">  54 </span>dependencies {
-<span class="caretline"><span class="lineno">  55 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  56 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
+<span class="lineno">  55 </span>    // Use Compose BOM for version alignment
+<span class="caretline"><span class="lineno">  56 </span>    implementation(<span class="warning">platform("androidx.compose:compose-bom:2025.01.00")</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  57 </span>    implementation("androidx.compose.ui:ui")
+<span class="lineno">  58 </span>    implementation("androidx.compose.material:material")
+<span class="lineno">  59 </span>    implementation("androidx.compose.material:material-icons-extended")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
-<span class="lineno">  53 </span>
-<span class="lineno">  54 </span>dependencies {
-<span class="lineno">  55 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="caretline"><span class="lineno">  56 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:63</span>: <span class="message">A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.8.0</span><br /><pre class="errorlines">
+<span class="lineno">  60 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="caretline"><span class="lineno">  63 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  64 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:57</span>: <span class="message">A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.7.2</span><br /><pre class="errorlines">
-<span class="lineno">  54 </span>dependencies {
-<span class="lineno">  55 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="lineno">  56 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="caretline"><span class="lineno">  57 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:64</span>: <span class="message">A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.8.0</span><br /><pre class="errorlines">
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="lineno">  63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno">  64 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:62</span>: <span class="message">A newer version of org.jetbrains.kotlin:kotlin-test than 1.9.10 is available: 2.0.21</span><br /><pre class="errorlines">
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="caretline"><span class="lineno">  62 </span>        testImplementation(<span class="warning">"org.jetbrains.kotlin:kotlin-test:1.9.10"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  63 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
-<span class="lineno">  64 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:65</span>: <span class="message">A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.8.0</span><br /><pre class="errorlines">
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="lineno">  63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno">  64 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="caretline"><span class="lineno">  65 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:63</span>: <span class="message">A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0</span><br /><pre class="errorlines">
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
-<span class="caretline"><span class="lineno">  63 </span>        androidTestImplementation(<span class="warning">"androidx.test.ext:junit:1.1.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  64 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-<span class="lineno">  65 </span>
-<span class="lineno">  66 </span>    /*
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:70</span>: <span class="message">A newer version of org.jetbrains.kotlin:kotlin-test than 1.9.10 is available: 1.9.22</span><br /><pre class="errorlines">
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="caretline"><span class="lineno">  70 </span>        testImplementation(<span class="warning">"org.jetbrains.kotlin:kotlin-test:1.9.10"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  71 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno">  72 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 </pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="GradleDependencyDivLink" onclick="reveal('GradleDependencyDiv');" />+ 11 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="GradleDependencyDivLink" onclick="reveal('GradleDependencyDiv');" />+ 10 More Occurrences...</button>
 <div id="GradleDependencyDiv" style="display: none">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:64</span>: <span class="message">A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0</span><br /><pre class="errorlines">
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
-<span class="lineno">  63 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
-<span class="caretline"><span class="lineno">  64 </span>        androidTestImplementation(<span class="warning">"androidx.test.espresso:espresso-core:3.5.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  65 </span>
-<span class="lineno">  66 </span>    /*
-<span class="lineno">  67 </span>    // Core library desugaring for java.time support on API &lt; 26
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:71</span>: <span class="message">A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0</span><br /><pre class="errorlines">
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="caretline"><span class="lineno">  71 </span>        androidTestImplementation(<span class="warning">"androidx.test.ext:junit:1.1.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  72 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="lineno">  73 </span>
+<span class="lineno">  74 </span>    /*
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:93</span>: <span class="message">A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5</span><br /><pre class="errorlines">
-<span class="lineno">  90 </span>    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-<span class="lineno">  91 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-<span class="lineno">  92 </span>    */
-<span class="caretline"><span class="lineno">  93 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  94 </span>    implementation("androidx.core:core-ktx:1.10.1")
-<span class="lineno">  95 </span>    implementation("com.google.android.material:material:1.10.0")
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:72</span>: <span class="message">A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0</span><br /><pre class="errorlines">
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="lineno">  71 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="caretline"><span class="lineno">  72 </span>        androidTestImplementation(<span class="warning">"androidx.test.espresso:espresso-core:3.5.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  73 </span>
+<span class="lineno">  74 </span>    /*
+<span class="lineno">  75 </span>    // Core library desugaring for java.time support on API &lt; 26
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:94</span>: <span class="message">A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0</span><br /><pre class="errorlines">
-<span class="lineno">  91 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-<span class="lineno">  92 </span>    */
-<span class="lineno">  93 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-<span class="caretline"><span class="lineno">  94 </span>    implementation(<span class="warning">"androidx.core:core-ktx:1.10.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  95 </span>    implementation("com.google.android.material:material:1.10.0")
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-</pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:101</span>: <span class="message">A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5</span><br /><pre class="errorlines">
+<span class="lineno">  98 </span>    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+<span class="lineno">  99 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+<span class="lineno"> 100 </span>    */
+<span class="caretline"><span class="lineno"> 101 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 102 </span>    implementation("androidx.core:core-ktx:1.10.1")
+<span class="lineno"> 103 </span>    implementation("com.google.android.material:material:1.10.0")
+<span class="lineno"> 104 </span>}</pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:95</span>: <span class="message">A newer version of com.google.android.material:material than 1.10.0 is available: 1.12.0</span><br /><pre class="errorlines">
-<span class="lineno">  92 </span>    */
-<span class="lineno">  93 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-<span class="lineno">  94 </span>    implementation("androidx.core:core-ktx:1.10.1")
-<span class="caretline"><span class="lineno">  95 </span>    implementation(<span class="warning">"com.google.android.material:material:1.10.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-</pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:102</span>: <span class="message">A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0</span><br /><pre class="errorlines">
+<span class="lineno">  99 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+<span class="lineno"> 100 </span>    */
+<span class="lineno"> 101 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+<span class="caretline"><span class="lineno"> 102 </span>    implementation(<span class="warning">"androidx.core:core-ktx:1.10.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 103 </span>    implementation("com.google.android.material:material:1.10.0")
+<span class="lineno"> 104 </span>}</pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:96</span>: <span class="message">A newer version of androidx.compose.ui:ui than 1.5.3 is available: 1.9.0</span><br /><pre class="errorlines">
-<span class="lineno">  93 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-<span class="lineno">  94 </span>    implementation("androidx.core:core-ktx:1.10.1")
-<span class="lineno">  95 </span>    implementation("com.google.android.material:material:1.10.0")
-<span class="caretline"><span class="lineno">  96 </span>    implementation(<span class="warning">"androidx.compose.ui:ui:1.5.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-<span class="lineno">  99 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
-</pre>
-
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:100</span>: <span class="message">A newer version of androidx.activity:activity-compose than 1.7.2 is available: 1.10.1</span><br /><pre class="errorlines">
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-<span class="lineno">  99 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
-<span class="caretline"><span class="lineno"> 100 </span>    implementation(<span class="warning">"androidx.activity:activity-compose:1.7.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 101 </span>    implementation("androidx.compose.material:material-icons-extended:1.7.8")
-<span class="lineno"> 102 </span>}</pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:103</span>: <span class="message">A newer version of com.google.android.material:material than 1.10.0 is available: 1.13.0</span><br /><pre class="errorlines">
+<span class="lineno"> 100 </span>    */
+<span class="lineno"> 101 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+<span class="lineno"> 102 </span>    implementation("androidx.core:core-ktx:1.10.1")
+<span class="caretline"><span class="lineno"> 103 </span>    implementation(<span class="warning">"com.google.android.material:material:1.10.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 104 </span>}</pre>
 
 <span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:4</span>: <span class="message">A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0</span><br /><pre class="errorlines">
 <span class="lineno">  1 </span>[versions]
 <span class="lineno">  2 </span>agp = "8.12.1"
-<span class="lineno">  3 </span>kotlin = "1.9.10"
+<span class="lineno">  3 </span>kotlin = "1.9.22"
 <span class="caretline"><span class="lineno">  4 </span>coreKtx = <span class="warning">"1.10.1"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  5 </span>junit = "4.13.2"
 <span class="lineno">  6 </span>junitVersion = "1.1.5"
@@ -365,7 +399,7 @@ Dismiss</button>            </div>
 </pre>
 
 <span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:6</span>: <span class="message">A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0</span><br /><pre class="errorlines">
-<span class="lineno">  3 </span>kotlin = "1.9.10"
+<span class="lineno">  3 </span>kotlin = "1.9.22"
 <span class="lineno">  4 </span>coreKtx = "1.10.1"
 <span class="lineno">  5 </span>junit = "4.13.2"
 <span class="caretline"><span class="lineno">  6 </span>junitVersion = <span class="warning">"1.1.5"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -394,7 +428,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 11 </span>[libraries]
 </pre>
 
-<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:9</span>: <span class="message">A newer version of com.google.android.material:material than 1.10.0 is available: 1.12.0</span><br /><pre class="errorlines">
+<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:9</span>: <span class="message">A newer version of com.google.android.material:material than 1.10.0 is available: 1.13.0</span><br /><pre class="errorlines">
 <span class="lineno">  6 </span>junitVersion = "1.1.5"
 <span class="lineno">  7 </span>espressoCore = "3.5.1"
 <span class="lineno">  8 </span>appcompat = "1.6.1"
@@ -441,46 +475,46 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:5</span>: <span class="message">A newer version of org.jetbrains.kotlin.plugin.serialization than 1.9.0 is available: 2.2.10</span><br /><pre class="errorlines">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:5</span>: <span class="message">A newer version of org.jetbrains.kotlin.plugin.serialization than 1.9.22 is available: 2.2.20</span><br /><pre class="errorlines">
 <span class="lineno">   2 </span>    alias(libs.plugins.android.application)
 <span class="lineno">   3 </span>    alias(libs.plugins.kotlin.android)
 <span class="lineno">   4 </span>    id("org.jetbrains.kotlin.kapt")
-<span class="caretline"><span class="lineno">   5 </span>    id("org.jetbrains.kotlin.plugin.serialization") version <span class="warning">"1.9.0"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">   5 </span>    id("org.jetbrains.kotlin.plugin.serialization") version <span class="warning">"1.9.22"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">   6 </span>}
 <span class="lineno">   7 </span>
 <span class="lineno">   8 </span>android {
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:59</span>: <span class="message">A newer version of org.jetbrains.kotlinx:kotlinx-serialization-core than 1.6.3 is available: 1.9.0</span><br /><pre class="errorlines">
-<span class="lineno">  56 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="caretline"><span class="lineno">  59 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:67</span>: <span class="message">A newer version of org.jetbrains.kotlinx:kotlinx-serialization-core than 1.6.3 is available: 1.9.0</span><br /><pre class="errorlines">
+<span class="lineno">  64 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="caretline"><span class="lineno">  67 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:60</span>: <span class="message">A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.6.3 is available: 1.9.0</span><br /><pre class="errorlines">
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
-<span class="caretline"><span class="lineno">  60 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
-<span class="lineno">  63 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:68</span>: <span class="message">A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.6.3 is available: 1.9.0</span><br /><pre class="errorlines">
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="caretline"><span class="lineno">  68 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="lineno">  71 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
 </pre>
 
-<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:3</span>: <span class="message">A newer version of org.jetbrains.kotlin.android than 1.9.10 is available: 2.2.10</span><br /><pre class="errorlines">
+<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:3</span>: <span class="message">A newer version of org.jetbrains.kotlin.android than 1.9.22 is available: 2.2.20</span><br /><pre class="errorlines">
 <span class="lineno">  1 </span>[versions]
 <span class="lineno">  2 </span>agp = "8.12.1"
-<span class="caretline"><span class="lineno">  3 </span>kotlin = <span class="warning">"1.9.10"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">  3 </span>kotlin = <span class="warning">"1.9.22"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  4 </span>coreKtx = "1.10.1"
 <span class="lineno">  5 </span>junit = "4.13.2"
 <span class="lineno">  6 </span>junitVersion = "1.1.5"
 </pre>
 
-<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:22</span>: <span class="message">A newer version of org.jetbrains.compose than 1.5.3 is available: 1.8.2</span><br /><pre class="errorlines">
+<span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:22</span>: <span class="message">A newer version of org.jetbrains.compose than 1.5.3 is available: 1.9.0</span><br /><pre class="errorlines">
 <span class="lineno"> 19 </span>[plugins]
 <span class="lineno"> 20 </span>android-application = { id = "com.android.application", version.ref = "agp" }
 <span class="lineno"> 21 </span>kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -526,14 +560,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">This library supports using KSP instead of kapt, which greatly improves performance. Learn more: <a href="https://developer.android.com/studio/build/migrate-to-ksp">https://developer.android.com/studio/build/migrate-to-ksp</a></span><br /><pre class="errorlines">
-<span class="lineno">  53 </span>
-<span class="lineno">  54 </span>dependencies {
-<span class="lineno">  55 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="caretline"><span class="lineno">  56 </span>    <span class="warning">kapt("androidx.room:room-compiler:2.6.1")</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:64</span>: <span class="message">This library supports using KSP instead of kapt, which greatly improves performance. Learn more: <a href="https://developer.android.com/studio/build/migrate-to-ksp">https://developer.android.com/studio/build/migrate-to-ksp</a></span><br /><pre class="errorlines">
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="lineno">  63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno">  64 </span>    <span class="warning">kapt("androidx.room:room-compiler:2.6.1")</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
 </pre>
 
 </div>
@@ -698,180 +732,190 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:55</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  52 </span>}
-<span class="lineno">  53 </span>
-<span class="lineno">  54 </span>dependencies {
-<span class="caretline"><span class="lineno">  55 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  56 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
-</pre>
-
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:56</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
 <span class="lineno">  53 </span>
 <span class="lineno">  54 </span>dependencies {
-<span class="lineno">  55 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="caretline"><span class="lineno">  56 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="lineno">  55 </span>    // Use Compose BOM for version alignment
+<span class="caretline"><span class="lineno">  56 </span>    implementation(<span class="warning">platform("androidx.compose:compose-bom:2025.01.00")</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  57 </span>    implementation("androidx.compose.ui:ui")
+<span class="lineno">  58 </span>    implementation("androidx.compose.material:material")
+<span class="lineno">  59 </span>    implementation("androidx.compose.material:material-icons-extended")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:57</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
 <span class="lineno">  54 </span>dependencies {
-<span class="lineno">  55 </span>    implementation("androidx.room:room-runtime:2.6.1")
-<span class="lineno">  56 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="caretline"><span class="lineno">  57 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno">  55 </span>    // Use Compose BOM for version alignment
+<span class="lineno">  56 </span>    implementation(platform("androidx.compose:compose-bom:2025.01.00"))
+<span class="caretline"><span class="lineno">  57 </span>    implementation(<span class="warning">"androidx.compose.ui:ui"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  58 </span>    implementation("androidx.compose.material:material")
+<span class="lineno">  59 </span>    implementation("androidx.compose.material:material-icons-extended")
+<span class="lineno">  60 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:58</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno">  55 </span>    // Use Compose BOM for version alignment
+<span class="lineno">  56 </span>    implementation(platform("androidx.compose:compose-bom:2025.01.00"))
+<span class="lineno">  57 </span>    implementation("androidx.compose.ui:ui")
+<span class="caretline"><span class="lineno">  58 </span>    implementation(<span class="warning">"androidx.compose.material:material"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  59 </span>    implementation("androidx.compose.material:material-icons-extended")
+<span class="lineno">  60 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:59</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  56 </span>    kapt("androidx.room:room-compiler:2.6.1")
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="caretline"><span class="lineno">  59 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="lineno">  56 </span>    implementation(platform("androidx.compose:compose-bom:2025.01.00"))
+<span class="lineno">  57 </span>    implementation("androidx.compose.ui:ui")
+<span class="lineno">  58 </span>    implementation("androidx.compose.material:material")
+<span class="caretline"><span class="lineno">  59 </span>    implementation(<span class="warning">"androidx.compose.material:material-icons-extended"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  60 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:60</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  57 </span>    implementation("androidx.room:room-ktx:2.6.1")
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
-<span class="caretline"><span class="lineno">  60 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
-<span class="lineno">  63 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno">  57 </span>    implementation("androidx.compose.ui:ui")
+<span class="lineno">  58 </span>    implementation("androidx.compose.material:material")
+<span class="lineno">  59 </span>    implementation("androidx.compose.material:material-icons-extended")
+<span class="caretline"><span class="lineno">  60 </span>    implementation(<span class="warning">"androidx.compose.ui:ui-tooling-preview"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="lineno">  63 </span>    implementation("androidx.room:room-runtime:2.6.1")
 </pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="UseTomlInsteadDivLink" onclick="reveal('UseTomlInsteadDiv');" />+ 13 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="UseTomlInsteadDivLink" onclick="reveal('UseTomlInsteadDiv');" />+ 14 More Occurrences...</button>
 <div id="UseTomlInsteadDiv" style="display: none">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:61</span>: <span class="message">Use the existing version catalog reference (<code>libs.junit</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno">  58 </span>    implementation(project(":core"))
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-<span class="caretline"><span class="lineno">  61 </span>        testImplementation(<span class="warning">"junit:junit:4.13.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
-<span class="lineno">  63 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
-<span class="lineno">  64 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:61</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno">  58 </span>    implementation("androidx.compose.material:material")
+<span class="lineno">  59 </span>    implementation("androidx.compose.material:material-icons-extended")
+<span class="lineno">  60 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
+<span class="caretline"><span class="lineno">  61 </span>    debugImplementation(<span class="warning">"androidx.compose.ui:ui-tooling"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="lineno">  63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno">  64 </span>    kapt("androidx.room:room-compiler:2.6.1")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:62</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  59 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="caretline"><span class="lineno">  62 </span>        testImplementation(<span class="warning">"org.jetbrains.kotlin:kotlin-test:1.9.10"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  63 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
-<span class="lineno">  64 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="lineno">  59 </span>    implementation("androidx.compose.material:material-icons-extended")
+<span class="lineno">  60 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="caretline"><span class="lineno">  62 </span>    implementation(<span class="warning">"androidx.activity:activity-compose"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno">  64 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:63</span>: <span class="message">Use the existing version catalog reference (<code>libs.androidx.junit</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno">  60 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
-<span class="caretline"><span class="lineno">  63 </span>        androidTestImplementation(<span class="warning">"androidx.test.ext:junit:1.1.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  64 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-<span class="lineno">  65 </span>
-<span class="lineno">  66 </span>    /*
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:63</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno">  60 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="caretline"><span class="lineno">  63 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  64 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:64</span>: <span class="message">Use the existing version catalog reference (<code>libs.androidx.espresso.core</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno">  61 </span>        testImplementation("junit:junit:4.13.2")
-<span class="lineno">  62 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
-<span class="lineno">  63 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
-<span class="caretline"><span class="lineno">  64 </span>        androidTestImplementation(<span class="warning">"androidx.test.espresso:espresso-core:3.5.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  65 </span>
-<span class="lineno">  66 </span>    /*
-<span class="lineno">  67 </span>    // Core library desugaring for java.time support on API &lt; 26
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:64</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno">  61 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="lineno">  63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno">  64 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:93</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  90 </span>    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-<span class="lineno">  91 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-<span class="lineno">  92 </span>    */
-<span class="caretline"><span class="lineno">  93 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  94 </span>    implementation("androidx.core:core-ktx:1.10.1")
-<span class="lineno">  95 </span>    implementation("com.google.android.material:material:1.10.0")
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:65</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno">  62 </span>    implementation("androidx.activity:activity-compose")
+<span class="lineno">  63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno">  64 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="caretline"><span class="lineno">  65 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:94</span>: <span class="message">Use the existing version catalog reference (<code>libs.androidx.core.ktx</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno">  91 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-<span class="lineno">  92 </span>    */
-<span class="lineno">  93 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-<span class="caretline"><span class="lineno">  94 </span>    implementation(<span class="warning">"androidx.core:core-ktx:1.10.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  95 </span>    implementation("com.google.android.material:material:1.10.0")
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:67</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno">  64 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="caretline"><span class="lineno">  67 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:95</span>: <span class="message">Use the existing version catalog reference (<code>libs.material</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno">  92 </span>    */
-<span class="lineno">  93 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-<span class="lineno">  94 </span>    implementation("androidx.core:core-ktx:1.10.1")
-<span class="caretline"><span class="lineno">  95 </span>    implementation(<span class="warning">"com.google.android.material:material:1.10.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:68</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno">  65 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="caretline"><span class="lineno">  68 </span>    implementation(<span class="warning">"org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="lineno">  71 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:96</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  93 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-<span class="lineno">  94 </span>    implementation("androidx.core:core-ktx:1.10.1")
-<span class="lineno">  95 </span>    implementation("com.google.android.material:material:1.10.0")
-<span class="caretline"><span class="lineno">  96 </span>    implementation(<span class="warning">"androidx.compose.ui:ui:1.5.3"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-<span class="lineno">  99 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:69</span>: <span class="message">Use the existing version catalog reference (<code>libs.junit</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno">  66 </span>    implementation(project(":core"))
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="caretline"><span class="lineno">  69 </span>        testImplementation(<span class="warning">"junit:junit:4.13.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="lineno">  71 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno">  72 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:97</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  94 </span>    implementation("androidx.core:core-ktx:1.10.1")
-<span class="lineno">  95 </span>    implementation("com.google.android.material:material:1.10.0")
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
-<span class="caretline"><span class="lineno">  97 </span>    implementation(<span class="warning">"androidx.compose.material:material:1.9.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-<span class="lineno">  99 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
-<span class="lineno"> 100 </span>    implementation("androidx.activity:activity-compose:1.7.2")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:70</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno">  67 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="caretline"><span class="lineno">  70 </span>        testImplementation(<span class="warning">"org.jetbrains.kotlin:kotlin-test:1.9.10"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  71 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno">  72 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:98</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  95 </span>    implementation("com.google.android.material:material:1.10.0")
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-<span class="caretline"><span class="lineno">  98 </span>    implementation(<span class="warning">"androidx.compose.ui:ui-tooling-preview:1.9.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  99 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
-<span class="lineno"> 100 </span>    implementation("androidx.activity:activity-compose:1.7.2")
-<span class="lineno"> 101 </span>    implementation("androidx.compose.material:material-icons-extended:1.7.8")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:71</span>: <span class="message">Use the existing version catalog reference (<code>libs.androidx.junit</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno">  68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="caretline"><span class="lineno">  71 </span>        androidTestImplementation(<span class="warning">"androidx.test.ext:junit:1.1.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  72 </span>        androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="lineno">  73 </span>
+<span class="lineno">  74 </span>    /*
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:99</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  96 </span>    implementation("androidx.compose.ui:ui:1.5.3")
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-<span class="caretline"><span class="lineno">  99 </span>    debugImplementation(<span class="warning">"androidx.compose.ui:ui-tooling:1.9.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 100 </span>    implementation("androidx.activity:activity-compose:1.7.2")
-<span class="lineno"> 101 </span>    implementation("androidx.compose.material:material-icons-extended:1.7.8")
-<span class="lineno"> 102 </span>}</pre>
-
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:100</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  97 </span>    implementation("androidx.compose.material:material:1.9.0")
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-<span class="lineno">  99 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
-<span class="caretline"><span class="lineno"> 100 </span>    implementation(<span class="warning">"androidx.activity:activity-compose:1.7.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 101 </span>    implementation("androidx.compose.material:material-icons-extended:1.7.8")
-<span class="lineno"> 102 </span>}</pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:72</span>: <span class="message">Use the existing version catalog reference (<code>libs.androidx.espresso.core</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno">  69 </span>        testImplementation("junit:junit:4.13.2")
+<span class="lineno">  70 </span>        testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
+<span class="lineno">  71 </span>        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="caretline"><span class="lineno">  72 </span>        androidTestImplementation(<span class="warning">"androidx.test.espresso:espresso-core:3.5.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  73 </span>
+<span class="lineno">  74 </span>    /*
+<span class="lineno">  75 </span>    // Core library desugaring for java.time support on API &lt; 26
+</pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:101</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno">  98 </span>    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-<span class="lineno">  99 </span>    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
-<span class="lineno"> 100 </span>    implementation("androidx.activity:activity-compose:1.7.2")
-<span class="caretline"><span class="lineno"> 101 </span>    implementation(<span class="warning">"androidx.compose.material:material-icons-extended:1.7.8"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 102 </span>}</pre>
+<span class="lineno">  98 </span>    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+<span class="lineno">  99 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+<span class="lineno"> 100 </span>    */
+<span class="caretline"><span class="lineno"> 101 </span>    coreLibraryDesugaring(<span class="warning">"com.android.tools:desugar_jdk_libs:2.0.4"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 102 </span>    implementation("androidx.core:core-ktx:1.10.1")
+<span class="lineno"> 103 </span>    implementation("com.google.android.material:material:1.10.0")
+<span class="lineno"> 104 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:102</span>: <span class="message">Use the existing version catalog reference (<code>libs.androidx.core.ktx</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno">  99 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+<span class="lineno"> 100 </span>    */
+<span class="lineno"> 101 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+<span class="caretline"><span class="lineno"> 102 </span>    implementation(<span class="warning">"androidx.core:core-ktx:1.10.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 103 </span>    implementation("com.google.android.material:material:1.10.0")
+<span class="lineno"> 104 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:103</span>: <span class="message">Use the existing version catalog reference (<code>libs.material</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 100 </span>    */
+<span class="lineno"> 101 </span>    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+<span class="lineno"> 102 </span>    implementation("androidx.core:core-ktx:1.10.1")
+<span class="caretline"><span class="lineno"> 103 </span>    implementation(<span class="warning">"com.google.android.material:material:1.10.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 104 </span>}</pre>
 
 </div>
 </div>
@@ -980,38 +1024,12 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">
 </div>
 </div>
 <div class="issue">
-<div class="id">ConfigurationScreenWidthHeight<div class="issueSeparator"></div>
-</div>
-<div class="metadata"><div class="explanation">
-Configuration.screenWidthDp and Configuration.screenHeightDp have different insets behaviour depending on target SDK version, and are rounded to the nearest Dp. This means that using these values in composition to size a layout can result in issues, as these values do not accurately represent the actual available window size. Instead it is recommended to use WindowInfo.containerSize which accurately represents the window size.<br/><div class="vendor">
-Vendor: Jetpack Compose<br/>
-Identifier: androidx.compose.ui<br/>
-Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
-</div>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
 <div class="id">ConflictingOnColor<div class="issueSeparator"></div>
 </div>
 <div class="metadata"><div class="explanation">
 In the Material color system background colors have a corresponding 'on' color which is used for the content color inside a component. For example, a button colored <code>primary</code> will have <code>onPrimary</code> text. Because of this, it is important that there is only one possible <code>onColor</code> for a given color value, otherwise there is no way to know which 'on' color should be used inside a component. To fix this either use the same 'on' color for identical background colors, or use a different background color for each 'on' color.<br/><div class="vendor">
 Vendor: Jetpack Compose<br/>
 Identifier: androidx.compose.material<br/>
-Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
-</div>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
-<div class="id">ConstantContentStateKeyInItemsCall<div class="issueSeparator"></div>
-</div>
-<div class="metadata"><div class="explanation">
-When using shared elements (<code>Modifier.sharedElement</code> or <code>Modifier.sharedBounds</code>) in a LazyList, each Composable within an <code>items</code> block should have its own unique key. Otherwise, only one item of the visible layout will be rendered, regardless if there's an ongoing shared element transition.<br/><div class="vendor">
-Vendor: Jetpack Compose<br/>
-Identifier: androidx.compose.animation<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
@@ -1124,16 +1142,12 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=192731">
 </div>
 </div>
 <div class="issue">
-<div class="id">FrequentlyChangingValue<div class="issueSeparator"></div>
+<div class="id">FrequentlyChangedStateReadInComposition<div class="issueSeparator"></div>
 </div>
 <div class="metadata"><div class="explanation">
-Reading a value annotated with @FrequentlyChangingValue inside composition can cause performance issues due to frequent recompositions. To avoid frequent recompositions, instead consider:<br/>
-<br/>
-- Using derivedStateOf to filter state changes based on a provided calculation. For example, rather than recomposing on every scroll position change, only recomposing if the scroll position changes from 0 (at the top of the list) to greater than 0 (not at the top of the list), and vice versa.<br/>
-- Using snapshotFlow to create a flow of changes from a provided state. This can then be collected inside a LaunchedEffect, and used to make changes without needing to recompose.<br/>
-- If using Compose UI, read this value inside measure / layout / draw, depending on where it is needed. This will cause invalidation of the corresponding phase, instead of a recomposition. See developer.android.com for more information on Jetpack Compose phases.<br/><div class="vendor">
+This property is observable and is updated after every scroll or remeasure. If you use it in the composable function directly, it will be recomposed on every change, causing potential performance issues including infinity recomposition loops. Prefer wrapping it with derivedStateOf to use calculation based on this property in composition or collect changes inside LaunchedEffect instead.<br/><div class="vendor">
 Vendor: Jetpack Compose<br/>
-Identifier: androidx.compose.runtime<br/>
+Identifier: androidx.compose.foundation<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
@@ -1187,45 +1201,6 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=779818">
 Calling <code>launch</code> during composition is incorrect. Doing so will cause launch to be called multiple times resulting in a RuntimeException. Instead, use <code>SideEffect</code> and <code>launch</code> inside of the suspending block. The block will only run after a successful composition.<br/><div class="vendor">
 Vendor: Jetpack Activity Compose<br/>
 Identifier: androidx.activity.compose<br/>
-Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
-</div>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
-<div class="id">LifecycleCurrentStateInComposition<div class="issueSeparator"></div>
-</div>
-<div class="metadata"><div class="explanation">
-Calling Lifecycle.currentState within composition will not observe changes to the Lifecycle, so changes might not be reflected within the composition. Instead you should use lifecycle.currentStateAsState() to observe changes to the Lifecycle, and recompose when it changes.<br/><div class="vendor">
-Vendor: Android Open Source Project<br/>
-Identifier: androidx.lifecycle<br/>
-Feedback: <a href="https://issuetracker.google.com/issues/new?component=413132">https://issuetracker.google.com/issues/new?component=413132</a><br/>
-</div>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
-<div class="id">LocalContextConfigurationRead<div class="issueSeparator"></div>
-</div>
-<div class="metadata"><div class="explanation">
-Changes to the Configuration object will not cause LocalContext reads to be invalidated, so you may end up with stale values when the Configuration changes. Instead, use LocalConfiguration.current to retrieve the Configuration - this will recompose callers when the Configuration object changes.<br/><div class="vendor">
-Vendor: Jetpack Compose<br/>
-Identifier: androidx.compose.ui<br/>
-Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
-</div>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
-<div class="id">LocalContextResourcesRead<div class="issueSeparator"></div>
-</div>
-<div class="metadata"><div class="explanation">
-Changes to the Configuration object will not cause LocalContext.current.resources reads to be invalidated, so calls to APIs suchas Resources.getString() will not be updated when the Configuration changes. Instead, use LocalResources.current to retrieve the Resources - this will invalidate callers when the Configuration changes, to ensure that these calls reflect the latest values.<br/><div class="vendor">
-Vendor: Jetpack Compose<br/>
-Identifier: androidx.compose.ui<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
@@ -1395,19 +1370,6 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">
 </div>
 </div>
 <div class="issue">
-<div class="id">RememberInComposition<div class="issueSeparator"></div>
-</div>
-<div class="metadata"><div class="explanation">
-APIs annotated with @RememberInComposition must not be called inside composition. This can lead to correctness issues and / or performance issues. Instead, use <code>remember</code> to cache the value across compositions, or hoist this call outside of composition.<br/><div class="vendor">
-Vendor: Jetpack Compose<br/>
-Identifier: androidx.compose.runtime<br/>
-Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
-</div>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
 <div class="id">RememberReturnType<div class="issueSeparator"></div>
 </div>
 <div class="metadata"><div class="explanation">
@@ -1505,6 +1467,32 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">
 <code>Modifier.composed</code> allows invoking @Composable functions when creating a <code>Modifier</code> instance - for example, using <code>remember</code> to have instance-specific state, allowing the same <code>Modifier</code> object to be safely used in multiple places. Using <code>Modifier.composed</code> without calling any @Composable functions inside is unnecessary, and since the Modifier is no longer skippable, this can cause a lot of extra work inside the composed body, leading to worse performance.<br/><div class="vendor">
 Vendor: Jetpack Compose<br/>
 Identifier: androidx.compose.ui<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">UnrememberedAnimatable<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+Animatable instances created during composition need to be `remember`ed, otherwise they will be recreated during recomposition, and lose their state. Either hoist the Animatable to an object that is not created during composition, or wrap the Animatable in a call to <code>remember</code>.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.animation.core<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">UnrememberedMutableInteractionSource<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+MutableInteractionSource instances created during composition need to be `remember`ed, otherwise they will be recreated during recomposition, and lose their state. Either hoist the MutableInteractionSource to an object that is not created during composition, or wrap the MutableInteractionSource in a call to <code>remember</code>.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.foundation<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
@@ -1645,32 +1633,6 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">
 The <code>content</code> lambda in Scaffold has a padding parameter which will include any inner padding for the content due to app bars. If this parameter is ignored, then content may be obscured by the app bars resulting in visual issues or elements that can't be interacted with.<br/><div class="vendor">
 Vendor: Jetpack Compose<br/>
 Identifier: androidx.compose.material<br/>
-Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
-</div>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
-<div class="id">UnusedSharedTransitionModifierParameter<div class="issueSeparator"></div>
-</div>
-<div class="metadata"><div class="explanation">
-When using <code>SharedTransitionScope</code> the provided <code>Modifier</code> should always be used on the top-most child, as the <code>Modifier</code> both obtains the root coordinates and creates an overlay. Otherwise, consider using <code>SharedTransitionLayout</code>.<br/><div class="vendor">
-Vendor: Jetpack Compose<br/>
-Identifier: androidx.compose.animation<br/>
-Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
-</div>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
-<div class="id">UnusedTargetStateInContentKeyLambda<div class="issueSeparator"></div>
-</div>
-<div class="metadata"><div class="explanation">
-In <code>AnimatedContent</code>, the <code>contentKey</code> lambda may be used when the <code>targetState</code> is expected to mutate frequently but not all mutations are desired to be considered a target state change. So <code>contentKey</code> is expected to always use the given <code>targetState</code> parameter to calculate its result.<br/><div class="vendor">
-Vendor: Jetpack Compose<br/>
-Identifier: androidx.compose.animation<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>

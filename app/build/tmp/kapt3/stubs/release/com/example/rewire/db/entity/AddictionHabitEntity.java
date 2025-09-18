@@ -6,22 +6,22 @@ package com.example.rewire.db.entity;
 public final class AddictionHabitEntity {
     @androidx.room.PrimaryKey(autoGenerate = true)
     private final long id = 0L;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final java.lang.String name = null;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final java.lang.String startDate = null;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final com.example.rewire.core.RecurrenceType recurrence = null;
-    @org.jetbrains.annotations.Nullable
+    @org.jetbrains.annotations.Nullable()
     private final java.lang.String preferredTime = null;
-    @org.jetbrains.annotations.Nullable
+    @org.jetbrains.annotations.Nullable()
     private final java.lang.Integer estimatedMinutes = null;
     
-    public AddictionHabitEntity(long id, @org.jetbrains.annotations.NotNull
-    java.lang.String name, @org.jetbrains.annotations.NotNull
-    java.lang.String startDate, @org.jetbrains.annotations.NotNull
-    com.example.rewire.core.RecurrenceType recurrence, @org.jetbrains.annotations.Nullable
-    java.lang.String preferredTime, @org.jetbrains.annotations.Nullable
+    public AddictionHabitEntity(long id, @org.jetbrains.annotations.NotNull()
+    java.lang.String name, @org.jetbrains.annotations.NotNull()
+    java.lang.String startDate, @org.jetbrains.annotations.NotNull()
+    com.example.rewire.core.RecurrenceType recurrence, @org.jetbrains.annotations.Nullable()
+    java.lang.String preferredTime, @org.jetbrains.annotations.Nullable()
     java.lang.Integer estimatedMinutes) {
         super();
     }
@@ -30,27 +30,27 @@ public final class AddictionHabitEntity {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String getName() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String getStartDate() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final com.example.rewire.core.RecurrenceType getRecurrence() {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable
+    @org.jetbrains.annotations.Nullable()
     public final java.lang.String getPreferredTime() {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable
+    @org.jetbrains.annotations.Nullable()
     public final java.lang.Integer getEstimatedMinutes() {
         return null;
     }
@@ -59,54 +59,54 @@ public final class AddictionHabitEntity {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String component2() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String component3() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final com.example.rewire.core.RecurrenceType component4() {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable
+    @org.jetbrains.annotations.Nullable()
     public final java.lang.String component5() {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable
+    @org.jetbrains.annotations.Nullable()
     public final java.lang.Integer component6() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
-    public final com.example.rewire.db.entity.AddictionHabitEntity copy(long id, @org.jetbrains.annotations.NotNull
-    java.lang.String name, @org.jetbrains.annotations.NotNull
-    java.lang.String startDate, @org.jetbrains.annotations.NotNull
-    com.example.rewire.core.RecurrenceType recurrence, @org.jetbrains.annotations.Nullable
-    java.lang.String preferredTime, @org.jetbrains.annotations.Nullable
+    @org.jetbrains.annotations.NotNull()
+    public final com.example.rewire.db.entity.AddictionHabitEntity copy(long id, @org.jetbrains.annotations.NotNull()
+    java.lang.String name, @org.jetbrains.annotations.NotNull()
+    java.lang.String startDate, @org.jetbrains.annotations.NotNull()
+    com.example.rewire.core.RecurrenceType recurrence, @org.jetbrains.annotations.Nullable()
+    java.lang.String preferredTime, @org.jetbrains.annotations.Nullable()
     java.lang.Integer estimatedMinutes) {
         return null;
     }
     
-    @java.lang.Override
-    public boolean equals(@org.jetbrains.annotations.Nullable
+    @java.lang.Override()
+    public boolean equals(@org.jetbrains.annotations.Nullable()
     java.lang.Object other) {
         return false;
     }
     
-    @java.lang.Override
+    @java.lang.Override()
     public int hashCode() {
         return 0;
     }
     
-    @java.lang.Override
-    @org.jetbrains.annotations.NotNull
+    @java.lang.Override()
+    @org.jetbrains.annotations.NotNull()
     public java.lang.String toString() {
         return null;
     }

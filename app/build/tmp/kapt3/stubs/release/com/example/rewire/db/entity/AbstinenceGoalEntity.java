@@ -7,12 +7,12 @@ public final class AbstinenceGoalEntity {
     @androidx.room.PrimaryKey(autoGenerate = true)
     private final long id = 0L;
     private final long addictionId = 0L;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final com.example.rewire.core.RecurrenceType recurrence = null;
     private final int value = 0;
     private final int repeatCount = 0;
     
-    public AbstinenceGoalEntity(long id, long addictionId, @org.jetbrains.annotations.NotNull
+    public AbstinenceGoalEntity(long id, long addictionId, @org.jetbrains.annotations.NotNull()
     com.example.rewire.core.RecurrenceType recurrence, int value, int repeatCount) {
         super();
     }
@@ -25,7 +25,7 @@ public final class AbstinenceGoalEntity {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final com.example.rewire.core.RecurrenceType getRecurrence() {
         return null;
     }
@@ -46,7 +46,7 @@ public final class AbstinenceGoalEntity {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final com.example.rewire.core.RecurrenceType component3() {
         return null;
     }
@@ -59,25 +59,25 @@ public final class AbstinenceGoalEntity {
         return 0;
     }
     
-    @org.jetbrains.annotations.NotNull
-    public final com.example.rewire.db.entity.AbstinenceGoalEntity copy(long id, long addictionId, @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
+    public final com.example.rewire.db.entity.AbstinenceGoalEntity copy(long id, long addictionId, @org.jetbrains.annotations.NotNull()
     com.example.rewire.core.RecurrenceType recurrence, int value, int repeatCount) {
         return null;
     }
     
-    @java.lang.Override
-    public boolean equals(@org.jetbrains.annotations.Nullable
+    @java.lang.Override()
+    public boolean equals(@org.jetbrains.annotations.Nullable()
     java.lang.Object other) {
         return false;
     }
     
-    @java.lang.Override
+    @java.lang.Override()
     public int hashCode() {
         return 0;
     }
     
-    @java.lang.Override
-    @org.jetbrains.annotations.NotNull
+    @java.lang.Override()
+    @org.jetbrains.annotations.NotNull()
     public java.lang.String toString() {
         return null;
     }

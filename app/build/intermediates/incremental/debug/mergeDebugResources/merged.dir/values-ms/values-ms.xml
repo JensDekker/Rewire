@@ -31,7 +31,6 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Kongsi dengan"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Kongsi dengan <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Runtuhkan"</string>
-    <string msgid="389117264260014992" name="autofill">"Autolengkap"</string>
     <string name="bottomsheet_action_collapse">Kuncupkan helaian bawah</string>
     <string name="bottomsheet_action_expand">Kembangkan helaian bawah</string>
     <string name="bottomsheet_action_expand_halfway">Kembangkan helaian bawah</string>
@@ -71,7 +70,6 @@
     <string name="material_timepicker_pm">P/M</string>
     <string name="material_timepicker_select_time">Pilih masa</string>
     <string name="material_timepicker_text_input_mode_description">Beralih ke mod input teks untuk input masa.</string>
-    <string msgid="8471891128988107974" name="mc2_snackbar_pane_title">"Makluman"</string>
     <string name="mtrl_badge_numberless_content_description">Pemberitahuan baharu</string>
     <string name="mtrl_chip_close_icon_content_description">Alih keluar %1$s</string>
     <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Lebih daripada %1$d pemberitahuan baharu</string>
@@ -121,7 +119,6 @@
     <string msgid="7097486360902471446" name="range_start">"Permulaan julat"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Cari"</string>
     <string msgid="6043586758067023" name="selected">"Dipilih"</string>
-    <string msgid="2792228137354697160" name="snackbar_pane_title">"Makluman"</string>
     <string msgid="4139871816613051306" name="state_empty">"Kosong"</string>
     <string msgid="5834637030682409883" name="state_off">"Mati"</string>
     <string msgid="1490883874751719580" name="state_on">"Hidup"</string>

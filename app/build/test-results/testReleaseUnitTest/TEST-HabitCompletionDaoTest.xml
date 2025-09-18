@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HabitCompletionDaoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-08-27T13:14:06.749Z" hostname="DESKTOP-LH13CTI" time="0.013">
+<testsuite name="HabitCompletionDaoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-09-17T23:49:37.877Z" hostname="DESKTOP-LH13CTI" time="0.016">
   <properties/>
-  <testcase name="testGetCompletionsForHabit" classname="HabitCompletionDaoTest" time="0.011"/>
+  <testcase name="testGetCompletionsForHabit" classname="HabitCompletionDaoTest" time="0.013"/>
   <testcase name="testInsertCompletion" classname="HabitCompletionDaoTest" time="0.0"/>
   <testcase name="testDeleteCompletion" classname="HabitCompletionDaoTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

@@ -6,20 +6,20 @@ package com.example.rewire.db.entity;
 public final class HabitEntity {
     @androidx.room.PrimaryKey(autoGenerate = true)
     private final long id = 0L;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final java.lang.String name = null;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final com.example.rewire.core.RecurrenceType recurrence = null;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final java.lang.String preferredTime = null;
     private final int estimatedMinutes = 0;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final java.lang.String startDate = null;
     
-    public HabitEntity(long id, @org.jetbrains.annotations.NotNull
-    java.lang.String name, @org.jetbrains.annotations.NotNull
-    com.example.rewire.core.RecurrenceType recurrence, @org.jetbrains.annotations.NotNull
-    java.lang.String preferredTime, int estimatedMinutes, @org.jetbrains.annotations.NotNull
+    public HabitEntity(long id, @org.jetbrains.annotations.NotNull()
+    java.lang.String name, @org.jetbrains.annotations.NotNull()
+    com.example.rewire.core.RecurrenceType recurrence, @org.jetbrains.annotations.NotNull()
+    java.lang.String preferredTime, int estimatedMinutes, @org.jetbrains.annotations.NotNull()
     java.lang.String startDate) {
         super();
     }
@@ -28,17 +28,17 @@ public final class HabitEntity {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String getName() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final com.example.rewire.core.RecurrenceType getRecurrence() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String getPreferredTime() {
         return null;
     }
@@ -47,7 +47,7 @@ public final class HabitEntity {
         return 0;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String getStartDate() {
         return null;
     }
@@ -56,17 +56,17 @@ public final class HabitEntity {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String component2() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final com.example.rewire.core.RecurrenceType component3() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String component4() {
         return null;
     }
@@ -75,33 +75,33 @@ public final class HabitEntity {
         return 0;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String component6() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
-    public final com.example.rewire.db.entity.HabitEntity copy(long id, @org.jetbrains.annotations.NotNull
-    java.lang.String name, @org.jetbrains.annotations.NotNull
-    com.example.rewire.core.RecurrenceType recurrence, @org.jetbrains.annotations.NotNull
-    java.lang.String preferredTime, int estimatedMinutes, @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
+    public final com.example.rewire.db.entity.HabitEntity copy(long id, @org.jetbrains.annotations.NotNull()
+    java.lang.String name, @org.jetbrains.annotations.NotNull()
+    com.example.rewire.core.RecurrenceType recurrence, @org.jetbrains.annotations.NotNull()
+    java.lang.String preferredTime, int estimatedMinutes, @org.jetbrains.annotations.NotNull()
     java.lang.String startDate) {
         return null;
     }
     
-    @java.lang.Override
-    public boolean equals(@org.jetbrains.annotations.Nullable
+    @java.lang.Override()
+    public boolean equals(@org.jetbrains.annotations.Nullable()
     java.lang.Object other) {
         return false;
     }
     
-    @java.lang.Override
+    @java.lang.Override()
     public int hashCode() {
         return 0;
     }
     
-    @java.lang.Override
-    @org.jetbrains.annotations.NotNull
+    @java.lang.Override()
+    @org.jetbrains.annotations.NotNull()
     public java.lang.String toString() {
         return null;
     }

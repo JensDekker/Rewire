@@ -7,16 +7,16 @@ public final class RecurrenceTypeConverter {
         super();
     }
     
-    @androidx.room.TypeConverter
-    @org.jetbrains.annotations.NotNull
-    public final java.lang.String fromRecurrenceType(@org.jetbrains.annotations.NotNull
+    @androidx.room.TypeConverter()
+    @org.jetbrains.annotations.NotNull()
+    public final java.lang.String fromRecurrenceType(@org.jetbrains.annotations.NotNull()
     com.example.rewire.core.RecurrenceType type) {
         return null;
     }
     
-    @androidx.room.TypeConverter
-    @org.jetbrains.annotations.NotNull
-    public final com.example.rewire.core.RecurrenceType toRecurrenceType(@org.jetbrains.annotations.NotNull
+    @androidx.room.TypeConverter()
+    @org.jetbrains.annotations.NotNull()
+    public final com.example.rewire.core.RecurrenceType toRecurrenceType(@org.jetbrains.annotations.NotNull()
     java.lang.String data) {
         return null;
     }

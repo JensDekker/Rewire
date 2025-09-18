@@ -6,7 +6,7 @@
     mergedManifest="build\intermediates\merged_manifest\release\processReleaseMainManifest\AndroidManifest.xml"
     proguardFiles="build\intermediates\default_proguard_files\global\proguard-android-optimize.txt-8.12.1;proguard-rules.pro"
     partialResultsDir="build\intermediates\lint_vital_partial_results\release\lintVitalAnalyzeRelease\out"
-    desugaredMethodsFiles="C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\2c250318d145c0ca768df7c9dc5c3530\transformed\desugar_jdk_libs_configuration-2.0.4-desugar-lint.txt;C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\6154c6936f74e0a309ed1c79dcfc50b5\transformed\D8BackportedDesugaredMethods.txt">
+    desugaredMethodsFiles="C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\df9f65a60aedf76f9e9f815fac8155ab\transformed\desugar_jdk_libs_configuration-2.0.4-desugar-lint.txt;C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\2be4b35605a20a5b0279ead2caf9dca4\transformed\D8BackportedDesugaredMethods.txt">
   <buildFeatures
       coreLibraryDesugaring="true"
       namespacing="REQUIRED"/>
@@ -27,6 +27,6 @@
       applicationId="com.example.rewire"
       generatedSourceFolders="build\generated\source\kapt\release;build\generated\ap_generated_sources\release\out"
       generatedResourceFolders="build\generated\res\resValues\release"
-      desugaredMethodsFiles="C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\2c250318d145c0ca768df7c9dc5c3530\transformed\desugar_jdk_libs_configuration-2.0.4-desugar-lint.txt;C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\6154c6936f74e0a309ed1c79dcfc50b5\transformed\D8BackportedDesugaredMethods.txt">
+      desugaredMethodsFiles="C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\df9f65a60aedf76f9e9f815fac8155ab\transformed\desugar_jdk_libs_configuration-2.0.4-desugar-lint.txt;C:\Users\Jens Dekker\.gradle\caches\8.13\transforms\2be4b35605a20a5b0279ead2caf9dca4\transformed\D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

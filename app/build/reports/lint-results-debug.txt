@@ -1,36 +1,44 @@
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:55: Warning: A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.7.2 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:2: Warning: A newer version of com.android.application than 8.12.1 is available: 8.13.0. (There is also a newer version of 8.12.𝑥 available, if upgrading to 8.13.0 is difficult: 8.12.3) [AndroidGradlePluginVersion]
+agp = "8.12.1"
+      ~~~~~~~~
+
+   Explanation for issues of type "AndroidGradlePluginVersion":
+   This detector looks for usage of the Android Gradle Plugin where the
+   version you are using is not the current stable release. Using older
+   versions is fine, and there are cases where you deliberately want to stick
+   with an older version. However, you may simply not be aware that a more
+   recent version is available, and that is what this lint check helps find.
+
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:56: Warning: A newer version of androidx.compose:compose-bom than 2025.01.00 is available: 2025.09.00 [GradleDependency]
+    implementation(platform("androidx.compose:compose-bom:2025.01.00"))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:63: Warning: A newer version of androidx.room:room-runtime than 2.6.1 is available: 2.8.0 [GradleDependency]
     implementation("androidx.room:room-runtime:2.6.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:56: Warning: A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.7.2 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:64: Warning: A newer version of androidx.room:room-compiler than 2.6.1 is available: 2.8.0 [GradleDependency]
     kapt("androidx.room:room-compiler:2.6.1")
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:57: Warning: A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.7.2 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:65: Warning: A newer version of androidx.room:room-ktx than 2.6.1 is available: 2.8.0 [GradleDependency]
     implementation("androidx.room:room-ktx:2.6.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:62: Warning: A newer version of org.jetbrains.kotlin:kotlin-test than 1.9.10 is available: 2.0.21 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:70: Warning: A newer version of org.jetbrains.kotlin:kotlin-test than 1.9.10 is available: 1.9.22 [GradleDependency]
         testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:63: Warning: A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:71: Warning: A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0 [GradleDependency]
         androidTestImplementation("androidx.test.ext:junit:1.1.5")
                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:64: Warning: A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:72: Warning: A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0 [GradleDependency]
         androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:93: Warning: A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:101: Warning: A newer version of com.android.tools:desugar_jdk_libs than 2.0.4 is available: 2.1.5 [GradleDependency]
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:94: Warning: A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:102: Warning: A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0 [GradleDependency]
     implementation("androidx.core:core-ktx:1.10.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:95: Warning: A newer version of com.google.android.material:material than 1.10.0 is available: 1.12.0 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:103: Warning: A newer version of com.google.android.material:material than 1.10.0 is available: 1.13.0 [GradleDependency]
     implementation("com.google.android.material:material:1.10.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:96: Warning: A newer version of androidx.compose.ui:ui than 1.5.3 is available: 1.9.0 [GradleDependency]
-    implementation("androidx.compose.ui:ui:1.5.3")
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:100: Warning: A newer version of androidx.activity:activity-compose than 1.7.2 is available: 1.10.1 [GradleDependency]
-    implementation("androidx.activity:activity-compose:1.7.2")
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:4: Warning: A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.17.0 [GradleDependency]
 coreKtx = "1.10.1"
           ~~~~~~~~
@@ -43,7 +51,7 @@ espressoCore = "3.5.1"
 C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:8: Warning: A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.1 [GradleDependency]
 appcompat = "1.6.1"
             ~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:9: Warning: A newer version of com.google.android.material:material than 1.10.0 is available: 1.12.0 [GradleDependency]
+C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:9: Warning: A newer version of com.google.android.material:material than 1.10.0 is available: 1.13.0 [GradleDependency]
 material = "1.10.0"
            ~~~~~~~~
 
@@ -54,19 +62,19 @@ material = "1.10.0"
    However, you may simply not be aware that a more recent version is
    available, and that is what this lint check helps find.
 
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:5: Warning: A newer version of org.jetbrains.kotlin.plugin.serialization than 1.9.0 is available: 2.2.10 [NewerVersionAvailable]
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
-                                                            ~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:59: Warning: A newer version of org.jetbrains.kotlinx:kotlinx-serialization-core than 1.6.3 is available: 1.9.0 [NewerVersionAvailable]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:5: Warning: A newer version of org.jetbrains.kotlin.plugin.serialization than 1.9.22 is available: 2.2.20 [NewerVersionAvailable]
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
+                                                            ~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:67: Warning: A newer version of org.jetbrains.kotlinx:kotlinx-serialization-core than 1.6.3 is available: 1.9.0 [NewerVersionAvailable]
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:60: Warning: A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.6.3 is available: 1.9.0 [NewerVersionAvailable]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:68: Warning: A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.6.3 is available: 1.9.0 [NewerVersionAvailable]
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:3: Warning: A newer version of org.jetbrains.kotlin.android than 1.9.10 is available: 2.2.10 [NewerVersionAvailable]
-kotlin = "1.9.10"
+C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:3: Warning: A newer version of org.jetbrains.kotlin.android than 1.9.22 is available: 2.2.20 [NewerVersionAvailable]
+kotlin = "1.9.22"
          ~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:22: Warning: A newer version of org.jetbrains.compose than 1.5.3 is available: 1.8.2 [NewerVersionAvailable]
+C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:22: Warning: A newer version of org.jetbrains.compose than 1.5.3 is available: 1.9.0 [NewerVersionAvailable]
 compose = { id = "org.jetbrains.compose", version = "1.5.3" }
                                                     ~~~~~~~
 
@@ -78,7 +86,7 @@ compose = { id = "org.jetbrains.compose", version = "1.5.3" }
    MavenCentral dependency, and connects to the library every time, which
    makes it more flexible but also much slower.
 
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:56: Warning: This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp [KaptUsageInsteadOfKsp]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:64: Warning: This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp [KaptUsageInsteadOfKsp]
     kapt("androidx.room:room-compiler:2.6.1")
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -143,60 +151,63 @@ C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\res\values\colors.xml:15
    </lint>
    ```
 
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:55: Warning: Use version catalog instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:56: Warning: Use version catalog instead [UseTomlInstead]
+    implementation(platform("androidx.compose:compose-bom:2025.01.00"))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:57: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.compose.ui:ui")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:58: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.compose.material:material")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:59: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.compose.material:material-icons-extended")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:60: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.compose.ui:ui-tooling-preview")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:61: Warning: Use version catalog instead [UseTomlInstead]
+    debugImplementation("androidx.compose.ui:ui-tooling")
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:62: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.activity:activity-compose")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:63: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.room:room-runtime:2.6.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:56: Warning: Use version catalog instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:64: Warning: Use version catalog instead [UseTomlInstead]
     kapt("androidx.room:room-compiler:2.6.1")
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:57: Warning: Use version catalog instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:65: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.room:room-ktx:2.6.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:59: Warning: Use version catalog instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:67: Warning: Use version catalog instead [UseTomlInstead]
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:60: Warning: Use version catalog instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:68: Warning: Use version catalog instead [UseTomlInstead]
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:61: Warning: Use the existing version catalog reference (libs.junit) instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:69: Warning: Use the existing version catalog reference (libs.junit) instead [UseTomlInstead]
         testImplementation("junit:junit:4.13.2")
                            ~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:62: Warning: Use version catalog instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:70: Warning: Use version catalog instead [UseTomlInstead]
         testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:63: Warning: Use the existing version catalog reference (libs.androidx.junit) instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:71: Warning: Use the existing version catalog reference (libs.androidx.junit) instead [UseTomlInstead]
         androidTestImplementation("androidx.test.ext:junit:1.1.5")
                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:64: Warning: Use the existing version catalog reference (libs.androidx.espresso.core) instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:72: Warning: Use the existing version catalog reference (libs.androidx.espresso.core) instead [UseTomlInstead]
         androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:93: Warning: Use version catalog instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:101: Warning: Use version catalog instead [UseTomlInstead]
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:94: Warning: Use the existing version catalog reference (libs.androidx.core.ktx) instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:102: Warning: Use the existing version catalog reference (libs.androidx.core.ktx) instead [UseTomlInstead]
     implementation("androidx.core:core-ktx:1.10.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:95: Warning: Use the existing version catalog reference (libs.material) instead [UseTomlInstead]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:103: Warning: Use the existing version catalog reference (libs.material) instead [UseTomlInstead]
     implementation("com.google.android.material:material:1.10.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:96: Warning: Use version catalog instead [UseTomlInstead]
-    implementation("androidx.compose.ui:ui:1.5.3")
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:97: Warning: Use version catalog instead [UseTomlInstead]
-    implementation("androidx.compose.material:material:1.9.0")
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:98: Warning: Use version catalog instead [UseTomlInstead]
-    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:99: Warning: Use version catalog instead [UseTomlInstead]
-    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:100: Warning: Use version catalog instead [UseTomlInstead]
-    implementation("androidx.activity:activity-compose:1.7.2")
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:101: Warning: Use version catalog instead [UseTomlInstead]
-    implementation("androidx.compose.material:material-icons-extended:1.7.8")
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Explanation for issues of type "UseTomlInstead":
    If your project is using a libs.versions.toml file, you should place all
@@ -204,4 +215,4 @@ C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:101: Warning: Us
    declarations outside of the TOML file and suggests moving them (and in the
    IDE, provides a quickfix to performing the operation automatically).
 
-0 errors, 47 warnings
+0 errors, 48 warnings

@@ -6,10 +6,10 @@ public final class HabitCompletion {
     @androidx.room.PrimaryKey(autoGenerate = true)
     private final long id = 0L;
     private final long habitId = 0L;
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     private final java.lang.String date = null;
     
-    public HabitCompletion(long id, long habitId, @org.jetbrains.annotations.NotNull
+    public HabitCompletion(long id, long habitId, @org.jetbrains.annotations.NotNull()
     java.lang.String date) {
         super();
     }
@@ -22,7 +22,7 @@ public final class HabitCompletion {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String getDate() {
         return null;
     }
@@ -35,30 +35,30 @@ public final class HabitCompletion {
         return 0L;
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String component3() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull
-    public final com.example.rewire.db.entity.HabitCompletion copy(long id, long habitId, @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
+    public final com.example.rewire.db.entity.HabitCompletion copy(long id, long habitId, @org.jetbrains.annotations.NotNull()
     java.lang.String date) {
         return null;
     }
     
-    @java.lang.Override
-    public boolean equals(@org.jetbrains.annotations.Nullable
+    @java.lang.Override()
+    public boolean equals(@org.jetbrains.annotations.Nullable()
     java.lang.Object other) {
         return false;
     }
     
-    @java.lang.Override
+    @java.lang.Override()
     public int hashCode() {
         return 0;
     }
     
-    @java.lang.Override
-    @org.jetbrains.annotations.NotNull
+    @java.lang.Override()
+    @org.jetbrains.annotations.NotNull()
     public java.lang.String toString() {
         return null;
     }

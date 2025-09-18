@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.kapt")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
 }
 
 android {
@@ -40,7 +40,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
 }
 
@@ -52,6 +52,14 @@ configurations.all {
 }
 
 dependencies {
+    // Use Compose BOM for version alignment
+    implementation(platform("androidx.compose:compose-bom:2025.01.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material:material")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.activity:activity-compose")
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
@@ -93,10 +101,4 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("com.google.android.material:material:1.10.0")
-    implementation("androidx.compose.ui:ui:1.5.3")
-    implementation("androidx.compose.material:material:1.9.0")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.9.0")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.9.0")
-    implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.material:material-icons-extended:1.7.8")
 }

@@ -31,7 +31,6 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"هم‌رسانی با"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"هم‌رسانی با <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"کوچک کردن"</string>
-    <string msgid="389117264260014992" name="autofill">"تکمیل خودکار"</string>
     <string name="bottomsheet_action_collapse">جمع کردن برگ زیرین</string>
     <string name="bottomsheet_action_expand">ازهم بازکردن برگ زیرین</string>
     <string name="bottomsheet_action_expand_halfway">گسترده کردن تا نیمه</string>
@@ -56,7 +55,7 @@
     <string name="exposed_dropdown_menu_content_description">نمایش منوی کرکره‌ای</string>
     <string name="icon_content_description">نماد کادر گفتگو</string>
     <string msgid="6827826412747255547" name="in_progress">"درحال انجام"</string>
-    <string msgid="7933458017204019916" name="indeterminate">"ناقص علامت زده‌شده"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"برخی موارد علامت‌گذاری شده است"</string>
     <string name="item_view_role_description">برگه</string>
     <string name="material_clock_toggle_content_description">انتخاب .ق.ظ. یا ب.ظ.</string>
     <string name="material_hour_24h_suffix">%1$s ساعت</string>
@@ -71,7 +70,6 @@
     <string name="material_timepicker_pm">ب.ظ</string>
     <string name="material_timepicker_select_time">انتخاب زمان</string>
     <string name="material_timepicker_text_input_mode_description">برای وارد کردن زمان، به حالت ورودی نوشتاری تغییر وضعیت دهید.</string>
-    <string msgid="8471891128988107974" name="mc2_snackbar_pane_title">"هشدار"</string>
     <string name="mtrl_badge_numberless_content_description">اعلان جدید</string>
     <string name="mtrl_chip_close_icon_content_description">برداشتن %1$s</string>
     <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">بیش از %1$d اعلان جدید</string>
@@ -121,7 +119,6 @@
     <string msgid="7097486360902471446" name="range_start">"شروع محدوده"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"جستجو"</string>
     <string msgid="6043586758067023" name="selected">"انتخاب شد"</string>
-    <string msgid="2792228137354697160" name="snackbar_pane_title">"هشدار"</string>
     <string msgid="4139871816613051306" name="state_empty">"خالی"</string>
     <string msgid="5834637030682409883" name="state_off">"خاموش"</string>
     <string msgid="1490883874751719580" name="state_on">"روشن"</string>

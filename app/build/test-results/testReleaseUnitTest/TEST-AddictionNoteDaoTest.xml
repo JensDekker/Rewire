@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AddictionNoteDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-27T13:14:06.745Z" hostname="DESKTOP-LH13CTI" time="0.002">
+<testsuite name="AddictionNoteDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-09-17T23:49:37.873Z" hostname="DESKTOP-LH13CTI" time="0.003">
   <properties/>
-  <testcase name="testGetById" classname="AddictionNoteDaoTest" time="0.001"/>
-  <testcase name="testDeleteAll" classname="AddictionNoteDaoTest" time="0.0"/>
+  <testcase name="testGetById" classname="AddictionNoteDaoTest" time="0.0"/>
+  <testcase name="testDeleteAll" classname="AddictionNoteDaoTest" time="0.001"/>
   <testcase name="testDelete" classname="AddictionNoteDaoTest" time="0.001"/>
-  <testcase name="testUpdate" classname="AddictionNoteDaoTest" time="0.0"/>
+  <testcase name="testUpdate" classname="AddictionNoteDaoTest" time="0.001"/>
   <testcase name="testInsertAndGetAll" classname="AddictionNoteDaoTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
