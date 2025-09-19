@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AbstinenceGoalDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-09-17T23:49:37.803Z" hostname="DESKTOP-LH13CTI" time="0.064">
+<testsuite name="AbstinenceGoalDaoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-09-18T00:40:55.689Z" hostname="DESKTOP-LH13CTI" time="0.056">
   <properties/>
-  <testcase name="testGetById" classname="AbstinenceGoalDaoTest" time="0.061"/>
+  <testcase name="testGetById" classname="AbstinenceGoalDaoTest" time="0.05"/>
   <testcase name="testDeleteAll" classname="AbstinenceGoalDaoTest" time="0.001"/>
-  <testcase name="testDelete" classname="AbstinenceGoalDaoTest" time="0.001"/>
-  <testcase name="testUpdate" classname="AbstinenceGoalDaoTest" time="0.0"/>
+  <testcase name="testDelete" classname="AbstinenceGoalDaoTest" time="0.002"/>
+  <testcase name="testUpdate" classname="AbstinenceGoalDaoTest" time="0.002"/>
   <testcase name="testInsertAndGetAll" classname="AbstinenceGoalDaoTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

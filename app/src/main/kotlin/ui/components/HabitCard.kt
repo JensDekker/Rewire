@@ -3,7 +3,8 @@ package com.example.rewire.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import com.example.rewire.ui.theme.AppShapes
+import com.example.rewire.ui.theme.AppSpacing
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -37,9 +38,9 @@ fun HabitCard(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 11.dp, vertical = 8.dp)
+            .padding(AppSpacing.cardPadding)
             .clickable { onCardClicked() },
-        shape = RoundedCornerShape(16.dp),
+        shape = AppShapes.cardShape,
         color = MaterialTheme.colors.surface,
         elevation = 4.dp
     ) {
@@ -47,8 +48,8 @@ fun HabitCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(64.dp)
-                    .padding(horizontal = 16.dp),
+                    .height(AppSpacing.standardRowHeight)
+                    .padding(horizontal = AppSpacing.standardSpacing),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -65,7 +66,7 @@ fun HabitCard(
                         .size(32.dp)
                         .clickable { onAddNoteClicked() }
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(AppSpacing.standardSpacing))
                 Icon(
                     imageVector = if (isComplete) Icons.Filled.CheckBox else Icons.Filled.CheckBoxOutlineBlank,
                     contentDescription = if (isComplete) "Completed" else "Incomplete",
@@ -81,7 +82,7 @@ fun HabitCard(
                     label = { Text("Today's Notes") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(AppSpacing.standardSpacing)
                 )
             }
         }

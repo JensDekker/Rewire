@@ -1,4 +1,4 @@
-#Wed Sep 17 19:49:25 EDT 2025
+#Wed Sep 17 20:40:57 EDT 2025
 path.4=1/classes.dex
 path.3=14/classes.dex
 path.2=0/classes.dex
@@ -9,6 +9,7 @@ path.8=classes2.dex
 path.7=classes1000.dex
 path.6=9/classes.dex
 path.5=6/classes.dex
+renamed.10=classes11.dex
 path.0=classes.dex
 base.4=C\:\\Users\\Jens Dekker\\StudioProjects\\Rewire\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
 base.3=C\:\\Users\\Jens Dekker\\StudioProjects\\Rewire\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
@@ -18,6 +19,7 @@ base.0=C\:\\Users\\Jens Dekker\\StudioProjects\\Rewire\\app\\build\\intermediate
 renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
+path.10=2/classes.dex
 renamed.0=classes.dex
 base.9=C\:\\Users\\Jens Dekker\\StudioProjects\\Rewire\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
 path.9=classes3.dex
@@ -29,3 +31,4 @@ renamed.5=classes6.dex
 base.6=C\:\\Users\\Jens Dekker\\StudioProjects\\Rewire\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
 renamed.4=classes5.dex
 base.5=C\:\\Users\\Jens Dekker\\StudioProjects\\Rewire\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
+base.10=C\:\\Users\\Jens Dekker\\StudioProjects\\Rewire\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex

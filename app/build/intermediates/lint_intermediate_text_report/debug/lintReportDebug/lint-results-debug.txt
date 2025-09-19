@@ -1,3 +1,22 @@
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt:125: Warning: Implicitly using the default locale is a common source of bugs: Use String.format(Locale, ...) instead [DefaultLocale]
+                        text = "${String.format("%.1f", percentageComplete)}%",
+                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "DefaultLocale":
+   Calling String#toLowerCase() or #toUpperCase() without specifying an
+   explicit locale is a common source of bugs. The reason for that is that
+   those methods will use the current locale on the user's device, and even
+   though the code appears to work correctly when you are developing the app,
+   it will fail in some locales. For example, in the Turkish locale, the
+   uppercase replacement for i is not I.
+
+   If you want the methods to just perform ASCII replacement, for example to
+   convert an enum name, call String#toUpperCase(Locale.ROOT) instead. If you
+   really want to use the current locale, call
+   String#toUpperCase(Locale.getDefault()) instead.
+
+   https://developer.android.com/reference/java/util/Locale.html#default_locale
+
 C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml:2: Warning: A newer version of com.android.application than 8.12.1 is available: 8.13.0. (There is also a newer version of 8.12.𝑥 available, if upgrading to 8.13.0 is difficult: 8.12.3) [AndroidGradlePluginVersion]
 agp = "8.12.1"
       ~~~~~~~~
@@ -85,6 +104,22 @@ compose = { id = "org.jetbrains.compose", version = "1.5.3" }
    available in the Android SDK tools and libraries, but this works with any
    MavenCentral dependency, and connects to the library every time, which
    makes it more flexible but also much slower.
+
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt:37: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
+    modifier: Modifier = Modifier
+    ~~~~~~~~
+
+   Explanation for issues of type "ModifierParameter":
+   The first (or only) Modifier parameter in a Composable function should
+   follow the following rules:
+   - Be named modifier
+   - Have a type of Modifier
+   - Either have no default value, or have a default value of Modifier
+   - If optional, be the first optional parameter in the parameter list
+
+   Vendor: Jetpack Compose
+   Identifier: androidx.compose.ui
+   Feedback: https://issuetracker.google.com/issues/new?component=612128
 
 C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:64: Warning: This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp [KaptUsageInsteadOfKsp]
     kapt("androidx.room:room-compiler:2.6.1")
@@ -215,4 +250,4 @@ C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:103: Warning: Us
    declarations outside of the TOML file and suggests moving them (and in the
    IDE, provides a quickfix to performing the operation automatically).
 
-0 errors, 48 warnings
+0 errors, 50 warnings

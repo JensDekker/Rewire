@@ -2,7 +2,8 @@ package com.example.rewire.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import com.example.rewire.ui.theme.AppShapes
+import com.example.rewire.ui.theme.AppSpacing
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -22,16 +23,16 @@ fun AddButton(
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 11.dp, vertical = 8.dp)
+            .padding(AppSpacing.cardPadding)
             .clickable { onClick() },
-        shape = RoundedCornerShape(16.dp),
+        shape = AppShapes.cardShape,
         color = MaterialTheme.colors.surface,
         elevation = 4.dp
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(64.dp),
+                .height(AppSpacing.standardRowHeight),
             contentAlignment = Alignment.Center
         ) {
             Icon(

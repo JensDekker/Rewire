@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.rewire.repository.HabitCompletionRepositoryTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-09-17T23:49:38.004Z" hostname="DESKTOP-LH13CTI" time="0.005">
+<testsuite name="com.example.rewire.repository.HabitCompletionRepositoryTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-09-18T00:40:55.854Z" hostname="DESKTOP-LH13CTI" time="0.004">
   <properties/>
-  <testcase name="testGetCompletionsForHabit" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.001"/>
-  <testcase name="testInsertCompletion" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.0"/>
+  <testcase name="testGetCompletionsForHabit" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.0"/>
+  <testcase name="testInsertCompletion" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.001"/>
   <testcase name="testDeleteCompletion_invalid" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.001"/>
-  <testcase name="testInsertCompletion_duplicate" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.001"/>
+  <testcase name="testInsertCompletion_duplicate" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.0"/>
   <testcase name="testDeleteCompletion" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.001"/>
   <testcase name="testGetCompletionsForHabit_empty" classname="com.example.rewire.repository.HabitCompletionRepositoryTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

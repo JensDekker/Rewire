@@ -2,6 +2,24 @@
 <issues format="6" by="lint 8.12.1">
 
     <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an explicit locale** is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is **not** `I`.&#xA;&#xA;If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.ROOT)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="                        text = &quot;${String.format(&quot;%.1f&quot;, percentageComplete)}%&quot;,"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt"
+            line="125"
+            column="35"/>
+    </issue>
+
+    <issue
         id="AndroidGradlePluginVersion"
         severity="Warning"
         message="A newer version of com.android.application than 8.12.1 is available: 8.13.0. (There is also a newer version of 8.12.𝑥 available, if upgrading to 8.13.0 is difficult: 8.12.3)"
@@ -335,6 +353,22 @@
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\gradle\libs.versions.toml"
             line="22"
             column="53"/>
+    </issue>
+
+    <issue
+        id="ModifierParameter"
+        severity="Warning"
+        message="Modifier parameter should be the first optional parameter"
+        category="Correctness"
+        priority="3"
+        summary="Guidelines for Modifier parameters in a Composable function"
+        explanation="The first (or only) Modifier parameter in a Composable function should follow the following rules:&#xA;- Be named `modifier`&#xA;- Have a type of `Modifier`&#xA;- Either have no default value, or have a default value of `Modifier`&#xA;- If optional, be the first optional parameter in the parameter list"
+        errorLine1="    modifier: Modifier = Modifier"
+        errorLine2="    ~~~~~~~~">
+        <location
+            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt"
+            line="37"
+            column="5"/>
     </issue>
 
     <issue

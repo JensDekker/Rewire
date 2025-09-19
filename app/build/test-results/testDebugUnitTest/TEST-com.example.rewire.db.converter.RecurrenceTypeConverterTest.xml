@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.rewire.db.converter.RecurrenceTypeConverterTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2025-09-17T23:49:35.264Z" hostname="DESKTOP-LH13CTI" time="0.043">
+<testsuite name="com.example.rewire.db.converter.RecurrenceTypeConverterTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2025-09-18T00:40:59.349Z" hostname="DESKTOP-LH13CTI" time="0.052">
   <properties/>
-  <testcase name="testDailySerialization" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.027"/>
+  <testcase name="testDailySerialization" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.039"/>
   <testcase name="testCustomWeeklySerialization_empty" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.002"/>
   <testcase name="testInvalidTypeDeserializationDefaultsToDaily" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.0"/>
   <testcase name="testQuarterlyByWeekdaySerialization" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.001"/>
@@ -10,9 +10,9 @@
   <testcase name="testWeeklySerialization" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.0"/>
   <testcase name="testMonthlyByDateSerialization" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.0"/>
   <testcase name="testQuarterlyByDateSerialization" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.0"/>
-  <testcase name="testCustomWeeklySerialization_single" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.0"/>
+  <testcase name="testCustomWeeklySerialization_single" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.001"/>
   <testcase name="testMonthlyByDateOutOfRange" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.0"/>
-  <testcase name="testCustomWeeklySerialization_allDays" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.011"/>
+  <testcase name="testCustomWeeklySerialization_allDays" classname="com.example.rewire.db.converter.RecurrenceTypeConverterTest" time="0.008"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
