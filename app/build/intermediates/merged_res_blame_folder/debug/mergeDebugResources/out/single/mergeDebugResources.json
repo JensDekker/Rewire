@@ -64,6 +64,10 @@
         "source": "com.example.rewire.app-main-65:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
+        "merged": "com.example.rewire.app-debug-63:/drawable_ic_edit_square.xml.flat",
+        "source": "com.example.rewire.app-main-65:/drawable/ic_edit_square.xml"
+    },
+    {
         "merged": "com.example.rewire.app-debug-63:/mipmap-mdpi_ic_launcher.webp.flat",
         "source": "com.example.rewire.app-main-65:/mipmap-mdpi/ic_launcher.webp"
     }

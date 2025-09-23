@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.rewire.manager.HabitManagerTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2025-09-18T00:40:59.407Z" hostname="DESKTOP-LH13CTI" time="0.035">
+<testsuite name="com.example.rewire.manager.HabitManagerTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2025-09-20T03:13:25.993Z" hostname="DESKTOP-LH13CTI" time="0.036">
   <properties/>
-  <testcase name="testEditNote" classname="com.example.rewire.manager.HabitManagerTest" time="0.016"/>
+  <testcase name="testEditNote" classname="com.example.rewire.manager.HabitManagerTest" time="0.011"/>
   <testcase name="testGetCompletionsForHabit" classname="com.example.rewire.manager.HabitManagerTest" time="0.002"/>
   <testcase name="testInsertNote_duplicate" classname="com.example.rewire.manager.HabitManagerTest" time="0.001"/>
-  <testcase name="testCreateHabit" classname="com.example.rewire.manager.HabitManagerTest" time="0.005"/>
+  <testcase name="testCreateHabit" classname="com.example.rewire.manager.HabitManagerTest" time="0.007"/>
   <testcase name="testGetHabitsDueOn" classname="com.example.rewire.manager.HabitManagerTest" time="0.004"/>
   <testcase name="testGetNotesForHabit" classname="com.example.rewire.manager.HabitManagerTest" time="0.001"/>
-  <testcase name="testGetHabitsDueOn_empty" classname="com.example.rewire.manager.HabitManagerTest" time="0.0"/>
-  <testcase name="testCreateHabit_duplicate" classname="com.example.rewire.manager.HabitManagerTest" time="0.001"/>
-  <testcase name="testInsertNote" classname="com.example.rewire.manager.HabitManagerTest" time="0.0"/>
-  <testcase name="testCompleteHabit_invalid" classname="com.example.rewire.manager.HabitManagerTest" time="0.0"/>
+  <testcase name="testGetHabitsDueOn_empty" classname="com.example.rewire.manager.HabitManagerTest" time="0.001"/>
+  <testcase name="testCreateHabit_duplicate" classname="com.example.rewire.manager.HabitManagerTest" time="0.0"/>
+  <testcase name="testInsertNote" classname="com.example.rewire.manager.HabitManagerTest" time="0.001"/>
+  <testcase name="testCompleteHabit_invalid" classname="com.example.rewire.manager.HabitManagerTest" time="0.001"/>
   <testcase name="testDeleteNote" classname="com.example.rewire.manager.HabitManagerTest" time="0.001"/>
-  <testcase name="testDeleteCompletion" classname="com.example.rewire.manager.HabitManagerTest" time="0.002"/>
+  <testcase name="testDeleteCompletion" classname="com.example.rewire.manager.HabitManagerTest" time="0.005"/>
   <testcase name="testCompleteHabit" classname="com.example.rewire.manager.HabitManagerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

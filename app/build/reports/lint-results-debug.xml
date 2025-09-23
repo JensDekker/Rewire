@@ -15,7 +15,7 @@
         errorLine2="                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt"
-            line="125"
+            line="128"
             column="35"/>
     </issue>
 
@@ -367,7 +367,7 @@
         errorLine2="    ~~~~~~~~">
         <location
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt"
-            line="37"
+            line="38"
             column="5"/>
     </issue>
 
@@ -499,6 +499,22 @@
             file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\res\values\colors.xml"
             line="15"
             column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.ic_edit_square` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\res\drawable\ic_edit_square.xml"
+            line="1"
+            column="1"/>
     </issue>
 
     <issue

@@ -1,4 +1,4 @@
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt:125: Warning: Implicitly using the default locale is a common source of bugs: Use String.format(Locale, ...) instead [DefaultLocale]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt:128: Warning: Implicitly using the default locale is a common source of bugs: Use String.format(Locale, ...) instead [DefaultLocale]
                         text = "${String.format("%.1f", percentageComplete)}%",
                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -105,7 +105,7 @@ compose = { id = "org.jetbrains.compose", version = "1.5.3" }
    MavenCentral dependency, and connects to the library every time, which
    makes it more flexible but also much slower.
 
-C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt:37: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\kotlin\ui\components\HabitDetailModal.kt:38: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
     modifier: Modifier = Modifier
     ~~~~~~~~
 
@@ -152,6 +152,9 @@ C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\res\values\colors.xml:14
 C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\res\values\colors.xml:15: Warning: The resource R.color.white appears to be unused [UnusedResources]
     <color name="white">#FFFFFFFF</color>
            ~~~~~~~~~~~~
+C:\Users\Jens Dekker\StudioProjects\Rewire\app\src\main\res\drawable\ic_edit_square.xml:1: Warning: The resource R.drawable.ic_edit_square appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
 
    Explanation for issues of type "UnusedResources":
    Unused resources make applications larger and slow down builds.
@@ -250,4 +253,4 @@ C:\Users\Jens Dekker\StudioProjects\Rewire\app\build.gradle.kts:103: Warning: Us
    declarations outside of the TOML file and suggests moving them (and in the
    IDE, provides a quickfix to performing the operation automatically).
 
-0 errors, 50 warnings
+0 errors, 51 warnings

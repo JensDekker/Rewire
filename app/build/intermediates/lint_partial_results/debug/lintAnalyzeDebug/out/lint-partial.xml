@@ -57,9 +57,17 @@
             endLine="15"
             endColumn="24"
             endOffset="667"/>
+        <location id="R.drawable.ic_edit_square"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/drawable/ic_edit_square.xml"
+            line="1"
+            column="1"
+            startOffset="0"
+            endLine="9"
+            endColumn="10"
+            endOffset="604"/>
         <entry
             name="model"
-            string="color[colorPrimary(U),colorPrimaryVariant(U),colorOnPrimary(U),colorSecondary(U),colorSecondaryVariant(U),colorOnSecondary(U),purple_200(D),purple_500(D),purple_700(D),teal_200(D),teal_700(D),black(D),white(D)],drawable[ic_add_notes(U),ic_launcher_background(U),ic_launcher_foreground(U),ic_launcher_foreground_1(R)],mipmap[ic_launcher(U),ic_launcher_round(U)],string[app_name(U)],style[Theme_Rewire(U),Theme_MaterialComponents_DayNight_DarkActionBar(R)],xml[data_extraction_rules(U),backup_rules(U)];f^10,11^e^f,12^e^f,14^15^0^1^2^3^4^5;;;"/>
+            string="color[colorPrimary(U),colorPrimaryVariant(U),colorOnPrimary(U),colorSecondary(U),colorSecondaryVariant(U),colorOnSecondary(U),purple_200(D),purple_500(D),purple_700(D),teal_200(D),teal_700(D),black(D),white(D)],drawable[ic_add_notes(U),ic_edit_square(D),ic_launcher_background(U),ic_launcher_foreground(U),ic_launcher_foreground_1(R)],mipmap[ic_launcher(U),ic_launcher_round(U)],string[app_name(U)],style[Theme_Rewire(U),Theme_MaterialComponents_DayNight_DarkActionBar(R)],xml[data_extraction_rules(U),backup_rules(U)];10^11,12^f^10,13^f^10,15^16^0^1^2^3^4^5;;;"/>
     </map>
 
 </incidents>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="repository.AddictionHabitRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-09-18T00:40:59.570Z" hostname="DESKTOP-LH13CTI" time="0.003">
+<testsuite name="repository.AddictionHabitRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-09-20T03:13:26.092Z" hostname="DESKTOP-LH13CTI" time="0.006">
   <properties/>
-  <testcase name="testInsertAndGetById" classname="repository.AddictionHabitRepositoryTest" time="0.0"/>
+  <testcase name="testInsertAndGetById" classname="repository.AddictionHabitRepositoryTest" time="0.003"/>
   <testcase name="testDeleteAll" classname="repository.AddictionHabitRepositoryTest" time="0.001"/>
   <testcase name="testDelete" classname="repository.AddictionHabitRepositoryTest" time="0.001"/>
   <testcase name="testGetAll" classname="repository.AddictionHabitRepositoryTest" time="0.0"/>

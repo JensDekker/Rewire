@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="repository.AbstinenceGoalRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-09-18T00:40:59.564Z" hostname="DESKTOP-LH13CTI" time="0.003">
+<testsuite name="repository.AbstinenceGoalRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-09-20T03:13:26.086Z" hostname="DESKTOP-LH13CTI" time="0.003">
   <properties/>
-  <testcase name="testInsertAndGetById" classname="repository.AbstinenceGoalRepositoryTest" time="0.0"/>
-  <testcase name="testDeleteAll" classname="repository.AbstinenceGoalRepositoryTest" time="0.001"/>
+  <testcase name="testInsertAndGetById" classname="repository.AbstinenceGoalRepositoryTest" time="0.001"/>
+  <testcase name="testDeleteAll" classname="repository.AbstinenceGoalRepositoryTest" time="0.0"/>
   <testcase name="testDelete" classname="repository.AbstinenceGoalRepositoryTest" time="0.001"/>
-  <testcase name="testGetAll" classname="repository.AbstinenceGoalRepositoryTest" time="0.001"/>
-  <testcase name="testUpdate" classname="repository.AbstinenceGoalRepositoryTest" time="0.0"/>
+  <testcase name="testGetAll" classname="repository.AbstinenceGoalRepositoryTest" time="0.0"/>
+  <testcase name="testUpdate" classname="repository.AbstinenceGoalRepositoryTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
