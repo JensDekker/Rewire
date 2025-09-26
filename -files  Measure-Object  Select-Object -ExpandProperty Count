@@ -1,0 +1,11 @@
+warning: in the working copy of 'app/build/intermediates/lint-cache/lintAnalyzeDebug/maven.google/com/android/application/group-index.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/lint-cache/lintAnalyzeDebug/maven.google/com/android/tools/group-index.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/lint-cache/lintAnalyzeDebug/maven.google/master-index.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/lint-cache/lintVitalAnalyzeRelease/maven.google/com/android/application/group-index.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/lint-cache/lintVitalAnalyzeRelease/maven.google/com/android/tools/group-index.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/lint-cache/lintVitalAnalyzeRelease/maven.google/master-index.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/manifest_merge_blame_file/debug/processDebugMainManifest/manifest-merger-blame-debug-report.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/merged_manifests/debug/processDebugManifest/AndroidManifest.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/packaged_manifests/debug/processDebugManifestForPackage/AndroidManifest.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/build/intermediates/version_control_info_file/release/extractReleaseVersionControlInfo/version-control-info.textproto', LF will be replaced by CRLF the next time Git touches it
