@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HabitCompletionDaoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-09-20T03:13:25.922Z" hostname="DESKTOP-LH13CTI" time="0.019">
-  <properties/>
-  <testcase name="testGetCompletionsForHabit" classname="HabitCompletionDaoTest" time="0.017"/>
-  <testcase name="testInsertCompletion" classname="HabitCompletionDaoTest" time="0.001"/>
-  <testcase name="testDeleteCompletion" classname="HabitCompletionDaoTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
