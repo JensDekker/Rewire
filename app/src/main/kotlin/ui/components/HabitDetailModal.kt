@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.RadioButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
@@ -22,17 +24,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.style.BaselineShift
 import com.example.rewire.core.RecurrenceType
 import com.example.rewire.core.DayOfWeek
 import com.example.rewire.ui.theme.AppShapes
 import com.example.rewire.ui.theme.AppSpacing
 import com.example.rewire.ui.theme.AppColors
+import com.example.rewire.ui.theme.AppTypography
 
 @Composable
 fun DayOfWeekDisplay(
     recurrenceType: RecurrenceType,
     modifier: Modifier = Modifier
 ) {
+    // Hide circles for Daily recurrence type
+    if (recurrenceType is RecurrenceType.Daily) {
+        return
+    }
+    
     val dayLabels = listOf("S", "M", "T", "W", "T", "F", "S")
     val daysOfWeek = listOf(
         DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, 
@@ -46,7 +59,6 @@ fun DayOfWeekDisplay(
             listOf(DayOfWeek.MONDAY)
         }
         is RecurrenceType.CustomWeekly -> recurrenceType.daysOfWeek
-        is RecurrenceType.Daily -> daysOfWeek // All days for daily
         else -> emptyList() // Hide for other types
     }
     
@@ -78,11 +90,271 @@ fun DayOfWeekDisplay(
             ) {
                 Text(
                     text = label,
-                    style = MaterialTheme.typography.body2,
-                    color = if (isSelected) AppColors.dayCircleTextSelected else AppColors.dayCircleTextUnselected,
-                    fontSize = 14.sp
+                    style = AppTypography.Custom.dayCircleText,
+                    color = if (isSelected) AppColors.dayCircleTextSelected else AppColors.dayCircleTextUnselected
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun MonthlyRecurrenceDisplay(
+    recurrenceType: RecurrenceType,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        when (recurrenceType) {
+            is RecurrenceType.MonthlyByDate -> {
+                // Simple text display for "Day X of every month"
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Day ${recurrenceType.dayOfMonth}",
+                        style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                        color = AppColors.textAccent
+                    )
+                    Spacer(modifier = Modifier.width(AppSpacing.smallSpacing))
+                    Text(
+                        text = "of every month",
+                        style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                        color = AppColors.textSecondary
+                    )
+                }
+            }
+            is RecurrenceType.MonthlyByWeekday -> {
+                // Simple text display for "Xth DayName of every month"
+                val weekLabels = listOf("1st", "2nd", "3rd", "4th", "Last")
+                val dayLabels = listOf("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+                val daysOfWeek = listOf(
+                    DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, 
+                    DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY
+                )
+                
+                val weekLabel = weekLabels[recurrenceType.weekOfMonth - 1]
+                val dayLabel = dayLabels[daysOfWeek.indexOf(recurrenceType.dayOfWeek)]
+                
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "$weekLabel $dayLabel",
+                        style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                        color = AppColors.textAccent
+                    )
+                    Spacer(modifier = Modifier.width(AppSpacing.smallSpacing))
+                    Text(
+                        text = "of every month",
+                        style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                        color = AppColors.textSecondary
+                    )
+                }
+            }
+            else -> {
+                // Fallback for other types
+                Text(
+                    text = "Monthly",
+                    style = AppTypography.Custom.statisticsLabel,
+                    color = AppColors.textAccent
+                )
+            }
+        }
+    }
+}
+
+private fun createSuperscriptText(text: String): AnnotatedString {
+    return buildAnnotatedString {
+        when {
+            text.endsWith("st") -> {
+                append(text.dropLast(2))
+                withStyle(style = SpanStyle(fontSize = 8.sp, baselineShift = BaselineShift.Superscript)) {
+                    append("st")
+                }
+            }
+            text.endsWith("nd") -> {
+                append(text.dropLast(2))
+                withStyle(style = SpanStyle(fontSize = 8.sp, baselineShift = BaselineShift.Superscript)) {
+                    append("nd")
+                }
+            }
+            text.endsWith("rd") -> {
+                append(text.dropLast(2))
+                withStyle(style = SpanStyle(fontSize = 8.sp, baselineShift = BaselineShift.Superscript)) {
+                    append("rd")
+                }
+            }
+            else -> append(text)
+        }
+    }
+}
+
+@Composable
+fun QuarterlyByDateDisplay(
+    dayOfMonth: Int,
+    monthOffset: Int,
+    modifier: Modifier = Modifier
+) {
+    val monthLabels = listOf("1st", "2nd", "3rd")
+    
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Month of quarter indicator with inline label and boxes
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Quarter's Months:",
+                style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                color = AppColors.textSecondary
+            )
+            
+            Spacer(modifier = Modifier.width(AppSpacing.smallSpacing))
+            
+            monthLabels.forEachIndexed { index, label ->
+                val isSelected = index == monthOffset
+                
+                if (index > 0) {
+                    Spacer(modifier = Modifier.width(10.dp)) // Increased spacing
+                }
+                
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .background(
+                            color = if (isSelected) AppColors.dayCircleSelected else AppColors.dayCircleUnselected,
+                            shape = RoundedCornerShape(6.dp)
+                        )
+                        .border(
+                            width = 1.dp,
+                            color = AppColors.dayCircleBorder,
+                            shape = RoundedCornerShape(6.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = createSuperscriptText(label),
+                        style = AppTypography.Custom.dayCircleText.copy(fontSize = 14.sp),
+                        color = if (isSelected) AppColors.dayCircleTextSelected else AppColors.dayCircleTextUnselected
+                    )
+                }
+            }
+        }
+        
+        Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
+        
+        // Day display with highlighted day number
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Day $dayOfMonth",
+                style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                color = AppColors.textAccent
+            )
+            Spacer(modifier = Modifier.width(AppSpacing.smallSpacing))
+            Text(
+                text = "of the month",
+                style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                color = AppColors.textSecondary
+            )
+        }
+    }
+}
+
+@Composable
+fun QuarterlyByWeekdayDisplay(
+    weekOfMonth: Int,
+    dayOfWeek: DayOfWeek,
+    monthOffset: Int,
+    modifier: Modifier = Modifier
+) {
+    val weekLabels = listOf("1st", "2nd", "3rd", "4th", "Last")
+    val dayLabels = listOf("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+    val daysOfWeek = listOf(
+        DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, 
+        DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY
+    )
+    
+    val monthLabels = listOf("1st", "2nd", "3rd")
+    
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Quarter's Months with inline label and boxes (from QuarterlyByDate)
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Quarter's Months:",
+                style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                color = AppColors.textSecondary
+            )
+            
+            Spacer(modifier = Modifier.width(AppSpacing.smallSpacing))
+            
+            monthLabels.forEachIndexed { index, label ->
+                val isSelected = index == monthOffset
+                
+                if (index > 0) {
+                    Spacer(modifier = Modifier.width(10.dp)) // Same spacing as QuarterlyByDate
+                }
+                
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .background(
+                            color = if (isSelected) AppColors.dayCircleSelected else AppColors.dayCircleUnselected,
+                            shape = RoundedCornerShape(6.dp)
+                        )
+                        .border(
+                            width = 1.dp,
+                            color = AppColors.dayCircleBorder,
+                            shape = RoundedCornerShape(6.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = createSuperscriptText(label),
+                        style = AppTypography.Custom.dayCircleText.copy(fontSize = 14.sp),
+                        color = if (isSelected) AppColors.dayCircleTextSelected else AppColors.dayCircleTextUnselected
+                    )
+                }
+            }
+        }
+        
+        Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
+        
+        // Weekday text display (from MonthlyByWeekday style)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            val weekLabel = weekLabels[weekOfMonth - 1]
+            val dayLabel = dayLabels[daysOfWeek.indexOf(dayOfWeek)]
+            
+            Text(
+                text = "$weekLabel $dayLabel",
+                style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                color = AppColors.textAccent
+            )
+            Spacer(modifier = Modifier.width(AppSpacing.smallSpacing))
+            Text(
+                text = "of every month",
+                style = AppTypography.Custom.statisticsLabel.copy(fontSize = AppTypography.Custom.statisticsLabel.fontSize * 1.6),
+                color = AppColors.textSecondary
+            )
         }
     }
 }
@@ -126,9 +398,8 @@ fun HabitDetailModal(
             ) {
                 Text(
                     text = habitName,
-                    style = MaterialTheme.typography.h6,
-                    modifier = Modifier.weight(1f),
-                    fontSize = 28.sp
+                    style = AppTypography.Custom.habitNameLarge,
+                    modifier = Modifier.weight(1f)
                 )
                 
                 Row(
@@ -175,13 +446,11 @@ fun HabitDetailModal(
                 ) {
                     Text(
                         text = completionStreak.toString(),
-                        style = MaterialTheme.typography.h4,
-                        fontSize = 32.sp
+                        style = AppTypography.Custom.statisticsNumber
                     )
                     Text(
                         text = "Completion Streak",
-                        style = MaterialTheme.typography.body2,
-                        fontSize = 14.sp
+                        style = AppTypography.Custom.statisticsLabel
                     )
                 }
                 
@@ -192,13 +461,11 @@ fun HabitDetailModal(
                 ) {
                     Text(
                         text = "${String.format("%.1f", percentageComplete)}%",
-                        style = MaterialTheme.typography.h4,
-                        fontSize = 32.sp
+                        style = AppTypography.Custom.statisticsNumber
                     )
                     Text(
                         text = "Percentage Complete",
-                        style = MaterialTheme.typography.body2,
-                        fontSize = 14.sp
+                        style = AppTypography.Custom.statisticsLabel
                     )
                 }
             }
@@ -212,48 +479,84 @@ fun HabitDetailModal(
                 // Top row: Recurrence label and type
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.standardSpacing)
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Left column: Recurrence label (45%)
-                    Column(
+                    // Left column: Recurrence label (40%)
+                    Box(
                         modifier = Modifier.weight(0.45f),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = "Recurrence",
-                            style = MaterialTheme.typography.body1,
-                            fontSize = 24.sp
+                            style = AppTypography.Custom.recurrenceText
                         )
                     }
                     
-                    // Right column: Recurrence type (55%)
-                    Column(
-                        modifier = Modifier.weight(0.55f),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = when (recurrenceType) {
-                                is RecurrenceType.Daily -> "Daily"
-                                is RecurrenceType.Weekly -> "Weekly"
-                                is RecurrenceType.CustomWeekly -> "Custom Weekly"
-                                is RecurrenceType.MonthlyByDate -> "Monthly"
-                                is RecurrenceType.MonthlyByWeekday -> "Monthly"
-                                is RecurrenceType.QuarterlyByDate -> "Quarterly"
-                                is RecurrenceType.QuarterlyByWeekday -> "Quarterly"
-                            },
-                            style = MaterialTheme.typography.body1,
-                            fontSize = 24.sp,
-                            color = AppColors.textAccent
-                        )
+                    // Right column: Recurrence type (60%)
+                    val recurrenceText = when (recurrenceType) {
+                        is RecurrenceType.Daily -> "Daily"
+                        is RecurrenceType.Weekly -> "Weekly"
+                        is RecurrenceType.CustomWeekly -> "Custom Weekly"
+                        is RecurrenceType.MonthlyByDate -> "Monthly"
+                        is RecurrenceType.MonthlyByWeekday -> "Monthly"
+                        is RecurrenceType.QuarterlyByDate -> "Quarterly"
+                        is RecurrenceType.QuarterlyByWeekday -> "Quarterly"
                     }
+                    
+                    // Add outline for all recurrence types - tied to the 60% column
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = Color.Transparent,
+                            modifier = Modifier
+                                .weight(0.60f)
+                                .border(
+                                    width = 1.dp,
+                                    color = AppColors.borderMedium,
+                                    shape = RoundedCornerShape(8.dp)
+                                )
+                        ) {
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = recurrenceText,
+                                    style = AppTypography.Custom.recurrenceText,
+                                    color = AppColors.textAccent,
+                                    modifier = Modifier.padding(vertical = 4.dp)
+                                )
+                            }
+                        }
                 }
                 
-                // Bottom row: Day of week display (only for Weekly types)
-                if (recurrenceType is RecurrenceType.Weekly || 
-                    recurrenceType is RecurrenceType.CustomWeekly ||
-                    recurrenceType is RecurrenceType.Daily) {
-                    Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
-                    DayOfWeekDisplay(recurrenceType = recurrenceType)
+                // Bottom row: Recurrence-specific display
+                when (recurrenceType) {
+                    is RecurrenceType.Weekly, 
+                    is RecurrenceType.CustomWeekly,
+                    is RecurrenceType.Daily -> {
+                        Spacer(modifier = Modifier.height(AppSpacing.smallSpacing + 2.dp))
+                        DayOfWeekDisplay(recurrenceType = recurrenceType)
+                    }
+                    is RecurrenceType.MonthlyByDate,
+                    is RecurrenceType.MonthlyByWeekday -> {
+                        Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
+                        MonthlyRecurrenceDisplay(recurrenceType = recurrenceType)
+                    }
+                    is RecurrenceType.QuarterlyByDate -> {
+                        Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
+                        QuarterlyByDateDisplay(
+                            dayOfMonth = recurrenceType.dayOfMonth,
+                            monthOffset = recurrenceType.monthOffset
+                        )
+                    }
+                    is RecurrenceType.QuarterlyByWeekday -> {
+                        Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
+                        QuarterlyByWeekdayDisplay(
+                            weekOfMonth = recurrenceType.weekOfMonth,
+                            dayOfWeek = recurrenceType.dayOfWeek,
+                            monthOffset = recurrenceType.monthOffset
+                        )
+                    }
                 }
             }
             
@@ -271,13 +574,11 @@ fun HabitDetailModal(
                 ) {
                     Text(
                         text = preferredTime,
-                        style = MaterialTheme.typography.h4,
-                        fontSize = 32.sp
+                        style = AppTypography.Custom.timeText
                     )
                     Text(
                         text = "Preferred Time",
-                        style = MaterialTheme.typography.body2,
-                        fontSize = 14.sp
+                        style = AppTypography.Custom.timeLabel
                     )
                 }
                 
@@ -288,13 +589,11 @@ fun HabitDetailModal(
                 ) {
                     Text(
                         text = "${estimatedTimeMinutes}m",
-                        style = MaterialTheme.typography.h4,
-                        fontSize = 32.sp
+                        style = AppTypography.Custom.timeText
                     )
                     Text(
                         text = "Estimated Time",
-                        style = MaterialTheme.typography.body2,
-                        fontSize = 14.sp
+                        style = AppTypography.Custom.timeLabel
                     )
                 }
             }
@@ -302,12 +601,12 @@ fun HabitDetailModal(
             Spacer(modifier = Modifier.height(AppSpacing.standardSpacing))
             
             // Row 5: Today's Notes
-            OutlinedTextField(
-                value = noteText,
-                onValueChange = onNoteTextChange,
-                label = { Text("Today's Note") },
-                modifier = Modifier.fillMaxWidth()
-            )
+                OutlinedTextField(
+                    value = noteText,
+                    onValueChange = onNoteTextChange,
+                    label = { Text("Today's Note", style = AppTypography.Custom.noteLabel) },
+                    modifier = Modifier.fillMaxWidth()
+                )
         }
     }
 }
@@ -323,7 +622,7 @@ fun HabitDetailModalPreview() {
             isComplete = false,
             completionStreak = 7,
             percentageComplete = 85.3,
-            recurrenceType = RecurrenceType.CustomWeekly(listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY)),
+            recurrenceType = RecurrenceType.QuarterlyByWeekday(2, DayOfWeek.MONDAY, 1), // 2nd Monday of 2nd month of every quarter
             preferredTime = "10:00 AM",
             estimatedTimeMinutes = 30,
             noteText = note,
