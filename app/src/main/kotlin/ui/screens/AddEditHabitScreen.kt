@@ -361,7 +361,7 @@ fun WeekdayOfMonthSelector(
     }
 }
 
-private fun getWeekLabel(week: Int): String = when (week) {
+fun getWeekLabel(week: Int): String = when (week) {
     1 -> "1st"
     2 -> "2nd"
     3 -> "3rd"
@@ -539,7 +539,7 @@ fun QuarterMonthSelector(
     }
 }
 
-private fun getQuarterDescription(monthOffset: Int): String = when (monthOffset) {
+fun getQuarterDescription(monthOffset: Int): String = when (monthOffset) {
     0 -> "January, April, July, October"
     1 -> "February, May, August, November"
     2 -> "March, June, September, December"
