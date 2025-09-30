@@ -141,7 +141,7 @@ object AppTypography {
         val dayCircleText = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 14.sp,
+            fontSize = 17.sp,
             letterSpacing = 0.sp
         )
         

@@ -15,6 +15,10 @@ import com.example.rewire.db.entity.HabitEntity
 import com.example.rewire.manager.HabitManager
 import com.example.rewire.ui.components.AddButton
 import com.example.rewire.ui.components.HabitCard
+import com.example.rewire.ui.screens.AddEditHabitScreen
+import com.example.rewire.db.entity.toCore
+import com.example.rewire.db.entity.toEntity
+import com.example.rewire.core.Habit
 import com.example.rewire.ui.theme.AppSpacing
 import java.time.LocalDate
 import java.time.LocalTime
@@ -33,6 +37,10 @@ fun HabitHomeScreen(
     var completedHabitIds by remember { mutableStateOf<Set<Long>>(emptySet()) }
     var habitNotes by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
     var expandedNoteHabits by remember { mutableStateOf<Set<Long>>(emptySet()) }
+    
+    // Navigation state
+    var showAddEditScreen by remember { mutableStateOf(false) }
+    var editingHabit by remember { mutableStateOf<HabitEntity?>(null) }
     
     // Load habits due today
     LaunchedEffect(today) {
@@ -152,6 +160,10 @@ fun HabitHomeScreen(
                             } else {
                                 expandedNoteHabits + habit.id
                             }
+                        },
+                        onEditClicked = {
+                            editingHabit = habit
+                            showAddEditScreen = true
                         }
                     )
                 }
@@ -160,12 +172,92 @@ fun HabitHomeScreen(
                 item {
                     AddButton(
                         onClick = {
-                            // TODO: Navigate to add habit screen
+                            editingHabit = null // New habit
+                            showAddEditScreen = true
                         }
                     )
                 }
             }
         }
+    }
+    
+    // Show AddEditHabitScreen when navigation state is active
+    if (showAddEditScreen) {
+        // Local state for the form
+        var habitName by remember(editingHabit) { mutableStateOf(editingHabit?.name ?: "") }
+        var recurrenceType by remember(editingHabit) { mutableStateOf(editingHabit?.recurrence ?: com.example.rewire.core.RecurrenceType.Daily) }
+        var preferredTime by remember(editingHabit) { 
+            mutableStateOf(
+                try { 
+                    LocalTime.parse(editingHabit?.preferredTime ?: "09:00") 
+                } catch (e: Exception) { 
+                    LocalTime.of(9, 0) 
+                }
+            )
+        }
+        var estimatedTimeMinutes by remember(editingHabit) { mutableStateOf(editingHabit?.estimatedMinutes ?: 10) }
+        
+        AddEditHabitScreen(
+            habitName = habitName,
+            onHabitNameChange = { habitName = it },
+            recurrenceType = recurrenceType,
+            onRecurrenceTypeChange = { recurrenceType = it },
+            preferredTime = preferredTime,
+            onPreferredTimeChange = { preferredTime = it },
+            estimatedTimeMinutes = estimatedTimeMinutes,
+            onEstimatedTimeMinutesChange = { estimatedTimeMinutes = it },
+            onSaveClicked = {
+                coroutineScope.launch {
+                    val habitEntity = if (editingHabit != null) {
+                        // Update existing habit
+                        editingHabit!!.copy(
+                            name = habitName,
+                            recurrence = recurrenceType,
+                            preferredTime = preferredTime.toString(),
+                            estimatedMinutes = estimatedTimeMinutes
+                        )
+                    } else {
+                        // Create new habit
+                        HabitEntity(
+                            name = habitName,
+                            recurrence = recurrenceType,
+                            preferredTime = preferredTime.toString(),
+                            estimatedMinutes = estimatedTimeMinutes,
+                            startDate = LocalDate.now().toString()
+                        )
+                    }
+                    
+                    if (editingHabit != null) {
+                        habitManager.updateHabit(habitEntity)
+                    } else {
+                        habitManager.createHabit(habitEntity)
+                    }
+                    
+                    // Refresh the habits list
+                    habitsDueToday = habitManager.getHabitsDueOn(today)
+                    
+                    showAddEditScreen = false
+                    editingHabit = null
+                }
+            },
+            onBackClicked = {
+                showAddEditScreen = false
+                editingHabit = null
+            },
+            onDeleteClicked = {
+                editingHabit?.let { habit ->
+                    coroutineScope.launch {
+                        habitManager.deleteHabit(habit)
+                        
+                        // Refresh the habits list
+                        habitsDueToday = habitManager.getHabitsDueOn(today)
+                        
+                        showAddEditScreen = false
+                        editingHabit = null
+                    }
+                }
+            }
+        )
     }
 }
 

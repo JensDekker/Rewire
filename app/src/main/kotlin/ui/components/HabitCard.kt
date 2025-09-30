@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.ui.res.painterResource
 import androidx.compose.material.icons.filled.NoteAdd
 import androidx.compose.runtime.*
@@ -33,7 +34,8 @@ fun HabitCard(
     isNoteFieldVisible: Boolean,
     onCardClicked: () -> Unit = {},
     onCheckClicked: () -> Unit = {},
-    onAddNoteClicked: () -> Unit = {}
+    onAddNoteClicked: () -> Unit = {},
+    onEditClicked: () -> Unit = {}
 ) {
     Surface(
         modifier = Modifier
@@ -59,21 +61,35 @@ fun HabitCard(
                     modifier = Modifier.weight(1f),
                     fontSize = 20.sp
                 )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_add_notes),
-                    contentDescription = "Add Note",
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clickable { onAddNoteClicked() }
-                )
-                Spacer(modifier = Modifier.width(AppSpacing.standardSpacing))
-                Icon(
-                    imageVector = if (isComplete) Icons.Filled.CheckBox else Icons.Filled.CheckBoxOutlineBlank,
-                    contentDescription = if (isComplete) "Completed" else "Incomplete",
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clickable { onCheckClicked() }
-                )
+                
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Edit,
+                        contentDescription = "Edit",
+                        modifier = Modifier
+                            .size(28.dp)
+                            .clickable { onEditClicked() }
+                    )
+                    
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_add_notes),
+                        contentDescription = "Add Note",
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clickable { onAddNoteClicked() }
+                    )
+                    
+                    Icon(
+                        imageVector = if (isComplete) Icons.Filled.CheckBox else Icons.Filled.CheckBoxOutlineBlank,
+                        contentDescription = if (isComplete) "Completed" else "Incomplete",
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clickable { onCheckClicked() }
+                    )
+                }
             }
             if (isNoteFieldVisible) {
                 OutlinedTextField(
@@ -103,7 +119,8 @@ fun HabitCardPreview() {
             isNoteFieldVisible = isNoteFieldVisible,
             onCardClicked = {},
             onCheckClicked = {},
-            onAddNoteClicked = { isNoteFieldVisible = !isNoteFieldVisible }
+            onAddNoteClicked = { isNoteFieldVisible = !isNoteFieldVisible },
+            onEditClicked = {}
         )
     }
 }

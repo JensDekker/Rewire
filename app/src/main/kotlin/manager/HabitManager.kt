@@ -49,6 +49,15 @@ class HabitManager(
         habitRepository.insertHabit(habit)
     }
 
+    suspend fun updateHabit(habit: HabitEntity) {
+        require(habit.name.isNotBlank()) { "Habit name cannot be blank" }
+        habitRepository.updateHabit(habit)
+    }
+
+    suspend fun deleteHabit(habit: HabitEntity) {
+        habitRepository.deleteHabit(habit)
+    }
+
     suspend fun completeHabit(habitId: Long, date: String = java.time.LocalDate.now().toString()) {
         val completion = HabitCompletion(habitId = habitId, date = date)
         habitCompletionRepository.insertCompletion(completion)
