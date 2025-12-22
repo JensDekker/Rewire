@@ -10,6 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,6 +43,15 @@ import com.example.rewire.ui.theme.AppSpacing
 import com.example.rewire.ui.theme.AppColors
 import com.example.rewire.ui.theme.AppTypography
 import com.example.rewire.ui.components.DeleteButton
+import com.example.rewire.ui.components.LabelSelector
+import com.example.rewire.ui.components.LabelLoadingIndicator
+import com.example.rewire.manager.HabitManager
+import com.example.rewire.db.entity.HabitEntity
+import com.example.rewire.db.entity.LabelEntity
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
+import java.time.LocalDate
+import android.util.Log
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -655,6 +666,8 @@ fun AddEditHabitScreen(
     onSaveClicked: () -> Unit,
     onBackClicked: () -> Unit,
     onDeleteClicked: () -> Unit = {},
+    habitManager: HabitManager? = null,
+    editingHabit: HabitEntity? = null,
     modifier: Modifier = Modifier
 ) {
     var showTimePicker by remember { mutableStateOf(false) }
@@ -662,6 +675,36 @@ fun AddEditHabitScreen(
     var showDeleteConfirmation by remember { mutableStateOf(false) }
     var showRecurrenceDropdown by remember { mutableStateOf(false) }
     var isNameError by remember { mutableStateOf(false) }
+    
+    val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    
+    // Label state management
+    var availableLabels by remember { mutableStateOf<List<LabelEntity>>(emptyList()) }
+    var selectedLabelIds by remember(editingHabit?.id) { 
+        mutableStateOf<Set<Long>>(emptySet()) 
+    }
+    var isLoadingLabels by remember { mutableStateOf(true) }
+    
+    // Load labels when screen is displayed
+    LaunchedEffect(Unit) {
+        if (habitManager != null) {
+            try {
+                availableLabels = habitManager.getAllLabels()
+                // If editing, load existing labels
+                editingHabit?.let { habit ->
+                    val labels = habitManager.getLabelsForHabit(habit.id)
+                    selectedLabelIds = labels.map { it.id }.toSet()
+                }
+            } catch (e: Exception) {
+                Log.e("AddEditHabitScreen", "Failed to load labels: ${e.message}", e)
+            } finally {
+                isLoadingLabels = false
+            }
+        } else {
+            isLoadingLabels = false
+        }
+    }
     
     // Recurrence selection state
     var selectedRecurrenceCategory by remember(recurrenceType) { 
@@ -739,13 +782,14 @@ fun AddEditHabitScreen(
         )
     }
     
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background)
-            .verticalScroll(rememberScrollState())
-            .padding(AppSpacing.standardSpacing)
-    ) {
+    Box(modifier = modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background)
+                .verticalScroll(rememberScrollState())
+                .padding(AppSpacing.standardSpacing)
+        ) {
         // Header Row: Back button, Title, Save button
         Row(
             modifier = Modifier
@@ -806,8 +850,67 @@ fun AddEditHabitScreen(
                             // Update the recurrence type
                             onRecurrenceTypeChange(newRecurrenceType)
                             
-                            // Call save
-                            onSaveClicked()
+                            // Save habit and labels atomically if habitManager is provided
+                            if (habitManager != null) {
+                                coroutineScope.launch {
+                                    try {
+                                        val habitEntity = if (editingHabit != null) {
+                                            // Update existing habit
+                                            editingHabit!!.copy(
+                                                name = habitName,
+                                                recurrence = newRecurrenceType,
+                                                preferredTime = preferredTime.toString(),
+                                                estimatedMinutes = estimatedTimeMinutes
+                                            )
+                                        } else {
+                                            // Create new habit
+                                            HabitEntity(
+                                                name = habitName,
+                                                recurrence = newRecurrenceType,
+                                                preferredTime = preferredTime.toString(),
+                                                estimatedMinutes = estimatedTimeMinutes,
+                                                startDate = LocalDate.now().toString()
+                                            )
+                                        }
+                                        
+                                        // Save habit and labels atomically
+                                        val result = if (editingHabit != null) {
+                                            habitManager.updateHabitWithLabels(habitEntity, selectedLabelIds.toList())
+                                        } else {
+                                            habitManager.createHabitWithLabels(habitEntity, selectedLabelIds.toList())
+                                        }
+                                        
+                                        if (result.isSuccess) {
+                                            // Success - call parent callback to refresh and close
+                                            onSaveClicked()
+                                        } else {
+                                            // Handle error - log it and show to user
+                                            val exception = result.exceptionOrNull()
+                                            val errorMessage = exception?.message ?: "Failed to save habit. Please try again."
+                                            Log.e("AddEditHabitScreen", "Failed to save habit with labels: $errorMessage", exception)
+                                            // Show error message to user via Snackbar
+                                            snackbarHostState.showSnackbar(
+                                                message = errorMessage,
+                                                duration = SnackbarDuration.Long
+                                            )
+                                            // Keep screen open so user can retry
+                                        }
+                                    } catch (e: Exception) {
+                                        // Handle unexpected errors
+                                        val errorMessage = e.message ?: "An unexpected error occurred. Please try again."
+                                        Log.e("AddEditHabitScreen", "Unexpected error saving habit: $errorMessage", e)
+                                        // Show error message to user via Snackbar
+                                        snackbarHostState.showSnackbar(
+                                            message = errorMessage,
+                                            duration = SnackbarDuration.Long
+                                        )
+                                        // Keep screen open so user can retry
+                                    }
+                                }
+                            } else {
+                                // Fallback to original callback if habitManager is not provided
+                                onSaveClicked()
+                            }
                         }
                         // If validation fails, do nothing (validation messages are already shown in UI)
                     }
@@ -1086,6 +1189,24 @@ fun AddEditHabitScreen(
         
         Spacer(modifier = Modifier.height(AppSpacing.standardSpacing))
         
+        // Label Selector Section
+        if (habitManager != null) {
+            if (isLoadingLabels) {
+                LabelLoadingIndicator(
+                    modifier = Modifier.padding(vertical = AppSpacing.standardSpacing)
+                )
+            } else {
+                LabelSelector(
+                    allLabels = availableLabels,
+                    selectedLabelIds = selectedLabelIds,
+                    onSelectionChange = { selectedLabelIds = it },
+                    modifier = Modifier.padding(vertical = AppSpacing.standardSpacing)
+                )
+            }
+        }
+        
+        Spacer(modifier = Modifier.height(AppSpacing.standardSpacing))
+        
         // Delete Button
         DeleteButton(
             onClick = { showDeleteConfirmation = true }
@@ -1128,6 +1249,13 @@ fun AddEditHabitScreen(
                 }
             )
         }
+        }
+        
+        // Snackbar Host for error messages
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
     }
 }
 

@@ -24,6 +24,7 @@ import com.example.rewire.ui.components.HabitDetailModal
 import com.example.rewire.ui.screens.AddEditHabitScreen
 import com.example.rewire.db.entity.toCore
 import com.example.rewire.db.entity.toEntity
+import com.example.rewire.db.entity.LabelEntity
 import com.example.rewire.core.Habit
 import com.example.rewire.ui.theme.AppSpacing
 import java.time.LocalDate
@@ -45,6 +46,9 @@ fun HabitHomeScreen(
     var completedHabitIds by remember { mutableStateOf<Set<Long>>(emptySet()) }
     var habitNotes by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
     var expandedNoteHabits by remember { mutableStateOf<Set<Long>>(emptySet()) }
+    
+    // Label state - map of habitId to list of labels
+    var habitLabels by remember { mutableStateOf<Map<Long, List<LabelEntity>>>(emptyMap()) }
     
     // Navigation state
     var showAddEditScreen by remember { mutableStateOf(false) }
@@ -75,6 +79,17 @@ fun HabitHomeScreen(
             notes[habit.id] = note
         }
         habitNotes = notes
+    }
+    
+    // Load labels for habits (optimized batch loading)
+    LaunchedEffect(allHabits) {
+        if (allHabits.isEmpty()) {
+            habitLabels = emptyMap()
+            return@LaunchedEffect
+        }
+        // Use batch loading to avoid N+1 queries - load labels for all habits
+        val habitIds = allHabits.map { it.id }
+        habitLabels = habitManager.getLabelsForHabits(habitIds)
     }
     
     // Sort habits by preferred time (chronological order)
@@ -116,11 +131,13 @@ fun HabitHomeScreen(
                     val isComplete = completedHabitIds.contains(habit.id)
                     val noteText = habitNotes[habit.id] ?: ""
                     val isNoteFieldVisible = expandedNoteHabits.contains(habit.id)
+                    val labels = habitLabels[habit.id]?.map { it.toCore() } ?: emptyList()
                     
                     HabitCard(
                         habitName = habit.name,
                         isComplete = isComplete,
                         noteText = noteText,
+                        labels = labels,
                         onNoteTextChange = { newNote ->
                             habitNotes = habitNotes + (habit.id to newNote)
                             // Save note to database
@@ -184,12 +201,15 @@ fun HabitHomeScreen(
                 }
                 
                 items(otherHabits) { habit ->
+                    val labels = habitLabels[habit.id]?.map { it.toCore() } ?: emptyList()
+                    
                     HabitCard(
                         habitName = habit.name,
                         isComplete = false, // Other habits are never marked complete
                         noteText = "",
                         onNoteTextChange = { },
                         isNoteFieldVisible = false,
+                        labels = labels,
                         onCardClicked = {
                             selectedHabit = habit
                             showHabitDetailModal = true
@@ -261,33 +281,12 @@ fun HabitHomeScreen(
             onPreferredTimeChange = { preferredTime = it },
             estimatedTimeMinutes = estimatedTimeMinutes,
             onEstimatedTimeMinutesChange = { estimatedTimeMinutes = it },
+            habitManager = habitManager,
+            editingHabit = editingHabit,
             onSaveClicked = {
+                // Save logic is now handled inside AddEditHabitScreen with atomic methods
+                // This callback is called after successful save to refresh and close
                 coroutineScope.launch {
-                    val habitEntity = if (editingHabit != null) {
-                        // Update existing habit
-                        editingHabit!!.copy(
-                            name = habitName,
-                            recurrence = recurrenceType,
-                            preferredTime = preferredTime.toString(),
-                            estimatedMinutes = estimatedTimeMinutes
-                        )
-                    } else {
-                        // Create new habit
-                        HabitEntity(
-                            name = habitName,
-                            recurrence = recurrenceType,
-                            preferredTime = preferredTime.toString(),
-                            estimatedMinutes = estimatedTimeMinutes,
-                            startDate = LocalDate.now().toString()
-                        )
-                    }
-                    
-                    if (editingHabit != null) {
-                        habitManager.updateHabit(habitEntity)
-                    } else {
-                        habitManager.createHabit(habitEntity)
-                    }
-                    
                     // Refresh the habits list
                     allHabits = habitManager.getHabits()
                     habitsDueToday = habitManager.getHabitsDueOn(today)

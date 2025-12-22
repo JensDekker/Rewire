@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rewire.R
+import com.example.rewire.core.Label
 
 @Composable
 fun HabitCard(
@@ -32,6 +33,7 @@ fun HabitCard(
     noteText: String,
     onNoteTextChange: (String) -> Unit,
     isNoteFieldVisible: Boolean,
+    labels: List<Label> = emptyList(),
     onCardClicked: () -> Unit = {},
     onCheckClicked: () -> Unit = {},
     onAddNoteClicked: () -> Unit = {},
@@ -91,6 +93,17 @@ fun HabitCard(
                     )
                 }
             }
+            
+            // Display labels
+            if (labels.isNotEmpty()) {
+                LabelRow(
+                    labels = labels,
+                    modifier = Modifier
+                        .padding(horizontal = AppSpacing.standardSpacing)
+                        .padding(bottom = AppSpacing.smallSpacing)
+                )
+            }
+            
             if (isNoteFieldVisible) {
                 OutlinedTextField(
                     value = noteText,
