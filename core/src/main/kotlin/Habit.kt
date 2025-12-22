@@ -11,7 +11,8 @@ data class Habit(
     var estimatedMinutes: Int = 10,
     // completions are now managed by RoomDB
     var customDays: Set<DayOfWeek>? = null,
-    var startDate: LocalDate = LocalDate.now()
+    var startDate: LocalDate = LocalDate.now(),
+    var labels: List<Label> = emptyList()
 ) {
     private fun toCustomDayOfWeek(javaDayOfWeek: java.time.DayOfWeek): DayOfWeek {
         return when (javaDayOfWeek) {

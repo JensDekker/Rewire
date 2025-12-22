@@ -214,12 +214,12 @@ data class Label(
 ```
 
 **Validation Checklist:**
-- [ ] File `core/src/main/kotlin/Label.kt` compiles without errors
-- [ ] `Label` data class has `id: Long` with default value `0`
-- [ ] `Label` data class has `name: String` field
-- [ ] `Label` data class has `color: String` field
-- [ ] Package declaration is `package com.example.rewire.core`
-- [ ] Data class can be instantiated with all fields
+- [x] File `core/src/main/kotlin/Label.kt` compiles without errors
+- [x] `Label` data class has `id: Long` with default value `0`
+- [x] `Label` data class has `name: String` field
+- [x] `Label` data class has `color: String` field
+- [x] Package declaration is `package com.example.rewire.core`
+- [x] Data class can be instantiated with all fields
 
 #### Step 1.2: Create Label Entity
 
@@ -254,21 +254,21 @@ fun Label.toEntity(): LabelEntity = LabelEntity(
     id = id,
     name = name,
     color = color,
-    createdAt = createdAt
+    createdAt = null  // Label doesn't have createdAt, so set to null when converting
 )
 ```
 
 **Validation Checklist:**
-- [ ] File `app/src/main/kotlin/db/entity/LabelEntity.kt` compiles without errors
-- [ ] `@Entity` annotation includes `tableName = "labels"`
-- [ ] `@Entity` annotation includes unique index on `name` field
-- [ ] `LabelEntity` has `@PrimaryKey(autoGenerate = true)` on `id` field
-- [ ] `LabelEntity` has `name: String` field
-- [ ] `LabelEntity` has `color: String` field
-- [ ] `LabelEntity` has `createdAt: String?` field with default `null`
-- [ ] `toCore()` extension function converts `LabelEntity` to `core.Label` correctly
-- [ ] `toEntity()` extension function converts `core.Label` to `LabelEntity` correctly
-- [ ] Conversion functions handle all fields properly
+- [x] File `app/src/main/kotlin/db/entity/LabelEntity.kt` compiles without errors
+- [x] `@Entity` annotation includes `tableName = "labels"`
+- [x] `@Entity` annotation includes unique index on `name` field
+- [x] `LabelEntity` has `@PrimaryKey(autoGenerate = true)` on `id` field
+- [x] `LabelEntity` has `name: String` field
+- [x] `LabelEntity` has `color: String` field
+- [x] `LabelEntity` has `createdAt: String?` field with default `null`
+- [x] `toCore()` extension function converts `LabelEntity` to `core.Label` correctly
+- [x] `toEntity()` extension function converts `core.Label` to `LabelEntity` correctly
+- [x] Conversion functions handle all fields properly
 
 #### Step 1.3: Create Junction Table Entity
 
@@ -311,16 +311,16 @@ data class HabitLabelCrossRef(
 ```
 
 **Validation Checklist:**
-- [ ] File `app/src/main/kotlin/db/entity/HabitLabelCrossRef.kt` compiles without errors
-- [ ] `@Entity` annotation includes `tableName = "habit_labels"`
-- [ ] `@Entity` annotation includes composite `primaryKeys = ["habitId", "labelId"]`
-- [ ] Foreign key to `HabitEntity` is defined with `onDelete = ForeignKey.CASCADE`
-- [ ] Foreign key to `LabelEntity` is defined with `onDelete = ForeignKey.CASCADE`
-- [ ] Index on `habitId` is defined
-- [ ] Index on `labelId` is defined
-- [ ] `HabitLabelCrossRef` has `habitId: Long` field
-- [ ] `HabitLabelCrossRef` has `labelId: Long` field
-- [ ] Room can process the entity annotations correctly
+- [x] File `app/src/main/kotlin/db/entity/HabitLabelCrossRef.kt` compiles without errors
+- [x] `@Entity` annotation includes `tableName = "habit_labels"`
+- [x] `@Entity` annotation includes composite `primaryKeys = ["habitId", "labelId"]`
+- [x] Foreign key to `HabitEntity` is defined with `onDelete = ForeignKey.CASCADE`
+- [x] Foreign key to `LabelEntity` is defined with `onDelete = ForeignKey.CASCADE`
+- [x] Index on `habitId` is defined
+- [x] Index on `labelId` is defined
+- [x] `HabitLabelCrossRef` has `habitId: Long` field
+- [x] `HabitLabelCrossRef` has `labelId: Long` field
+- [x] Room can process the entity annotations correctly
 
 #### Step 1.4: Update Core Habit Model
 
@@ -344,12 +344,12 @@ data class Habit(
 ```
 
 **Validation Checklist:**
-- [ ] File `core/src/main/kotlin/Habit.kt` compiles without errors
-- [ ] `labels: List<Label> = emptyList()` field is added to `Habit` data class
-- [ ] Existing `Habit` constructors and methods still work
-- [ ] Default value `emptyList()` ensures backward compatibility
-- [ ] Type `Label` is imported from `com.example.rewire.core`
-- [ ] No breaking changes to existing `Habit` usage
+- [x] File `core/src/main/kotlin/Habit.kt` compiles without errors
+- [x] `labels: List<Label> = emptyList()` field is added to `Habit` data class
+- [x] Existing `Habit` constructors and methods still work
+- [x] Default value `emptyList()` ensures backward compatibility
+- [x] Type `Label` is imported from `com.example.rewire.core`
+- [x] No breaking changes to existing `Habit` usage
 
 #### Step 1.5: Create Label DAO
 
@@ -400,19 +400,19 @@ interface LabelDao {
 ```
 
 **Validation Checklist:**
-- [ ] File `app/src/main/kotlin/db/dao/LabelDao.kt` compiles without errors
-- [ ] Interface is annotated with `@Dao`
-- [ ] `getAll()` method returns `List<LabelEntity>`
-- [ ] `getById()` method takes `Long` and returns nullable `LabelEntity`
-- [ ] `getByName()` method takes `String` and returns nullable `LabelEntity`
-- [ ] `insert()` method takes `LabelEntity` and returns `Long`
-- [ ] `insertAll()` method takes `List<LabelEntity>` and returns `List<Long>`
-- [ ] `update()` method takes `LabelEntity`
-- [ ] `delete()` method takes `LabelEntity`
-- [ ] `getLabelsForHabit()` joins tables correctly and returns labels for a habit
-- [ ] `searchLabels()` performs case-insensitive search
-- [ ] All methods are `suspend` functions
-- [ ] SQL queries compile without syntax errors
+- [x] File `app/src/main/kotlin/db/dao/LabelDao.kt` compiles without errors
+- [x] Interface is annotated with `@Dao`
+- [x] `getAll()` method returns `List<LabelEntity>`
+- [x] `getById()` method takes `Long` and returns nullable `LabelEntity`
+- [x] `getByName()` method takes `String` and returns nullable `LabelEntity`
+- [x] `insert()` method takes `LabelEntity` and returns `Long`
+- [x] `insertAll()` method takes `List<LabelEntity>` and returns `List<Long>`
+- [x] `update()` method takes `LabelEntity`
+- [x] `delete()` method takes `LabelEntity`
+- [x] `getLabelsForHabit()` joins tables correctly and returns labels for a habit
+- [x] `searchLabels()` performs case-insensitive search
+- [x] All methods are `suspend` functions
+- [x] SQL queries compile without syntax errors
 
 #### Step 1.6: Create Junction Table DAO
 
@@ -458,19 +458,19 @@ interface HabitLabelDao {
 ```
 
 **Validation Checklist:**
-- [ ] File `app/src/main/kotlin/db/dao/HabitLabelDao.kt` compiles without errors
-- [ ] Interface is annotated with `@Dao`
-- [ ] `insert()` method takes `HabitLabelCrossRef` with `OnConflictStrategy.REPLACE`
-- [ ] `insertAll()` method takes `List<HabitLabelCrossRef>` with `OnConflictStrategy.REPLACE`
-- [ ] `delete()` method takes `HabitLabelCrossRef`
-- [ ] `deleteAllForHabit()` deletes all cross-references for a habit
-- [ ] `deleteAllForLabel()` deletes all cross-references for a label
-- [ ] `getCrossRefsForHabit()` returns all cross-references for a habit
-- [ ] `getCrossRefsForLabel()` returns all cross-references for a label
-- [ ] `hasLabel()` checks existence and returns `Boolean`
-- [ ] `getHabitIdsWithLabel()` returns list of habit IDs for a label
-- [ ] All methods are `suspend` functions
-- [ ] SQL queries compile without syntax errors
+- [x] File `app/src/main/kotlin/db/dao/HabitLabelDao.kt` compiles without errors
+- [x] Interface is annotated with `@Dao`
+- [x] `insert()` method takes `HabitLabelCrossRef` with `OnConflictStrategy.REPLACE`
+- [x] `insertAll()` method takes `List<HabitLabelCrossRef>` with `OnConflictStrategy.REPLACE`
+- [x] `delete()` method takes `HabitLabelCrossRef`
+- [x] `deleteAllForHabit()` deletes all cross-references for a habit
+- [x] `deleteAllForLabel()` deletes all cross-references for a label
+- [x] `getCrossRefsForHabit()` returns all cross-references for a habit
+- [x] `getCrossRefsForLabel()` returns all cross-references for a label
+- [x] `hasLabel()` checks existence and returns `Boolean`
+- [x] `getHabitIdsWithLabel()` returns list of habit IDs for a label
+- [x] All methods are `suspend` functions
+- [x] SQL queries compile without syntax errors
 
 #### Step 1.7: Update RewireDatabase
 
@@ -506,6 +506,18 @@ abstract class RewireDatabase : RoomDatabase() {
     abstract fun habitLabelDao(): HabitLabelDao    // ADD
 }
 ```
+
+**Validation Checklist:**
+- [x] File `app/src/main/kotlin/db/RewireDatabase.kt` compiles without errors
+- [x] Database version is incremented from 1 to 2
+- [x] `LabelEntity` is added to `entities` array
+- [x] `HabitLabelCrossRef` is added to `entities` array
+- [x] `labelDao(): LabelDao` abstract method is added
+- [x] `habitLabelDao(): HabitLabelDao` abstract method is added
+- [x] All necessary imports are added (`LabelDao`, `HabitLabelDao`, `LabelEntity`, `HabitLabelCrossRef`)
+- [x] `exportSchema` is set to `true` (optional but recommended)
+- [x] Room annotation processor (kapt) generates database implementation successfully
+- [x] No Room errors during compilation (warnings about schema export directory are acceptable)
 
 #### Step 1.8: Create Database Migration (Version 1 → 2)
 
@@ -564,18 +576,19 @@ Room.databaseBuilder(context, RewireDatabase::class.java, "rewire_database")
 ```
 
 **Validation Checklist:**
-- [ ] File containing `MIGRATION_1_2` compiles without errors
-- [ ] Migration object extends `Migration(1, 2)` correctly
-- [ ] Migration creates `labels` table with all required columns (`id`, `name`, `color`, `createdAt`)
-- [ ] Migration creates unique index `index_labels_name` on `labels.name`
-- [ ] Migration creates `habit_labels` junction table with composite primary key
-- [ ] Migration creates foreign keys with `ON DELETE CASCADE` for both `habitId` and `labelId`
-- [ ] Migration creates index `index_habit_labels_habitId` on junction table
-- [ ] Migration creates index `index_habit_labels_labelId` on junction table
-- [ ] SQL syntax is correct (no syntax errors)
-- [ ] Migration is added to database builder with `.addMigrations(MIGRATION_1_2)`
-- [ ] Migration can be tested on existing version 1 database
-- [ ] Fresh install (version 2) works without migration
+- [x] File containing `MIGRATION_1_2` compiles without errors
+- [x] Migration object extends `Migration(1, 2)` correctly
+- [x] Migration creates `labels` table with all required columns (`id`, `name`, `color`, `createdAt`)
+- [x] Migration creates unique index `index_labels_name` on `labels.name`
+- [x] Migration creates `habit_labels` junction table with composite primary key
+- [x] Migration creates foreign keys with `ON DELETE CASCADE` for both `habitId` and `labelId`
+- [x] Migration creates index `index_habit_labels_habitId` on junction table
+- [x] Migration creates index `index_habit_labels_labelId` on junction table
+- [x] SQL syntax is correct (no syntax errors)
+- [x] Migration is added to database builder with `.addMigrations(MIGRATION_1_2)`
+- [x] Migration test created (`MigrationTest.kt`) - verifies tables are created correctly
+- [x] Fresh install (version 2) test verifies new tables work without migration
+- [x] Migration verified on device/emulator - existing habits preserved, new tables accessible (verified by user)
 
 ### Phase 2: Repository Layer
 

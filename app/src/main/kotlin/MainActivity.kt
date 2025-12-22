@@ -9,6 +9,8 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.rewire.ui.navigation.AppNavHost
 import com.example.rewire.ui.theme.RewireTheme
 import com.example.rewire.manager.HabitManager
@@ -16,6 +18,48 @@ import com.example.rewire.repository.HabitRepository
 import com.example.rewire.repository.HabitCompletionRepository
 import com.example.rewire.repository.HabitNoteRepository
 import com.example.rewire.db.RewireDatabase
+
+val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        // Create labels table
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `labels` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `name` TEXT NOT NULL,
+                `color` TEXT NOT NULL,
+                `createdAt` TEXT
+            )
+        """)
+        
+        // Create unique index on label name
+        database.execSQL("""
+            CREATE UNIQUE INDEX IF NOT EXISTS `index_labels_name` 
+            ON `labels` (`name`)
+        """)
+        
+        // Create junction table
+        database.execSQL("""
+            CREATE TABLE IF NOT EXISTS `habit_labels` (
+                `habitId` INTEGER NOT NULL,
+                `labelId` INTEGER NOT NULL,
+                PRIMARY KEY(`habitId`, `labelId`),
+                FOREIGN KEY(`habitId`) REFERENCES `habits`(`id`) ON DELETE CASCADE,
+                FOREIGN KEY(`labelId`) REFERENCES `labels`(`id`) ON DELETE CASCADE
+            )
+        """)
+        
+        // Create indices on junction table
+        database.execSQL("""
+            CREATE INDEX IF NOT EXISTS `index_habit_labels_habitId` 
+            ON `habit_labels` (`habitId`)
+        """)
+        
+        database.execSQL("""
+            CREATE INDEX IF NOT EXISTS `index_habit_labels_labelId` 
+            ON `habit_labels` (`labelId`)
+        """)
+    }
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +73,9 @@ class MainActivity : ComponentActivity() {
             applicationContext,
             RewireDatabase::class.java,
             "rewire_database"
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
         
         val habitRepository = HabitRepository(database.habitDao())
         val habitCompletionRepository = HabitCompletionRepository(database.habitCompletionDao())
