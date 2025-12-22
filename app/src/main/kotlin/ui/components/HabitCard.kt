@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.rewire.R
 import com.example.rewire.core.Label
 
@@ -34,6 +35,7 @@ fun HabitCard(
     onNoteTextChange: (String) -> Unit,
     isNoteFieldVisible: Boolean,
     labels: List<Label> = emptyList(),
+    navController: NavController? = null,
     onCardClicked: () -> Unit = {},
     onCheckClicked: () -> Unit = {},
     onAddNoteClicked: () -> Unit = {},
@@ -98,6 +100,9 @@ fun HabitCard(
             if (labels.isNotEmpty()) {
                 LabelRow(
                     labels = labels,
+                    onLabelLongClick = navController?.let { { _ ->
+                        navController.navigate("label_management")
+                    } },
                     modifier = Modifier
                         .padding(horizontal = AppSpacing.standardSpacing)
                         .padding(bottom = AppSpacing.smallSpacing)

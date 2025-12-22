@@ -54,6 +54,8 @@ import java.time.LocalDate
 import android.util.Log
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import androidx.navigation.NavController
+import androidx.compose.material.icons.filled.Settings
 
 @Composable
 fun WeeklyConfigurationSection(
@@ -668,6 +670,7 @@ fun AddEditHabitScreen(
     onDeleteClicked: () -> Unit = {},
     habitManager: HabitManager? = null,
     editingHabit: HabitEntity? = null,
+    navController: NavController? = null,
     modifier: Modifier = Modifier
 ) {
     var showTimePicker by remember { mutableStateOf(false) }
@@ -686,24 +689,31 @@ fun AddEditHabitScreen(
     }
     var isLoadingLabels by remember { mutableStateOf(true) }
     
-    // Load labels when screen is displayed
-    LaunchedEffect(Unit) {
+    // Function to load labels
+    val loadLabels: () -> Unit = {
         if (habitManager != null) {
-            try {
-                availableLabels = habitManager.getAllLabels()
-                // If editing, load existing labels
-                editingHabit?.let { habit ->
-                    val labels = habitManager.getLabelsForHabit(habit.id)
-                    selectedLabelIds = labels.map { it.id }.toSet()
+            coroutineScope.launch {
+                try {
+                    availableLabels = habitManager.getAllLabels()
+                    // If editing, load existing labels
+                    editingHabit?.let { habit ->
+                        val labels = habitManager.getLabelsForHabit(habit.id)
+                        selectedLabelIds = labels.map { it.id }.toSet()
+                    }
+                } catch (e: Exception) {
+                    Log.e("AddEditHabitScreen", "Failed to load labels: ${e.message}", e)
+                } finally {
+                    isLoadingLabels = false
                 }
-            } catch (e: Exception) {
-                Log.e("AddEditHabitScreen", "Failed to load labels: ${e.message}", e)
-            } finally {
-                isLoadingLabels = false
             }
         } else {
             isLoadingLabels = false
         }
+    }
+    
+    // Load labels when screen is displayed
+    LaunchedEffect(Unit) {
+        loadLabels()
     }
     
     // Recurrence selection state
@@ -1191,17 +1201,49 @@ fun AddEditHabitScreen(
         
         // Label Selector Section
         if (habitManager != null) {
-            if (isLoadingLabels) {
-                LabelLoadingIndicator(
-                    modifier = Modifier.padding(vertical = AppSpacing.standardSpacing)
-                )
-            } else {
-                LabelSelector(
-                    allLabels = availableLabels,
-                    selectedLabelIds = selectedLabelIds,
-                    onSelectionChange = { selectedLabelIds = it },
-                    modifier = Modifier.padding(vertical = AppSpacing.standardSpacing)
-                )
+            Column(modifier = Modifier.padding(vertical = AppSpacing.standardSpacing)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Labels",
+                        style = MaterialTheme.typography.subtitle1
+                    )
+                    if (navController != null) {
+                        TextButton(
+                            onClick = {
+                                navController.navigate("label_management")
+                                // Trigger label reload when returning (user will need to come back to this screen)
+                                // Labels will be reloaded when screen is shown again
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = "Manage Labels",
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("Manage Labels")
+                        }
+                    }
+                }
+                
+                if (isLoadingLabels) {
+                    LabelLoadingIndicator(
+                        modifier = Modifier.padding(top = AppSpacing.smallSpacing)
+                    )
+                } else {
+                    LabelSelector(
+                        allLabels = availableLabels,
+                        selectedLabelIds = selectedLabelIds,
+                        onSelectionChange = { selectedLabelIds = it },
+                        showTitle = false,
+                        navController = navController,
+                        modifier = Modifier.padding(top = AppSpacing.smallSpacing)
+                    )
+                }
             }
         }
         

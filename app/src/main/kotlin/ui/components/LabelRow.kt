@@ -11,6 +11,7 @@ import com.example.rewire.ui.theme.AppSpacing
 fun LabelRow(
     labels: List<Label>,
     onLabelClick: (Label) -> Unit = {},
+    onLabelLongClick: ((Label) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     if (labels.isEmpty()) return
@@ -23,7 +24,8 @@ fun LabelRow(
         labels.forEach { label ->
             LabelChip(
                 label = label,
-                onClick = { onLabelClick(label) }
+                onClick = { onLabelClick(label) },
+                onLongClick = onLabelLongClick?.let { { it(label) } }
             )
         }
     }

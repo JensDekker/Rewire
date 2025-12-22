@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.rewire.manager.HabitManager
 import com.example.rewire.ui.screens.HabitHomeScreen
+import com.example.rewire.ui.screens.LabelManagementScreen
 
 @Composable
 fun AppNavHost(
@@ -21,6 +22,13 @@ fun AppNavHost(
             HabitHomeScreen(
                 habitManager = habitManager,
                 navController = navController
+            )
+        }
+        
+        composable("label_management") {
+            LabelManagementScreen(
+                navController = navController,
+                habitManager = habitManager
             )
         }
         

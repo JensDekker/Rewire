@@ -5,12 +5,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
@@ -105,24 +107,46 @@ fun HabitHomeScreen(
     val habitsDueTodayIds = habitsDueToday.map { it.id }.toSet()
     val otherHabits = allHabits.filter { it.id !in habitsDueTodayIds }.sortedBy { it.name }
     
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(AppSpacing.standardSpacing)
-    ) {
-        // Top spacer to push content down
-        Spacer(modifier = Modifier.height(AppSpacing.standardSpacing))
-        
-        // Header
-        Text(
-            text = "Today's Habits",
-            style = MaterialTheme.typography.h4,
-            fontSize = 28.sp,
-            modifier = Modifier.padding(bottom = AppSpacing.standardSpacing)
-        )
-        
+    // State for menu
+    var showMenu by remember { mutableStateOf(false) }
+    
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Today's Habits") },
+                actions = {
+                    IconButton(onClick = { showMenu = true }) {
+                        Icon(
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = "More options"
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = showMenu,
+                        onDismissRequest = { showMenu = false }
+                    ) {
+                        DropdownMenuItem(
+                            onClick = {
+                                showMenu = false
+                                navController?.navigate("label_management")
+                            }
+                        ) {
+                            Text("Manage Labels")
+                        }
+                        // Future menu items can be added here:
+                        // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
+                        // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+                    }
+                }
+            )
+        }
+    ) { padding ->
         // Use LazyColumn for scrollable content
         LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(AppSpacing.standardSpacing),
             verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
         ) {
             // Today's Habits Section
@@ -138,6 +162,7 @@ fun HabitHomeScreen(
                         isComplete = isComplete,
                         noteText = noteText,
                         labels = labels,
+                        navController = navController,
                         onNoteTextChange = { newNote ->
                             habitNotes = habitNotes + (habit.id to newNote)
                             // Save note to database
@@ -210,6 +235,7 @@ fun HabitHomeScreen(
                         onNoteTextChange = { },
                         isNoteFieldVisible = false,
                         labels = labels,
+                        navController = navController,
                         onCardClicked = {
                             selectedHabit = habit
                             showHabitDetailModal = true
@@ -232,13 +258,16 @@ fun HabitHomeScreen(
             if (sortedHabits.isEmpty() && otherHabits.isEmpty()) {
                 item {
                     Box(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = AppSpacing.largeSpacing),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "No habits created yet",
+                            text = "No habits yet. Click the '+' button to add your first habit!",
                             style = MaterialTheme.typography.body1,
-                            fontSize = 16.sp
+                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f),
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
@@ -246,6 +275,7 @@ fun HabitHomeScreen(
             
             // Add button at the end
             item {
+                Spacer(modifier = Modifier.height(AppSpacing.standardSpacing))
                 AddButton(
                     onClick = {
                         editingHabit = null // New habit
@@ -272,17 +302,18 @@ fun HabitHomeScreen(
         }
         var estimatedTimeMinutes by remember(editingHabit) { mutableStateOf(editingHabit?.estimatedMinutes ?: 10) }
         
-        AddEditHabitScreen(
-            habitName = habitName,
-            onHabitNameChange = { habitName = it },
-            recurrenceType = recurrenceType,
-            onRecurrenceTypeChange = { recurrenceType = it },
-            preferredTime = preferredTime,
-            onPreferredTimeChange = { preferredTime = it },
-            estimatedTimeMinutes = estimatedTimeMinutes,
-            onEstimatedTimeMinutesChange = { estimatedTimeMinutes = it },
-            habitManager = habitManager,
-            editingHabit = editingHabit,
+                AddEditHabitScreen(
+                    habitName = habitName,
+                    onHabitNameChange = { habitName = it },
+                    recurrenceType = recurrenceType,
+                    onRecurrenceTypeChange = { recurrenceType = it },
+                    preferredTime = preferredTime,
+                    onPreferredTimeChange = { preferredTime = it },
+                    estimatedTimeMinutes = estimatedTimeMinutes,
+                    onEstimatedTimeMinutesChange = { estimatedTimeMinutes = it },
+                    habitManager = habitManager,
+                    editingHabit = editingHabit,
+                    navController = navController,
             onSaveClicked = {
                 // Save logic is now handled inside AddEditHabitScreen with atomic methods
                 // This callback is called after successful save to refresh and close

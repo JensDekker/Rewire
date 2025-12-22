@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.rewire.core.Label
 import com.example.rewire.db.entity.LabelEntity
 import com.example.rewire.db.entity.toCore
@@ -22,14 +23,18 @@ fun LabelSelector(
     allLabels: List<LabelEntity>,
     selectedLabelIds: Set<Long>,
     onSelectionChange: (Set<Long>) -> Unit,
+    showTitle: Boolean = true,
+    navController: NavController? = null,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        Text(
-            text = "Labels",
-            style = MaterialTheme.typography.subtitle1,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
-        )
+        if (showTitle) {
+            Text(
+                text = "Labels",
+                style = MaterialTheme.typography.subtitle1,
+                modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+            )
+        }
         
         if (allLabels.isEmpty()) {
             // Empty state
@@ -61,6 +66,9 @@ fun LabelSelector(
                             }
                             onSelectionChange(newSelection)
                         },
+                        onLongClick = navController?.let { { 
+                            navController.navigate("label_management")
+                        } },
                         modifier = Modifier
                             .then(
                                 if (isSelected) {

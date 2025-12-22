@@ -2,6 +2,7 @@ package com.example.rewire.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.rewire.core.Label
@@ -19,6 +21,7 @@ import com.example.rewire.ui.theme.AppSpacing
 fun LabelChip(
     label: Label,
     onClick: () -> Unit = {},
+    onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val labelColor = try {
@@ -33,6 +36,13 @@ fun LabelChip(
     Box(
         modifier = modifier
             .background(labelColor, RoundedCornerShape(16.dp))
+            .pointerInput(label.id) {
+                detectTapGestures(
+                    onLongPress = {
+                        onLongClick?.invoke()
+                    }
+                )
+            }
             .clickable(onClick = onClick)
             .padding(horizontal = AppSpacing.smallSpacing, vertical = 4.dp),
         contentAlignment = Alignment.Center
