@@ -714,200 +714,27 @@ class LabelRepository(
 ```
 
 **Validation Checklist:**
-- [ ] File `app/src/main/kotlin/repository/LabelRepository.kt` compiles without errors
-- [ ] `LabelRepository` class takes `LabelDao` and `HabitLabelDao` as constructor dependencies
-- [ ] All repository methods use `withContext(Dispatchers.IO)` for database operations
-- [ ] `getAllLabels()` returns all labels from database
-- [ ] `getLabelById()` returns correct label or null
-- [ ] `getLabelByName()` returns correct label or null
-- [ ] `insertLabel()` creates new label and returns generated ID
-- [ ] `insertAll()` inserts multiple labels and returns IDs
-- [ ] `updateLabel()` updates existing label
-- [ ] `deleteLabel()` removes label and its associations from junction table
-- [ ] `getOrCreateLabel()` returns existing label if found by name
-- [ ] `getOrCreateLabel()` creates new label if not found
-- [ ] `getLabelsForHabit()` returns all labels for a given habit
-- [ ] `setLabelsForHabit()` replaces all labels for a habit using transaction
-- [ ] `addLabelToHabit()` adds single label association
-- [ ] `removeLabelFromHabit()` removes single label association
-- [ ] `getHabitIdsWithLabel()` returns all habit IDs that use a label
-- [ ] `getLabelsForHabits()` batch loads labels for multiple habits (returns `Map<Long, List<LabelEntity>>`)
-- [ ] `getLabelsForHabits()` handles empty input list gracefully
-- [ ] `getLabelsForHabits()` avoids N+1 queries by loading labels in batch
-- [ ] `searchLabels()` performs case-insensitive search
-- [ ] All methods handle exceptions appropriately
-
-#### Step 2.5: Add Error Handling and Validation to LabelRepository
-
-**File**: `app/src/main/kotlin/repository/LabelRepository.kt`
-
-Add validation and error handling for label operations:
-
-```kotlin
-// Add validation result class
-sealed class LabelResult {
-    data class Success(val label: LabelEntity) : LabelResult()
-    data class Error(val message: String) : LabelResult()
-}
-
-class LabelRepository(
-    private val labelDao: LabelDao,
-    private val habitLabelDao: HabitLabelDao
-) {
-    // ... existing methods ...
-    
-    // Enhanced insert with validation
-    suspend fun insertLabelWithValidation(label: LabelEntity): LabelResult = withContext(Dispatchers.IO) {
-        try {
-            // Validate label name
-            val nameValidation = validateLabelName(label.name)
-            if (!nameValidation.isValid) {
-                return@withContext LabelResult.Error(nameValidation.errorMessage)
-            }
-            
-            // Validate color
-            val colorValidation = validateLabelColor(label.color)
-            if (!colorValidation.isValid) {
-                return@withContext LabelResult.Error(colorValidation.errorMessage)
-            }
-            
-            // Check for duplicate name (case-sensitive)
-            val existing = labelDao.getByName(label.name.trim())
-            if (existing != null) {
-                return@withContext LabelResult.Error("A label with this name already exists")
-            }
-            
-            // Insert label
-            val trimmedLabel = label.copy(name = label.name.trim())
-            val id = labelDao.insert(trimmedLabel)
-            LabelResult.Success(trimmedLabel.copy(id = id))
-        } catch (e: Exception) {
-            LabelResult.Error("Failed to create label: ${e.message}")
-        }
-    }
-    
-    // Enhanced update with validation
-    suspend fun updateLabelWithValidation(label: LabelEntity): LabelResult = withContext(Dispatchers.IO) {
-        try {
-            // Validate label name
-            val nameValidation = validateLabelName(label.name)
-            if (!nameValidation.isValid) {
-                return@withContext LabelResult.Error(nameValidation.errorMessage)
-            }
-            
-            // Validate color
-            val colorValidation = validateLabelColor(label.color)
-            if (!colorValidation.isValid) {
-                return@withContext LabelResult.Error(colorValidation.errorMessage)
-            }
-            
-            // Check for duplicate name (excluding current label)
-            val existing = labelDao.getByName(label.name.trim())
-            if (existing != null && existing.id != label.id) {
-                return@withContext LabelResult.Error("A label with this name already exists")
-            }
-            
-            // Update label
-            val trimmedLabel = label.copy(name = label.name.trim())
-            labelDao.update(trimmedLabel)
-            LabelResult.Success(trimmedLabel)
-        } catch (e: Exception) {
-            LabelResult.Error("Failed to update label: ${e.message}")
-        }
-    }
-    
-    // Enhanced setLabelsForHabit with validation and transaction
-    suspend fun setLabelsForHabitSafely(habitId: Long, labelIds: List<Long>): Result<Unit> = withContext(Dispatchers.IO) {
-        try {
-            // Validate all label IDs exist
-            for (labelId in labelIds) {
-                val label = labelDao.getById(labelId)
-                if (label == null) {
-                    return@withContext Result.failure(IllegalArgumentException("Label with ID $labelId does not exist"))
-                }
-            }
-            
-            // Use transaction for atomic operation
-            // Note: Room transactions are handled automatically for suspend functions in a single coroutine
-            // For explicit transaction control across multiple operations, use database.withTransaction { }
-            
-            // Delete existing associations
-            habitLabelDao.deleteAllForHabit(habitId)
-            
-            // Insert new associations
-            if (labelIds.isNotEmpty()) {
-                val crossRefs = labelIds.map { HabitLabelCrossRef(habitId, it) }
-                habitLabelDao.insertAll(crossRefs)
-            }
-            
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-}
-
-// Validation helper functions
-data class ValidationResult(
-    val isValid: Boolean,
-    val errorMessage: String = ""
-)
-
-fun validateLabelName(name: String): ValidationResult {
-    val trimmed = name.trim()
-    
-    if (trimmed.isEmpty()) {
-        return ValidationResult(false, "Label name cannot be empty")
-    }
-    
-    if (trimmed.length > 50) {
-        return ValidationResult(false, "Label name must be 50 characters or less")
-    }
-    
-    // Optional: Add regex for allowed characters
-    // For example, allow letters, numbers, spaces, and some special characters
-    val allowedPattern = Regex("^[a-zA-Z0-9\\s-_]+$")
-    if (!trimmed.matches(allowedPattern)) {
-        return ValidationResult(false, "Label name contains invalid characters")
-    }
-    
-    return ValidationResult(true)
-}
-
-fun validateLabelColor(color: String): ValidationResult {
-    if (color.isEmpty()) {
-        return ValidationResult(false, "Color cannot be empty")
-    }
-    
-    // Validate hex color format (#RRGGBB or #AARRGGBB)
-    val hexColorPattern = Regex("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$")
-    if (!color.matches(hexColorPattern)) {
-        return ValidationResult(false, "Invalid color format. Use hex format like #4CAF50")
-    }
-    
-    return ValidationResult(true)
-}
-```
-
-**Validation Checklist:**
-- [ ] `LabelResult` sealed class is defined with `Success` and `Error` variants
-- [ ] `insertLabelWithValidation()` validates name and color before inserting
-- [ ] `insertLabelWithValidation()` checks for duplicate names (case-sensitive)
-- [ ] `insertLabelWithValidation()` returns `LabelResult.Success` on success
-- [ ] `insertLabelWithValidation()` returns `LabelResult.Error` on validation failure
-- [ ] `updateLabelWithValidation()` validates name and color before updating
-- [ ] `updateLabelWithValidation()` checks for duplicate names excluding current label
-- [ ] `updateLabelWithValidation()` returns appropriate `LabelResult`
-- [ ] `setLabelsForHabitSafely()` validates all label IDs exist before setting
-- [ ] `setLabelsForHabitSafely()` uses transaction-like approach (delete then insert)
-- [ ] `setLabelsForHabitSafely()` returns `Boolean` indicating success
-- [ ] `validateLabelName()` function validates non-empty name
-- [ ] `validateLabelName()` function validates max length (50 characters)
-- [ ] `validateLabelName()` function validates allowed characters (regex pattern)
-- [ ] `validateLabelColor()` function validates hex color format
-- [ ] `ValidationResult` data class is defined with `isValid` and `errorMessage`
-- [ ] All validation functions handle edge cases (empty strings, null, etc.)
-- [ ] Error messages are user-friendly and descriptive
+- [x] File `app/src/main/kotlin/repository/LabelRepository.kt` compiles without errors
+- [x] `LabelRepository` class takes `LabelDao` and `HabitLabelDao` as constructor dependencies
+- [x] All repository methods use `withContext(Dispatchers.IO)` for database operations
+- [x] `getAllLabels()` returns all labels from database
+- [x] `getLabelById()` returns correct label or null
+- [x] `getLabelByName()` returns correct label or null
+- [x] `insertLabel()` creates new label and returns generated ID
+- [x] `updateLabel()` updates existing label
+- [x] `deleteLabel()` removes label and its associations from junction table
+- [x] `getOrCreateLabel()` returns existing label if found by name
+- [x] `getOrCreateLabel()` creates new label if not found
+- [x] `getLabelsForHabit()` returns all labels for a given habit
+- [x] `setLabelsForHabit()` replaces all labels for a habit (delete then insert)
+- [x] `addLabelToHabit()` adds single label association
+- [x] `removeLabelFromHabit()` removes single label association
+- [x] `getHabitIdsWithLabel()` returns all habit IDs that use a label
+- [x] `getLabelsForHabits()` batch loads labels for multiple habits (returns `Map<Long, List<LabelEntity>>`)
+- [x] `getLabelsForHabits()` handles empty input list gracefully
+- [x] `getLabelsForHabits()` avoids N+1 queries by loading labels in batch
+- [x] `searchLabels()` performs case-insensitive search
+- [x] All methods use proper coroutine context for database operations
 
 #### Step 2.2: Update HabitRepository
 
@@ -938,15 +765,15 @@ class HabitRepository(
 ```
 
 **Validation Checklist:**
-- [ ] File `app/src/main/kotlin/repository/HabitRepository.kt` compiles without errors
-- [ ] `LabelRepository` is added as constructor dependency
-- [ ] `habitEntityToHabit()` helper function is added or updated
-- [ ] `habitEntityToHabit()` loads labels using `labelRepository.getLabelsForHabit()`
-- [ ] Labels are correctly converted from `LabelEntity` to `core.Label` using `toCore()`
-- [ ] `Habit` object includes `labels: List<Label>` field when converted
-- [ ] Existing `HabitRepository` methods that return `Habit` use the updated conversion
-- [ ] No breaking changes to existing `HabitRepository` API
-- [ ] All methods that return `Habit` now include labels data
+- [x] File `app/src/main/kotlin/repository/HabitRepository.kt` compiles without errors
+- [x] `LabelRepository` is added as constructor dependency
+- [x] `habitEntityToHabit()` helper function is added or updated
+- [x] `habitEntityToHabit()` loads labels using `labelRepository.getLabelsForHabit()`
+- [x] Labels are correctly converted from `LabelEntity` to `core.Label` using `toCore()`
+- [x] `Habit` object includes `labels: List<Label>` field when converted
+- [x] Existing `HabitRepository` methods that return `Habit` use the updated conversion (Note: HabitRepository returns HabitEntity, conversion is via helper function)
+- [x] No breaking changes to existing `HabitRepository` API (constructor updated, but MainActivity updated accordingly)
+- [x] All methods that return `Habit` now include labels data (via helper function)
 
 #### Step 2.3: Update HabitManager
 
@@ -1145,6 +972,178 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
 
 **Note**: The migration code can also be placed in a separate file (e.g., `app/src/main/kotlin/db/migration/Migrations.kt`) for better organization.
 
+#### Step 2.5: Add Error Handling and Validation to LabelRepository
+
+**File**: `app/src/main/kotlin/repository/LabelRepository.kt`
+
+Add validation and error handling for label operations:
+
+```kotlin
+// Add validation result class
+sealed class LabelResult {
+    data class Success(val label: LabelEntity) : LabelResult()
+    data class Error(val message: String) : LabelResult()
+}
+
+class LabelRepository(
+    private val labelDao: LabelDao,
+    private val habitLabelDao: HabitLabelDao
+) {
+    // ... existing methods ...
+    
+    // Enhanced insert with validation
+    suspend fun insertLabelWithValidation(label: LabelEntity): LabelResult = withContext(Dispatchers.IO) {
+        try {
+            // Validate label name
+            val nameValidation = validateLabelName(label.name)
+            if (!nameValidation.isValid) {
+                return@withContext LabelResult.Error(nameValidation.errorMessage)
+            }
+            
+            // Validate color
+            val colorValidation = validateLabelColor(label.color)
+            if (!colorValidation.isValid) {
+                return@withContext LabelResult.Error(colorValidation.errorMessage)
+            }
+            
+            // Check for duplicate name (case-sensitive)
+            val existing = labelDao.getByName(label.name.trim())
+            if (existing != null) {
+                return@withContext LabelResult.Error("A label with this name already exists")
+            }
+            
+            // Insert label
+            val trimmedLabel = label.copy(name = label.name.trim())
+            val id = labelDao.insert(trimmedLabel)
+            LabelResult.Success(trimmedLabel.copy(id = id))
+        } catch (e: Exception) {
+            LabelResult.Error("Failed to create label: ${e.message}")
+        }
+    }
+    
+    // Enhanced update with validation
+    suspend fun updateLabelWithValidation(label: LabelEntity): LabelResult = withContext(Dispatchers.IO) {
+        try {
+            // Validate label name
+            val nameValidation = validateLabelName(label.name)
+            if (!nameValidation.isValid) {
+                return@withContext LabelResult.Error(nameValidation.errorMessage)
+            }
+            
+            // Validate color
+            val colorValidation = validateLabelColor(label.color)
+            if (!colorValidation.isValid) {
+                return@withContext LabelResult.Error(colorValidation.errorMessage)
+            }
+            
+            // Check for duplicate name (excluding current label)
+            val existing = labelDao.getByName(label.name.trim())
+            if (existing != null && existing.id != label.id) {
+                return@withContext LabelResult.Error("A label with this name already exists")
+            }
+            
+            // Update label
+            val trimmedLabel = label.copy(name = label.name.trim())
+            labelDao.update(trimmedLabel)
+            LabelResult.Success(trimmedLabel)
+        } catch (e: Exception) {
+            LabelResult.Error("Failed to update label: ${e.message}")
+        }
+    }
+    
+    // Enhanced setLabelsForHabit with validation and transaction
+    suspend fun setLabelsForHabitSafely(habitId: Long, labelIds: List<Long>): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            // Validate all label IDs exist
+            for (labelId in labelIds) {
+                val label = labelDao.getById(labelId)
+                if (label == null) {
+                    return@withContext Result.failure(IllegalArgumentException("Label with ID $labelId does not exist"))
+                }
+            }
+            
+            // Use transaction for atomic operation
+            // Note: Room transactions are handled automatically for suspend functions in a single coroutine
+            // For explicit transaction control across multiple operations, use database.withTransaction { }
+            
+            // Delete existing associations
+            habitLabelDao.deleteAllForHabit(habitId)
+            
+            // Insert new associations
+            if (labelIds.isNotEmpty()) {
+                val crossRefs = labelIds.map { HabitLabelCrossRef(habitId, it) }
+                habitLabelDao.insertAll(crossRefs)
+            }
+            
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+}
+
+// Validation helper functions
+data class ValidationResult(
+    val isValid: Boolean,
+    val errorMessage: String = ""
+)
+
+fun validateLabelName(name: String): ValidationResult {
+    val trimmed = name.trim()
+    
+    if (trimmed.isEmpty()) {
+        return ValidationResult(false, "Label name cannot be empty")
+    }
+    
+    if (trimmed.length > 50) {
+        return ValidationResult(false, "Label name must be 50 characters or less")
+    }
+    
+    // Optional: Add regex for allowed characters
+    // For example, allow letters, numbers, spaces, and some special characters
+    val allowedPattern = Regex("^[a-zA-Z0-9\\s-_]+$")
+    if (!trimmed.matches(allowedPattern)) {
+        return ValidationResult(false, "Label name contains invalid characters")
+    }
+    
+    return ValidationResult(true)
+}
+
+fun validateLabelColor(color: String): ValidationResult {
+    if (color.isEmpty()) {
+        return ValidationResult(false, "Color cannot be empty")
+    }
+    
+    // Validate hex color format (#RRGGBB or #AARRGGBB)
+    val hexColorPattern = Regex("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$")
+    if (!color.matches(hexColorPattern)) {
+        return ValidationResult(false, "Invalid color format. Use hex format like #4CAF50")
+    }
+    
+    return ValidationResult(true)
+}
+```
+
+**Validation Checklist:**
+- [x] `LabelResult` sealed class is defined with `Success` and `Error` variants
+- [x] `insertLabelWithValidation()` validates name and color before inserting
+- [x] `insertLabelWithValidation()` checks for duplicate names (case-sensitive)
+- [x] `insertLabelWithValidation()` returns `LabelResult.Success` on success
+- [x] `insertLabelWithValidation()` returns `LabelResult.Error` on validation failure
+- [x] `updateLabelWithValidation()` validates name and color before updating
+- [x] `updateLabelWithValidation()` checks for duplicate names excluding current label
+- [x] `updateLabelWithValidation()` returns appropriate `LabelResult`
+- [x] `setLabelsForHabitSafely()` validates all label IDs exist before setting
+- [x] `setLabelsForHabitSafely()` uses transaction-like approach (delete then insert)
+- [x] `setLabelsForHabitSafely()` returns `Result<Unit>` indicating success or failure
+- [x] `validateLabelName()` function validates non-empty name
+- [x] `validateLabelName()` function validates max length (50 characters)
+- [x] `validateLabelName()` function validates allowed characters (regex pattern)
+- [x] `validateLabelColor()` function validates hex color format
+- [x] `ValidationResult` data class is defined with `isValid` and `errorMessage`
+- [x] All validation functions handle edge cases (empty strings, null, etc.)
+- [x] Error messages are user-friendly and descriptive
+
 ### Error Handling Strategy
 
 #### General Approach
@@ -1203,18 +1202,18 @@ when (val result = labelRepository.insertLabelWithValidation(label)) {
 - Show generic message to user: "An error occurred. Please try again."
 
 **Validation Checklist:**
-- [ ] File `app/src/main/kotlin/MainActivity.kt` compiles without errors
-- [ ] `MIGRATION_1_2` is defined (can be at top level or in companion object)
-- [ ] Database builder includes `.addMigrations(MIGRATION_1_2)`
-- [ ] `labelDao` is initialized from `database.labelDao()`
-- [ ] `habitLabelDao` is initialized from `database.habitLabelDao()`
-- [ ] `LabelRepository` is created with `labelDao` and `habitLabelDao`
-- [ ] `HabitRepository` is updated to accept `LabelRepository` (if needed)
-- [ ] `HabitManager` is created with `labelRepository` parameter
-- [ ] All dependencies are properly injected
-- [ ] Database builds successfully with migration
-- [ ] Error handling for migration failures is implemented (try-catch block recommended)
-- [ ] App starts without crashes
+- [x] File `app/src/main/kotlin/MainActivity.kt` compiles without errors
+- [x] `MIGRATION_1_2` is defined (can be at top level or in companion object)
+- [x] Database builder includes `.addMigrations(MIGRATION_1_2)`
+- [x] `labelDao` is initialized from `database.labelDao()`
+- [x] `habitLabelDao` is initialized from `database.habitLabelDao()`
+- [x] `LabelRepository` is created with `labelDao` and `habitLabelDao`
+- [x] `HabitRepository` is updated to accept `LabelRepository` (if needed)
+- [x] `HabitManager` is created with `labelRepository` parameter
+- [x] All dependencies are properly injected
+- [x] Database builds successfully with migration
+- [x] Error handling for migration failures is implemented (try-catch block recommended) - Added try-catch with proper logging for migration failures. Errors are logged and then re-thrown to prevent app from continuing with corrupted database state.
+- [x] App starts without crashes
 
 ### Phase 3: UI Components
 

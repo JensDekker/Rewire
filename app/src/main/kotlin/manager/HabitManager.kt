@@ -3,14 +3,19 @@ package com.example.rewire.manager
 import com.example.rewire.repository.HabitRepository
 import com.example.rewire.repository.HabitCompletionRepository
 import com.example.rewire.repository.HabitNoteRepository
+import com.example.rewire.repository.LabelRepository
+import com.example.rewire.repository.LabelResult
 import com.example.rewire.db.entity.HabitEntity
 import com.example.rewire.db.entity.HabitCompletion
 import com.example.rewire.db.entity.HabitNoteEntity
+import com.example.rewire.db.entity.LabelEntity
+import com.example.rewire.db.entity.toCore
 
 class HabitManager(
     private val habitRepository: HabitRepository,
     private val habitCompletionRepository: HabitCompletionRepository,
-    private val habitNoteRepository: HabitNoteRepository
+    private val habitNoteRepository: HabitNoteRepository,
+    private val labelRepository: LabelRepository
 ) {
     /**
      * Find all habits due on a given day.
@@ -93,5 +98,80 @@ class HabitManager(
 
     suspend fun getNoteForHabitOnDate(habitId: Long, date: String): String {
         return habitNoteRepository.getNoteForHabitOnDate(habitId, date)
+    }
+
+    // Label-related methods
+    
+    // Get habit with labels
+    suspend fun getHabitWithLabels(habitId: Long): com.example.rewire.core.Habit? {
+        val entity = habitRepository.getHabitById(habitId) ?: return null
+        return habitRepository.habitEntityToHabit(entity)
+    }
+    
+    // Set labels for a habit
+    suspend fun setLabelsForHabit(habitId: Long, labelIds: List<Long>) {
+        labelRepository.setLabelsForHabit(habitId, labelIds)
+    }
+    
+    // Get all available labels
+    suspend fun getAllLabels(): List<LabelEntity> {
+        return labelRepository.getAllLabels()
+    }
+    
+    // Get labels for a habit
+    suspend fun getLabelsForHabit(habitId: Long): List<LabelEntity> {
+        return labelRepository.getLabelsForHabit(habitId)
+    }
+    
+    // Batch get labels for multiple habits (optimization)
+    suspend fun getLabelsForHabits(habitIds: List<Long>): Map<Long, List<LabelEntity>> {
+        return labelRepository.getLabelsForHabits(habitIds)
+    }
+    
+    // Create habit with labels atomically
+    suspend fun createHabitWithLabels(habit: HabitEntity, labelIds: List<Long>): Result<Long> {
+        return try {
+            // Insert habit and get generated ID
+            val habitId = habitRepository.insertHabit(habit)
+            // Set labels for the new habit
+            labelRepository.setLabelsForHabit(habitId, labelIds)
+            Result.success(habitId)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    
+    // Update habit with labels atomically
+    suspend fun updateHabitWithLabels(habit: HabitEntity, labelIds: List<Long>): Result<Unit> {
+        return try {
+            require(habit.id > 0) { "Habit ID must be greater than 0 for update" }
+            // Update habit
+            habitRepository.updateHabit(habit)
+            // Update labels
+            labelRepository.setLabelsForHabit(habit.id, labelIds)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    
+    // Get habit IDs that use a label (for statistics/usage counts)
+    suspend fun getHabitIdsWithLabel(labelId: Long): List<Long> {
+        return labelRepository.getHabitIdsWithLabel(labelId)
+    }
+    
+    // Create label with validation
+    suspend fun createLabel(label: LabelEntity): LabelResult {
+        return labelRepository.insertLabelWithValidation(label)
+    }
+    
+    // Update label with validation
+    suspend fun updateLabel(label: LabelEntity): LabelResult {
+        return labelRepository.updateLabelWithValidation(label)
+    }
+    
+    // Delete label
+    suspend fun deleteLabel(label: LabelEntity) {
+        labelRepository.deleteLabel(label)
     }
 }

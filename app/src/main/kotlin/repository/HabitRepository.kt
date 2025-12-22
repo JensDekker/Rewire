@@ -2,10 +2,14 @@ package com.example.rewire.repository
 
 import com.example.rewire.db.dao.HabitDao
 import com.example.rewire.db.entity.HabitEntity
+import com.example.rewire.db.entity.toCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class HabitRepository(private val habitDao: HabitDao) {
+class HabitRepository(
+    private val habitDao: HabitDao,
+    private val labelRepository: LabelRepository
+) {
     suspend fun getAllHabits(): List<HabitEntity> = withContext(Dispatchers.IO) {
         habitDao.getAll()
     }
@@ -24,6 +28,14 @@ class HabitRepository(private val habitDao: HabitDao) {
 
     suspend fun deleteHabit(habit: HabitEntity) = withContext(Dispatchers.IO) {
         habitDao.delete(habit)
+    }
+
+    // Helper to convert HabitEntity to Habit with labels
+    suspend fun habitEntityToHabit(entity: HabitEntity): com.example.rewire.core.Habit {
+        val labels = labelRepository.getLabelsForHabit(entity.id)
+        return entity.toCore().copy(
+            labels = labels.map { it.toCore() }
+        )
     }
 
         // Query by recurrence type
