@@ -1,5 +1,7 @@
 package com.example.rewire.ui.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -8,13 +10,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 import com.example.rewire.db.entity.HabitEntity
 import com.example.rewire.manager.HabitManager
 import com.example.rewire.ui.components.AddButton
 import com.example.rewire.ui.components.HabitCard
+import com.example.rewire.ui.components.HabitDetailModal
 import com.example.rewire.ui.screens.AddEditHabitScreen
 import com.example.rewire.db.entity.toCore
 import com.example.rewire.db.entity.toEntity
@@ -27,6 +33,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun HabitHomeScreen(
     habitManager: HabitManager,
+    navController: NavController? = null,
     modifier: Modifier = Modifier
 ) {
     val today = LocalDate.now().toString()
@@ -34,6 +41,7 @@ fun HabitHomeScreen(
     
     // State for habits due today
     var habitsDueToday by remember { mutableStateOf<List<HabitEntity>>(emptyList()) }
+    var allHabits by remember { mutableStateOf<List<HabitEntity>>(emptyList()) }
     var completedHabitIds by remember { mutableStateOf<Set<Long>>(emptySet()) }
     var habitNotes by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
     var expandedNoteHabits by remember { mutableStateOf<Set<Long>>(emptySet()) }
@@ -41,12 +49,16 @@ fun HabitHomeScreen(
     // Navigation state
     var showAddEditScreen by remember { mutableStateOf(false) }
     var editingHabit by remember { mutableStateOf<HabitEntity?>(null) }
+    var showHabitDetailModal by remember { mutableStateOf(false) }
+    var selectedHabit by remember { mutableStateOf<HabitEntity?>(null) }
     
-    // Load habits due today
+    // Load habits due today and all habits
     LaunchedEffect(today) {
+        // Load all habits first
+        allHabits = habitManager.getHabits()
         habitsDueToday = habitManager.getHabitsDueOn(today)
         
-        // Load completion status for each habit
+        // Load completion status for each habit due today
         val completedIds = mutableSetOf<Long>()
         for (habit in habitsDueToday) {
             val completions = habitManager.getCompletionsForHabit(habit.id)
@@ -56,7 +68,7 @@ fun HabitHomeScreen(
         }
         completedHabitIds = completedIds
         
-        // Load notes for each habit
+        // Load notes for each habit due today
         val notes = mutableMapOf<Long, String>()
         for (habit in habitsDueToday) {
             val note = habitManager.getNoteForHabitOnDate(habit.id, today)
@@ -74,11 +86,18 @@ fun HabitHomeScreen(
         }
     }
     
+    // Get habits that aren't due today and sort them alphabetically
+    val habitsDueTodayIds = habitsDueToday.map { it.id }.toSet()
+    val otherHabits = allHabits.filter { it.id !in habitsDueTodayIds }.sortedBy { it.name }
+    
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(AppSpacing.standardSpacing)
     ) {
+        // Top spacer to push content down
+        Spacer(modifier = Modifier.height(AppSpacing.standardSpacing))
+        
         // Header
         Text(
             text = "Today's Habits",
@@ -87,33 +106,12 @@ fun HabitHomeScreen(
             modifier = Modifier.padding(bottom = AppSpacing.standardSpacing)
         )
         
-        if (sortedHabits.isEmpty()) {
-            // Empty state
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(AppSpacing.standardSpacing)
-                ) {
-                    Text(
-                        text = "No habits scheduled for today",
-                        style = MaterialTheme.typography.body1,
-                        fontSize = 16.sp
-                    )
-                    AddButton(
-                        onClick = {
-                            // TODO: Navigate to add habit screen
-                        }
-                    )
-                }
-            }
-        } else {
-            // List of habits
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
-            ) {
+        // Use LazyColumn for scrollable content
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
+        ) {
+            // Today's Habits Section
+            if (sortedHabits.isNotEmpty()) {
                 items(sortedHabits) { habit ->
                     val isComplete = completedHabitIds.contains(habit.id)
                     val noteText = habitNotes[habit.id] ?: ""
@@ -139,7 +137,8 @@ fun HabitHomeScreen(
                         },
                         isNoteFieldVisible = isNoteFieldVisible,
                         onCardClicked = {
-                            // TODO: Navigate to habit detail screen
+                            selectedHabit = habit
+                            showHabitDetailModal = true
                         },
                         onCheckClicked = {
                             coroutineScope.launch {
@@ -167,16 +166,72 @@ fun HabitHomeScreen(
                         }
                     )
                 }
-                
-                // Add button at the end
+            }
+            
+            // All Other Habits Section
+            if (otherHabits.isNotEmpty()) {
+                // Section header
                 item {
-                    AddButton(
-                        onClick = {
-                            editingHabit = null // New habit
+                    Text(
+                        text = "All Other Habits",
+                        style = MaterialTheme.typography.h5,
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(
+                            top = if (sortedHabits.isNotEmpty()) AppSpacing.standardSpacing else 0.dp,
+                            bottom = AppSpacing.smallSpacing
+                        )
+                    )
+                }
+                
+                items(otherHabits) { habit ->
+                    HabitCard(
+                        habitName = habit.name,
+                        isComplete = false, // Other habits are never marked complete
+                        noteText = "",
+                        onNoteTextChange = { },
+                        isNoteFieldVisible = false,
+                        onCardClicked = {
+                            selectedHabit = habit
+                            showHabitDetailModal = true
+                        },
+                        onCheckClicked = {
+                            // No completion action for other habits
+                        },
+                        onAddNoteClicked = {
+                            // No note action for other habits
+                        },
+                        onEditClicked = {
+                            editingHabit = habit
                             showAddEditScreen = true
                         }
                     )
                 }
+            }
+            
+            // Show empty state if no habits at all
+            if (sortedHabits.isEmpty() && otherHabits.isEmpty()) {
+                item {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "No habits created yet",
+                            style = MaterialTheme.typography.body1,
+                            fontSize = 16.sp
+                        )
+                    }
+                }
+            }
+            
+            // Add button at the end
+            item {
+                AddButton(
+                    onClick = {
+                        editingHabit = null // New habit
+                        showAddEditScreen = true
+                    }
+                )
             }
         }
     }
@@ -234,6 +289,7 @@ fun HabitHomeScreen(
                     }
                     
                     // Refresh the habits list
+                    allHabits = habitManager.getHabits()
                     habitsDueToday = habitManager.getHabitsDueOn(today)
                     
                     showAddEditScreen = false
@@ -250,6 +306,7 @@ fun HabitHomeScreen(
                         habitManager.deleteHabit(habit)
                         
                         // Refresh the habits list
+                        allHabits = habitManager.getHabits()
                         habitsDueToday = habitManager.getHabitsDueOn(today)
                         
                         showAddEditScreen = false
@@ -258,6 +315,68 @@ fun HabitHomeScreen(
                 }
             }
         )
+    }
+    
+    // Show HabitDetailModal when navigation state is active
+    if (showHabitDetailModal && selectedHabit != null) {
+        val habit = selectedHabit!!
+        val isComplete = completedHabitIds.contains(habit.id)
+        val noteText = habitNotes[habit.id] ?: ""
+        
+        // Dark background overlay
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f))
+                .clickable { 
+                    showHabitDetailModal = false
+                    selectedHabit = null
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            HabitDetailModal(
+            habitName = habit.name,
+            isComplete = isComplete,
+            completionStreak = 0, // TODO: Calculate actual streak
+            percentageComplete = 0.0, // TODO: Calculate actual percentage
+            recurrenceType = habit.recurrence,
+            preferredTime = habit.preferredTime,
+            estimatedTimeMinutes = habit.estimatedMinutes,
+            noteText = noteText,
+            onNoteTextChange = { newNote ->
+                habitNotes = habitNotes + (habit.id to newNote)
+                // Save note to database
+                if (newNote.isNotBlank()) {
+                    coroutineScope.launch {
+                        val noteEntity = com.example.rewire.db.entity.HabitNoteEntity(
+                            habitId = habit.id,
+                            content = newNote,
+                            timestamp = today
+                        )
+                        habitManager.insertNote(noteEntity)
+                    }
+                }
+            },
+            onCheckClicked = {
+                coroutineScope.launch {
+                    if (isComplete) {
+                        // Remove completion
+                        habitManager.deleteCompletion(habit.id, today)
+                        completedHabitIds = completedHabitIds - habit.id
+                    } else {
+                        // Add completion
+                        habitManager.completeHabit(habit.id, today)
+                        completedHabitIds = completedHabitIds + habit.id
+                    }
+                }
+            },
+            onEditClicked = {
+                showHabitDetailModal = false
+                editingHabit = selectedHabit
+                showAddEditScreen = true
+            }
+        )
+        }
     }
 }
 

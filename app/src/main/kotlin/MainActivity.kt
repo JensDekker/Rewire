@@ -7,8 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import androidx.room.Room
-import com.example.rewire.ui.screens.HabitHomeScreen
+import com.example.rewire.ui.navigation.AppNavHost
 import com.example.rewire.ui.theme.RewireTheme
 import com.example.rewire.manager.HabitManager
 import com.example.rewire.repository.HabitRepository
@@ -19,6 +20,9 @@ import com.example.rewire.db.RewireDatabase
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Enable edge-to-edge display
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         
         // Initialize database and repositories
         val database = Room.databaseBuilder(
@@ -38,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HabitHomeScreen(habitManager = habitManager)
+                    AppNavHost(habitManager = habitManager)
                 }
             }
         }

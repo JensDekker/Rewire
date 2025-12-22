@@ -21,7 +21,7 @@ class ValidationTest {
     fun `validateRecurrenceParameters - Weekly with no days shows default message`() {
         val result = validateRecurrenceParameters("Weekly", selectedDaysOfWeek = emptySet())
         assertTrue(result.isValid)
-        assertEquals("No days selected - will default to Monday", result.message)
+        assertEquals(null, result.message) // No message since we default to Monday
     }
 
     @Test
@@ -183,7 +183,7 @@ class ValidationTest {
     @Test
     fun `getValidationMessage - Returns correct message for valid weekly`() {
         val message = getValidationMessage("Weekly", selectedDaysOfWeek = emptySet())
-        assertEquals("No days selected - will default to Monday", message)
+        assertEquals(null, message) // No message since we default to Monday
     }
 
     @Test

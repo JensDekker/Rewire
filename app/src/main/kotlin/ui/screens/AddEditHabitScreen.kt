@@ -4,8 +4,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
@@ -199,53 +202,50 @@ fun DayOfMonthSelector(
     dayOfMonth: Int,
     onDayOfMonthChange: (Int) -> Unit
 ) {
+    var dayText by remember { mutableStateOf(dayOfMonth.toString()) }
+    var isError by remember { mutableStateOf(false) }
+    
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Select Day:",
+            text = "Day of Month:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
             modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
         )
         
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            // Create day buttons (1-31)
-            (1..31).chunked(7).forEach { week ->
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    week.forEach { day ->
-                        val isSelected = dayOfMonth == day
-                        Surface(
-                            modifier = Modifier
-                                .size(32.dp)
-                                .padding(2.dp)
-                                .clickable { onDayOfMonthChange(day) },
-                            shape = CircleShape,
-                            color = if (isSelected) AppColors.primary else AppColors.surface,
-                            border = androidx.compose.foundation.BorderStroke(
-                                1.dp, 
-                                if (isSelected) AppColors.primary else AppColors.borderMedium
-                            )
-                        ) {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = day.toString(),
-                                    style = AppTypography.Custom.statisticsLabel.copy(fontSize = 12.sp),
-                                    color = if (isSelected) AppColors.onPrimary else AppColors.textSecondary
-                                )
-                            }
-                        }
-                    }
+        OutlinedTextField(
+            value = dayText,
+            onValueChange = { newValue ->
+                dayText = newValue
+                val day = newValue.toIntOrNull()
+                if (day != null && day in 1..31) {
+                    onDayOfMonthChange(day)
+                    isError = false
+                } else {
+                    isError = true
                 }
-            }
+            },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            isError = isError,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = androidx.compose.ui.text.input.KeyboardType.Number
+            ),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = if (isError) Color.Red else AppColors.primary,
+                unfocusedBorderColor = if (isError) Color.Red else AppColors.borderMedium
+            )
+        )
+        
+        if (isError) {
+            Text(
+                text = "Please enter a number between 1 and 31",
+                style = AppTypography.Custom.statisticsLabel.copy(fontSize = 12.sp),
+                color = Color.Red,
+                modifier = Modifier.padding(top = 4.dp)
+            )
         }
     }
 }
@@ -566,11 +566,7 @@ fun validateRecurrenceParameters(
         "Daily" -> ValidationResult(true)
         
         "Weekly" -> {
-            if (selectedDaysOfWeek.isEmpty()) {
-                ValidationResult(true, "No days selected - will default to Monday")
-            } else {
-                ValidationResult(true)
-            }
+            ValidationResult(true) // Always valid since we default to Monday
         }
         
         "Monthly" -> {
@@ -665,27 +661,89 @@ fun AddEditHabitScreen(
     var showRecurrencePicker by remember { mutableStateOf(false) }
     var showDeleteConfirmation by remember { mutableStateOf(false) }
     var showRecurrenceDropdown by remember { mutableStateOf(false) }
+    var isNameError by remember { mutableStateOf(false) }
     
     // Recurrence selection state
-    var selectedRecurrenceCategory by remember { mutableStateOf("Daily") }
-    var monthlySubType by remember { mutableStateOf("day") } // "day" or "weekday"
-    var quarterlySubType by remember { mutableStateOf("day") } // "day" or "weekday"
+    var selectedRecurrenceCategory by remember(recurrenceType) { 
+        mutableStateOf(
+            when (recurrenceType) {
+                is RecurrenceType.Daily -> "Daily"
+                is RecurrenceType.Weekly, is RecurrenceType.CustomWeekly -> "Weekly"
+                is RecurrenceType.MonthlyByDate, is RecurrenceType.MonthlyByWeekday -> "Monthly"
+                is RecurrenceType.QuarterlyByDate, is RecurrenceType.QuarterlyByWeekday -> "Quarterly"
+            }
+        )
+    }
+    var monthlySubType by remember(recurrenceType) { 
+        mutableStateOf(
+            when (recurrenceType) {
+                is RecurrenceType.MonthlyByWeekday -> "weekday"
+                else -> "day"
+            }
+        )
+    }
+    var quarterlySubType by remember(recurrenceType) { 
+        mutableStateOf(
+            when (recurrenceType) {
+                is RecurrenceType.QuarterlyByWeekday -> "weekday"
+                else -> "day"
+            }
+        )
+    }
     
     // Weekly configuration state
-    var selectedDaysOfWeek by remember { mutableStateOf(setOf<DayOfWeek>()) }
+    var selectedDaysOfWeek by remember(recurrenceType) { 
+        mutableStateOf(
+            when (recurrenceType) {
+                is RecurrenceType.CustomWeekly -> recurrenceType.daysOfWeek.toSet()
+                is RecurrenceType.Weekly -> setOf(DayOfWeek.MONDAY) // Default to Monday for Weekly
+                else -> setOf(DayOfWeek.MONDAY) // Default to Monday for new habits
+            }
+        )
+    }
     
     // Monthly configuration state
-    var dayOfMonth by remember { mutableStateOf(1) }
-    var weekOfMonth by remember { mutableStateOf(1) }
-    var selectedDayOfWeek by remember { mutableStateOf(DayOfWeek.MONDAY) }
+    var dayOfMonth by remember(recurrenceType) { 
+        mutableStateOf(
+            when (recurrenceType) {
+                is RecurrenceType.MonthlyByDate -> recurrenceType.dayOfMonth
+                else -> 1
+            }
+        )
+    }
+    var weekOfMonth by remember(recurrenceType) { 
+        mutableStateOf(
+            when (recurrenceType) {
+                is RecurrenceType.MonthlyByWeekday -> recurrenceType.weekOfMonth
+                else -> 1
+            }
+        )
+    }
+    var selectedDayOfWeek by remember(recurrenceType) { 
+        mutableStateOf(
+            when (recurrenceType) {
+                is RecurrenceType.MonthlyByWeekday -> recurrenceType.dayOfWeek
+                else -> DayOfWeek.MONDAY
+            }
+        )
+    }
     
     // Quarterly configuration state
-    var monthOffset by remember { mutableStateOf(0) }
+    var monthOffset by remember(recurrenceType) { 
+        mutableStateOf(
+            when (recurrenceType) {
+                is RecurrenceType.QuarterlyByDate -> recurrenceType.monthOffset
+                is RecurrenceType.QuarterlyByWeekday -> recurrenceType.monthOffset
+                else -> 0
+            }
+        )
+    }
     
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
+            .verticalScroll(rememberScrollState())
             .padding(AppSpacing.standardSpacing)
     ) {
         // Header Row: Back button, Title, Save button
@@ -729,7 +787,10 @@ fun AddEditHabitScreen(
                             monthOffset = monthOffset
                         )
                         
-                        if (validation.isValid) {
+                        // Check if habit name is valid
+                        if (habitName.isBlank()) {
+                            isNameError = true
+                        } else if (validation.isValid) {
                             // Create the recurrence type from current UI state
                             val newRecurrenceType = createRecurrenceType(
                                 category = selectedRecurrenceCategory,
@@ -758,10 +819,27 @@ fun AddEditHabitScreen(
         // Habit Name Input
         OutlinedTextField(
             value = habitName,
-            onValueChange = onHabitNameChange,
+            onValueChange = { 
+                onHabitNameChange(it)
+                isNameError = it.isBlank()
+            },
             label = { Text("Habit Name", style = AppTypography.Custom.noteLabel) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = isNameError,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = if (isNameError) Color.Red else AppColors.primary,
+                unfocusedBorderColor = if (isNameError) Color.Red else AppColors.borderMedium
+            )
         )
+        
+        if (isNameError) {
+            Text(
+                text = "A habit must have a name!",
+                style = AppTypography.Custom.statisticsLabel.copy(fontSize = 12.sp),
+                color = Color.Red,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
         
         Spacer(modifier = Modifier.height(AppSpacing.standardSpacing))
         
