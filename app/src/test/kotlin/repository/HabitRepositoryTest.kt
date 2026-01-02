@@ -64,7 +64,33 @@ class HabitRepositoryTest {
             completionList.filter { it.habitId == habitId }
     }
 
-    private val repo = com.example.rewire.repository.HabitRepository(dao).apply {
+    // Mock LabelRepository for HabitRepository
+    private val labelRepository = com.example.rewire.repository.LabelRepository(
+        object : com.example.rewire.db.dao.LabelDao {
+            override suspend fun getAll(): List<com.example.rewire.db.entity.LabelEntity> = emptyList()
+            override suspend fun getById(id: Long): com.example.rewire.db.entity.LabelEntity? = null
+            override suspend fun getByName(name: String): com.example.rewire.db.entity.LabelEntity? = null
+            override suspend fun insert(label: com.example.rewire.db.entity.LabelEntity): Long = 0L
+            override suspend fun insertAll(labels: List<com.example.rewire.db.entity.LabelEntity>): List<Long> = emptyList()
+            override suspend fun update(label: com.example.rewire.db.entity.LabelEntity) {}
+            override suspend fun delete(label: com.example.rewire.db.entity.LabelEntity) {}
+            override suspend fun getLabelsForHabit(habitId: Long): List<com.example.rewire.db.entity.LabelEntity> = emptyList()
+            override suspend fun searchLabels(query: String): List<com.example.rewire.db.entity.LabelEntity> = emptyList()
+        },
+        object : com.example.rewire.db.dao.HabitLabelDao {
+            override suspend fun insert(crossRef: com.example.rewire.db.entity.HabitLabelCrossRef) {}
+            override suspend fun insertAll(crossRefs: List<com.example.rewire.db.entity.HabitLabelCrossRef>) {}
+            override suspend fun delete(crossRef: com.example.rewire.db.entity.HabitLabelCrossRef) {}
+            override suspend fun deleteAllForHabit(habitId: Long) {}
+            override suspend fun deleteAllForLabel(labelId: Long) {}
+            override suspend fun getCrossRefsForHabit(habitId: Long): List<com.example.rewire.db.entity.HabitLabelCrossRef> = emptyList()
+            override suspend fun getCrossRefsForLabel(labelId: Long): List<com.example.rewire.db.entity.HabitLabelCrossRef> = emptyList()
+            override suspend fun hasLabel(habitId: Long, labelId: Long): Boolean = false
+            override suspend fun getHabitIdsWithLabel(labelId: Long): List<Long> = emptyList()
+        }
+    )
+
+    private val repo = com.example.rewire.repository.HabitRepository(dao, labelRepository).apply {
         setHabitCompletionDao(completionDao)
     }
 

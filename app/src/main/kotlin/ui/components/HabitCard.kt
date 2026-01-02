@@ -1,6 +1,5 @@
 package com.example.rewire.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import com.example.rewire.ui.theme.AppShapes
@@ -19,13 +18,13 @@ import androidx.compose.runtime.*
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.compose.ui.graphics.Color
 import com.example.rewire.R
 import com.example.rewire.core.Label
+import com.example.rewire.ui.theme.AppColors
 
 @Composable
 fun HabitCard(
@@ -35,19 +34,25 @@ fun HabitCard(
     onNoteTextChange: (String) -> Unit,
     isNoteFieldVisible: Boolean,
     labels: List<Label> = emptyList(),
-    navController: NavController? = null,
     onCardClicked: () -> Unit = {},
     onCheckClicked: () -> Unit = {},
     onAddNoteClicked: () -> Unit = {},
     onEditClicked: () -> Unit = {}
 ) {
+    // Determine card background color from first label, or use default
+    val cardBackgroundColor = if (labels.isNotEmpty()) {
+        parseLabelColor(labels.first().color)
+    } else {
+        MaterialTheme.colors.surface  // Use MaterialTheme for default since we're in composable context
+    }
+    
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .padding(AppSpacing.cardPadding)
             .clickable { onCardClicked() },
         shape = AppShapes.cardShape,
-        color = MaterialTheme.colors.surface,
+        color = cardBackgroundColor,
         elevation = 4.dp
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -96,19 +101,6 @@ fun HabitCard(
                 }
             }
             
-            // Display labels
-            if (labels.isNotEmpty()) {
-                LabelRow(
-                    labels = labels,
-                    onLabelLongClick = navController?.let { { _ ->
-                        navController.navigate("label_management")
-                    } },
-                    modifier = Modifier
-                        .padding(horizontal = AppSpacing.standardSpacing)
-                        .padding(bottom = AppSpacing.smallSpacing)
-                )
-            }
-            
             if (isNoteFieldVisible) {
                 OutlinedTextField(
                     value = noteText,
@@ -120,6 +112,18 @@ fun HabitCard(
                 )
             }
         }
+    }
+}
+
+/**
+ * Helper function to parse hex color string to Compose Color.
+ * Returns AppColors.surface as fallback if parsing fails.
+ */
+private fun parseLabelColor(colorHex: String): Color {
+    return try {
+        Color(android.graphics.Color.parseColor(colorHex))
+    } catch (e: Exception) {
+        AppColors.surface  // Fallback to default surface color
     }
 }
 

@@ -2,12 +2,12 @@ package com.example.rewire.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.rewire.ui.theme.AppColors
 import com.example.rewire.ui.theme.AppSpacing
+import com.example.rewire.ui.theme.AppShapes
 
 @Composable
 fun LabelLoadingIndicator(modifier: Modifier = Modifier) {
@@ -22,7 +22,7 @@ fun LabelLoadingIndicator(modifier: Modifier = Modifier) {
                     .height(24.dp)
                     .background(
                         AppColors.surfaceVariant,
-                        RoundedCornerShape(16.dp)
+                        AppShapes.cardShape
                     )
             )
         }

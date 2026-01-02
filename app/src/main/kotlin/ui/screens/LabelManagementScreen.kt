@@ -2,6 +2,7 @@ package com.example.rewire.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -13,8 +14,10 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.rewire.db.entity.LabelEntity
 import com.example.rewire.db.entity.toCore
@@ -24,6 +27,7 @@ import com.example.rewire.ui.components.LabelChip
 import com.example.rewire.ui.components.CreateEditLabelDialog
 import com.example.rewire.ui.components.DeleteLabelDialog
 import com.example.rewire.ui.theme.AppSpacing
+import com.example.rewire.ui.theme.AppTypography
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.rememberCoroutineScope
 import android.util.Log
@@ -32,7 +36,9 @@ import android.util.Log
 fun LabelManagementScreen(
     navController: NavController,
     habitManager: HabitManager,
-    selectedLabelId: Long? = null  // Optional: pre-select a label
+    selectedLabelId: Long? = null,  // Optional: pre-select a label
+    modifier: Modifier = Modifier,
+    topSpacing: androidx.compose.ui.unit.Dp = 20.dp // Vertical spacing above title header
 ) {
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -93,63 +99,96 @@ fun LabelManagementScreen(
         }
     }
     
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Manage Labels") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Back")
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { showCreateDialog = true }) {
-                        Icon(Icons.Default.Add, "Create Label")
-                    }
-                }
-            )
-        },
-        snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
-        }
-    ) { padding ->
-        Column(
+    // Custom header with unified background
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+    ) {
+        // Top spacer for title header
+        Spacer(modifier = Modifier.height(topSpacing))
+        
+        // Custom header row
+        Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(AppSpacing.standardSpacing)
+                .fillMaxWidth()
+                .padding(horizontal = AppSpacing.standardSpacing, vertical = AppSpacing.standardSpacing),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            if (isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.padding(AppSpacing.standardSpacing)
-                    )
-                }
-            } else if (labels.isEmpty()) {
-                // Empty state
-                EmptyLabelsState(
-                    onCreateClick = { showCreateDialog = true },
-                    modifier = Modifier.fillMaxSize()
+            // Back button
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back"
                 )
-            } else {
-                // Labels list
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
-                ) {
-                    items(labels) { label ->
-                        LabelListItem(
-                            label = label,
-                            usageCount = labelUsageCounts[label.id] ?: 0,
-                            onEditClick = { editingLabel = label },
-                            onDeleteClick = { labelToDelete = label },
-                            modifier = Modifier.fillMaxWidth()
+            }
+            
+            // Centered title
+            Text(
+                text = "Manage Labels",
+                style = AppTypography.materialTypography.h4.copy(
+                    fontWeight = FontWeight.Bold
+                ),
+                fontSize = 28.sp,
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.Center
+            )
+            
+            // Add button
+            IconButton(onClick = { showCreateDialog = true }) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Create Label"
+                )
+            }
+        }
+        
+        // Content area
+        Box(modifier = Modifier.weight(1f)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(AppSpacing.standardSpacing)
+            ) {
+                if (isLoading) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.padding(AppSpacing.standardSpacing)
                         )
+                    }
+                } else if (labels.isEmpty()) {
+                    // Empty state
+                    EmptyLabelsState(
+                        onCreateClick = { showCreateDialog = true },
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } else {
+                    // Labels list
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
+                    ) {
+                        items(labels) { label ->
+                            LabelListItem(
+                                label = label,
+                                usageCount = labelUsageCounts[label.id] ?: 0,
+                                onEditClick = { editingLabel = label },
+                                onDeleteClick = { labelToDelete = label },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                     }
                 }
             }
+            
+            // Snackbar host
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier.align(Alignment.BottomCenter)
+            )
         }
     }
     

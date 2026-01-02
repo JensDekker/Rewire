@@ -1,18 +1,23 @@
 package com.example.rewire.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
@@ -23,12 +28,16 @@ import com.example.rewire.manager.HabitManager
 import com.example.rewire.ui.components.AddButton
 import com.example.rewire.ui.components.HabitCard
 import com.example.rewire.ui.components.HabitDetailModal
+import com.example.rewire.ui.components.LabelChip
 import com.example.rewire.ui.screens.AddEditHabitScreen
 import com.example.rewire.db.entity.toCore
 import com.example.rewire.db.entity.toEntity
 import com.example.rewire.db.entity.LabelEntity
 import com.example.rewire.core.Habit
 import com.example.rewire.ui.theme.AppSpacing
+import com.example.rewire.ui.theme.AppShapes
+import com.example.rewire.ui.theme.AppColors
+import com.example.rewire.ui.theme.AppTypography
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -37,7 +46,8 @@ import java.time.format.DateTimeFormatter
 fun HabitHomeScreen(
     habitManager: HabitManager,
     navController: NavController? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    topSpacing: androidx.compose.ui.unit.Dp = 20.dp // Vertical spacing above title header
 ) {
     val today = LocalDate.now().toString()
     val coroutineScope = rememberCoroutineScope()
@@ -51,6 +61,12 @@ fun HabitHomeScreen(
     
     // Label state - map of habitId to list of labels
     var habitLabels by remember { mutableStateOf<Map<Long, List<LabelEntity>>>(emptyMap()) }
+    
+    // Filter state - selected label IDs for filtering
+    var selectedFilterLabelIds by remember { mutableStateOf<Set<Long>>(emptySet()) }
+    
+    // All available labels for filter UI
+    var allAvailableLabels by remember { mutableStateOf<List<LabelEntity>>(emptyList()) }
     
     // Navigation state
     var showAddEditScreen by remember { mutableStateOf(false) }
@@ -94,8 +110,19 @@ fun HabitHomeScreen(
         habitLabels = habitManager.getLabelsForHabits(habitIds)
     }
     
+    // Load all available labels for filter UI
+    // Reload when habits change (in case labels were added/removed)
+    LaunchedEffect(allHabits) {
+        try {
+            allAvailableLabels = habitManager.getAllLabels()
+        } catch (e: Exception) {
+            // Handle error silently - filter UI will just be empty
+            allAvailableLabels = emptyList()
+        }
+    }
+    
     // Sort habits by preferred time (chronological order)
-    val sortedHabits = habitsDueToday.sortedBy { habit ->
+    val sortedHabitsBase = habitsDueToday.sortedBy { habit ->
         try {
             LocalTime.parse(habit.preferredTime)
         } catch (e: Exception) {
@@ -105,64 +132,182 @@ fun HabitHomeScreen(
     
     // Get habits that aren't due today and sort them alphabetically
     val habitsDueTodayIds = habitsDueToday.map { it.id }.toSet()
-    val otherHabits = allHabits.filter { it.id !in habitsDueTodayIds }.sortedBy { it.name }
+    val otherHabitsBase = allHabits.filter { it.id !in habitsDueTodayIds }.sortedBy { it.name }
+    
+    // Filter logic: filter habits by selected labels (OR logic - habit matches if it has ANY selected label)
+    val filterHabits: (List<HabitEntity>) -> List<HabitEntity> = { habits ->
+        if (selectedFilterLabelIds.isEmpty()) {
+            habits
+        } else {
+            habits.filter { habit ->
+                val habitLabelIds = habitLabels[habit.id]?.map { it.id }?.toSet() ?: emptySet()
+                habitLabelIds.intersect(selectedFilterLabelIds).isNotEmpty()
+            }
+        }
+    }
+    
+    // Apply filter to both habit lists
+    val sortedHabits = filterHabits(sortedHabitsBase)
+    val otherHabits = filterHabits(otherHabitsBase)
     
     // State for menu
     var showMenu by remember { mutableStateOf(false) }
     
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Today's Habits") },
-                actions = {
-                    IconButton(onClick = { showMenu = true }) {
-                        Icon(
-                            imageVector = Icons.Default.MoreVert,
-                            contentDescription = "More options"
-                        )
-                    }
-                    DropdownMenu(
-                        expanded = showMenu,
-                        onDismissRequest = { showMenu = false }
-                    ) {
-                        DropdownMenuItem(
-                            onClick = {
-                                showMenu = false
-                                navController?.navigate("label_management")
-                            }
-                        ) {
-                            Text("Manage Labels")
-                        }
-                        // Future menu items can be added here:
-                        // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
-                        // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
-                    }
-                }
+    // Custom header with unified background
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+    ) {
+        // Top spacer for title header
+        Spacer(modifier = Modifier.height(topSpacing))
+        
+        // Custom header row
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = AppSpacing.standardSpacing, vertical = AppSpacing.standardSpacing),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Spacer to balance the settings icon on the right
+            Spacer(modifier = Modifier.width(48.dp)) // Width of IconButton for centering
+            
+            // Centered title
+            Text(
+                text = "Today's Habits",
+                style = AppTypography.materialTypography.h4.copy(
+                    fontWeight = FontWeight.Bold
+                ),
+                fontSize = 28.sp, // Double the typical TopAppBar title size (20sp)
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.Center
             )
+            
+            // Settings icon button
+            IconButton(onClick = { showMenu = true }) {
+                Icon(
+                    imageVector = Icons.Default.Settings,
+                    contentDescription = "Settings"
+                )
+            }
+            
+            // Dropdown menu (positioned relative to settings icon)
+            DropdownMenu(
+                expanded = showMenu,
+                onDismissRequest = { showMenu = false }
+            ) {
+                DropdownMenuItem(
+                    onClick = {
+                        showMenu = false
+                        navController?.navigate("label_management")
+                    }
+                ) {
+                    Text("Manage Labels")
+                }
+                // Future menu items can be added here:
+                // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
+                // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+            }
         }
-    ) { padding ->
-        // Use LazyColumn for scrollable content
+        
+        // Main content - Use LazyColumn for scrollable content
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
-                .padding(AppSpacing.standardSpacing),
+                .padding(horizontal = AppSpacing.standardSpacing),
             verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
         ) {
+            // Filter UI Section
+            if (allAvailableLabels.isNotEmpty()) {
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = AppSpacing.smallSpacing)
+                    ) {
+                        // Filter header with clear button
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = if (selectedFilterLabelIds.isEmpty()) {
+                                    "Filter by Label"
+                                } else {
+                                    "Filtered by ${selectedFilterLabelIds.size} ${if (selectedFilterLabelIds.size == 1) "label" else "labels"}"
+                                },
+                                style = AppTypography.materialTypography.subtitle2,
+                                modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+                            )
+                            
+                            if (selectedFilterLabelIds.isNotEmpty()) {
+                                TextButton(
+                                    onClick = { selectedFilterLabelIds = emptySet() },
+                                    modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "Clear filters",
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text("Clear")
+                                }
+                            }
+                        }
+                        
+                        // Filter chips - selectable labels
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = AppSpacing.smallSpacing),
+                            horizontalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
+                        ) {
+                            allAvailableLabels.forEach { labelEntity ->
+                                val label = labelEntity.toCore()
+                                val isSelected = selectedFilterLabelIds.contains(label.id)
+                                
+                                LabelChip(
+                                    label = label,
+                                    onClick = {
+                                        selectedFilterLabelIds = if (isSelected) {
+                                            selectedFilterLabelIds - label.id
+                                        } else {
+                                            selectedFilterLabelIds + label.id
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .then(
+                                            if (isSelected) {
+                                                Modifier.border(
+                                                    2.dp,
+                                                    AppColors.primary,
+                                                    AppShapes.cardShape
+                                                )
+                                            } else {
+                                                Modifier
+                                            }
+                                        )
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            
             // Today's Habits Section
             if (sortedHabits.isNotEmpty()) {
                 items(sortedHabits) { habit ->
                     val isComplete = completedHabitIds.contains(habit.id)
                     val noteText = habitNotes[habit.id] ?: ""
                     val isNoteFieldVisible = expandedNoteHabits.contains(habit.id)
-                    val labels = habitLabels[habit.id]?.map { it.toCore() } ?: emptyList()
                     
                     HabitCard(
                         habitName = habit.name,
                         isComplete = isComplete,
                         noteText = noteText,
-                        labels = labels,
-                        navController = navController,
                         onNoteTextChange = { newNote ->
                             habitNotes = habitNotes + (habit.id to newNote)
                             // Save note to database
@@ -178,6 +323,7 @@ fun HabitHomeScreen(
                             }
                         },
                         isNoteFieldVisible = isNoteFieldVisible,
+                        labels = habitLabels[habit.id]?.map { it.toCore() } ?: emptyList(),
                         onCardClicked = {
                             selectedHabit = habit
                             showHabitDetailModal = true
@@ -226,16 +372,13 @@ fun HabitHomeScreen(
                 }
                 
                 items(otherHabits) { habit ->
-                    val labels = habitLabels[habit.id]?.map { it.toCore() } ?: emptyList()
-                    
                     HabitCard(
                         habitName = habit.name,
                         isComplete = false, // Other habits are never marked complete
                         noteText = "",
                         onNoteTextChange = { },
                         isNoteFieldVisible = false,
-                        labels = labels,
-                        navController = navController,
+                        labels = habitLabels[habit.id]?.map { it.toCore() } ?: emptyList(),
                         onCardClicked = {
                             selectedHabit = habit
                             showHabitDetailModal = true
@@ -254,7 +397,7 @@ fun HabitHomeScreen(
                 }
             }
             
-            // Show empty state if no habits at all
+            // Show empty state
             if (sortedHabits.isEmpty() && otherHabits.isEmpty()) {
                 item {
                     Box(
@@ -263,12 +406,27 @@ fun HabitHomeScreen(
                             .padding(vertical = AppSpacing.largeSpacing),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "No habits yet. Click the '+' button to add your first habit!",
-                            style = MaterialTheme.typography.body1,
-                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f),
-                            textAlign = TextAlign.Center
-                        )
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(horizontal = AppSpacing.standardSpacing)
+                        ) {
+                                Text(
+                                    text = if (selectedFilterLabelIds.isEmpty()) {
+                                        "No habits yet. Click the '+' button to add your first habit!"
+                                    } else {
+                                        "No habits match the selected labels. Try selecting different labels or clear the filter."
+                                    },
+                                    style = AppTypography.materialTypography.body1,
+                                    color = AppColors.textSecondary,
+                                    textAlign = TextAlign.Center
+                                )
+                            if (selectedFilterLabelIds.isNotEmpty()) {
+                                Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
+                                TextButton(onClick = { selectedFilterLabelIds = emptySet() }) {
+                                    Text("Clear Filter")
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -322,6 +480,14 @@ fun HabitHomeScreen(
                     allHabits = habitManager.getHabits()
                     habitsDueToday = habitManager.getHabitsDueOn(today)
                     
+                    // Explicitly reload labels after updating habits to ensure card colors update immediately
+                    if (allHabits.isNotEmpty()) {
+                        val habitIds = allHabits.map { it.id }
+                        habitLabels = habitManager.getLabelsForHabits(habitIds)
+                    } else {
+                        habitLabels = emptyMap()
+                    }
+                    
                     showAddEditScreen = false
                     editingHabit = null
                 }
@@ -338,6 +504,14 @@ fun HabitHomeScreen(
                         // Refresh the habits list
                         allHabits = habitManager.getHabits()
                         habitsDueToday = habitManager.getHabitsDueOn(today)
+                        
+                        // Explicitly reload labels after deleting habit
+                        if (allHabits.isNotEmpty()) {
+                            val habitIds = allHabits.map { it.id }
+                            habitLabels = habitManager.getLabelsForHabits(habitIds)
+                        } else {
+                            habitLabels = emptyMap()
+                        }
                         
                         showAddEditScreen = false
                         editingHabit = null
@@ -410,68 +584,64 @@ fun HabitHomeScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, name = "Habit Home Screen Preview")
 @Composable
 fun HabitHomeScreenPreview() {
     MaterialTheme {
-        // Create mock data for preview
-        val mockHabits = listOf(
-            HabitEntity(
-                id = 1,
-                name = "Morning Meditation",
-                recurrence = com.example.rewire.core.RecurrenceType.Daily,
-                preferredTime = "07:00",
-                estimatedMinutes = 15,
-                startDate = LocalDate.now().toString()
-            ),
-            HabitEntity(
-                id = 2,
-                name = "Read a Book",
-                recurrence = com.example.rewire.core.RecurrenceType.Daily,
-                preferredTime = "20:00",
-                estimatedMinutes = 30,
-                startDate = LocalDate.now().toString()
-            ),
-            HabitEntity(
-                id = 3,
-                name = "Exercise",
-                recurrence = com.example.rewire.core.RecurrenceType.Daily,
-                preferredTime = "18:00",
-                estimatedMinutes = 45,
-                startDate = LocalDate.now().toString()
-            )
-        )
+        // Note: This preview shows a simplified version since HabitHomeScreen requires HabitManager
+        // For full preview, you would need to create a mock HabitManager or use dependency injection
         
+        // Preview the header structure
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppSpacing.standardSpacing)
+                .background(MaterialTheme.colors.background)
         ) {
-            Text(
-                text = "Today's Habits",
-                style = MaterialTheme.typography.h4,
-                fontSize = 28.sp,
-                modifier = Modifier.padding(bottom = AppSpacing.standardSpacing)
-            )
-            
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
+            // Custom header row (matches actual implementation)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = AppSpacing.standardSpacing, vertical = AppSpacing.standardSpacing),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                items(mockHabits) { habit ->
-                    HabitCard(
-                        habitName = habit.name,
-                        isComplete = habit.id == 1L, // First habit is completed
-                        noteText = if (habit.id == 1L) "Great meditation session!" else "",
-                        onNoteTextChange = { },
-                        isNoteFieldVisible = habit.id == 1L,
-                        onCardClicked = { },
-                        onCheckClicked = { },
-                        onAddNoteClicked = { }
+                // Spacer to balance the settings icon on the right
+                Spacer(modifier = Modifier.width(48.dp))
+                
+                // Centered title
+                Text(
+                    text = "Today's Habits",
+                    style = AppTypography.materialTypography.h4.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    fontSize = 28.sp,
+                    modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Center
+                )
+                
+                // Settings icon button
+                IconButton(onClick = { }) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Settings"
                     )
                 }
-                
+            }
+            
+            // Preview content area
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = AppSpacing.standardSpacing),
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
+            ) {
                 item {
-                    AddButton(onClick = { })
+                    Text(
+                        text = "Preview: Full screen requires HabitManager",
+                        style = MaterialTheme.typography.body2,
+                        modifier = Modifier.padding(AppSpacing.standardSpacing),
+                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                    )
                 }
             }
         }

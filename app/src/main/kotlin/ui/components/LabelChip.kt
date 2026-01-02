@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,6 +14,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.rewire.core.Label
 import com.example.rewire.ui.theme.AppSpacing
+import com.example.rewire.ui.theme.AppShapes
+import com.example.rewire.ui.theme.AppColors
+import com.example.rewire.ui.theme.AppTypography
 
 @Composable
 fun LabelChip(
@@ -27,7 +28,7 @@ fun LabelChip(
     val labelColor = try {
         Color(android.graphics.Color.parseColor(label.color))
     } catch (e: Exception) {
-        MaterialTheme.colors.primary  // Fallback color
+        AppColors.primary  // Fallback color
     }
     
     // Calculate text color based on background brightness
@@ -35,7 +36,7 @@ fun LabelChip(
     
     Box(
         modifier = modifier
-            .background(labelColor, RoundedCornerShape(16.dp))
+            .background(labelColor, AppShapes.cardShape)
             .pointerInput(label.id) {
                 detectTapGestures(
                     onLongPress = {
@@ -50,7 +51,7 @@ fun LabelChip(
         Text(
             text = label.name,
             color = textColor,
-            style = MaterialTheme.typography.caption,
+            style = AppTypography.materialTypography.caption,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )

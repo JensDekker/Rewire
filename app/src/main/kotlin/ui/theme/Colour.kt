@@ -45,4 +45,46 @@ object AppColors {
     val borderLight = onSurface.copy(alpha = 0.2f)
     val borderMedium = onSurface.copy(alpha = 0.3f)
     val borderStrong = onSurface.copy(alpha = 0.5f)
+    
+    // Label Colors (muted/pastel palette)
+    val labelDefaultColors = listOf(
+        "#FFB3BA", // Soft Pink/Rose
+        "#BAFFC9", // Soft Mint Green
+        "#BAE1FF", // Soft Sky Blue
+        "#FFFFBA", // Soft Cream/Yellow
+        "#FFDFBA"  // Soft Peach
+    )
+    
+    // Label color helper functions
+    /**
+     * Get a default label color by index (cycles through available colors)
+     * @param index Index of the color (will be wrapped using modulo)
+     * @return A color hex string from labelDefaultColors
+     */
+    fun getLabelDefaultColor(index: Int): String {
+        return labelDefaultColors[index % labelDefaultColors.size]
+    }
+    
+    /**
+     * Get the next available default color that isn't already used.
+     * This helps avoid color collisions when creating new labels.
+     * 
+     * @param usedColors List of colors already in use
+     * @return A color from labelDefaultColors that isn't in usedColors, or the first default color if all are used
+     */
+    fun getNextAvailableLabelColor(usedColors: List<String>): String {
+        val availableColor = labelDefaultColors.firstOrNull { it !in usedColors }
+        return availableColor ?: labelDefaultColors.first()
+    }
+    
+    /**
+     * Get a default color for a new label based on existing label count.
+     * Cycles through colors to provide variety.
+     * 
+     * @param existingLabelCount Number of existing labels (used to determine color index)
+     * @return A color hex string from labelDefaultColors
+     */
+    fun getDefaultColorForNewLabel(existingLabelCount: Int): String {
+        return getLabelDefaultColor(existingLabelCount)
+    }
 }

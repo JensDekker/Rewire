@@ -5,8 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,6 +15,9 @@ import com.example.rewire.core.Label
 import com.example.rewire.db.entity.LabelEntity
 import com.example.rewire.db.entity.toCore
 import com.example.rewire.ui.theme.AppSpacing
+import com.example.rewire.ui.theme.AppShapes
+import com.example.rewire.ui.theme.AppColors
+import com.example.rewire.ui.theme.AppTypography
 
 @Composable
 fun LabelSelector(
@@ -31,7 +32,7 @@ fun LabelSelector(
         if (showTitle) {
             Text(
                 text = "Labels",
-                style = MaterialTheme.typography.subtitle1,
+                style = AppTypography.materialTypography.subtitle1,
                 modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
             )
         }
@@ -40,8 +41,8 @@ fun LabelSelector(
             // Empty state
             Text(
                 text = "No labels yet. Create your first label to organize habits.",
-                style = MaterialTheme.typography.body2,
-                color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+                style = AppTypography.materialTypography.body2,
+                color = AppColors.textSecondary,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = AppSpacing.standardSpacing),
@@ -74,8 +75,8 @@ fun LabelSelector(
                                 if (isSelected) {
                                     Modifier.border(
                                         2.dp,
-                                        MaterialTheme.colors.primary,
-                                        RoundedCornerShape(16.dp)
+                                        AppColors.primary,
+                                        AppShapes.cardShape
                                     )
                                 } else {
                                     Modifier

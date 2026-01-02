@@ -44,24 +44,53 @@ class HabitManagerTest {
     private val completionList = mutableListOf<HabitCompletion>()
     private val noteList = mutableListOf<HabitNoteEntity>()
 
+    // Mock LabelRepository
+    private val labelRepository = com.example.rewire.repository.LabelRepository(
+        object : com.example.rewire.db.dao.LabelDao {
+            override suspend fun getAll(): List<com.example.rewire.db.entity.LabelEntity> = emptyList()
+            override suspend fun getById(id: Long): com.example.rewire.db.entity.LabelEntity? = null
+            override suspend fun getByName(name: String): com.example.rewire.db.entity.LabelEntity? = null
+            override suspend fun insert(label: com.example.rewire.db.entity.LabelEntity): Long = 0L
+            override suspend fun insertAll(labels: List<com.example.rewire.db.entity.LabelEntity>): List<Long> = emptyList()
+            override suspend fun update(label: com.example.rewire.db.entity.LabelEntity) {}
+            override suspend fun delete(label: com.example.rewire.db.entity.LabelEntity) {}
+            override suspend fun getLabelsForHabit(habitId: Long): List<com.example.rewire.db.entity.LabelEntity> = emptyList()
+            override suspend fun searchLabels(query: String): List<com.example.rewire.db.entity.LabelEntity> = emptyList()
+        },
+        object : com.example.rewire.db.dao.HabitLabelDao {
+            override suspend fun insert(crossRef: com.example.rewire.db.entity.HabitLabelCrossRef) {}
+            override suspend fun insertAll(crossRefs: List<com.example.rewire.db.entity.HabitLabelCrossRef>) {}
+            override suspend fun delete(crossRef: com.example.rewire.db.entity.HabitLabelCrossRef) {}
+            override suspend fun deleteAllForHabit(habitId: Long) {}
+            override suspend fun deleteAllForLabel(labelId: Long) {}
+            override suspend fun getCrossRefsForHabit(habitId: Long): List<com.example.rewire.db.entity.HabitLabelCrossRef> = emptyList()
+            override suspend fun getCrossRefsForLabel(labelId: Long): List<com.example.rewire.db.entity.HabitLabelCrossRef> = emptyList()
+            override suspend fun hasLabel(habitId: Long, labelId: Long): Boolean = false
+            override suspend fun getHabitIdsWithLabel(labelId: Long): List<Long> = emptyList()
+        }
+    )
+
     // Fake Repositories/DAOs matching Room signatures
-    private val habitRepository = com.example.rewire.repository.HabitRepository(object : com.example.rewire.db.dao.HabitDao {
-        override suspend fun getAll(): List<HabitEntity> = habitList
-        override suspend fun getById(id: Long): HabitEntity? = habitList.find { it.id == id }
-        override suspend fun insert(habit: HabitEntity): Long {
-            habitList.add(habit)
-            return habit.id
-        }
-        override suspend fun update(habit: HabitEntity) {
-            habitList.replaceAll { if (it.id == habit.id) habit else it }
-        }
-        override suspend fun delete(habit: HabitEntity) {
-            habitList.removeIf { it.id == habit.id }
-        }
-        override suspend fun deleteAll() {
-            habitList.clear()
-        }
-    })
+    private val habitRepository = com.example.rewire.repository.HabitRepository(
+        object : com.example.rewire.db.dao.HabitDao {
+            override suspend fun getAll(): List<HabitEntity> = habitList
+            override suspend fun getById(id: Long): HabitEntity? = habitList.find { it.id == id }
+            override suspend fun insert(habit: HabitEntity): Long {
+                habitList.add(habit)
+                return habit.id
+            }
+            override suspend fun update(habit: HabitEntity) {
+                habitList.replaceAll { if (it.id == habit.id) habit else it }
+            }
+            override suspend fun delete(habit: HabitEntity) {
+                habitList.removeIf { it.id == habit.id }
+            }
+            override suspend fun deleteAll() {
+                habitList.clear()
+            }
+        },
+        labelRepository
+    )
 
     private val habitCompletionRepository = com.example.rewire.repository.HabitCompletionRepository(object : com.example.rewire.db.dao.HabitCompletionDao {
         override suspend fun insertCompletion(completion: HabitCompletion) {
@@ -98,7 +127,7 @@ class HabitManagerTest {
         }
     })
 
-    private val manager = HabitManager(habitRepository, habitCompletionRepository, habitNoteRepository)
+    private val manager = HabitManager(habitRepository, habitCompletionRepository, habitNoteRepository, labelRepository)
 
     @Test
     fun testGetHabitsDueOn() = runBlocking {
