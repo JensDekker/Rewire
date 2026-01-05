@@ -57,7 +57,42 @@ This document provides an overview of all documentation files in the `docs/` dir
 
 ---
 
-### 4. Utilities Menu Implementation Plan
+### 4. Notifications Implementation Plan
+**File**: `NOTIFICATIONS_IMPLEMENTATION_PLAN.md`
+
+**Description**: Comprehensive plan for implementing a notification system to remind users of their habits at their estimated/preferred time. Notifications will provide quick actions to mark habits as complete or add a note. When the "add note" action is selected, a small dialog will open allowing the user to enter a note for the habit.
+
+**Status**: **Planning Phase** ⚠️
+
+**Completion Details**:
+- ❌ Planning phase - **Complete**
+- ❌ Design finalized - **Pending**
+- ❌ Phase 1: Core Infrastructure - **Pending**
+- ❌ Phase 2: Notification Scheduling - **Pending**
+- ❌ Phase 3: Notification Actions - **Pending**
+- ❌ Phase 4: Note Dialog - **Pending**
+- ❌ Phase 5: Integration & Testing - **Pending**
+
+**Proposed Features**:
+1. **Notification Scheduling**: Schedule notifications based on habit `preferredTime` and `recurrence` using WorkManager
+2. **Notification Actions**:
+   - "Mark as Complete" - Marks habit as complete from notification
+   - "Add Note" - Opens dialog to add/edit note for the habit
+3. **Note Dialog Component**: Material Design dialog for adding/editing habit notes
+4. **Background Service**: WorkManager worker for reliable notification scheduling
+
+**Key Technical Components**:
+- Notification channel setup and permission handling
+- WorkManager worker for scheduling
+- BroadcastReceiver for notification actions
+- HabitNoteDialog component
+- Deep linking/intent handling
+
+**Next Steps**: Finalize design specifications, begin Phase 1 (Core Infrastructure) implementation.
+
+---
+
+### 5. Utilities Menu Implementation Plan
 **File**: `UTILITIES_MENU_IMPLEMENTATION_PLAN.md`
 
 **Description**: Plan for replacing the current settings gear icon in HabitHomeScreen header with a three vertical dots menu icon. The menu will provide quick access to search, filter, and settings functionality with a styled container (rectangle with semi-circular top and bottom).
@@ -79,7 +114,7 @@ This document provides an overview of all documentation files in the `docs/` dir
 
 ---
 
-### 5. Habit Home Screen Background Design
+### 6. Habit Home Screen Background Design
 **File**: `HABIT_HOME_SCREEN_BACKGROUND_DESIGN.md`
 
 **Description**: Exploration document for new design concepts for the HabitHomeScreen background and layout. Captures initial ideas including title block/header section concepts, dynamic title block (scroll-responsive), and background styling ideas.
@@ -109,6 +144,7 @@ This document provides an overview of all documentation files in the `docs/` dir
 | Labels Implementation Plan | In Progress | 95% (Pending: Step 6.10) |
 | Manual Test Script | Complete | 100% |
 | Navigation Test Guide | Complete | 100% |
+| Notifications Implementation Plan | Planning | 0% |
 | Utilities Menu Implementation Plan | Planning | 0% |
 | Habit Home Screen Background Design | Concept Exploration | 0% |
 
@@ -116,7 +152,9 @@ This document provides an overview of all documentation files in the `docs/` dir
 
 ## Quick Reference
 
-- **Ready for Implementation**: Utilities Menu (after design finalization)
+- **Ready for Implementation**: 
+  - Notifications (after design finalization)
+  - Utilities Menu (after design finalization)
 - **In Active Development**: Labels Implementation (Step 6.10 pending)
 - **In Planning/Exploration**: Habit Home Screen Background Design
 - **Completed Reference Documents**: Manual Test Script, Navigation Test Guide
