@@ -2,12 +2,21 @@
 
 This document provides an overview of all documentation files in the `docs/` directory and their completion status.
 
+## Directory Structure
+
+The documentation is organized into the following categories:
+
+- **`reference/`** - Operational guides and how-to documentation
+- **`implementation/`** - Feature implementation plans and technical specifications
+- **`testing/`** - Testing procedures and quality assurance guides
+- **`design/`** - Design exploration documents and concept notes
+
 ---
 
 ## Documentation Files
 
 ### 1. Labels Implementation Plan
-**File**: `LABELS_IMPLEMENTATION_PLAN.md`
+**File**: `implementation/LABELS_IMPLEMENTATION_PLAN.md`
 
 **Description**: Comprehensive implementation plan for adding labels/tags with color coding to habits in the Rewire app. Uses a normalized database design with a junction table (many-to-many relationship).
 
@@ -36,7 +45,7 @@ This document provides an overview of all documentation files in the `docs/` dir
 ---
 
 ### 2. Manual Test Script
-**File**: `MANUAL_TEST_SCRIPT.md`
+**File**: `testing/MANUAL_TEST_SCRIPT.md`
 
 **Description**: Step-by-step instructions for manually testing all recurrence logic functionality in the Rewire habit tracking app. Includes test scenarios for daily, weekly, monthly, and custom recurrence patterns.
 
@@ -47,7 +56,7 @@ This document provides an overview of all documentation files in the `docs/` dir
 ---
 
 ### 3. Navigation Test Guide
-**File**: `NAVIGATION_TEST_GUIDE.md`
+**File**: `testing/NAVIGATION_TEST_GUIDE.md`
 
 **Description**: Comprehensive testing procedures for navigation flows in the Rewire app. Covers empty state navigation, habit creation/editing flows, label management navigation, and edge cases.
 
@@ -58,7 +67,7 @@ This document provides an overview of all documentation files in the `docs/` dir
 ---
 
 ### 4. Notifications Implementation Plan
-**File**: `NOTIFICATIONS_IMPLEMENTATION_PLAN.md`
+**File**: `implementation/NOTIFICATIONS_IMPLEMENTATION_PLAN.md`
 
 **Description**: Comprehensive plan for implementing a notification system to remind users of their habits at their estimated/preferred time. Notifications will provide quick actions to mark habits as complete or add a note. When the "add note" action is selected, a small dialog will open allowing the user to enter a note for the habit.
 
@@ -93,7 +102,7 @@ This document provides an overview of all documentation files in the `docs/` dir
 ---
 
 ### 5. Utilities Menu Implementation Plan
-**File**: `UTILITIES_MENU_IMPLEMENTATION_PLAN.md`
+**File**: `implementation/UTILITIES_MENU_IMPLEMENTATION_PLAN.md`
 
 **Description**: Plan for replacing the current settings gear icon in HabitHomeScreen header with a three vertical dots menu icon. The menu will provide quick access to search, filter, and settings functionality with a styled container (rectangle with semi-circular top and bottom).
 
@@ -115,7 +124,7 @@ This document provides an overview of all documentation files in the `docs/` dir
 ---
 
 ### 6. Habit Home Screen Background Design
-**File**: `HABIT_HOME_SCREEN_BACKGROUND_DESIGN.md`
+**File**: `design/HABIT_HOME_SCREEN_BACKGROUND_DESIGN.md`
 
 **Description**: Exploration document for new design concepts for the HabitHomeScreen background and layout. Captures initial ideas including title block/header section concepts, dynamic title block (scroll-responsive), and background styling ideas.
 
@@ -137,6 +146,41 @@ This document provides an overview of all documentation files in the `docs/` dir
 
 ---
 
+### 7. Install on Phone Guide
+**File**: `reference/INSTALL_ON_PHONE.md`
+
+**Description**: Comprehensive guide for installing the Rewire app on an Android phone without using the Play Store. Includes multiple installation methods (USB/ADB, manual transfer, Android Studio), troubleshooting tips, and detailed instructions for updating the app with data preservation.
+
+**Status**: **Complete** ✅
+
+**Key Sections**:
+- Installation methods (USB/ADB, file transfer, Android Studio)
+- Troubleshooting common installation issues
+- Building release APKs
+- **Updating the app**: How updates work, data preservation, database migrations
+- Version management best practices
+
+**Notes**: Reference guide for deployment and distribution. Essential for side-loading the app and managing updates.
+
+---
+
+### 8. Update Version Guide
+**File**: `reference/UPDATE_VERSION.md`
+
+**Description**: Quick reference guide for updating app version numbers and handling database migrations when releasing new versions of the app. Includes step-by-step instructions, version numbering examples, and a pre-release checklist.
+
+**Status**: **Complete** ✅
+
+**Key Sections**:
+- Updating versionCode and versionName in build.gradle.kts
+- Handling database schema changes and migrations
+- Version numbering examples and best practices
+- Pre-release checklist
+
+**Notes**: Quick reference guide for version management. Use this when preparing new releases.
+
+---
+
 ## Overall Status Summary
 
 | Document | Status | Progress |
@@ -147,6 +191,8 @@ This document provides an overview of all documentation files in the `docs/` dir
 | Notifications Implementation Plan | Planning | 0% |
 | Utilities Menu Implementation Plan | Planning | 0% |
 | Habit Home Screen Background Design | Concept Exploration | 0% |
+| Install on Phone Guide | Complete | 100% |
+| Update Version Guide | Complete | 100% |
 
 ---
 
@@ -157,7 +203,11 @@ This document provides an overview of all documentation files in the `docs/` dir
   - Utilities Menu (after design finalization)
 - **In Active Development**: Labels Implementation (Step 6.10 pending)
 - **In Planning/Exploration**: Habit Home Screen Background Design
-- **Completed Reference Documents**: Manual Test Script, Navigation Test Guide
+- **Completed Reference Documents**: 
+  - Manual Test Script
+  - Navigation Test Guide
+  - Install on Phone Guide
+  - Update Version Guide
 
 ---
 
