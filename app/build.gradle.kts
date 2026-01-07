@@ -44,6 +44,38 @@ android {
     }
 }
 
+// --- Launcher icon PNG integration (copies provided PNG into mipmap folders) ---
+// Source PNG provided by user (high resolution with transparency)
+val launcherPngSource: File = file("C:/NAS/Shared/SynologyDrive/Shared/Projects/Habit Tracker App/App Icon.png")
+
+// Copies the provided PNG into all mipmap density folders as ic_launcher.png and ic_launcher_foreground.png
+tasks.register("updateAppIconPng") {
+    doLast {
+        if (launcherPngSource.exists()) {
+            val densities = listOf("mipmap-mdpi", "mipmap-hdpi", "mipmap-xhdpi", "mipmap-xxhdpi", "mipmap-xxxhdpi")
+            densities.forEach { density ->
+                val outDir = file("src/main/res/$density")
+                outDir.mkdirs()
+                // Adaptive icon foreground only (keep existing legacy .webp to avoid duplicates)
+                project.copy {
+                    from(launcherPngSource)
+                    into(outDir)
+                    rename { "ic_launcher_foreground.png" }
+                }
+            }
+            println("Launcher PNG copied to mipmap folders.")
+        } else {
+            println("WARNING: Launcher PNG not found at: ${launcherPngSource.absolutePath}")
+        }
+    }
+}
+
+// Ensure the PNGs are in place before building
+tasks.named("preBuild").configure {
+    dependsOn("updateAppIconPng")
+}
+// --- End launcher icon PNG integration ---
+
 configurations.all {
     resolutionStrategy {
         force("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")

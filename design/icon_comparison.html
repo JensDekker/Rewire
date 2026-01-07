@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewire App Icon Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .comparison {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .icon-panel {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        .icon-panel h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .icon-display {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+        .icon-display svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .info {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #666;
+            text-align: left;
+        }
+        .info strong {
+            color: #333;
+        }
+        .size-info {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .notes {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+        .notes h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .notes ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .notes li {
+            margin: 5px 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rewire App Icon Comparison</h1>
+        <p class="subtitle">Original Design vs. Android Implementation</p>
+        
+        <div class="comparison">
+            <div class="icon-panel">
+                <h2>Original Design (SVG)</h2>
+                <div class="icon-display">
+                    <svg width="400" height="400" viewBox="0 0 2048 2048" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="2048" height="2048" fill="white"/>
+                        <circle cx="1014.93" cy="1503.05" r="435.952" fill="#7DBD4C"/>
+                        <circle cx="1014.93" cy="1503.05" r="348.762" fill="white"/>
+                        <rect x="578.976" y="1067.1" width="871.905" height="435.952" fill="white"/>
+                        <rect x="1363.69" y="1334.48" width="87.1905" height="168.568" fill="#7DBD4C"/>
+                        <circle cx="1032.37" cy="543.952" r="435.952" transform="rotate(-180 1032.37 543.952)" fill="#7DBD4C"/>
+                        <circle cx="1032.37" cy="543.952" r="348.762" transform="rotate(-180 1032.37 543.952)" fill="white"/>
+                        <rect x="1468.32" y="979.905" width="871.905" height="435.952" transform="rotate(-180 1468.32 979.905)" fill="white"/>
+                        <rect x="683.605" y="712.521" width="87.1905" height="168.568" transform="rotate(-180 683.605 712.521)" fill="#7DBD4C"/>
+                        <rect x="361" y="1372.26" width="784.714" height="261.571" fill="white"/>
+                        <circle cx="1145.71" cy="1503.05" r="130.786" fill="#7DBD4C"/>
+                        <rect x="361" y="1459.45" width="784.714" height="87.1905" rx="42" fill="#7DBD4C"/>
+                        <circle cx="1145.71" cy="1503.05" r="58.127" fill="white"/>
+                        <rect x="1686.3" y="674.738" width="784.714" height="261.571" transform="rotate(-180 1686.3 674.738)" fill="white"/>
+                        <circle cx="901.581" cy="543.952" r="130.786" transform="rotate(-180 901.581 543.952)" fill="#7DBD4C"/>
+                        <rect x="1686.3" y="587.548" width="784.714" height="87.1905" rx="42" transform="rotate(-180 1686.3 587.548)" fill="#7DBD4C"/>
+                        <circle cx="901.581" cy="543.952" r="58.127" transform="rotate(-180 901.581 543.952)" fill="white"/>
+                        <rect x="1331.72" y="956.654" width="151.13" height="377.825" rx="30" fill="#278090"/>
+                        <rect x="1209.65" y="918.871" width="392.357" height="351.668" rx="105" fill="#278090"/>
+                        <rect x="1148.62" y="918.871" width="517.33" height="101.722" rx="50" fill="#278090"/>
+                        <rect x="1244.53" y="1194.97" width="517.33" height="87.1905" rx="42" transform="rotate(-90 1244.53 1194.97)" fill="#278090"/>
+                        <rect x="1482.85" y="1192.07" width="517.33" height="87.1905" rx="42" transform="rotate(-90 1482.85 1192.07)" fill="#278090"/>
+                        <rect x="1230" y="889.808" width="354.575" height="29.0635" fill="white"/>
+                        <rect x="715.575" y="1090.35" width="151.13" height="377.825" rx="30" transform="rotate(-180 715.575 1090.35)" fill="#276631"/>
+                        <rect x="837.641" y="1128.13" width="392.357" height="351.668" rx="105" transform="rotate(-180 837.641 1128.13)" fill="#276631"/>
+                        <rect x="898.675" y="1128.13" width="517.33" height="101.722" rx="50" transform="rotate(-180 898.675 1128.13)" fill="#276631"/>
+                        <rect x="802.765" y="852.025" width="517.33" height="87.1905" rx="42" transform="rotate(90 802.765 852.025)" fill="#276631"/>
+                        <rect x="564.444" y="854.932" width="517.33" height="87.1905" rx="42" transform="rotate(90 564.444 854.932)" fill="#276631"/>
+                        <rect x="817.297" y="1157.19" width="354.575" height="29.0635" transform="rotate(-180 817.297 1157.19)" fill="white"/>
+                    </svg>
+                </div>
+                <div class="info">
+                    <strong>File:</strong> design/App Icon.svg<br>
+                    <strong>Size:</strong> 2048 × 2048 pixels<br>
+                    <strong>Format:</strong> SVG (Scalable Vector Graphics)<br>
+                    <div class="size-info">
+                        <strong>Design Elements:</strong><br>
+                        • Two green circles (#7DBD4C) - top and bottom<br>
+                        • Right brain shape in teal (#278090)<br>
+                        • Left brain shape in dark green (#276631)<br>
+                        • White background<br>
+                        • Connecting elements between shapes
+                    </div>
+                </div>
+            </div>
+            
+            <div class="icon-panel">
+                <h2>Android Implementation (Current)</h2>
+                <div class="icon-display">
+                    <!-- Combined background + foreground preview -->
+                    <svg width="400" height="400" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background (white) -->
+                        <rect width="108" height="108" fill="#FFFFFF"/>
+                        
+                        <!-- Foreground elements from ic_launcher_foreground.xml -->
+                        <!-- Green Plug (Left Brain) -->
+                        <path fill="#276631" d="M44.2,59.5 L64.9,59.5 Q70.44,59.5 70.44,65.05 L70.44,74.05 Q70.44,78.05 64.9,78.05 L44.2,78.05 Q38.66,78.05 38.66,74.05 L38.66,65.05 Q38.66,59.5 44.2,59.5 Z"/>
+                        <path fill="#276631" d="M47.4,59.5 L74.7,59.5 Q77.34,59.5 77.34,62.14 L77.34,62.87 Q77.34,64.87 74.7,64.87 L47.4,64.87 Q44.76,64.87 44.76,62.87 L44.76,62.14 Q44.76,59.5 47.4,59.5 Z"/>
+                        <path fill="#276631" d="M37.75,57.6 L45.73,57.6 Q47.31,57.6 47.31,59.18 L47.31,75.54 Q47.31,77.54 45.73,77.54 L37.75,77.54 Q35.77,77.54 35.77,75.54 L35.77,59.18 Q35.77,57.6 37.75,57.6 Z"/>
+                        <path fill="#276631" d="M42.3,63.0 L42.3,68.64 Q42.3,70.24 40.7,70.24 L34.1,70.24 Q32.5,70.24 32.5,68.64 L32.5,63.0 Q32.5,61.4 34.1,61.4 L40.7,61.4 Q42.3,61.4 42.3,63.0 Z"/>
+                        <path fill="#276631" d="M29.8,63.1 L29.8,68.74 Q29.8,70.34 28.2,70.34 L21.6,70.34 Q20.0,70.34 20.0,68.74 L20.0,63.1 Q20.0,61.5 21.6,61.5 L28.2,61.5 Q29.8,61.5 29.8,63.1 Z"/>
+                        <path fill="#FFFFFF" d="M43.1,61.1 L61.8,61.1 L61.8,62.63 L43.1,62.63 Z"/>
+                        
+                        <!-- Blue Plug (Right Brain) -->
+                        <path fill="#278090" d="M69.34,48.5 L84.5,48.5 Q90.04,48.5 90.04,54.05 L90.04,63.05 Q90.04,67.05 84.5,67.05 L69.34,67.05 Q63.8,67.05 63.8,63.05 L63.8,54.05 Q63.8,48.5 69.34,48.5 Z"/>
+                        <path fill="#278090" d="M60.6,48.5 L87.9,48.5 Q90.54,48.5 90.54,51.14 L90.54,51.87 Q90.54,53.87 87.9,53.87 L60.6,53.87 Q57.96,53.87 57.96,51.87 L57.96,51.14 Q57.96,48.5 60.6,48.5 Z"/>
+                        <path fill="#278090" d="M70.25,50.5 L78.23,50.5 Q79.81,50.5 79.81,52.08 L79.81,68.44 Q79.81,70.44 78.23,70.44 L70.25,70.44 Q68.27,70.44 68.27,68.44 L68.27,52.08 Q68.27,50.5 70.25,50.5 Z"/>
+                        <path fill="#278090" d="M65.7,45.0 L65.7,50.64 Q65.7,52.24 64.1,52.24 L57.5,52.24 Q55.9,52.24 55.9,50.64 L55.9,45.0 Q55.9,43.4 57.5,43.4 L64.1,43.4 Q65.7,43.4 65.7,45.0 Z"/>
+                        <path fill="#278090" d="M78.2,45.0 L78.2,50.64 Q78.2,52.24 76.6,52.24 L70.0,52.24 Q68.4,52.24 68.4,50.64 L68.4,45.0 Q68.4,43.4 70.0,43.4 L76.6,43.4 Q78.2,43.4 78.2,45.0 Z"/>
+                        <path fill="#FFFFFF" d="M64.9,47.0 L83.6,47.0 L83.6,48.53 L64.9,48.53 Z"/>
+                        
+                        <!-- Wire System (Circular Path) -->
+                        <path fill="#7DBD4C" d="M76.55,79.35 A23,23 0 0,1 30.45,79.35"/>
+                        <path fill="#FFFFFF" d="M72.85,79.35 A18.4,18.4 0 0,0 35.6,79.35"/>
+                        <path fill="#7DBD4C" d="M31.4,28.7 A23,23 0 0,0 77.5,28.7"/>
+                        <path fill="#FFFFFF" d="M36.05,28.7 A18.4,18.4 0 0,1 72.85,28.7"/>
+                        <path fill="#7DBD4C" d="M36.05,37.6 L40.65,37.6 L40.65,46.5 L36.05,46.5 Z"/>
+                        <path fill="#7DBD4C" d="M71.95,70.45 L76.55,70.45 L76.55,79.35 L71.95,79.35 Z"/>
+                        <path fill="#7DBD4C" d="M47.55,21.8 A6.9,6.9 0 1,1 47.55,35.6 A6.9,6.9 0 1,1 47.55,21.8 Z"/>
+                        <path fill="#FFFFFF" d="M47.55,25.63 A3.07,3.07 0 1,1 47.55,31.77 A3.07,3.07 0 1,1 47.55,25.63 Z"/>
+                        <path fill="#7DBD4C" d="M60.45,72.45 A6.9,6.9 0 1,1 60.45,86.25 A6.9,6.9 0 1,1 60.45,72.45 Z"/>
+                        <path fill="#FFFFFF" d="M60.45,76.28 A3.07,3.07 0 1,1 60.45,82.42 A3.07,3.07 0 1,1 60.45,76.28 Z"/>
+                        <path fill="#7DBD4C" d="M47.4,54 L60.6,54"/>
+                        <path fill="#7DBD4C" d="M54,51.5 A2.5,2.5 0 1,1 54,56.5 A2.5,2.5 0 1,1 54,51.5 Z"/>
+                        
+                        <!-- Right brain shape (teal) -->
+                        <path fill="#278090" d="M70.25,50.5 L78.23,50.5 Q79.81,50.5 79.81,52.08 L79.81,68.44 Q79.81,70.44 78.23,70.44 L70.25,70.44 Q68.27,70.44 68.27,68.44 L68.27,52.08 Q68.27,50.5 70.25,50.5 Z"/>
+                        <path fill="#278090" d="M69.34,48.5 L84.5,48.5 Q90.04,48.5 90.04,54.05 L90.04,63.05 Q90.04,67.05 84.5,67.05 L69.34,67.05 Q63.8,67.05 63.8,63.05 L63.8,54.05 Q63.8,48.5 69.34,48.5 Z"/>
+                        <path fill="#278090" d="M63.24,48.5 L87.9,48.5 Q90.54,48.5 90.54,51.14 L90.54,51.87 Q90.54,53.87 87.9,53.87 L63.24,53.87 Q60.6,53.87 60.6,51.87 L60.6,51.14 Q60.6,48.5 63.24,48.5 Z"/>
+                        <path fill="#278090" d="M65.7,63.1 L65.7,68.74 Q65.7,70.34 64.1,70.34 L57.5,70.34 Q55.9,70.34 55.9,68.74 L55.9,63.1 Q55.9,61.5 57.5,61.5 L64.1,61.5 Q65.7,61.5 65.7,63.1 Z"/>
+                        <path fill="#278090" d="M78.2,63.0 L78.2,68.64 Q78.2,70.24 76.6,70.24 L70.0,70.24 Q68.4,70.24 68.4,68.64 L68.4,63.0 Q68.4,61.4 70.0,61.4 L76.6,61.4 Q78.2,61.4 78.2,63.0 Z"/>
+                        <path fill="#FFFFFF" d="M64.9,47.0 L83.6,47.0 L83.6,48.53 L64.9,48.53 Z"/>
+                        
+                        <!-- Left brain shape (dark green) -->
+                        <path fill="#276631" d="M37.75,57.6 L45.73,57.6 Q47.31,57.6 47.31,59.18 L47.31,75.54 Q47.31,77.54 45.73,77.54 L37.75,77.54 Q35.77,77.54 35.77,75.54 L35.77,59.18 Q35.77,57.6 37.75,57.6 Z"/>
+                        <path fill="#276631" d="M44.2,59.5 L64.9,59.5 Q70.44,59.5 70.44,65.05 L70.44,74.05 Q70.44,78.05 64.9,78.05 L44.2,78.05 Q38.66,78.05 38.66,74.05 L38.66,65.05 Q38.66,59.5 44.2,59.5 Z"/>
+                        <path fill="#276631" d="M47.4,59.5 L74.7,59.5 Q77.34,59.5 77.34,62.14 L77.34,62.87 Q77.34,64.87 74.7,64.87 L47.4,64.87 Q44.76,64.87 44.76,62.87 L44.76,62.14 Q44.76,59.5 47.4,59.5 Z"/>
+                        <path fill="#276631" d="M42.3,45.0 L42.3,50.64 Q42.3,52.24 40.7,52.24 L34.1,52.24 Q32.5,52.24 32.5,50.64 L32.5,45.0 Q32.5,43.4 34.1,43.4 L40.7,43.4 Q42.3,43.4 42.3,45.0 Z"/>
+                        <path fill="#276631" d="M29.8,45.1 L29.8,50.74 Q29.8,52.34 28.2,52.34 L21.6,52.34 Q20.0,52.34 20.0,50.74 L20.0,45.1 Q20.0,43.5 21.6,43.5 L28.2,43.5 Q29.8,43.5 29.8,45.1 Z"/>
+                        <path fill="#FFFFFF" d="M43.1,61.1 L61.8,61.1 L61.8,62.63 L43.1,62.63 Z"/>
+                        
+                        <!-- Connecting elements -->
+                        <path fill="#7DBD4C" d="M71.95,70.45 L76.55,70.45 L76.55,79.35 L71.95,79.35 Z"/>
+                        <path fill="#7DBD4C" d="M36.05,37.6 L40.65,37.6 L40.65,46.5 L36.05,46.5 Z"/>
+                        
+                        <!-- Small circles -->
+                        <path fill="#7DBD4C" d="M60.45,72.45 A6.9,6.9 0 1,1 60.45,86.25 A6.9,6.9 0 1,1 60.45,72.45 Z"/>
+                        <path fill="#FFFFFF" d="M60.45,76.28 A3.07,3.07 0 1,1 60.45,82.42 A3.07,3.07 0 1,1 60.45,76.28 Z"/>
+                        <path fill="#7DBD4C" d="M47.55,21.8 A6.9,6.9 0 1,1 47.55,35.6 A6.9,6.9 0 1,1 47.55,21.8 Z"/>
+                        <path fill="#FFFFFF" d="M47.55,25.63 A3.07,3.07 0 1,1 47.55,31.77 A3.07,3.07 0 1,1 47.55,25.63 Z"/>
+                    </svg>
+                </div>
+                <div class="info">
+                    <strong>Files:</strong><br>
+                    • app/src/main/res/drawable/ic_launcher_background.xml<br>
+                    • app/src/main/res/mipmap-*/ic_launcher_foreground.png (all densities)<br>
+                    • app/src/main/res/mipmap-*/ic_launcher.png (legacy icons)<br>
+                    <div class="size-info">
+                        <strong>Canvas Size:</strong> 108dp × 108dp<br>
+                        <strong>Safe Zone:</strong> 72dp × 72dp (center)<br>
+                        <strong>Scale Factor:</strong> 108/2048 = 0.052734375<br>
+                        <strong>Status:</strong> ✅ Build successful<br>
+                        <strong>Implementation:</strong> PNG-based (no vector conversion needed)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notes">
+            <h3>Comparison Notes</h3>
+            <ul>
+                <li><strong>Original Design:</strong> Full 2048×2048 SVG with all design details</li>
+                <li><strong>Android Implementation:</strong> Scaled to 108dp canvas for adaptive icons</li>
+                <li><strong>Positioning:</strong> All elements scaled and positioned relative to original coordinates</li>
+                <li><strong>Colors:</strong> Preserved from original (#7DBD4C green, #278090 teal, #276631 dark green)</li>
+                <li><strong>Simplification:</strong> Some complex paths simplified for Android vector drawable compatibility</li>
+                <li><strong>Safe Zone:</strong> Design elements positioned to fit within 72dp safe zone for adaptive icon masks</li>
+            </ul>
+            <p><strong>To view this comparison:</strong> Open <code>design/icon_comparison.html</code> in a web browser</p>
+        </div>
+    </div>
+</body>
+</html>
+
