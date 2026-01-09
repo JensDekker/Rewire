@@ -91,13 +91,21 @@ The documentation is organized into the following categories:
 4. **Background Service**: WorkManager worker for reliable notification scheduling
 
 **Key Technical Components**:
-- Notification channel setup and permission handling
-- WorkManager worker for scheduling
+- Notification channel setup and permission handling (non-blocking)
+- WorkManager worker for scheduling (AndroidX library)
+- BootReceiver for device reboot handling
 - BroadcastReceiver for notification actions
 - HabitNoteDialog component
 - Deep linking/intent handling
+- Completion check methods at all levels (DAO, Repository, Manager)
 
-**Next Steps**: Finalize design specifications, begin Phase 1 (Core Infrastructure) implementation.
+**Key Implementation Details**:
+- Uses `HabitManager.getHabitsDueOn(date)` to determine which habits need notifications (same logic as home screen)
+- Checks `isHabitCompletedForDate()` before scheduling to skip already-completed habits
+- WorkManager is an AndroidX library that interfaces with the OS for background scheduling
+- App functions normally without notification permission (notifications simply won't work)
+
+**Next Steps**: Finalize design specifications (especially date calculation logic and WorkManager configuration), begin Phase 1 (Core Infrastructure) implementation.
 
 ---
 
