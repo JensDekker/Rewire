@@ -123,7 +123,9 @@ class HabitManagerTest {
             noteList.clear()
         }
         override suspend fun getNoteForHabitOnDate(habitId: Long, date: String): HabitNoteEntity? {
-            return noteList.find { it.habitId == habitId && it.timestamp == date }
+            return noteList
+                .filter { it.habitId == habitId && it.timestamp == date }
+                .maxByOrNull { it.id }
         }
     })
 

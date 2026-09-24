@@ -80,6 +80,11 @@ class HabitManager(
         habitNoteRepository.insertNote(note)
     }
 
+    /** Persist today's (or dated) note content, updating in place when a row already exists. */
+    suspend fun upsertNoteForDate(habitId: Long, content: String, date: String) {
+        habitNoteRepository.upsertNoteForDate(habitId, content, date)
+    }
+
     suspend fun editNote(note: HabitNoteEntity) {
         habitNoteRepository.editNote(note)
     }

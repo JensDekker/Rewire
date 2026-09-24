@@ -50,7 +50,9 @@ class HabitNoteRepositoryTest {
             noteList.clear()
         }
         override suspend fun getNoteForHabitOnDate(habitId: Long, date: String): HabitNoteEntity? {
-            return noteList.find { it.habitId == habitId && it.timestamp == date }
+            return noteList
+                .filter { it.habitId == habitId && it.timestamp == date }
+                .maxByOrNull { it.id }
         }
     }
 
@@ -70,6 +72,23 @@ class HabitNoteRepositoryTest {
     val note = HabitNoteEntity(2L, 1L, "InsertMe", "2025-08-19T12:00")
     repo.insertNote(note)
     assertTrue(noteList.any { it.id == 2L && it.habitId == 1L && it.content == "InsertMe" })
+    }
+
+    @Test
+    fun testUpsertNoteForDate_updatesExistingInsteadOfDuplicating() = runBlocking {
+        noteList.clear()
+        noteList.add(HabitNoteEntity(10L, 1L, "B", "2026-09-24"))
+        repo.upsertNoteForDate(habitId = 1L, content = "Edited", date = "2026-09-24")
+        assertEquals(1, noteList.count { it.habitId == 1L && it.timestamp == "2026-09-24" })
+        assertEquals("Edited", repo.getNoteForHabitOnDate(1L, "2026-09-24"))
+    }
+
+    @Test
+    fun testUpsertNoteForDate_insertsWhenMissing() = runBlocking {
+        noteList.clear()
+        repo.upsertNoteForDate(habitId = 1L, content = "New", date = "2026-09-24")
+        assertEquals(1, noteList.size)
+        assertEquals("New", repo.getNoteForHabitOnDate(1L, "2026-09-24"))
     }
 
     @Test

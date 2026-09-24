@@ -335,12 +335,11 @@ fun HabitHomeScreen(
                             // Persist on dismiss (tap-elsewhere / focus loss / note icon); blank skips save
                             if (newNote.isNotBlank()) {
                                 coroutineScope.launch {
-                                    val noteEntity = com.example.rewire.db.entity.HabitNoteEntity(
+                                    habitManager.upsertNoteForDate(
                                         habitId = habit.id,
                                         content = newNote,
-                                        timestamp = today
+                                        date = today
                                     )
-                                    habitManager.insertNote(noteEntity)
                                 }
                             }
                         },
@@ -570,15 +569,14 @@ fun HabitHomeScreen(
             noteText = noteText,
             onNoteTextChange = { newNote ->
                 habitNotes = habitNotes + (habit.id to newNote)
-                // Save note to database
+                // Save note to database (upsert so edits survive process death)
                 if (newNote.isNotBlank()) {
                     coroutineScope.launch {
-                        val noteEntity = com.example.rewire.db.entity.HabitNoteEntity(
+                        habitManager.upsertNoteForDate(
                             habitId = habit.id,
                             content = newNote,
-                            timestamp = today
+                            date = today
                         )
-                        habitManager.insertNote(noteEntity)
                     }
                 }
             },
