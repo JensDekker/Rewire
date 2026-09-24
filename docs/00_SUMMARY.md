@@ -134,7 +134,7 @@ The documentation is organized into the following categories:
 ### 6. Habit Home Screen Background Design
 **File**: `design/HABIT_HOME_SCREEN_BACKGROUND_DESIGN.md`
 
-**Description**: Exploration document for new design concepts for the HabitHomeScreen background and layout. Captures initial ideas including title block/header section concepts, dynamic title block (scroll-responsive), and background styling ideas.
+**Description**: Exploration document for new design concepts for the HabitHomeScreen background and layout. Captures initial ideas including title block/header section concepts, dynamic title block (scroll-responsive), and background styling ideas. Also tracks **known Habit Home UX gaps**, including note-entry dismiss/cancel.
 
 **Status**: **Concept Exploration Phase** ⚠️
 
@@ -150,11 +150,30 @@ The documentation is organized into the following categories:
 - Dynamic title block that changes based on scroll position
 - Background styling enhancements (gradients, colors, patterns)
 
-**Next Steps**: Refine concepts, determine information content for dynamic sections, create detailed design specifications, and develop formal implementation plan.
+**Known UX Gaps (open)**:
+- **Note-adding dismiss/cancel** — Habit home note field on `HabitCard` has no clear exit/cancel path (only re-tapping the note icon). See "Known UX Gaps" in the design doc.
+
+**Next Steps**: Refine concepts, determine information content for dynamic sections, create detailed design specifications, and develop formal implementation plan. Address note-entry dismiss UX when polishing Habit home.
 
 ---
 
-### 7. Install on Phone Guide
+### 7. UI Shape & Corner Radius Guidelines
+**File**: `design/UI_SHAPE_GUIDELINES.md`
+
+**Description**: Forward-looking design direction for corner radii. Product feedback prefers **more rounded corners** going forward; changes should go through `AppShapes` in `ui/theme/Shape.kt` rather than one-off tweaks.
+
+**Status**: **Design Direction Captured** ⚠️ (implementation of token bumps pending)
+
+**Key Points**:
+- Source of truth: `AppShapes` (`cardShape` 16dp, `largeCardShape` 24dp, etc.)
+- Prefer softer/rounder radii via shared tokens on home and new surfaces
+- Cross-links Habit home design and theme package
+
+**Next Steps**: Review and increase `AppShapes` radii in a UI implementation PR; align Material theme shapes; sweep hardcoded radii.
+
+---
+
+### 8. Install on Phone Guide
 **File**: `reference/INSTALL_ON_PHONE.md`
 
 **Description**: Comprehensive guide for installing the Rewire app on an Android phone without using the Play Store. Includes multiple installation methods (USB/ADB, manual transfer, Android Studio), troubleshooting tips, and detailed instructions for updating the app with data preservation.
@@ -172,7 +191,7 @@ The documentation is organized into the following categories:
 
 ---
 
-### 8. Update Version Guide
+### 9. Update Version Guide
 **File**: `reference/UPDATE_VERSION.md`
 
 **Description**: Quick reference guide for updating app version numbers and handling database migrations when releasing new versions of the app. Includes step-by-step instructions, version numbering examples, and a pre-release checklist.
@@ -198,7 +217,8 @@ The documentation is organized into the following categories:
 | Navigation Test Guide | Complete | 100% |
 | Notifications Implementation Plan | Planning | 0% |
 | Utilities Menu Implementation Plan | Planning | 0% |
-| Habit Home Screen Background Design | Concept Exploration | 0% |
+| Habit Home Screen Background Design | Concept Exploration | 0% (+ open UX gap: note dismiss) |
+| UI Shape & Corner Radius Guidelines | Design Direction | Captured; token bumps pending |
 | Install on Phone Guide | Complete | 100% |
 | Update Version Guide | Complete | 100% |
 
@@ -210,7 +230,8 @@ The documentation is organized into the following categories:
   - Notifications (after design finalization)
   - Utilities Menu (after design finalization)
 - **In Active Development**: Labels Implementation (Step 6.10 pending)
-- **In Planning/Exploration**: Habit Home Screen Background Design
+- **In Planning/Exploration**: Habit Home Screen Background Design; UI Shape guidelines (more rounded corners)
+- **Open UX Gaps**: Habit home note-adding lacks clear dismiss/cancel (`design/HABIT_HOME_SCREEN_BACKGROUND_DESIGN.md`)
 - **Completed Reference Documents**: 
   - Manual Test Script
   - Navigation Test Guide
@@ -219,6 +240,6 @@ The documentation is organized into the following categories:
 
 ---
 
-*Last Updated: [Current Date]*
+*Last Updated: 2026-09-24*
 *This summary is maintained to provide a quick overview of all documentation and implementation status.*
 

@@ -65,6 +65,20 @@ Exploration of new design concepts for the HabitHomeScreen background and layout
 5. Should the background change based on content (e.g., label colors)?
 6. What is the priority information that users need at a glance?
 
+## Known UX Gaps (Habit Home)
+
+Product feedback from first-time UI review on device/emulator. Track here until fixed; these are home-screen UX bugs/improvements, not background-only work.
+
+### Note-adding lacks a clear dismiss / cancel path
+
+**Surface**: Habit home (`HabitHomeScreen`) → today's habit cards (`HabitCard`). Tapping the add-note icon expands an inline `OutlinedTextField` ("Today's Notes") via `expandedNoteHabits` / `isNoteFieldVisible`.
+
+**Problem**: There is no clean way to exit or cancel out of the note-adding UI. Collapse today depends on re-tapping the note icon; there is no Cancel / Done / Dismiss control, no clear discard path, and no obvious back/outside-tap exit.
+
+**Desired outcome**: A clear dismiss or cancel affordance so users can leave note entry without hunting for a toggle (e.g. Done/Cancel actions, explicit close control, and/or back/outside-tap that closes the field). Saving vs discarding unsaved edits should be intentional.
+
+**Status**: Open — UX bug / improvement for Habit home note entry.
+
 ## Future Development
 
 This document will be expanded into a formal implementation plan once:
@@ -80,6 +94,7 @@ This document will be expanded into a formal implementation plan once:
 - Label filtering and display
 - Habit statistics and analytics
 - Custom themes and styling
+- UI shape / more rounded corners (see `UI_SHAPE_GUIDELINES.md`)
 
 ## Status
 

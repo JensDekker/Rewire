@@ -5,7 +5,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.PaddingValues
 
 /**
- * Centralized shape and spacing definitions for consistent UI styling across the app
+ * Centralized shape and spacing definitions for consistent UI styling across the app.
+ * Design direction: prefer more rounded corners going forward — see
+ * docs/design/UI_SHAPE_GUIDELINES.md (bump these tokens rather than one-off radii).
  */
 object AppShapes {
     /**
