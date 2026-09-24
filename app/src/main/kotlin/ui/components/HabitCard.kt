@@ -16,8 +16,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.runtime.*
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.modifier
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
@@ -175,15 +176,16 @@ fun HabitCard(
                         .fillMaxWidth()
                         .padding(AppSpacing.standardSpacing)
                         .focusRequester(focusRequester)
-                        .onFocusChanged { focusState ->
+                        .onFocusChanged { focusState: FocusState ->
                             if (focusState.isFocused) {
-                                noteHadFocus = true
-                                // Keep caret at end when the field gains focus (e.g. after requestFocus).
-                                if (draftNote.selection != TextRange(draftNote.text.length)) {
+                                // On first focus after open, place caret at end (TextField can
+                                // otherwise reset selection to the start when focus is requested).
+                                if (!noteHadFocus) {
                                     draftNote = draftNote.copy(
                                         selection = TextRange(draftNote.text.length)
                                     )
                                 }
+                                noteHadFocus = true
                             } else if (noteHadFocus && isNoteFieldVisible) {
                                 // Tap-elsewhere / clearFocus: auto-save and collapse.
                                 noteHadFocus = false
