@@ -36,9 +36,10 @@ object AppShapes {
     
     /**
      * Input field shape for text inputs and form elements
-     * - 8dp corner radius for input fields
+     * - 16dp corner radius for noticeably rounded outlined fields
+     * - Wired as MaterialTheme.shapes.small so OutlinedTextField inherits it
      */
-    val inputShape = RoundedCornerShape(8.dp)
+    val inputShape = RoundedCornerShape(16.dp)
 }
 
 /**
