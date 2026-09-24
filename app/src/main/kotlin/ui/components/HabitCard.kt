@@ -16,12 +16,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.runtime.*
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,6 +31,10 @@ import androidx.compose.ui.graphics.Color
 import com.example.rewire.R
 import com.example.rewire.core.Label
 import com.example.rewire.ui.theme.AppColors
+
+/** Seeds a note field value with the caret at the end of the text. */
+private fun noteFieldValueAtEnd(text: String): TextFieldValue =
+    TextFieldValue(text = text, selection = TextRange(text.length))
 
 @Composable
 fun HabitCard(
@@ -50,7 +56,8 @@ fun HabitCard(
     val focusRequester = remember { FocusRequester() }
 
     // Draft edits while the field is open; commit on dismiss (tap-outside / focus loss / note icon).
-    var draftNote by remember { mutableStateOf(noteText) }
+    // Selection starts at end so the caret opens after existing note text.
+    var draftNote by remember { mutableStateOf(noteFieldValueAtEnd(noteText)) }
     var noteHadFocus by remember { mutableStateOf(false) }
     var dismissInProgress by remember { mutableStateOf(false) }
 
@@ -62,14 +69,14 @@ fun HabitCard(
     fun commitAndDismiss() {
         if (!isNoteFieldVisible || dismissInProgress) return
         dismissInProgress = true
-        onNoteTextChange(draftNote)
+        onNoteTextChange(draftNote.text)
         dismissKeyboardAndFocus()
         onNoteDismiss()
     }
 
     LaunchedEffect(isNoteFieldVisible, noteText) {
         if (isNoteFieldVisible) {
-            draftNote = noteText
+            draftNote = noteFieldValueAtEnd(noteText)
             dismissInProgress = false
             noteHadFocus = false
             // Request focus so tap-elsewhere / clearFocus can dismiss cleanly.
@@ -171,6 +178,12 @@ fun HabitCard(
                         .onFocusChanged { focusState ->
                             if (focusState.isFocused) {
                                 noteHadFocus = true
+                                // Keep caret at end when the field gains focus (e.g. after requestFocus).
+                                if (draftNote.selection != TextRange(draftNote.text.length)) {
+                                    draftNote = draftNote.copy(
+                                        selection = TextRange(draftNote.text.length)
+                                    )
+                                }
                             } else if (noteHadFocus && isNoteFieldVisible) {
                                 // Tap-elsewhere / clearFocus: auto-save and collapse.
                                 noteHadFocus = false
