@@ -65,13 +65,6 @@ fun WeeklyConfigurationSection(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(
-            text = "Select Days:",
-            style = AppTypography.Custom.recurrenceText,
-            color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
-        )
-        
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -245,7 +238,10 @@ fun DayOfMonthSelector(
             text = "Day of Month:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = AppSpacing.smallSpacing),
+            textAlign = TextAlign.Center
         )
         
         OutlinedTextField(
@@ -298,7 +294,10 @@ fun WeekdayOfMonthSelector(
             text = "Select Week:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = AppSpacing.smallSpacing),
+            textAlign = TextAlign.Center
         )
         
         Row(
@@ -347,7 +346,10 @@ fun WeekdayOfMonthSelector(
             text = "Select Day:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = AppSpacing.smallSpacing),
+            textAlign = TextAlign.Center
         )
         
         Row(
@@ -483,7 +485,10 @@ fun QuarterMonthSelector(
             text = "Select Quarter Start:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = AppSpacing.smallSpacing),
+            textAlign = TextAlign.Center
         )
         
         Row(
