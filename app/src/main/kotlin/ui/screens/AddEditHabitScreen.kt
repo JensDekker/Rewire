@@ -1112,7 +1112,7 @@ fun AddEditHabitScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Surface(
-                    shape = RoundedCornerShape(4.dp), // Match OutlinedTextField shape
+                    shape = AppShapes.inputShape, // Match OutlinedTextField shape
                     color = Color.Transparent,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -1121,7 +1121,7 @@ fun AddEditHabitScreen(
                         .border(
                             width = 1.dp,
                             color = AppColors.borderMedium, // Match other field borders
-                            shape = RoundedCornerShape(4.dp)
+                            shape = AppShapes.inputShape
                         )
                 ) {
                     Row(
@@ -1177,8 +1177,7 @@ fun AddEditHabitScreen(
                     modifier = Modifier.fillMaxWidth(),
                     textStyle = AppTypography.Custom.timeText.copy(
                         textAlign = TextAlign.Center
-                    ),
-                    shape = RoundedCornerShape(4.dp) // Ensure consistent shape
+                    )
                 )
                 
                 Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))

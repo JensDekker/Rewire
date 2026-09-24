@@ -1,6 +1,7 @@
 package com.example.rewire.ui.theme
 
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Shapes
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -19,12 +20,21 @@ private val LightColorPalette = lightColors(
     onError = Color.White
 )
 
+/**
+ * Material shapes aligned with [AppShapes] for components that read theme shapes.
+ * Only `small` is remapped (OutlinedTextField / TextField); medium/large stay default
+ * so cards and buttons are not redesigned in this pass.
+ */
+private val AppMaterialShapes = Shapes(
+    small = AppShapes.inputShape
+)
+
 @Composable
 fun RewireTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colors = LightColorPalette,
         typography = androidx.compose.material.Typography(),
-        shapes = androidx.compose.material.Shapes(),
+        shapes = AppMaterialShapes,
         content = content
     )
 }
