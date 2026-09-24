@@ -77,7 +77,7 @@ Product feedback from first-time UI review on device/emulator. Track here until 
 
 **Desired outcome**: A clear dismiss or cancel affordance so users can leave note entry without hunting for a toggle (e.g. Done/Cancel actions, explicit close control, and/or back/outside-tap that closes the field). Saving vs discarding unsaved edits should be intentional.
 
-**Status**: Open — UX bug / improvement for Habit home note entry.
+**Status**: ✅ Fixed — Primary dismiss is **tap elsewhere** on the Habit home surface (clears focus). Focus loss on the note field **auto-saves** via the existing `insertNote` path (blank notes still skip save), dismisses the keyboard, and collapses the field. Re-tapping the note icon also collapses with auto-save. No Cancel/Done button chrome; no new notes architecture.
 
 ## Future Development
 

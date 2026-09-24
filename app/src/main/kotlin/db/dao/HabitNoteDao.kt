@@ -23,6 +23,6 @@ interface HabitNoteDao {
     @Query("DELETE FROM habit_notes")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM habit_notes WHERE habitId = :habitId AND timestamp = :date LIMIT 1")
+    @Query("SELECT * FROM habit_notes WHERE habitId = :habitId AND timestamp = :date ORDER BY id DESC LIMIT 1")
     suspend fun getNoteForHabitOnDate(habitId: Long, date: String): HabitNoteEntity?
 }

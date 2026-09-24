@@ -13,11 +13,18 @@ import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.ui.res.painterResource
-import androidx.compose.material.icons.filled.NoteAdd
 import androidx.compose.runtime.*
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,6 +32,10 @@ import androidx.compose.ui.graphics.Color
 import com.example.rewire.R
 import com.example.rewire.core.Label
 import com.example.rewire.ui.theme.AppColors
+
+/** Seeds a note field value with the caret at the end of the text. */
+private fun noteFieldValueAtEnd(text: String): TextFieldValue =
+    TextFieldValue(text = text, selection = TextRange(text.length))
 
 @Composable
 fun HabitCard(
@@ -37,8 +48,46 @@ fun HabitCard(
     onCardClicked: () -> Unit = {},
     onCheckClicked: () -> Unit = {},
     onAddNoteClicked: () -> Unit = {},
-    onEditClicked: () -> Unit = {}
+    onEditClicked: () -> Unit = {},
+    /** Called after the note draft is committed and the field should collapse. */
+    onNoteDismiss: () -> Unit = {}
 ) {
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+
+    // Draft edits while the field is open; commit on dismiss (tap-outside / focus loss / note icon).
+    // Selection starts at end so the caret opens after existing note text.
+    var draftNote by remember { mutableStateOf(noteFieldValueAtEnd(noteText)) }
+    var noteHadFocus by remember { mutableStateOf(false) }
+    var dismissInProgress by remember { mutableStateOf(false) }
+
+    fun dismissKeyboardAndFocus() {
+        focusManager.clearFocus()
+        keyboardController?.hide()
+    }
+
+    fun commitAndDismiss() {
+        if (!isNoteFieldVisible || dismissInProgress) return
+        dismissInProgress = true
+        onNoteTextChange(draftNote.text)
+        dismissKeyboardAndFocus()
+        onNoteDismiss()
+    }
+
+    LaunchedEffect(isNoteFieldVisible, noteText) {
+        if (isNoteFieldVisible) {
+            draftNote = noteFieldValueAtEnd(noteText)
+            dismissInProgress = false
+            noteHadFocus = false
+            // Request focus so tap-elsewhere / clearFocus can dismiss cleanly.
+            focusRequester.requestFocus()
+        } else {
+            noteHadFocus = false
+            dismissInProgress = false
+        }
+    }
+
     // Determine card background color from first label, or use default
     val cardBackgroundColor = if (labels.isNotEmpty()) {
         parseLabelColor(labels.first().color)
@@ -50,7 +99,10 @@ fun HabitCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(AppSpacing.cardPadding)
-            .clickable { onCardClicked() },
+            .clickable {
+                if (isNoteFieldVisible) commitAndDismiss()
+                onCardClicked()
+            },
         shape = AppShapes.cardShape,
         color = cardBackgroundColor,
         elevation = 4.dp
@@ -80,15 +132,25 @@ fun HabitCard(
                         contentDescription = "Edit",
                         modifier = Modifier
                             .size(28.dp)
-                            .clickable { onEditClicked() }
+                            .clickable {
+                                if (isNoteFieldVisible) commitAndDismiss()
+                                onEditClicked()
+                            }
                     )
                     
                     Icon(
                         painter = painterResource(id = R.drawable.ic_add_notes),
-                        contentDescription = "Add Note",
+                        contentDescription = if (isNoteFieldVisible) "Close Note" else "Add Note",
                         modifier = Modifier
                             .size(32.dp)
-                            .clickable { onAddNoteClicked() }
+                            .clickable {
+                                if (isNoteFieldVisible) {
+                                    // Re-tap collapses and auto-saves (same as tap-elsewhere).
+                                    commitAndDismiss()
+                                } else {
+                                    onAddNoteClicked()
+                                }
+                            }
                     )
                     
                     Icon(
@@ -96,19 +158,40 @@ fun HabitCard(
                         contentDescription = if (isComplete) "Completed" else "Incomplete",
                         modifier = Modifier
                             .size(32.dp)
-                            .clickable { onCheckClicked() }
+                            .clickable {
+                                if (isNoteFieldVisible) commitAndDismiss()
+                                onCheckClicked()
+                            }
                     )
                 }
             }
             
             if (isNoteFieldVisible) {
                 OutlinedTextField(
-                    value = noteText,
-                    onValueChange = onNoteTextChange,
+                    value = draftNote,
+                    onValueChange = { draftNote = it },
                     label = { Text("Today's Notes") },
+                    shape = AppShapes.inputShape,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(AppSpacing.standardSpacing)
+                        .focusRequester(focusRequester)
+                        .onFocusChanged { focusState: FocusState ->
+                            if (focusState.isFocused) {
+                                // On first focus after open, place caret at end (TextField can
+                                // otherwise reset selection to the start when focus is requested).
+                                if (!noteHadFocus) {
+                                    draftNote = draftNote.copy(
+                                        selection = TextRange(draftNote.text.length)
+                                    )
+                                }
+                                noteHadFocus = true
+                            } else if (noteHadFocus && isNoteFieldVisible) {
+                                // Tap-elsewhere / clearFocus: auto-save and collapse.
+                                noteHadFocus = false
+                                commitAndDismiss()
+                            }
+                        }
                 )
             }
         }
@@ -132,7 +215,7 @@ private fun parseLabelColor(colorHex: String): Color {
 fun HabitCardPreview() {
     MaterialTheme {
         var note by remember { mutableStateOf("This is today's note.") }
-        var isNoteFieldVisible by remember { mutableStateOf(false) }
+        var isNoteFieldVisible by remember { mutableStateOf(true) }
         HabitCard(
             habitName = "Read a Book",
             isComplete = false,
@@ -141,8 +224,9 @@ fun HabitCardPreview() {
             isNoteFieldVisible = isNoteFieldVisible,
             onCardClicked = {},
             onCheckClicked = {},
-            onAddNoteClicked = { isNoteFieldVisible = !isNoteFieldVisible },
-            onEditClicked = {}
+            onAddNoteClicked = { isNoteFieldVisible = true },
+            onEditClicked = {},
+            onNoteDismiss = { isNoteFieldVisible = false }
         )
     }
 }
