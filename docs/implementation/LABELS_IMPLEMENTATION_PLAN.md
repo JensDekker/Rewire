@@ -3719,45 +3719,32 @@ If Material 3 ColorPicker is available, integrate it for custom color selection.
 - [x] HabitHomeScreen passes labels to HabitCard instances (both "Today's Habits" and "All Other Habits" sections)
 - [x] Labels are converted from LabelEntity to Label using toCore() extension function
 
-#### Step 6.10: Creative Visual Display of Label Color on HabitCard
+#### Step 6.10: Creative Visual Display of Label Color on HabitCard ✅ COMPLETE
 
 **Objective**: Design and implement a creative way to visually display the label color association on the HabitCard, beyond just the background color change from Step 6.9.
 
+**Status**: HabitCard uses a solid left-side color accent stripe (first/primary label color) on a white/surface body with thin light border, matching the left-accent mockup. Full-card background tint from Step 6.9 was replaced so the stripe reads clearly.
+
 **File**: `app/src/main/kotlin/ui/components/HabitCard.kt`
 
-**Note**: This step focuses on visual design enhancements. Step 6.9 should be completed first, which changes the entire card background. This step explores additional creative ways to display the label color relationship.
+**Chosen Approach**: Left-side solid color accent bar
+- Pill/rounded card (`AppShapes.cardShape`) with thin `AppColors.borderLight` border
+- White/surface body (not full-card label tint)
+- Solid vertical accent on the far left, full height; clipped by card shape so left corners stay rounded and the accent’s right edge is a straight cut
+- Fixed **24.dp** width (~8% of phone card; matches mockup stripe, not half the card)
+- Accent color = first label’s color (same priority as Step 6.9); no labels → no accent, surface body
 
-**Possible Implementation Approaches** (to be decided):
-- Colored border or accent line on the card
-- Gradient backgrounds with label color
-- Colored shadow or elevation effect
-- Colored indicator dot or stripe
-- Subtle color overlay with opacity
-- Colored corner accent
-- Combination of background color (from Step 6.9) with additional visual elements
-
-**Changes Required**:
-- Explore visual design options that complement the background color change
-- Implement chosen design approach
-- Ensure the design is visually appealing and enhances user experience
-- Maintain readability and accessibility
-
-**Implementation Notes**:
-- This step is intentionally open-ended to allow for creative exploration
-- Consider user experience and visual hierarchy
-- Ensure the design doesn't overwhelm the card content
-- Test with various label colors to ensure consistency
-- Consider Material Design principles and app theme consistency
+**Design Choice vs Step 6.9**: Prefer surface body + left accent over full-card tint. A tinted body fought the stripe and did not match the mockup.
 
 **Validation Checklist:**
-- [ ] Creative visual design is implemented
-- [ ] Design complements the background color change from Step 6.9
-- [ ] Visual design is consistent across all label colors
-- [ ] Card remains readable and accessible
-- [ ] Design enhances rather than clutters the card appearance
-- [ ] Implementation follows app design system and Material Design principles
-- [ ] No performance regressions introduced
-- [ ] Visual design works well with cards that have no labels (default state)
+- [x] Creative visual design is implemented (left accent stripe)
+- [x] Design complements / supersedes full-card tint from Step 6.9 (surface body + left accent per mockup)
+- [x] Visual design is consistent across all label colors (parseLabelColor on first label)
+- [x] Card remains readable and accessible (white/surface body, unchanged text)
+- [x] Design enhances rather than clutters the card appearance (24.dp left stripe)
+- [x] Implementation follows app design system (AppShapes.cardShape, AppColors.borderLight/surface)
+- [x] No performance regressions introduced (single Box + IntrinsicSize.Min Row)
+- [x] Visual design works well with cards that have no labels (default surface, no accent)
 
 ## Database Migration Strategy
 
