@@ -9,13 +9,13 @@ import com.example.rewire.db.entity.HabitEntity
 import com.example.rewire.db.entity.HabitCompletion
 import com.example.rewire.db.entity.HabitNoteEntity
 import com.example.rewire.db.entity.LabelEntity
-import com.example.rewire.db.entity.toCore
 
 class HabitManager(
     private val habitRepository: HabitRepository,
     private val habitCompletionRepository: HabitCompletionRepository,
     private val habitNoteRepository: HabitNoteRepository,
-    private val labelRepository: LabelRepository
+    private val labelRepository: LabelRepository,
+    val notificationScheduler: HabitNotificationScheduler? = null
 ) {
     /**
      * Find all habits due on a given day.
@@ -33,7 +33,11 @@ class HabitManager(
             if (start.isAfter(targetDate)) return@filter false
             when (val recurrence = habit.recurrence) {
                 is com.example.rewire.core.RecurrenceType.Daily -> true
-                is com.example.rewire.core.RecurrenceType.Weekly -> true // Every week, same weekday as startDate
+                is com.example.rewire.core.RecurrenceType.Weekly -> {
+                    // Once per week on the same weekday as startDate
+                    val startDayOfWeek = com.example.rewire.core.DayOfWeek.valueOf(start.dayOfWeek.name)
+                    dayOfWeek == startDayOfWeek
+                }
                 is com.example.rewire.core.RecurrenceType.MonthlyByDate -> dayOfMonth == recurrence.dayOfMonth
                 is com.example.rewire.core.RecurrenceType.MonthlyByWeekday -> weekOfMonth == recurrence.weekOfMonth && dayOfWeek == recurrence.dayOfWeek
                 is com.example.rewire.core.RecurrenceType.QuarterlyByDate -> {
@@ -47,25 +51,32 @@ class HabitManager(
             }
         }
     }
+
     suspend fun createHabit(habit: HabitEntity) {
-        // Example: validate habit name is not empty
         require(habit.name.isNotBlank()) { "Habit name cannot be blank" }
-        // Add more business rules as needed
         habitRepository.insertHabit(habit)
+        notificationScheduler?.scheduleNotificationsForHabit(habit, this)
     }
 
     suspend fun updateHabit(habit: HabitEntity) {
         require(habit.name.isNotBlank()) { "Habit name cannot be blank" }
         habitRepository.updateHabit(habit)
+        notificationScheduler?.cancelNotificationsForHabit(habit.id)
+        notificationScheduler?.scheduleNotificationsForHabit(habit, this)
     }
 
     suspend fun deleteHabit(habit: HabitEntity) {
         habitRepository.deleteHabit(habit)
+        notificationScheduler?.cancelNotificationsForHabit(habit.id)
     }
 
     suspend fun completeHabit(habitId: Long, date: String = java.time.LocalDate.now().toString()) {
         val completion = HabitCompletion(habitId = habitId, date = date)
         habitCompletionRepository.insertCompletion(completion)
+    }
+
+    suspend fun isHabitCompletedForDate(habitId: Long, date: String): Boolean {
+        return habitCompletionRepository.isHabitCompletedForDate(habitId, date)
     }
 
     suspend fun deleteCompletion(habitId: Long, date: String) {
@@ -105,77 +116,64 @@ class HabitManager(
         return habitNoteRepository.getNoteForHabitOnDate(habitId, date)
     }
 
-    // Label-related methods
-    
-    // Get habit with labels
     suspend fun getHabitWithLabels(habitId: Long): com.example.rewire.core.Habit? {
         val entity = habitRepository.getHabitById(habitId) ?: return null
         return habitRepository.habitEntityToHabit(entity)
     }
-    
-    // Set labels for a habit
+
     suspend fun setLabelsForHabit(habitId: Long, labelIds: List<Long>) {
         labelRepository.setLabelsForHabit(habitId, labelIds)
     }
-    
-    // Get all available labels
+
     suspend fun getAllLabels(): List<LabelEntity> {
         return labelRepository.getAllLabels()
     }
-    
-    // Get labels for a habit
+
     suspend fun getLabelsForHabit(habitId: Long): List<LabelEntity> {
         return labelRepository.getLabelsForHabit(habitId)
     }
-    
-    // Batch get labels for multiple habits (optimization)
+
     suspend fun getLabelsForHabits(habitIds: List<Long>): Map<Long, List<LabelEntity>> {
         return labelRepository.getLabelsForHabits(habitIds)
     }
-    
-    // Create habit with labels atomically
+
     suspend fun createHabitWithLabels(habit: HabitEntity, labelIds: List<Long>): Result<Long> {
         return try {
-            // Insert habit and get generated ID
             val habitId = habitRepository.insertHabit(habit)
-            // Set labels for the new habit
             labelRepository.setLabelsForHabit(habitId, labelIds)
+            val saved = habit.copy(id = habitId)
+            notificationScheduler?.scheduleNotificationsForHabit(saved, this)
             Result.success(habitId)
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
-    
-    // Update habit with labels atomically
+
     suspend fun updateHabitWithLabels(habit: HabitEntity, labelIds: List<Long>): Result<Unit> {
         return try {
             require(habit.id > 0) { "Habit ID must be greater than 0 for update" }
-            // Update habit
             habitRepository.updateHabit(habit)
-            // Update labels
             labelRepository.setLabelsForHabit(habit.id, labelIds)
+            notificationScheduler?.cancelNotificationsForHabit(habit.id)
+            notificationScheduler?.scheduleNotificationsForHabit(habit, this)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
-    
-    // Get habit IDs that use a label (for statistics/usage counts)
+
     suspend fun getHabitIdsWithLabel(labelId: Long): List<Long> {
         return labelRepository.getHabitIdsWithLabel(labelId)
     }
-    
-    // Create label with validation
+
     suspend fun createLabel(label: LabelEntity): LabelResult {
         return labelRepository.insertLabelWithValidation(label)
     }
-    
-    // Update label with validation
+
     suspend fun updateLabel(label: LabelEntity): LabelResult {
         return labelRepository.updateLabelWithValidation(label)
     }
-    
-    // Delete label
+
     suspend fun deleteLabel(label: LabelEntity) {
         labelRepository.deleteLabel(label)
     }

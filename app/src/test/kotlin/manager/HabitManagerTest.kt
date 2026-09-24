@@ -104,6 +104,8 @@ class HabitManagerTest {
         }
         override suspend fun getCompletionsForHabit(habitId: Long): List<HabitCompletion> =
             completionList.filter { it.habitId == habitId }
+        override suspend fun isHabitCompletedForDate(habitId: Long, date: String): Boolean =
+            completionList.any { it.habitId == habitId && it.date == date }
     })
 
     private val habitNoteRepository = com.example.rewire.repository.HabitNoteRepository(object : com.example.rewire.db.dao.HabitNoteDao {
@@ -203,5 +205,54 @@ class HabitManagerTest {
     noteList.add(HabitNoteEntity(5L, 2L, "Note2", "2025-08-19T11:00"))
     val notes = manager.getNotesForHabit(2L)
         assertEquals(2, notes.size)
+    }
+
+    @Test
+    fun testGetHabitsDueOn_Weekly_onlyStartWeekday() = runBlocking {
+        habitList.clear()
+        // startDate 2025-08-04 is a Monday → due only on Mondays
+        habitList.add(
+            HabitEntity(
+                10L,
+                "Weekly",
+                com.example.rewire.core.RecurrenceType.Weekly,
+                "08:00",
+                10,
+                "2025-08-04"
+            )
+        )
+        assertEquals(1, manager.getHabitsDueOn("2025-08-04").size) // Monday
+        assertEquals(1, manager.getHabitsDueOn("2025-08-11").size) // next Monday
+        assertTrue(manager.getHabitsDueOn("2025-08-05").isEmpty()) // Tuesday
+        assertTrue(manager.getHabitsDueOn("2025-08-10").isEmpty()) // Sunday
+    }
+
+    @Test
+    fun testGetHabitsDueOn_Weekly_usesStartDateWeekdayNotHardcodedMonday() = runBlocking {
+        habitList.clear()
+        // startDate 2025-08-06 is a Wednesday
+        habitList.add(
+            HabitEntity(
+                11L,
+                "WedWeekly",
+                com.example.rewire.core.RecurrenceType.Weekly,
+                "09:00",
+                10,
+                "2025-08-06"
+            )
+        )
+        assertEquals(1, manager.getHabitsDueOn("2025-08-06").size) // Wednesday
+        assertEquals(1, manager.getHabitsDueOn("2025-08-13").size)
+        assertTrue(manager.getHabitsDueOn("2025-08-11").isEmpty()) // Monday
+    }
+
+    @Test
+    fun testIsHabitCompletedForDate() = runBlocking {
+        completionList.clear()
+        habitList.clear()
+        habitList.add(HabitEntity(1L, "Test", com.example.rewire.core.RecurrenceType.Daily, "08:00", 10, "2025-08-01"))
+        manager.completeHabit(1L, "2025-08-19")
+        assertTrue(manager.isHabitCompletedForDate(1L, "2025-08-19"))
+        assertFalse(manager.isHabitCompletedForDate(1L, "2025-08-20"))
     }
 }

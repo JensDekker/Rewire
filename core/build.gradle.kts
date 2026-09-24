@@ -13,6 +13,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3")
+    testImplementation("junit:junit:4.13.2")
 }
 
 configurations.all {
