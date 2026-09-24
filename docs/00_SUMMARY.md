@@ -69,43 +69,23 @@ The documentation is organized into the following categories:
 ### 4. Notifications Implementation Plan
 **File**: `implementation/NOTIFICATIONS_IMPLEMENTATION_PLAN.md`
 
-**Description**: Comprehensive plan for implementing a notification system to remind users of their habits at their estimated/preferred time. Notifications will provide quick actions to mark habits as complete or add a note. When the "add note" action is selected, a small dialog will open allowing the user to enter a note for the habit.
+**Description**: Actionable phased plan for habit reminders at `preferredTime` with **Complete** and **Add note** actions. Architecture: WorkManager MVP (inexact), channels, Android 13+ permissions, data flow via `HabitManager.getHabitsDueOn` + Room, Phase 1 file/touch list, test plan, risks (Doze/OEM/timezone), and open design decisions (D1–D11).
 
-**Status**: **Planning Phase** ⚠️
+**Status**: **Design ready for Phase 1 coding** ⚠️ (feature not implemented)
 
 **Completion Details**:
-- ❌ Planning phase - **Complete**
-- ❌ Design finalized - **Pending**
-- ❌ Phase 1: Core Infrastructure - **Pending**
-- ❌ Phase 2: Notification Scheduling - **Pending**
-- ❌ Phase 3: Notification Actions - **Pending**
-- ❌ Phase 4: Note Dialog - **Pending**
-- ❌ Phase 5: Integration & Testing - **Pending**
+- ✅ Planning revised into coder-ready plan (2026-09-24)
+- ⚠️ Open design decisions D1–D11 — defaults proposed; user confirmation preferred before/during Phase 1
+- ❌ Phase 1 MVP implementation — **Not started**
+- ❌ Phase 2 reliability / Weekly due fix / timezone — **Not started**
+- ❌ Phase 3 settings & polish — **Not started**
 
-**Proposed Features**:
-1. **Notification Scheduling**: Schedule notifications based on habit `preferredTime` and `recurrence` using WorkManager
-2. **Notification Actions**:
-   - "Mark as Complete" - Marks habit as complete from notification
-   - "Add Note" - Opens dialog to add/edit note for the habit
-3. **Note Dialog Component**: Material Design dialog for adding/editing habit notes
-4. **Background Service**: WorkManager worker for reliable notification scheduling
+**Phase 1 MVP scope**:
+1. WorkManager one-time work per habit occurrence; reseed on CRUD / app start / boot
+2. Actions: Complete (background) · Add note → app + `upsertNoteForDate`
+3. `POST_NOTIFICATIONS` (non-blocking) · channel · BootReceiver · completion EXISTS helper
 
-**Key Technical Components**:
-- Notification channel setup and permission handling (non-blocking)
-- WorkManager worker for scheduling (AndroidX library)
-- BootReceiver for device reboot handling
-- BroadcastReceiver for notification actions
-- HabitNoteDialog component
-- Deep linking/intent handling
-- Completion check methods at all levels (DAO, Repository, Manager)
-
-**Key Implementation Details**:
-- Uses `HabitManager.getHabitsDueOn(date)` to determine which habits need notifications (same logic as home screen)
-- Checks `isHabitCompletedForDate()` before scheduling to skip already-completed habits
-- WorkManager is an AndroidX library that interfaces with the OS for background scheduling
-- App functions normally without notification permission (notifications simply won't work)
-
-**Next Steps**: Finalize design specifications (especially date calculation logic and WorkManager configuration), begin Phase 1 (Core Infrastructure) implementation.
+**Next Steps**: Confirm open decisions (esp. D1 scheduler, D4 note UX, D8 Weekly fix); start Phase 1 from the file/touch list in the plan.
 
 ---
 
@@ -215,7 +195,7 @@ The documentation is organized into the following categories:
 | Labels Implementation Plan | In Progress | 95% (Pending: Step 6.10) |
 | Manual Test Script | Complete | 100% |
 | Navigation Test Guide | Complete | 100% |
-| Notifications Implementation Plan | Planning | 0% |
+| Notifications Implementation Plan | Design ready (coding not started) | Plan 100% · Feature 0% |
 | Utilities Menu Implementation Plan | Planning | 0% |
 | Habit Home Screen Background Design | Concept Exploration | 0% (note dismiss UX fixed) |
 | UI Shape & Corner Radius Guidelines | Design Direction | Captured; token bumps pending |
@@ -227,7 +207,7 @@ The documentation is organized into the following categories:
 ## Quick Reference
 
 - **Ready for Implementation**: 
-  - Notifications (after design finalization)
+  - Notifications Phase 1 MVP (confirm open decisions D1–D11 in plan; prefer fixing Weekly due logic first — D8)
   - Utilities Menu (after design finalization)
 - **In Active Development**: Labels Implementation (Step 6.10 pending)
 - **In Planning/Exploration**: Habit Home Screen Background Design; UI Shape guidelines (more rounded corners)
