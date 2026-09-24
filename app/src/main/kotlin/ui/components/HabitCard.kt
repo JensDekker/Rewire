@@ -8,7 +8,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
@@ -18,6 +17,9 @@ import androidx.compose.runtime.*
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,23 +42,42 @@ fun HabitCard(
     onCheckClicked: () -> Unit = {},
     onAddNoteClicked: () -> Unit = {},
     onEditClicked: () -> Unit = {},
-    onNoteDone: () -> Unit = {},
-    onNoteCancel: () -> Unit = {}
+    /** Called after the note draft is committed and the field should collapse. */
+    onNoteDismiss: () -> Unit = {}
 ) {
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
 
-    // Draft edits while the field is open; commit only on Done.
+    // Draft edits while the field is open; commit on dismiss (tap-outside / focus loss / note icon).
     var draftNote by remember { mutableStateOf(noteText) }
-    LaunchedEffect(isNoteFieldVisible, noteText) {
-        if (isNoteFieldVisible) {
-            draftNote = noteText
-        }
-    }
+    var noteHadFocus by remember { mutableStateOf(false) }
+    var dismissInProgress by remember { mutableStateOf(false) }
 
     fun dismissKeyboardAndFocus() {
         focusManager.clearFocus()
         keyboardController?.hide()
+    }
+
+    fun commitAndDismiss() {
+        if (!isNoteFieldVisible || dismissInProgress) return
+        dismissInProgress = true
+        onNoteTextChange(draftNote)
+        dismissKeyboardAndFocus()
+        onNoteDismiss()
+    }
+
+    LaunchedEffect(isNoteFieldVisible, noteText) {
+        if (isNoteFieldVisible) {
+            draftNote = noteText
+            dismissInProgress = false
+            noteHadFocus = false
+            // Request focus so tap-elsewhere / clearFocus can dismiss cleanly.
+            focusRequester.requestFocus()
+        } else {
+            noteHadFocus = false
+            dismissInProgress = false
+        }
     }
 
     // Determine card background color from first label, or use default
@@ -70,7 +91,10 @@ fun HabitCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(AppSpacing.cardPadding)
-            .clickable { onCardClicked() },
+            .clickable {
+                if (isNoteFieldVisible) commitAndDismiss()
+                onCardClicked()
+            },
         shape = AppShapes.cardShape,
         color = cardBackgroundColor,
         elevation = 4.dp
@@ -100,7 +124,10 @@ fun HabitCard(
                         contentDescription = "Edit",
                         modifier = Modifier
                             .size(28.dp)
-                            .clickable { onEditClicked() }
+                            .clickable {
+                                if (isNoteFieldVisible) commitAndDismiss()
+                                onEditClicked()
+                            }
                     )
                     
                     Icon(
@@ -110,10 +137,8 @@ fun HabitCard(
                             .size(32.dp)
                             .clickable {
                                 if (isNoteFieldVisible) {
-                                    // Re-tapping the icon discards uncommitted edits (same as Cancel).
-                                    draftNote = noteText
-                                    dismissKeyboardAndFocus()
-                                    onNoteCancel()
+                                    // Re-tap collapses and auto-saves (same as tap-elsewhere).
+                                    commitAndDismiss()
                                 } else {
                                     onAddNoteClicked()
                                 }
@@ -125,7 +150,10 @@ fun HabitCard(
                         contentDescription = if (isComplete) "Completed" else "Incomplete",
                         modifier = Modifier
                             .size(32.dp)
-                            .clickable { onCheckClicked() }
+                            .clickable {
+                                if (isNoteFieldVisible) commitAndDismiss()
+                                onCheckClicked()
+                            }
                     )
                 }
             }
@@ -138,39 +166,18 @@ fun HabitCard(
                     shape = AppShapes.inputShape,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = AppSpacing.standardSpacing)
+                        .padding(AppSpacing.standardSpacing)
+                        .focusRequester(focusRequester)
+                        .onFocusChanged { focusState ->
+                            if (focusState.isFocused) {
+                                noteHadFocus = true
+                            } else if (noteHadFocus && isNoteFieldVisible) {
+                                // Tap-elsewhere / clearFocus: auto-save and collapse.
+                                noteHadFocus = false
+                                commitAndDismiss()
+                            }
+                        }
                 )
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = AppSpacing.standardSpacing,
-                            end = AppSpacing.standardSpacing,
-                            bottom = AppSpacing.smallSpacing
-                        ),
-                    horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextButton(
-                        onClick = {
-                            draftNote = noteText
-                            dismissKeyboardAndFocus()
-                            onNoteCancel()
-                        }
-                    ) {
-                        Text("Cancel")
-                    }
-                    TextButton(
-                        onClick = {
-                            onNoteTextChange(draftNote)
-                            dismissKeyboardAndFocus()
-                            onNoteDone()
-                        }
-                    ) {
-                        Text("Done")
-                    }
-                }
             }
         }
     }
@@ -204,8 +211,7 @@ fun HabitCardPreview() {
             onCheckClicked = {},
             onAddNoteClicked = { isNoteFieldVisible = true },
             onEditClicked = {},
-            onNoteDone = { isNoteFieldVisible = false },
-            onNoteCancel = { isNoteFieldVisible = false }
+            onNoteDismiss = { isNoteFieldVisible = false }
         )
     }
 }

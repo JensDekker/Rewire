@@ -151,7 +151,7 @@ The documentation is organized into the following categories:
 - Background styling enhancements (gradients, colors, patterns)
 
 **Known UX Gaps**:
-- ✅ **Note-adding dismiss/cancel** — Fixed: Cancel / Done on `HabitCard` inline note (draft + existing `insertNote` on Done). See "Known UX Gaps" in the design doc.
+- ✅ **Note-adding dismiss** — Fixed: tap-elsewhere / focus-loss on Habit home collapses the inline note with auto-save (`insertNote`); keyboard dismisses. See "Known UX Gaps" in the design doc.
 
 **Next Steps**: Refine concepts, determine information content for dynamic sections, create detailed design specifications, and develop formal implementation plan.
 

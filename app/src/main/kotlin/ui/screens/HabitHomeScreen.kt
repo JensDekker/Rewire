@@ -3,6 +3,7 @@ package com.example.rewire.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -152,6 +155,10 @@ fun HabitHomeScreen(
     
     // State for menu
     var showMenu by remember { mutableStateOf(false) }
+
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val noteDismissInteractionSource = remember { MutableInteractionSource() }
     
     // Custom header with unified background
     Column(
@@ -215,7 +222,22 @@ fun HabitHomeScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = AppSpacing.standardSpacing),
+                .padding(horizontal = AppSpacing.standardSpacing)
+                .then(
+                    if (expandedNoteHabits.isNotEmpty()) {
+                        // Tap non-interactive list areas: clear focus so HabitCard
+                        // auto-saves + collapses via onFocusChanged. Child clickables still win.
+                        Modifier.clickable(
+                            interactionSource = noteDismissInteractionSource,
+                            indication = null
+                        ) {
+                            focusManager.clearFocus()
+                            keyboardController?.hide()
+                        }
+                    } else {
+                        Modifier
+                    }
+                ),
             verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
         ) {
             // Filter UI Section
@@ -310,7 +332,7 @@ fun HabitHomeScreen(
                         noteText = noteText,
                         onNoteTextChange = { newNote ->
                             habitNotes = habitNotes + (habit.id to newNote)
-                            // Persist on Done (same insert path as before; blank skips save)
+                            // Persist on dismiss (tap-elsewhere / focus loss / note icon); blank skips save
                             if (newNote.isNotBlank()) {
                                 coroutineScope.launch {
                                     val noteEntity = com.example.rewire.db.entity.HabitNoteEntity(
@@ -344,10 +366,7 @@ fun HabitHomeScreen(
                         onAddNoteClicked = {
                             expandedNoteHabits = expandedNoteHabits + habit.id
                         },
-                        onNoteDone = {
-                            expandedNoteHabits = expandedNoteHabits - habit.id
-                        },
-                        onNoteCancel = {
+                        onNoteDismiss = {
                             expandedNoteHabits = expandedNoteHabits - habit.id
                         },
                         onEditClicked = {
