@@ -71,13 +71,13 @@ The documentation is organized into the following categories:
 
 **Description**: Actionable phased plan for habit reminders at `preferredTime` with **Complete** (background) and **Add note** (**RemoteInput** / inline reply → `upsertNoteForDate`). Architecture: **exact AlarmManager** scheduling, channel `IMPORTANCE_DEFAULT`, `POST_NOTIFICATIONS` on **first habit create**, **5-day** horizon, **separate notification per habit**, Weekly due-logic fix with Phase 1.
 
-**Status**: **Decisions locked — Phase 1 MVP coding** ⚠️
+**Status:** **Decisions locked — Phase 1 MVP implemented (draft PR)** ⚠️
 
 **Completion Details**:
 - ✅ Planning revised into coder-ready plan (2026-09-24)
 - ✅ Design decisions D1–D7 (product) + D8–D11 **locked** (2026-09-24)
-- ⚠️ Phase 1 MVP implementation — **In progress** (separate PR)
-- ❌ Phase 2 reliability / timezone / exact-alarm settings deep-link — **Not started**
+- ✅ Phase 1 MVP implementation — **Draft PR** (exact alarms, RemoteInput note, Weekly fix, 5-day horizon)
+- ❌ Phase 2 reliability / timezone / exact-alarm settings deep-link UI — **Not started**
 - ❌ Phase 3 settings & polish — **Not started**
 
 **Locked decisions (D1–D7)**:

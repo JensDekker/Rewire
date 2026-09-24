@@ -17,4 +17,8 @@ class HabitCompletionRepository(private val habitCompletionDao: HabitCompletionD
     suspend fun getCompletionsForHabit(habitId: Long): List<HabitCompletion> = withContext(Dispatchers.IO) {
         habitCompletionDao.getCompletionsForHabit(habitId)
     }
+
+    suspend fun isHabitCompletedForDate(habitId: Long, date: String): Boolean = withContext(Dispatchers.IO) {
+        habitCompletionDao.isHabitCompletedForDate(habitId, date)
+    }
 }

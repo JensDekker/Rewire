@@ -5,9 +5,9 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.example.rewire.MIGRATION_1_2
 import com.example.rewire.db.dao.LabelDao
 import com.example.rewire.db.dao.HabitLabelDao
+import com.example.rewire.db.RewireDatabase.Companion.MIGRATION_1_2
 import com.example.rewire.db.entity.LabelEntity
 import com.example.rewire.db.entity.HabitLabelCrossRef
 import kotlinx.coroutines.runBlocking

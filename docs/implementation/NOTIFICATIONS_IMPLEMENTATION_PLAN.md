@@ -234,15 +234,17 @@ Former open IDs D1–D7 in the user-facing summary map to the table above (Weekl
 ## 10. Implementation checklist (Phase 1)
 
 - [x] D1–D7 (product) + D8–D11 reviewed / **locked**
-- [ ] Manifest permissions + receivers + exact-alarm declaration
-- [ ] Completion EXISTS helper end-to-end
-- [ ] Weekly due-logic fix + tests
-- [ ] Channel (`DEFAULT`) + permission on first habit create
-- [ ] Exact AlarmManager scheduler + 5-day horizon + per-habit notifications
-- [ ] CRUD / start / boot reseed
-- [ ] Complete receiver + RemoteInput Add note
-- [ ] Automated + manual tests
-- [ ] Update `docs/00_SUMMARY.md`
+- [x] Manifest permissions + receivers + exact-alarm declaration
+- [x] Completion EXISTS helper end-to-end
+- [x] Weekly due-logic fix + tests
+- [x] Channel (`DEFAULT`) + permission on first habit create
+- [x] Exact AlarmManager scheduler + 5-day horizon + per-habit notifications
+- [x] CRUD / start / boot reseed
+- [x] Complete receiver + RemoteInput Add note
+- [x] Automated tests (Weekly, completion, horizon selection)
+- [x] Update `docs/00_SUMMARY.md`
+
+**Still open (Phase 2 UX):** in-app deep-link to exact-alarm settings when `canScheduleExactAlarms()` is false (`NotificationPermissionHelper.exactAlarmSettingsIntent` exists; no settings UI yet).
 
 ---
 

@@ -56,6 +56,12 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import androidx.navigation.NavController
 import androidx.compose.material.icons.filled.Settings
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.platform.LocalContext
+import com.example.rewire.util.NotificationPermissionHelper
 
 @Composable
 fun WeeklyConfigurationSection(
@@ -675,7 +681,11 @@ fun AddEditHabitScreen(
     
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
-    
+    val context = LocalContext.current
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { /* Non-blocking: app works whether granted or denied */ }
+
     // Label state management
     var availableLabels by remember { mutableStateOf<List<LabelEntity>>(emptyList()) }
     var selectedLabelIds by remember(editingHabit?.id) { 
@@ -885,6 +895,17 @@ fun AddEditHabitScreen(
                                         }
                                         
                                         if (result.isSuccess) {
+                                            // Request POST_NOTIFICATIONS once, on first habit create
+                                            if (editingHabit == null &&
+                                                NotificationPermissionHelper.shouldRequestPostNotifications(context)
+                                            ) {
+                                                NotificationPermissionHelper.markPostNotificationsRequested(context)
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                                    notificationPermissionLauncher.launch(
+                                                        Manifest.permission.POST_NOTIFICATIONS
+                                                    )
+                                                }
+                                            }
                                             // Success - call parent callback to refresh and close
                                             onSaveClicked()
                                         } else {
