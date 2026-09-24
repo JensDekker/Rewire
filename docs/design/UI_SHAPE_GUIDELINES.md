@@ -8,12 +8,13 @@ Shape tokens live in `app/src/main/kotlin/ui/theme/Shape.kt` (`AppShapes`):
 
 | Token | Current radius | Typical use |
 |-------|----------------|-------------|
-| `smallCardShape` / `inputShape` | 8dp | Compact elements, text fields |
+| `smallCardShape` | 8dp | Compact elements |
+| `inputShape` | 16dp | Outlined text fields / form inputs |
 | `buttonShape` | 12dp | Buttons and interactive controls |
 | `cardShape` | 16dp | Habit cards, main surfaces |
 | `largeCardShape` | 24dp | Modals, prominent containers |
 
-`RewireTheme` still uses default Material `Shapes()`; new UI should prefer `AppShapes` so radii stay consistent and easy to bump globally.
+`RewireTheme` maps Material `Shapes.small` to `AppShapes.inputShape` so `OutlinedTextField` / `TextField` inherit the token. Prefer `AppShapes` for other surfaces so radii stay consistent and easy to bump globally.
 
 ## Design direction: more rounded corners
 
@@ -28,7 +29,7 @@ Shape tokens live in `app/src/main/kotlin/ui/theme/Shape.kt` (`AppShapes`):
 
 ### Suggested follow-up (implementation, separate PR)
 
-- Review and bump `AppShapes` radii (and optional Material `Shapes` in `Theme.kt`) after a quick visual pass.
+- Review and bump remaining `AppShapes` radii (cards/buttons) after a quick visual pass.
 - Sweep remaining hardcoded corner radii to `AppShapes`.
 - Spot-check habit cards, dialogs, label chips, and home chrome on device/emulator.
 
@@ -41,10 +42,11 @@ Shape tokens live in `app/src/main/kotlin/ui/theme/Shape.kt` (`AppShapes`):
 ## Status
 
 - [x] Design direction captured from product feedback
-- [ ] Token radii reviewed / increased
-- [ ] Material theme shapes aligned with `AppShapes`
+- [x] Input token radius increased (`inputShape` → 16dp)
+- [x] Material theme `shapes.small` aligned with `AppShapes.inputShape`
+- [ ] Remaining token radii (cards/buttons) reviewed / increased
 - [ ] Hardcoded radii swept to tokens
 
 ---
 
-*Planning/docs only until an implementation PR updates the tokens and UI.*
+*Input-field rounding is implemented via `AppShapes.inputShape` + theme wiring; broader surface radius bumps remain follow-up.*

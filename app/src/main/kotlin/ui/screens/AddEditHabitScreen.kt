@@ -126,6 +126,52 @@ fun WeeklyConfigurationSection(
     }
 }
 
+/**
+ * Two-option segmented control for monthly/quarterly "by day" vs "by weekday".
+ * Selection styling matches weekly day chips (filled primary vs outlined surface).
+ */
+@Composable
+fun RecurrenceSubTypeSelector(
+    selectedSubType: String,
+    onSubTypeChange: (String) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
+    ) {
+        listOf(
+            "day" to "Day of month",
+            "weekday" to "Weekday of month"
+        ).forEach { (value, label) ->
+            val isSelected = selectedSubType == value
+            Surface(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(40.dp)
+                    .clickable { onSubTypeChange(value) },
+                shape = AppShapes.buttonShape,
+                color = if (isSelected) AppColors.primary else AppColors.surface,
+                border = androidx.compose.foundation.BorderStroke(
+                    1.dp,
+                    if (isSelected) AppColors.primary else AppColors.borderMedium
+                )
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = label,
+                        style = AppTypography.Custom.statisticsLabel,
+                        color = if (isSelected) AppColors.onPrimary else AppColors.textSecondary,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+        }
+    }
+}
+
 @Composable
 fun MonthlyConfigurationSection(
     monthlySubType: String,
@@ -140,36 +186,10 @@ fun MonthlyConfigurationSection(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        // Radio buttons for Monthly subtypes
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            RadioButton(
-                selected = monthlySubType == "day",
-                onClick = { onMonthlySubTypeChange("day") }
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Day of month",
-                style = AppTypography.Custom.statisticsLabel
-            )
-        }
-        
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            RadioButton(
-                selected = monthlySubType == "weekday",
-                onClick = { onMonthlySubTypeChange("weekday") }
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Weekday of month",
-                style = AppTypography.Custom.statisticsLabel
-            )
-        }
+        RecurrenceSubTypeSelector(
+            selectedSubType = monthlySubType,
+            onSubTypeChange = onMonthlySubTypeChange
+        )
         
         Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
         
@@ -398,36 +418,10 @@ fun QuarterlyConfigurationSection(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        // Radio buttons for Quarterly subtypes
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            RadioButton(
-                selected = quarterlySubType == "day",
-                onClick = { onQuarterlySubTypeChange("day") }
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Day of month",
-                style = AppTypography.Custom.statisticsLabel
-            )
-        }
-        
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            RadioButton(
-                selected = quarterlySubType == "weekday",
-                onClick = { onQuarterlySubTypeChange("weekday") }
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Weekday of month",
-                style = AppTypography.Custom.statisticsLabel
-            )
-        }
+        RecurrenceSubTypeSelector(
+            selectedSubType = quarterlySubType,
+            onSubTypeChange = onQuarterlySubTypeChange
+        )
         
         Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
         
@@ -1118,7 +1112,7 @@ fun AddEditHabitScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Surface(
-                    shape = RoundedCornerShape(4.dp), // Match OutlinedTextField shape
+                    shape = AppShapes.inputShape, // Match OutlinedTextField shape
                     color = Color.Transparent,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -1127,7 +1121,7 @@ fun AddEditHabitScreen(
                         .border(
                             width = 1.dp,
                             color = AppColors.borderMedium, // Match other field borders
-                            shape = RoundedCornerShape(4.dp)
+                            shape = AppShapes.inputShape
                         )
                 ) {
                     Row(
@@ -1183,8 +1177,7 @@ fun AddEditHabitScreen(
                     modifier = Modifier.fillMaxWidth(),
                     textStyle = AppTypography.Custom.timeText.copy(
                         textAlign = TextAlign.Center
-                    ),
-                    shape = RoundedCornerShape(4.dp) // Ensure consistent shape
+                    )
                 )
                 
                 Spacer(modifier = Modifier.height(AppSpacing.smallSpacing))
