@@ -150,10 +150,10 @@ The documentation is organized into the following categories:
 - Dynamic title block that changes based on scroll position
 - Background styling enhancements (gradients, colors, patterns)
 
-**Known UX Gaps (open)**:
-- **Note-adding dismiss/cancel** — Habit home note field on `HabitCard` has no clear exit/cancel path (only re-tapping the note icon). See "Known UX Gaps" in the design doc.
+**Known UX Gaps**:
+- ✅ **Note-adding dismiss/cancel** — Fixed: Cancel / Done on `HabitCard` inline note (draft + existing `insertNote` on Done). See "Known UX Gaps" in the design doc.
 
-**Next Steps**: Refine concepts, determine information content for dynamic sections, create detailed design specifications, and develop formal implementation plan. Address note-entry dismiss UX when polishing Habit home.
+**Next Steps**: Refine concepts, determine information content for dynamic sections, create detailed design specifications, and develop formal implementation plan.
 
 ---
 
@@ -217,7 +217,7 @@ The documentation is organized into the following categories:
 | Navigation Test Guide | Complete | 100% |
 | Notifications Implementation Plan | Planning | 0% |
 | Utilities Menu Implementation Plan | Planning | 0% |
-| Habit Home Screen Background Design | Concept Exploration | 0% (+ open UX gap: note dismiss) |
+| Habit Home Screen Background Design | Concept Exploration | 0% (note dismiss UX fixed) |
 | UI Shape & Corner Radius Guidelines | Design Direction | Captured; token bumps pending |
 | Install on Phone Guide | Complete | 100% |
 | Update Version Guide | Complete | 100% |
@@ -231,7 +231,6 @@ The documentation is organized into the following categories:
   - Utilities Menu (after design finalization)
 - **In Active Development**: Labels Implementation (Step 6.10 pending)
 - **In Planning/Exploration**: Habit Home Screen Background Design; UI Shape guidelines (more rounded corners)
-- **Open UX Gaps**: Habit home note-adding lacks clear dismiss/cancel (`design/HABIT_HOME_SCREEN_BACKGROUND_DESIGN.md`)
 - **Completed Reference Documents**: 
   - Manual Test Script
   - Navigation Test Guide

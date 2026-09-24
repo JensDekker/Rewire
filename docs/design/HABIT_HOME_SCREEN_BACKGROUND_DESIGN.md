@@ -77,7 +77,7 @@ Product feedback from first-time UI review on device/emulator. Track here until 
 
 **Desired outcome**: A clear dismiss or cancel affordance so users can leave note entry without hunting for a toggle (e.g. Done/Cancel actions, explicit close control, and/or back/outside-tap that closes the field). Saving vs discarding unsaved edits should be intentional.
 
-**Status**: Open — UX bug / improvement for Habit home note entry.
+**Status**: ✅ Fixed — `HabitCard` shows Cancel / Done under the inline note field. Edits are held in a draft while open; **Done** commits via the existing `insertNote` path (blank notes still skip save) and collapses; **Cancel** (or re-tapping the note icon) discards the draft, clears focus/keyboard, and collapses. No new notes architecture.
 
 ## Future Development
 

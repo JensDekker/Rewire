@@ -8,16 +8,18 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.ui.res.painterResource
-import androidx.compose.material.icons.filled.NoteAdd
 import androidx.compose.runtime.*
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,8 +39,26 @@ fun HabitCard(
     onCardClicked: () -> Unit = {},
     onCheckClicked: () -> Unit = {},
     onAddNoteClicked: () -> Unit = {},
-    onEditClicked: () -> Unit = {}
+    onEditClicked: () -> Unit = {},
+    onNoteDone: () -> Unit = {},
+    onNoteCancel: () -> Unit = {}
 ) {
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    // Draft edits while the field is open; commit only on Done.
+    var draftNote by remember { mutableStateOf(noteText) }
+    LaunchedEffect(isNoteFieldVisible, noteText) {
+        if (isNoteFieldVisible) {
+            draftNote = noteText
+        }
+    }
+
+    fun dismissKeyboardAndFocus() {
+        focusManager.clearFocus()
+        keyboardController?.hide()
+    }
+
     // Determine card background color from first label, or use default
     val cardBackgroundColor = if (labels.isNotEmpty()) {
         parseLabelColor(labels.first().color)
@@ -85,10 +105,19 @@ fun HabitCard(
                     
                     Icon(
                         painter = painterResource(id = R.drawable.ic_add_notes),
-                        contentDescription = "Add Note",
+                        contentDescription = if (isNoteFieldVisible) "Close Note" else "Add Note",
                         modifier = Modifier
                             .size(32.dp)
-                            .clickable { onAddNoteClicked() }
+                            .clickable {
+                                if (isNoteFieldVisible) {
+                                    // Re-tapping the icon discards uncommitted edits (same as Cancel).
+                                    draftNote = noteText
+                                    dismissKeyboardAndFocus()
+                                    onNoteCancel()
+                                } else {
+                                    onAddNoteClicked()
+                                }
+                            }
                     )
                     
                     Icon(
@@ -103,13 +132,45 @@ fun HabitCard(
             
             if (isNoteFieldVisible) {
                 OutlinedTextField(
-                    value = noteText,
-                    onValueChange = onNoteTextChange,
+                    value = draftNote,
+                    onValueChange = { draftNote = it },
                     label = { Text("Today's Notes") },
+                    shape = AppShapes.inputShape,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(AppSpacing.standardSpacing)
+                        .padding(horizontal = AppSpacing.standardSpacing)
                 )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            start = AppSpacing.standardSpacing,
+                            end = AppSpacing.standardSpacing,
+                            bottom = AppSpacing.smallSpacing
+                        ),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TextButton(
+                        onClick = {
+                            draftNote = noteText
+                            dismissKeyboardAndFocus()
+                            onNoteCancel()
+                        }
+                    ) {
+                        Text("Cancel")
+                    }
+                    TextButton(
+                        onClick = {
+                            onNoteTextChange(draftNote)
+                            dismissKeyboardAndFocus()
+                            onNoteDone()
+                        }
+                    ) {
+                        Text("Done")
+                    }
+                }
             }
         }
     }
@@ -132,7 +193,7 @@ private fun parseLabelColor(colorHex: String): Color {
 fun HabitCardPreview() {
     MaterialTheme {
         var note by remember { mutableStateOf("This is today's note.") }
-        var isNoteFieldVisible by remember { mutableStateOf(false) }
+        var isNoteFieldVisible by remember { mutableStateOf(true) }
         HabitCard(
             habitName = "Read a Book",
             isComplete = false,
@@ -141,8 +202,10 @@ fun HabitCardPreview() {
             isNoteFieldVisible = isNoteFieldVisible,
             onCardClicked = {},
             onCheckClicked = {},
-            onAddNoteClicked = { isNoteFieldVisible = !isNoteFieldVisible },
-            onEditClicked = {}
+            onAddNoteClicked = { isNoteFieldVisible = true },
+            onEditClicked = {},
+            onNoteDone = { isNoteFieldVisible = false },
+            onNoteCancel = { isNoteFieldVisible = false }
         )
     }
 }

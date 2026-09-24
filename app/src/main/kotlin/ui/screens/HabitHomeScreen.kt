@@ -310,7 +310,7 @@ fun HabitHomeScreen(
                         noteText = noteText,
                         onNoteTextChange = { newNote ->
                             habitNotes = habitNotes + (habit.id to newNote)
-                            // Save note to database
+                            // Persist on Done (same insert path as before; blank skips save)
                             if (newNote.isNotBlank()) {
                                 coroutineScope.launch {
                                     val noteEntity = com.example.rewire.db.entity.HabitNoteEntity(
@@ -342,11 +342,13 @@ fun HabitHomeScreen(
                             }
                         },
                         onAddNoteClicked = {
-                            expandedNoteHabits = if (isNoteFieldVisible) {
-                                expandedNoteHabits - habit.id
-                            } else {
-                                expandedNoteHabits + habit.id
-                            }
+                            expandedNoteHabits = expandedNoteHabits + habit.id
+                        },
+                        onNoteDone = {
+                            expandedNoteHabits = expandedNoteHabits - habit.id
+                        },
+                        onNoteCancel = {
+                            expandedNoteHabits = expandedNoteHabits - habit.id
                         },
                         onEditClicked = {
                             editingHabit = habit
