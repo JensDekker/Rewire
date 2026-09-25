@@ -62,6 +62,8 @@ class HabitRepositoryTest {
         }
         override suspend fun getCompletionsForHabit(habitId: Long): List<com.example.rewire.db.entity.HabitCompletion> =
             completionList.filter { it.habitId == habitId }
+        override suspend fun isHabitCompletedForDate(habitId: Long, date: String): Boolean =
+            completionList.any { it.habitId == habitId && it.date == date }
     }
 
     // Mock LabelRepository for HabitRepository

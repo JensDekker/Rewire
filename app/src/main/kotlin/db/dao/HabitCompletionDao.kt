@@ -16,4 +16,7 @@ interface HabitCompletionDao {
 
     @Query("SELECT * FROM habit_completions WHERE habitId = :habitId")
     suspend fun getCompletionsForHabit(habitId: Long): List<HabitCompletion>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM habit_completions WHERE habitId = :habitId AND date = :date)")
+    suspend fun isHabitCompletedForDate(habitId: Long, date: String): Boolean
 }

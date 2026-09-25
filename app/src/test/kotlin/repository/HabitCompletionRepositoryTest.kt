@@ -41,6 +41,8 @@ class HabitCompletionRepositoryTest {
         }
         override suspend fun getCompletionsForHabit(habitId: Long): List<HabitCompletion> =
             completionList.filter { it.habitId == habitId }
+        override suspend fun isHabitCompletedForDate(habitId: Long, date: String): Boolean =
+            completionList.any { it.habitId == habitId && it.date == date }
     }
 
     private val repo = com.example.rewire.repository.HabitCompletionRepository(dao)
@@ -72,5 +74,13 @@ class HabitCompletionRepositoryTest {
     assertEquals(2, completions.size)
     assertTrue(completions.any { it.id == 3L && it.habitId == 3L && it.date == "2025-08-21" })
     assertTrue(completions.any { it.id == 4L && it.habitId == 3L && it.date == "2025-08-22" })
+    }
+
+    @Test
+    fun testIsHabitCompletedForDate() = runBlocking {
+        completionList.clear()
+        completionList.add(HabitCompletion(5L, 1L, "2025-08-21"))
+        assertTrue(repo.isHabitCompletedForDate(1L, "2025-08-21"))
+        assertFalse(repo.isHabitCompletedForDate(1L, "2025-08-22"))
     }
 }

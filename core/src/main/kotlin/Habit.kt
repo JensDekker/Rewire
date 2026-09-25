@@ -31,7 +31,7 @@ data class Habit(
         val customDayOfWeek = toCustomDayOfWeek(date.dayOfWeek)
         return when (val r = recurrence) {
             is RecurrenceType.Daily -> true
-            is RecurrenceType.Weekly -> customDayOfWeek == DayOfWeek.MONDAY
+            is RecurrenceType.Weekly -> customDayOfWeek == toCustomDayOfWeek(startDate.dayOfWeek)
             is RecurrenceType.MonthlyByDate -> date.dayOfMonth == r.dayOfMonth
             is RecurrenceType.MonthlyByWeekday -> {
                 val weekOfMonth = (date.dayOfMonth - 1) / 7 + 1
