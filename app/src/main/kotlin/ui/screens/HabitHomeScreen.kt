@@ -209,30 +209,66 @@ fun HabitHomeScreen(
                 // Filter icon (left of settings) — only when labels exist to filter by
                 if (hasLabelsToFilter) {
                     val isFilterActive = showLabelFilter || selectedFilterLabelIds.isNotEmpty()
-                    IconButton(
-                        onClick = { showLabelFilter = !showLabelFilter },
+                    // Fixed 48.dp slot keeps spacing/gear position; glow paints outside (no clip)
+                    Box(
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .padding(end = filterEndInset)
+                            .size(48.dp),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Box(contentAlignment = Alignment.Center) {
-                            // Soft primary halo when the panel is open and/or filters are selected
-                            if (isFilterActive) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(
-                                            brush = Brush.radialGradient(
-                                                colors = listOf(
-                                                    AppColors.primary.copy(alpha = 0.38f),
-                                                    AppColors.primary.copy(alpha = 0.14f),
-                                                    Color.Transparent
-                                                )
-                                            ),
-                                            shape = CircleShape
-                                        )
-                                )
-                            }
+                        if (isFilterActive) {
+                            // Wide outer ambient falloff (larger halo / softer blur)
+                            Box(
+                                modifier = Modifier
+                                    .size(56.dp)
+                                    .background(
+                                        brush = Brush.radialGradient(
+                                            colors = listOf(
+                                                AppColors.primary.copy(alpha = 0.20f),
+                                                AppColors.primary.copy(alpha = 0.10f),
+                                                AppColors.primary.copy(alpha = 0.03f),
+                                                Color.Transparent
+                                            )
+                                        ),
+                                        shape = CircleShape
+                                    )
+                            )
+                            // Mid glow
+                            Box(
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .background(
+                                        brush = Brush.radialGradient(
+                                            colors = listOf(
+                                                AppColors.primary.copy(alpha = 0.32f),
+                                                AppColors.primary.copy(alpha = 0.12f),
+                                                Color.Transparent
+                                            )
+                                        ),
+                                        shape = CircleShape
+                                    )
+                            )
+                            // Inner glow near the glyph
+                            Box(
+                                modifier = Modifier
+                                    .size(26.dp)
+                                    .background(
+                                        brush = Brush.radialGradient(
+                                            colors = listOf(
+                                                AppColors.primary.copy(alpha = 0.45f),
+                                                AppColors.primary.copy(alpha = 0.14f),
+                                                Color.Transparent
+                                            )
+                                        ),
+                                        shape = CircleShape
+                                    )
+                            )
+                        }
+                        IconButton(
+                            onClick = { showLabelFilter = !showLabelFilter },
+                            modifier = Modifier.matchParentSize()
+                        ) {
                             Icon(
                                 imageVector = Icons.Default.FilterList,
                                 contentDescription = if (showLabelFilter) {
