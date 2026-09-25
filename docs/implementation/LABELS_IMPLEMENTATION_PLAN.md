@@ -3723,28 +3723,30 @@ If Material 3 ColorPicker is available, integrate it for custom color selection.
 
 **Objective**: Design and implement a creative way to visually display the label color association on the HabitCard, beyond just the background color change from Step 6.9.
 
-**Status**: HabitCard uses a solid left-side color accent stripe (first/primary label color) on a white/surface body with thin light border, matching the left-accent mockup. Full-card background tint from Step 6.9 was replaced so the stripe reads clearly.
+**Status**: HabitCard uses a scalloped left-side color accent (first/primary label color) on a white/surface body with thin light border. Full-card background tint from Step 6.9 was replaced so the stripe reads clearly. Right edge is scalloped (not a flat vertical cut) per user feedback on PR #9.
 
 **File**: `app/src/main/kotlin/ui/components/HabitCard.kt`
 
-**Chosen Approach**: Left-side solid color accent bar
+**Chosen Approach**: Scalloped left-side color accent ribbon
 - Pill/rounded card (`AppShapes.cardShape`) with thin `AppColors.borderLight` border
 - White/surface body (not full-card label tint)
-- Solid vertical accent on the far left, full height; clipped by card shape so left corners stay rounded and the accent’s right edge is a straight cut
-- Fixed **24.dp** width (~8% of phone card; matches mockup stripe, not half the card)
+- Full-height accent on the far left; clipped by card shape so left corners stay rounded
+- Right edge drawn as repeated semicircle lobes (`Canvas` + `Path.arcTo`, 6.dp radius) bulging into the body — no flat vertical divider
+- Fixed **24.dp** total width including scallop peaks (~8% of phone card)
 - Accent color = first label’s color (same priority as Step 6.9); no labels → no accent, surface body
 
 **Design Choice vs Step 6.9**: Prefer surface body + left accent over full-card tint. A tinted body fought the stripe and did not match the mockup.
 
 **Validation Checklist:**
-- [x] Creative visual design is implemented (left accent stripe)
+- [x] Creative visual design is implemented (scalloped left accent)
 - [x] Design complements / supersedes full-card tint from Step 6.9 (surface body + left accent per mockup)
 - [x] Visual design is consistent across all label colors (parseLabelColor on first label)
 - [x] Card remains readable and accessible (white/surface body, unchanged text)
-- [x] Design enhances rather than clutters the card appearance (24.dp left stripe)
+- [x] Design enhances rather than clutters the card appearance (24.dp scalloped stripe)
 - [x] Implementation follows app design system (AppShapes.cardShape, AppColors.borderLight/surface)
-- [x] No performance regressions introduced (single Box + IntrinsicSize.Min Row)
+- [x] No performance regressions introduced (single Canvas Path + IntrinsicSize.Min Row)
 - [x] Visual design works well with cards that have no labels (default surface, no accent)
+- [x] Accent right edge is scalloped (not a hard vertical cut)
 
 ## Database Migration Strategy
 

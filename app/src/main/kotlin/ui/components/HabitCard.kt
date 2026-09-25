@@ -1,7 +1,7 @@
 package com.example.rewire.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import com.example.rewire.ui.theme.AppShapes
@@ -23,6 +23,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
@@ -40,10 +42,63 @@ private fun noteFieldValueAtEnd(text: String): TextFieldValue =
     TextFieldValue(text = text, selection = TextRange(text.length))
 
 /**
- * Solid left accent stripe width.
- * Mockup measures ~8% of card width (~24–28dp on phone); fixed 24.dp keeps a clear stripe.
+ * Total left accent width including scallop peaks.
+ * Base bar + semicircle lobes ≈ mockup stripe (~8% of phone card).
  */
 private val LeftAccentWidth = 24.dp
+
+/** Radius of each semicircle lobe along the accent’s right edge. */
+private val LeftAccentScallopRadius = 6.dp
+
+/**
+ * Draws a full-height left label accent with a scalloped (repeated-curve) right edge.
+ *
+ * Path: left edge of the card → top → series of [Path.arcTo] semicircles bulging into the
+ * body → bottom → close. Filled with [drawPath]; no flat vertical divider.
+ * Outer left corners stay rounded via the parent [Surface] clip.
+ */
+@Composable
+private fun ScallopedLeftAccent(
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    Canvas(
+        modifier = modifier
+            .width(LeftAccentWidth)
+            .fillMaxHeight()
+    ) {
+        val scallopRadius = LeftAccentScallopRadius.toPx()
+        val diameter = scallopRadius * 2f
+        // Valleys sit at baseWidth; peaks reach size.width (= baseWidth + scallopRadius).
+        val baseWidth = (size.width - scallopRadius).coerceAtLeast(0f)
+
+        val path = Path().apply {
+            moveTo(0f, 0f)
+            lineTo(baseWidth, 0f)
+
+            var y = 0f
+            while (y < size.height) {
+                // Semicircle from (baseWidth, y) → (baseWidth, y+diameter), bulging right.
+                arcTo(
+                    rect = Rect(
+                        left = baseWidth - scallopRadius,
+                        top = y,
+                        right = baseWidth + scallopRadius,
+                        bottom = y + diameter
+                    ),
+                    startAngleDegrees = -90f,
+                    sweepAngleDegrees = 180f,
+                    forceMoveTo = false
+                )
+                y += diameter
+            }
+
+            lineTo(0f, size.height)
+            close()
+        }
+        drawPath(path = path, color = color)
+    }
+}
 
 @Composable
 fun HabitCard(
@@ -119,12 +174,7 @@ fun HabitCard(
                 .height(IntrinsicSize.Min)
         ) {
             if (leftAccentColor != null) {
-                Box(
-                    modifier = Modifier
-                        .width(LeftAccentWidth)
-                        .fillMaxHeight()
-                        .background(leftAccentColor)
-                )
+                ScallopedLeftAccent(color = leftAccentColor)
             }
 
             Column(modifier = Modifier.weight(1f)) {
