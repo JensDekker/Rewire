@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -206,21 +208,45 @@ fun HabitHomeScreen(
             Box(modifier = Modifier.width(trailingSlotWidth)) {
                 // Filter icon (left of settings) — only when labels exist to filter by
                 if (hasLabelsToFilter) {
+                    val isFilterActive = showLabelFilter || selectedFilterLabelIds.isNotEmpty()
                     IconButton(
                         onClick = { showLabelFilter = !showLabelFilter },
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .padding(end = filterEndInset)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.FilterList,
-                            contentDescription = if (showLabelFilter) "Hide label filters" else "Show label filters",
-                            tint = if (showLabelFilter || selectedFilterLabelIds.isNotEmpty()) {
-                                AppColors.primary
-                            } else {
-                                LocalContentColor.current
+                        Box(contentAlignment = Alignment.Center) {
+                            // Soft primary halo when the panel is open and/or filters are selected
+                            if (isFilterActive) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .background(
+                                            brush = Brush.radialGradient(
+                                                colors = listOf(
+                                                    AppColors.primary.copy(alpha = 0.38f),
+                                                    AppColors.primary.copy(alpha = 0.14f),
+                                                    Color.Transparent
+                                                )
+                                            ),
+                                            shape = CircleShape
+                                        )
+                                )
                             }
-                        )
+                            Icon(
+                                imageVector = Icons.Default.FilterList,
+                                contentDescription = if (showLabelFilter) {
+                                    "Hide label filters"
+                                } else {
+                                    "Show label filters"
+                                },
+                                tint = if (isFilterActive) {
+                                    AppColors.primary
+                                } else {
+                                    LocalContentColor.current
+                                }
+                            )
+                        }
                     }
                 }
                 
