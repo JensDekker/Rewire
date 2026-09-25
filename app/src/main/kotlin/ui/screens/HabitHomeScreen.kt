@@ -80,7 +80,8 @@ fun HabitHomeScreen(
     // Load habits due today and all habits
     LaunchedEffect(today) {
         // Load all habits first
-        allHabits = habitManager.getHabits()
+        val loadedHabits = habitManager.getHabits()
+        allHabits = loadedHabits
         habitsDueToday = habitManager.getHabitsDueOn(today)
         
         // Load completion status for each habit due today
@@ -93,13 +94,30 @@ fun HabitHomeScreen(
         }
         completedHabitIds = completedIds
         
-        // Load notes for each habit due today
+        // Load today's notes for all habits (today's section + "All Other Habits").
+        // Notes are keyed by habit+date; home always uses today's date even for
+        // habits not scheduled today so journaling stays on the calendar day.
         val notes = mutableMapOf<Long, String>()
-        for (habit in habitsDueToday) {
+        for (habit in loadedHabits) {
             val note = habitManager.getNoteForHabitOnDate(habit.id, today)
             notes[habit.id] = note
         }
         habitNotes = notes
+    }
+
+    // Shared note persist path for today's cards, other-habits cards, and detail modal.
+    // Upserts by habit+date (today); blank content skips save (matches HabitCard dismiss UX).
+    fun persistHabitNote(habitId: Long, newNote: String) {
+        habitNotes = habitNotes + (habitId to newNote)
+        if (newNote.isNotBlank()) {
+            coroutineScope.launch {
+                habitManager.upsertNoteForDate(
+                    habitId = habitId,
+                    content = newNote,
+                    date = today
+                )
+            }
+        }
     }
     
     // Load labels for habits (optimized batch loading)
@@ -330,19 +348,7 @@ fun HabitHomeScreen(
                         habitName = habit.name,
                         isComplete = isComplete,
                         noteText = noteText,
-                        onNoteTextChange = { newNote ->
-                            habitNotes = habitNotes + (habit.id to newNote)
-                            // Persist on dismiss (tap-elsewhere / focus loss / note icon); blank skips save
-                            if (newNote.isNotBlank()) {
-                                coroutineScope.launch {
-                                    habitManager.upsertNoteForDate(
-                                        habitId = habit.id,
-                                        content = newNote,
-                                        date = today
-                                    )
-                                }
-                            }
-                        },
+                        onNoteTextChange = { newNote -> persistHabitNote(habit.id, newNote) },
                         isNoteFieldVisible = isNoteFieldVisible,
                         labels = habitLabels[habit.id]?.map { it.toCore() } ?: emptyList(),
                         onCardClicked = {
@@ -392,12 +398,15 @@ fun HabitHomeScreen(
                 }
                 
                 items(otherHabits) { habit ->
+                    val noteText = habitNotes[habit.id] ?: ""
+                    val isNoteFieldVisible = expandedNoteHabits.contains(habit.id)
+
                     HabitCard(
                         habitName = habit.name,
                         isComplete = false, // Other habits are never marked complete
-                        noteText = "",
-                        onNoteTextChange = { },
-                        isNoteFieldVisible = false,
+                        noteText = noteText,
+                        onNoteTextChange = { newNote -> persistHabitNote(habit.id, newNote) },
+                        isNoteFieldVisible = isNoteFieldVisible,
                         labels = habitLabels[habit.id]?.map { it.toCore() } ?: emptyList(),
                         onCardClicked = {
                             selectedHabit = habit
@@ -407,7 +416,10 @@ fun HabitHomeScreen(
                             // No completion action for other habits
                         },
                         onAddNoteClicked = {
-                            // No note action for other habits
+                            expandedNoteHabits = expandedNoteHabits + habit.id
+                        },
+                        onNoteDismiss = {
+                            expandedNoteHabits = expandedNoteHabits - habit.id
                         },
                         onEditClicked = {
                             editingHabit = habit
@@ -567,19 +579,7 @@ fun HabitHomeScreen(
             preferredTime = habit.preferredTime,
             estimatedTimeMinutes = habit.estimatedMinutes,
             noteText = noteText,
-            onNoteTextChange = { newNote ->
-                habitNotes = habitNotes + (habit.id to newNote)
-                // Save note to database (upsert so edits survive process death)
-                if (newNote.isNotBlank()) {
-                    coroutineScope.launch {
-                        habitManager.upsertNoteForDate(
-                            habitId = habit.id,
-                            content = newNote,
-                            date = today
-                        )
-                    }
-                }
-            },
+            onNoteTextChange = { newNote -> persistHabitNote(habit.id, newNote) },
             onCheckClicked = {
                 coroutineScope.launch {
                     if (isComplete) {

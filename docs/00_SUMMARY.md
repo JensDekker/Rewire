@@ -71,13 +71,22 @@ The documentation is organized into the following categories:
 
 **Description**: Actionable phased plan for habit reminders at `preferredTime` with **Complete** (background) and **Add note** (**RemoteInput** / inline reply → `upsertNoteForDate`). Architecture: **exact AlarmManager** scheduling, channel `IMPORTANCE_DEFAULT`, `POST_NOTIFICATIONS` on **first habit create**, **5-day** horizon, **separate notification per habit**, Weekly due-logic fix with Phase 1.
 
+<<<<<<< HEAD
 **Status:** **Decisions locked — Phase 1 MVP implemented (draft PR)** ⚠️
+=======
+**Status**: **Decisions locked — Phase 1 MVP coding** ⚠️
+>>>>>>> origin/master
 
 **Completion Details**:
 - ✅ Planning revised into coder-ready plan (2026-09-24)
 - ✅ Design decisions D1–D7 (product) + D8–D11 **locked** (2026-09-24)
+<<<<<<< HEAD
 - ✅ Phase 1 MVP implementation — **Draft PR** (exact alarms, RemoteInput note, Weekly fix, 5-day horizon)
 - ❌ Phase 2 reliability / timezone / exact-alarm settings deep-link UI — **Not started**
+=======
+- ⚠️ Phase 1 MVP implementation — **In progress** (separate PR)
+- ❌ Phase 2 reliability / timezone / exact-alarm settings deep-link — **Not started**
+>>>>>>> origin/master
 - ❌ Phase 3 settings & polish — **Not started**
 
 **Locked decisions (D1–D7)**:
@@ -135,7 +144,7 @@ The documentation is organized into the following categories:
 - Background styling enhancements (gradients, colors, patterns)
 
 **Known UX Gaps**:
-- ✅ **Note-adding dismiss** — Fixed: tap-elsewhere / focus-loss on Habit home collapses the inline note with auto-save (`insertNote`); keyboard dismisses. See "Known UX Gaps" in the design doc.
+- ✅ **Note-adding dismiss** — Fixed: tap-elsewhere / focus-loss on Habit home collapses the inline note with auto-save (`upsertNoteForDate`); keyboard dismisses. Same note affordance on Today's Habits and All Other Habits (notes keyed to today's date). See "Known UX Gaps" in the design doc.
 
 **Next Steps**: Refine concepts, determine information content for dynamic sections, create detailed design specifications, and develop formal implementation plan.
 
