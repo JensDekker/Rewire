@@ -38,7 +38,7 @@ The documentation is organized into the following categories:
   - ✅ Step 6.7: Reduce Default Colors to 5 - Complete
   - ✅ Step 6.8: Add Ability to Add Custom Colors - Complete
   - ✅ Step 6.9: Make HabitCard Background Color Reflect Label Color - Complete
-  - ✅ Step 6.10: Creative Visual Display of Label Color on HabitCard - Complete (left accent stripe; surface body)
+  - ✅ Step 6.10: Creative Visual Display of Label Color on HabitCard - Complete (scalloped left accent; surface body)
 
 **Next Steps**: Labels Phase 6 complete; proceed to remaining product work outside this plan.
 
