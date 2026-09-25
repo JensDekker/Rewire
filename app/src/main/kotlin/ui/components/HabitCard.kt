@@ -40,9 +40,9 @@ private fun noteFieldValueAtEnd(text: String): TextFieldValue =
 
 /**
  * How far the white front card is shifted right so the label-color back layer
- * peeks as a rounded left tab (~8–12% of a phone-width card; matches v2 mockup).
+ * peeks as a rounded left tab.
  */
-private val LeftAccentPeekWidth = 28.dp
+private val LeftAccentPeekWidth = 10.dp
 
 @Composable
 fun HabitCard(

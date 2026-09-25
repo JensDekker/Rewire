@@ -3729,7 +3729,7 @@ If Material 3 ColorPicker is available, integrate it for custom color selection.
 
 **Chosen Approach**: Stacked rounded rectangles (peek tab)
 - **Back:** `Surface` with `AppShapes.cardShape` and first-label color, `matchParentSize()` to the card height
-- **Front:** white/surface `Surface` with thin `AppColors.borderLight` border, same corner radius, `padding(start = 28.dp)` so ~8–12% color peeks on the left
+- **Front:** white/surface `Surface` with thin `AppColors.borderLight` border, same corner radius, `padding(start = 10.dp)` so color peeks on the left as a narrow rounded tab
 - Seam = white card’s **left rounded edge** (curved), not a flat divider and not scalloped lobes
 - Content only on the front layer; no labels → no back layer (plain bordered card)
 - Click target wraps both layers
@@ -3741,7 +3741,7 @@ If Material 3 ColorPicker is available, integrate it for custom color selection.
 - [x] Design complements / supersedes full-card tint from Step 6.9
 - [x] Visual design is consistent across all label colors (parseLabelColor on first label)
 - [x] Card remains readable and accessible (white/surface front, unchanged text)
-- [x] Design enhances rather than clutters the card appearance (28.dp peek tab)
+- [x] Design enhances rather than clutters the card appearance (10.dp peek tab)
 - [x] Implementation follows app design system (AppShapes.cardShape, AppColors.borderLight/surface)
 - [x] No performance regressions introduced (two Surfaces in a Box)
 - [x] Visual design works well with cards that have no labels (default surface, no back layer)
