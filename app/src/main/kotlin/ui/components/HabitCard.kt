@@ -1,7 +1,6 @@
 package com.example.rewire.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import com.example.rewire.ui.theme.AppShapes
@@ -18,13 +17,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.runtime.*
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
@@ -42,63 +39,10 @@ private fun noteFieldValueAtEnd(text: String): TextFieldValue =
     TextFieldValue(text = text, selection = TextRange(text.length))
 
 /**
- * Total left accent width including scallop peaks.
- * Base bar + semicircle lobes ≈ mockup stripe (~8% of phone card).
+ * How far the white front card is shifted right so the label-color back layer
+ * peeks as a rounded left tab (~8–12% of a phone-width card; matches v2 mockup).
  */
-private val LeftAccentWidth = 24.dp
-
-/** Radius of each semicircle lobe along the accent’s right edge. */
-private val LeftAccentScallopRadius = 6.dp
-
-/**
- * Draws a full-height left label accent with a scalloped (repeated-curve) right edge.
- *
- * Path: left edge of the card → top → series of [Path.arcTo] semicircles bulging into the
- * body → bottom → close. Filled with [drawPath]; no flat vertical divider.
- * Outer left corners stay rounded via the parent [Surface] clip.
- */
-@Composable
-private fun ScallopedLeftAccent(
-    color: Color,
-    modifier: Modifier = Modifier
-) {
-    Canvas(
-        modifier = modifier
-            .width(LeftAccentWidth)
-            .fillMaxHeight()
-    ) {
-        val scallopRadius = LeftAccentScallopRadius.toPx()
-        val diameter = scallopRadius * 2f
-        // Valleys sit at baseWidth; peaks reach size.width (= baseWidth + scallopRadius).
-        val baseWidth = (size.width - scallopRadius).coerceAtLeast(0f)
-
-        val path = Path().apply {
-            moveTo(0f, 0f)
-            lineTo(baseWidth, 0f)
-
-            var y = 0f
-            while (y < size.height) {
-                // Semicircle from (baseWidth, y) → (baseWidth, y+diameter), bulging right.
-                arcTo(
-                    rect = Rect(
-                        left = baseWidth - scallopRadius,
-                        top = y,
-                        right = baseWidth + scallopRadius,
-                        bottom = y + diameter
-                    ),
-                    startAngleDegrees = -90f,
-                    sweepAngleDegrees = 180f,
-                    forceMoveTo = false
-                )
-                y += diameter
-            }
-
-            lineTo(0f, size.height)
-            close()
-        }
-        drawPath(path = path, color = color)
-    }
-}
+private val LeftAccentPeekWidth = 28.dp
 
 @Composable
 fun HabitCard(
@@ -151,33 +95,41 @@ fun HabitCard(
         }
     }
 
-    // Step 6.10: left accent from first/primary label (same tint source as 6.9).
-    // Body stays surface/white so the stripe reads clearly (full-card tint fought the accent).
+    // Step 6.10: label-color back plate peeks under a white front card shifted right.
     val leftAccentColor = labels.firstOrNull()?.let { parseLabelColor(it.color) }
+    val hasAccent = leftAccentColor != null
 
-    Surface(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(AppSpacing.cardPadding)
             .clickable {
                 if (isNoteFieldVisible) commitAndDismiss()
                 onCardClicked()
-            },
-        shape = AppShapes.cardShape,
-        color = MaterialTheme.colors.surface,
-        border = BorderStroke(1.dp, AppColors.borderLight),
-        elevation = 4.dp
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min)
-        ) {
-            if (leftAccentColor != null) {
-                ScallopedLeftAccent(color = leftAccentColor)
             }
+    ) {
+        // Back: full-size label-color rounded rect (same height/radius as the card).
+        if (leftAccentColor != null) {
+            Surface(
+                modifier = Modifier.matchParentSize(),
+                shape = AppShapes.cardShape,
+                color = leftAccentColor,
+                elevation = 4.dp
+            ) {}
+        }
 
-            Column(modifier = Modifier.weight(1f)) {
+        // Front: white/surface card with thin border; inset when labeled so color peeks left.
+        // Seam = this card’s left rounded edge (not a flat cut, not scallops).
+        Surface(
+            modifier = Modifier
+                .padding(start = if (hasAccent) LeftAccentPeekWidth else 0.dp)
+                .fillMaxWidth(),
+            shape = AppShapes.cardShape,
+            color = MaterialTheme.colors.surface,
+            border = BorderStroke(1.dp, AppColors.borderLight),
+            elevation = if (hasAccent) 0.dp else 4.dp
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

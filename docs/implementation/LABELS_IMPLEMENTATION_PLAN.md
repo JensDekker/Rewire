@@ -3723,30 +3723,29 @@ If Material 3 ColorPicker is available, integrate it for custom color selection.
 
 **Objective**: Design and implement a creative way to visually display the label color association on the HabitCard, beyond just the background color change from Step 6.9.
 
-**Status**: HabitCard uses a scalloped left-side color accent (first/primary label color) on a white/surface body with thin light border. Full-card background tint from Step 6.9 was replaced so the stripe reads clearly. Right edge is scalloped (not a flat vertical cut) per user feedback on PR #9.
+**Status**: HabitCard uses two stacked rounded rects — label-color back plate + white front card shifted right so color peeks as a rounded left tab (v2 mockup / approved PR #9 design). No scalloped Canvas path; no flat vertical cut. Full-card tint from Step 6.9 remains replaced.
 
 **File**: `app/src/main/kotlin/ui/components/HabitCard.kt`
 
-**Chosen Approach**: Scalloped left-side color accent ribbon
-- Pill/rounded card (`AppShapes.cardShape`) with thin `AppColors.borderLight` border
-- White/surface body (not full-card label tint)
-- Full-height accent on the far left; clipped by card shape so left corners stay rounded
-- Right edge drawn as repeated semicircle lobes (`Canvas` + `Path.arcTo`, 6.dp radius) bulging into the body — no flat vertical divider
-- Fixed **24.dp** total width including scallop peaks (~8% of phone card)
-- Accent color = first label’s color (same priority as Step 6.9); no labels → no accent, surface body
+**Chosen Approach**: Stacked rounded rectangles (peek tab)
+- **Back:** `Surface` with `AppShapes.cardShape` and first-label color, `matchParentSize()` to the card height
+- **Front:** white/surface `Surface` with thin `AppColors.borderLight` border, same corner radius, `padding(start = 28.dp)` so ~8–12% color peeks on the left
+- Seam = white card’s **left rounded edge** (curved), not a flat divider and not scalloped lobes
+- Content only on the front layer; no labels → no back layer (plain bordered card)
+- Click target wraps both layers
 
-**Design Choice vs Step 6.9**: Prefer surface body + left accent over full-card tint. A tinted body fought the stripe and did not match the mockup.
+**Design Choice vs Step 6.9**: Prefer surface front + label-color peek over full-card tint.
 
 **Validation Checklist:**
-- [x] Creative visual design is implemented (scalloped left accent)
-- [x] Design complements / supersedes full-card tint from Step 6.9 (surface body + left accent per mockup)
+- [x] Creative visual design is implemented (stacked peek-tab accent)
+- [x] Design complements / supersedes full-card tint from Step 6.9
 - [x] Visual design is consistent across all label colors (parseLabelColor on first label)
-- [x] Card remains readable and accessible (white/surface body, unchanged text)
-- [x] Design enhances rather than clutters the card appearance (24.dp scalloped stripe)
+- [x] Card remains readable and accessible (white/surface front, unchanged text)
+- [x] Design enhances rather than clutters the card appearance (28.dp peek tab)
 - [x] Implementation follows app design system (AppShapes.cardShape, AppColors.borderLight/surface)
-- [x] No performance regressions introduced (single Canvas Path + IntrinsicSize.Min Row)
-- [x] Visual design works well with cards that have no labels (default surface, no accent)
-- [x] Accent right edge is scalloped (not a hard vertical cut)
+- [x] No performance regressions introduced (two Surfaces in a Box)
+- [x] Visual design works well with cards that have no labels (default surface, no back layer)
+- [x] Seam is the front card’s left rounded edge (not flat cut, not scalloped lobes)
 
 ## Database Migration Strategy
 

@@ -38,7 +38,7 @@ The documentation is organized into the following categories:
   - ✅ Step 6.7: Reduce Default Colors to 5 - Complete
   - ✅ Step 6.8: Add Ability to Add Custom Colors - Complete
   - ✅ Step 6.9: Make HabitCard Background Color Reflect Label Color - Complete
-  - ✅ Step 6.10: Creative Visual Display of Label Color on HabitCard - Complete (scalloped left accent; surface body)
+  - ✅ Step 6.10: Creative Visual Display of Label Color on HabitCard - Complete (stacked peek-tab accent; surface front)
 
 **Next Steps**: Labels Phase 6 complete; proceed to remaining product work outside this plan.
 
@@ -229,7 +229,7 @@ The documentation is organized into the following categories:
 - **Ready for Implementation**: 
   - Notifications (after design finalization)
   - Utilities Menu (after design finalization)
-- **Recently Completed**: Labels Implementation Phase 6 (Step 6.10 left accent on HabitCard)
+- **Recently Completed**: Labels Implementation Phase 6 (Step 6.10 stacked peek-tab HabitCard accent)
 - **In Planning/Exploration**: Habit Home Screen Background Design; UI Shape guidelines (more rounded corners)
 - **Completed Reference Documents**: 
   - Manual Test Script
