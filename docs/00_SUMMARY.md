@@ -69,23 +69,27 @@ The documentation is organized into the following categories:
 ### 4. Notifications Implementation Plan
 **File**: `implementation/NOTIFICATIONS_IMPLEMENTATION_PLAN.md`
 
-**Description**: Actionable phased plan for habit reminders at `preferredTime` with **Complete** and **Add note** actions. Architecture: WorkManager MVP (inexact), channels, Android 13+ permissions, data flow via `HabitManager.getHabitsDueOn` + Room, Phase 1 file/touch list, test plan, risks (Doze/OEM/timezone), and open design decisions (D1–D11).
+**Description**: Actionable phased plan for habit reminders at `preferredTime` with **Complete** (background) and **Add note** (**RemoteInput** / inline reply → `upsertNoteForDate`). Architecture: **exact AlarmManager** scheduling, channel `IMPORTANCE_DEFAULT`, `POST_NOTIFICATIONS` on **first habit create**, **5-day** horizon, **separate notification per habit**, Weekly due-logic fix with Phase 1.
 
-**Status**: **Design ready for Phase 1 coding** ⚠️ (feature not implemented)
+**Status**: **Decisions locked — Phase 1 MVP coding** ⚠️
 
 **Completion Details**:
 - ✅ Planning revised into coder-ready plan (2026-09-24)
-- ⚠️ Open design decisions D1–D11 — defaults proposed; user confirmation preferred before/during Phase 1
-- ❌ Phase 1 MVP implementation — **Not started**
-- ❌ Phase 2 reliability / Weekly due fix / timezone — **Not started**
+- ✅ Design decisions D1–D7 (product) + D8–D11 **locked** (2026-09-24)
+- ⚠️ Phase 1 MVP implementation — **In progress** (separate PR)
+- ❌ Phase 2 reliability / timezone / exact-alarm settings deep-link — **Not started**
 - ❌ Phase 3 settings & polish — **Not started**
 
-**Phase 1 MVP scope**:
-1. WorkManager one-time work per habit occurrence; reseed on CRUD / app start / boot
-2. Actions: Complete (background) · Add note → app + `upsertNoteForDate`
-3. `POST_NOTIFICATIONS` (non-blocking) · channel · BootReceiver · completion EXISTS helper
+**Locked decisions (D1–D7)**:
+1. Exact alarms (not WorkManager-only drift)
+2. Channel importance **DEFAULT**
+3. Request `POST_NOTIFICATIONS` on **first habit** created
+4. Add note via notification **RemoteInput** (no app UI required)
+5. Fix **Weekly** due logic with Phase 1
+6. Schedule horizon **5 days**
+7. **Separate** notification per habit
 
-**Next Steps**: Confirm open decisions (esp. D1 scheduler, D4 note UX, D8 Weekly fix); start Phase 1 from the file/touch list in the plan.
+**Next Steps**: Land Phase 1 implementation PR; Phase 2 exact-alarm settings deep-link when `canScheduleExactAlarms()` is false.
 
 ---
 
