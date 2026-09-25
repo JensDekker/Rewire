@@ -71,13 +71,6 @@ fun WeeklyConfigurationSection(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(
-            text = "Select Days:",
-            style = AppTypography.Custom.recurrenceText,
-            color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
-        )
-        
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -247,36 +240,41 @@ fun DayOfMonthSelector(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(
-            text = "Day of Month:",
-            style = AppTypography.Custom.recurrenceText,
-            color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
-        )
-        
-        OutlinedTextField(
-            value = dayText,
-            onValueChange = { newValue ->
-                dayText = newValue
-                val day = newValue.toIntOrNull()
-                if (day != null && day in 1..31) {
-                    onDayOfMonthChange(day)
-                    isError = false
-                } else {
-                    isError = true
-                }
-            },
+        Row(
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            isError = isError,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = androidx.compose.ui.text.input.KeyboardType.Number
-            ),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = if (isError) Color.Red else AppColors.primary,
-                unfocusedBorderColor = if (isError) Color.Red else AppColors.borderMedium
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
+        ) {
+            Text(
+                text = "Day of Month:",
+                style = AppTypography.Custom.recurrenceText,
+                color = AppColors.textAccent
             )
-        )
+            
+            OutlinedTextField(
+                value = dayText,
+                onValueChange = { newValue ->
+                    dayText = newValue
+                    val day = newValue.toIntOrNull()
+                    if (day != null && day in 1..31) {
+                        onDayOfMonthChange(day)
+                        isError = false
+                    } else {
+                        isError = true
+                    }
+                },
+                modifier = Modifier.weight(1f),
+                singleLine = true,
+                isError = isError,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = androidx.compose.ui.text.input.KeyboardType.Number
+                ),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = if (isError) Color.Red else AppColors.primary,
+                    unfocusedBorderColor = if (isError) Color.Red else AppColors.borderMedium
+                )
+            )
+        }
         
         if (isError) {
             Text(
@@ -304,7 +302,10 @@ fun WeekdayOfMonthSelector(
             text = "Select Week:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = AppSpacing.smallSpacing),
+            textAlign = TextAlign.Center
         )
         
         Row(
@@ -353,7 +354,10 @@ fun WeekdayOfMonthSelector(
             text = "Select Day:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = AppSpacing.smallSpacing),
+            textAlign = TextAlign.Center
         )
         
         Row(
@@ -486,10 +490,13 @@ fun QuarterMonthSelector(
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Select Quarter Start:",
+            text = "Select Month:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
-            modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = AppSpacing.smallSpacing),
+            textAlign = TextAlign.Center
         )
         
         Row(
@@ -511,27 +518,17 @@ fun QuarterMonthSelector(
                         if (isSelected) AppColors.primary else AppColors.borderMedium
                     )
                 ) {
-                    Column(
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Q${offset + 1}",
+                            text = "Month ${offset + 1}",
                             style = AppTypography.Custom.statisticsLabel.copy(fontSize = 14.sp),
                             color = if (isSelected) AppColors.onPrimary else AppColors.textSecondary,
-                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
-                        )
-                        Text(
-                            text = when (offset) {
-                                0 -> "Jan/Apr/Jul/Oct"
-                                1 -> "Feb/May/Aug/Nov"
-                                2 -> "Mar/Jun/Sep/Dec"
-                                else -> ""
-                            },
-                            style = AppTypography.Custom.statisticsLabel.copy(fontSize = 10.sp),
-                            color = if (isSelected) AppColors.onPrimary else AppColors.textSecondary,
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
                             textAlign = TextAlign.Center
                         )
                     }
@@ -541,7 +538,7 @@ fun QuarterMonthSelector(
         
         // Show current selection
         Text(
-            text = "Quarter: ${getQuarterDescription(monthOffset)}",
+            text = "Months: ${getQuarterDescription(monthOffset)}",
             style = AppTypography.Custom.statisticsLabel.copy(fontSize = 12.sp),
             color = AppColors.textSecondary,
             modifier = Modifier
