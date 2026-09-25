@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
@@ -67,6 +68,9 @@ fun HabitHomeScreen(
     
     // Filter state - selected label IDs for filtering
     var selectedFilterLabelIds by remember { mutableStateOf<Set<Long>>(emptySet()) }
+    
+    // Whether the label filter chip list is visible (toggled via filter icon)
+    var showLabelFilter by remember { mutableStateOf(false) }
     
     // All available labels for filter UI
     var allAvailableLabels by remember { mutableStateOf<List<LabelEntity>>(emptyList()) }
@@ -170,6 +174,9 @@ fun HabitHomeScreen(
         Spacer(modifier = Modifier.height(topSpacing))
         
         // Custom header row
+        val hasLabelsToFilter = allAvailableLabels.isNotEmpty()
+        // Balance title against trailing icons (filter + settings when labels exist)
+        val trailingIconCount = if (hasLabelsToFilter) 2 else 1
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -177,8 +184,8 @@ fun HabitHomeScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Spacer to balance the settings icon on the right
-            Spacer(modifier = Modifier.width(48.dp)) // Width of IconButton for centering
+            // Spacer to balance trailing icons on the right
+            Spacer(modifier = Modifier.width(48.dp * trailingIconCount))
             
             // Centered title
             Text(
@@ -191,30 +198,47 @@ fun HabitHomeScreen(
                 textAlign = TextAlign.Center
             )
             
-            // Settings icon button
-            IconButton(onClick = { showMenu = true }) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Settings"
-                )
+            // Filter icon (left of settings) — only when labels exist to filter by
+            if (hasLabelsToFilter) {
+                IconButton(onClick = { showLabelFilter = !showLabelFilter }) {
+                    Icon(
+                        imageVector = Icons.Default.FilterList,
+                        contentDescription = if (showLabelFilter) "Hide label filters" else "Show label filters",
+                        tint = if (showLabelFilter || selectedFilterLabelIds.isNotEmpty()) {
+                            AppColors.primary
+                        } else {
+                            LocalContentColor.current
+                        }
+                    )
+                }
             }
             
-            // Dropdown menu (positioned relative to settings icon)
-            DropdownMenu(
-                expanded = showMenu,
-                onDismissRequest = { showMenu = false }
-            ) {
-                DropdownMenuItem(
-                    onClick = {
-                        showMenu = false
-                        navController?.navigate("label_management")
-                    }
-                ) {
-                    Text("Manage Labels")
+            // Settings icon button
+            Box {
+                IconButton(onClick = { showMenu = true }) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Settings"
+                    )
                 }
-                // Future menu items can be added here:
-                // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
-                // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+                
+                // Dropdown menu (positioned relative to settings icon)
+                DropdownMenu(
+                    expanded = showMenu,
+                    onDismissRequest = { showMenu = false }
+                ) {
+                    DropdownMenuItem(
+                        onClick = {
+                            showMenu = false
+                            navController?.navigate("label_management")
+                        }
+                    ) {
+                        Text("Manage Labels")
+                    }
+                    // Future menu items can be added here:
+                    // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
+                    // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+                }
             }
         }
         
@@ -240,34 +264,25 @@ fun HabitHomeScreen(
                 ),
             verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
         ) {
-            // Filter UI Section
-            if (allAvailableLabels.isNotEmpty()) {
+            // Filter UI Section — chips hidden by default; toggled via filter icon
+            if (showLabelFilter && allAvailableLabels.isNotEmpty()) {
                 item {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = AppSpacing.smallSpacing)
                     ) {
-                        // Filter header with clear button
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = if (selectedFilterLabelIds.isEmpty()) {
-                                    "Filter by Label"
-                                } else {
-                                    "Filtered by ${selectedFilterLabelIds.size} ${if (selectedFilterLabelIds.size == 1) "label" else "labels"}"
-                                },
-                                style = AppTypography.materialTypography.subtitle2,
-                                modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
-                            )
-                            
-                            if (selectedFilterLabelIds.isNotEmpty()) {
+                        // Clear button when filters are active (no "Filter by Label" heading)
+                        if (selectedFilterLabelIds.isNotEmpty()) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = AppSpacing.smallSpacing),
+                                horizontalArrangement = Arrangement.End,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 TextButton(
-                                    onClick = { selectedFilterLabelIds = emptySet() },
-                                    modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+                                    onClick = { selectedFilterLabelIds = emptySet() }
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Close,
@@ -624,8 +639,8 @@ fun HabitHomeScreenPreview() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Spacer to balance the settings icon on the right
-                Spacer(modifier = Modifier.width(48.dp))
+                // Spacer to balance trailing icons on the right
+                Spacer(modifier = Modifier.width(96.dp))
                 
                 // Centered title
                 Text(
@@ -637,6 +652,14 @@ fun HabitHomeScreenPreview() {
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
                 )
+                
+                // Filter icon (left of settings)
+                IconButton(onClick = { }) {
+                    Icon(
+                        imageVector = Icons.Default.FilterList,
+                        contentDescription = "Show label filters"
+                    )
+                }
                 
                 // Settings icon button
                 IconButton(onClick = { }) {
