@@ -8,14 +8,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -67,6 +70,9 @@ fun HabitHomeScreen(
     
     // Filter state - selected label IDs for filtering
     var selectedFilterLabelIds by remember { mutableStateOf<Set<Long>>(emptySet()) }
+    
+    // Whether the label filter chip list is visible (toggled via filter icon)
+    var showLabelFilter by remember { mutableStateOf(false) }
     
     // All available labels for filter UI
     var allAvailableLabels by remember { mutableStateOf<List<LabelEntity>>(emptyList()) }
@@ -188,6 +194,13 @@ fun HabitHomeScreen(
         Spacer(modifier = Modifier.height(topSpacing))
         
         // Custom header row
+        val hasLabelsToFilter = allAvailableLabels.isNotEmpty()
+        // Keep the same trailing footprint as two 48.dp IconButtons so the gear stays
+        // at the same end position; pull the filter in via reduced end inset.
+        val trailingSlotWidth = if (hasLabelsToFilter) 96.dp else 48.dp
+        // Default adjacent IconButtons leave ~48.dp between centers; smaller inset
+        // pulls the filter glyph toward the gear without moving the gear.
+        val filterEndInset = 32.dp
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -195,8 +208,8 @@ fun HabitHomeScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Spacer to balance the settings icon on the right
-            Spacer(modifier = Modifier.width(48.dp)) // Width of IconButton for centering
+            // Spacer to balance trailing icons on the right
+            Spacer(modifier = Modifier.width(trailingSlotWidth))
             
             // Centered title
             Text(
@@ -209,30 +222,115 @@ fun HabitHomeScreen(
                 textAlign = TextAlign.Center
             )
             
-            // Settings icon button
-            IconButton(onClick = { showMenu = true }) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Settings"
-                )
-            }
-            
-            // Dropdown menu (positioned relative to settings icon)
-            DropdownMenu(
-                expanded = showMenu,
-                onDismissRequest = { showMenu = false }
-            ) {
-                DropdownMenuItem(
-                    onClick = {
-                        showMenu = false
-                        navController?.navigate("label_management")
+            // Trailing actions: settings pinned to the end; filter inset toward it
+            Box(modifier = Modifier.width(trailingSlotWidth)) {
+                // Filter icon (left of settings) — only when labels exist to filter by
+                if (hasLabelsToFilter) {
+                    val isFilterActive = showLabelFilter || selectedFilterLabelIds.isNotEmpty()
+                    // Fixed 48.dp slot keeps spacing/gear position; glow paints outside (no clip)
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = filterEndInset)
+                            .size(48.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        if (isFilterActive) {
+                            // Wide outer ambient falloff (larger halo / softer blur)
+                            Box(
+                                modifier = Modifier
+                                    .size(72.dp)
+                                    .background(
+                                        brush = Brush.radialGradient(
+                                            colors = listOf(
+                                                AppColors.primary.copy(alpha = 0.18f),
+                                                AppColors.primary.copy(alpha = 0.10f),
+                                                AppColors.primary.copy(alpha = 0.04f),
+                                                Color.Transparent
+                                            )
+                                        ),
+                                        shape = CircleShape
+                                    )
+                            )
+                            // Mid glow
+                            Box(
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .background(
+                                        brush = Brush.radialGradient(
+                                            colors = listOf(
+                                                AppColors.primary.copy(alpha = 0.30f),
+                                                AppColors.primary.copy(alpha = 0.12f),
+                                                Color.Transparent
+                                            )
+                                        ),
+                                        shape = CircleShape
+                                    )
+                            )
+                            // Inner glow near the glyph
+                            Box(
+                                modifier = Modifier
+                                    .size(30.dp)
+                                    .background(
+                                        brush = Brush.radialGradient(
+                                            colors = listOf(
+                                                AppColors.primary.copy(alpha = 0.45f),
+                                                AppColors.primary.copy(alpha = 0.14f),
+                                                Color.Transparent
+                                            )
+                                        ),
+                                        shape = CircleShape
+                                    )
+                            )
+                        }
+                        IconButton(
+                            onClick = { showLabelFilter = !showLabelFilter },
+                            modifier = Modifier.matchParentSize()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.FilterList,
+                                contentDescription = if (showLabelFilter) {
+                                    "Hide label filters"
+                                } else {
+                                    "Show label filters"
+                                },
+                                tint = if (isFilterActive) {
+                                    AppColors.primary
+                                } else {
+                                    LocalContentColor.current
+                                }
+                            )
+                        }
                     }
-                ) {
-                    Text("Manage Labels")
                 }
-                // Future menu items can be added here:
-                // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
-                // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+                
+                // Settings on top / at trailing edge so its hit target stays reliable
+                Box(modifier = Modifier.align(Alignment.CenterEnd)) {
+                    IconButton(onClick = { showMenu = true }) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings"
+                        )
+                    }
+                    
+                    // Dropdown menu (positioned relative to settings icon)
+                    DropdownMenu(
+                        expanded = showMenu,
+                        onDismissRequest = { showMenu = false }
+                    ) {
+                        DropdownMenuItem(
+                            onClick = {
+                                showMenu = false
+                                navController?.navigate("label_management")
+                            }
+                        ) {
+                            Text("Manage Labels")
+                        }
+                        // Future menu items can be added here:
+                        // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
+                        // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+                    }
+                }
             }
         }
         
@@ -258,34 +356,25 @@ fun HabitHomeScreen(
                 ),
             verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
         ) {
-            // Filter UI Section
-            if (allAvailableLabels.isNotEmpty()) {
+            // Filter UI Section — chips hidden by default; toggled via filter icon
+            if (showLabelFilter && allAvailableLabels.isNotEmpty()) {
                 item {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = AppSpacing.smallSpacing)
                     ) {
-                        // Filter header with clear button
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = if (selectedFilterLabelIds.isEmpty()) {
-                                    "Filter by Label"
-                                } else {
-                                    "Filtered by ${selectedFilterLabelIds.size} ${if (selectedFilterLabelIds.size == 1) "label" else "labels"}"
-                                },
-                                style = AppTypography.materialTypography.subtitle2,
-                                modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
-                            )
-                            
-                            if (selectedFilterLabelIds.isNotEmpty()) {
+                        // Clear button when filters are active (no "Filter by Label" heading)
+                        if (selectedFilterLabelIds.isNotEmpty()) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = AppSpacing.smallSpacing),
+                                horizontalArrangement = Arrangement.End,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 TextButton(
-                                    onClick = { selectedFilterLabelIds = emptySet() },
-                                    modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+                                    onClick = { selectedFilterLabelIds = emptySet() }
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Close,
@@ -624,8 +713,8 @@ fun HabitHomeScreenPreview() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Spacer to balance the settings icon on the right
-                Spacer(modifier = Modifier.width(48.dp))
+                // Spacer to balance trailing icons on the right
+                Spacer(modifier = Modifier.width(96.dp))
                 
                 // Centered title
                 Text(
@@ -638,12 +727,28 @@ fun HabitHomeScreenPreview() {
                     textAlign = TextAlign.Center
                 )
                 
-                // Settings icon button
-                IconButton(onClick = { }) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Settings"
-                    )
+                // Trailing actions preview (filter inset toward fixed gear)
+                Box(modifier = Modifier.width(96.dp)) {
+                    IconButton(
+                        onClick = { },
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings"
+                        )
+                    }
+                    IconButton(
+                        onClick = { },
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = 32.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.FilterList,
+                            contentDescription = "Show label filters"
+                        )
+                    }
                 }
             }
             
