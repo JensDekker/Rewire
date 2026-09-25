@@ -71,13 +71,13 @@ Product feedback from first-time UI review on device/emulator. Track here until 
 
 ### Note-adding lacks a clear dismiss / cancel path
 
-**Surface**: Habit home (`HabitHomeScreen`) → today's habit cards (`HabitCard`). Tapping the add-note icon expands an inline `OutlinedTextField` ("Today's Notes") via `expandedNoteHabits` / `isNoteFieldVisible`.
+**Surface**: Habit home (`HabitHomeScreen`) → habit cards in **Today's Habits** and **All Other Habits** (`HabitCard`). Tapping the add-note icon expands an inline `OutlinedTextField` ("Today's Notes") via `expandedNoteHabits` / `isNoteFieldVisible`.
 
 **Problem**: There is no clean way to exit or cancel out of the note-adding UI. Collapse today depends on re-tapping the note icon; there is no Cancel / Done / Dismiss control, no clear discard path, and no obvious back/outside-tap exit.
 
 **Desired outcome**: A clear dismiss or cancel affordance so users can leave note entry without hunting for a toggle (e.g. Done/Cancel actions, explicit close control, and/or back/outside-tap that closes the field). Saving vs discarding unsaved edits should be intentional.
 
-**Status**: ✅ Fixed — Primary dismiss is **tap elsewhere** on the Habit home surface (clears focus). Focus loss on the note field **auto-saves** via the existing `insertNote` path (blank notes still skip save), dismisses the keyboard, and collapses the field. Re-tapping the note icon also collapses with auto-save. No Cancel/Done button chrome; no new notes architecture.
+**Status**: ✅ Fixed — Primary dismiss is **tap elsewhere** on the Habit home surface (clears focus). Focus loss on the note field **auto-saves** via `upsertNoteForDate` (blank notes still skip save), dismisses the keyboard, and collapses the field. Re-tapping the note icon also collapses with auto-save. No Cancel/Done button chrome; no new notes architecture. Same affordance and save path apply to **All Other Habits** cards. Notes are always stored for **today's date** (habit+date upsert), including when the habit is not scheduled today.
 
 ## Future Development
 
