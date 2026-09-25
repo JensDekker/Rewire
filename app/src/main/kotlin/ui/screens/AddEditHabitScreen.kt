@@ -234,39 +234,41 @@ fun DayOfMonthSelector(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(
-            text = "Day of Month:",
-            style = AppTypography.Custom.recurrenceText,
-            color = AppColors.textAccent,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = AppSpacing.smallSpacing),
-            textAlign = TextAlign.Center
-        )
-        
-        OutlinedTextField(
-            value = dayText,
-            onValueChange = { newValue ->
-                dayText = newValue
-                val day = newValue.toIntOrNull()
-                if (day != null && day in 1..31) {
-                    onDayOfMonthChange(day)
-                    isError = false
-                } else {
-                    isError = true
-                }
-            },
+        Row(
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            isError = isError,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = androidx.compose.ui.text.input.KeyboardType.Number
-            ),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = if (isError) Color.Red else AppColors.primary,
-                unfocusedBorderColor = if (isError) Color.Red else AppColors.borderMedium
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
+        ) {
+            Text(
+                text = "Day of Month:",
+                style = AppTypography.Custom.recurrenceText,
+                color = AppColors.textAccent
             )
-        )
+            
+            OutlinedTextField(
+                value = dayText,
+                onValueChange = { newValue ->
+                    dayText = newValue
+                    val day = newValue.toIntOrNull()
+                    if (day != null && day in 1..31) {
+                        onDayOfMonthChange(day)
+                        isError = false
+                    } else {
+                        isError = true
+                    }
+                },
+                modifier = Modifier.weight(1f),
+                singleLine = true,
+                isError = isError,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = androidx.compose.ui.text.input.KeyboardType.Number
+                ),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = if (isError) Color.Red else AppColors.primary,
+                    unfocusedBorderColor = if (isError) Color.Red else AppColors.borderMedium
+                )
+            )
+        }
         
         if (isError) {
             Text(
@@ -482,7 +484,7 @@ fun QuarterMonthSelector(
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Select Quarter Start:",
+            text = "Select Month:",
             style = AppTypography.Custom.recurrenceText,
             color = AppColors.textAccent,
             modifier = Modifier
