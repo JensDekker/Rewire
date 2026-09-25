@@ -1,5 +1,6 @@
 package com.example.rewire.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import com.example.rewire.ui.theme.AppShapes
@@ -36,6 +37,12 @@ import com.example.rewire.ui.theme.AppColors
 /** Seeds a note field value with the caret at the end of the text. */
 private fun noteFieldValueAtEnd(text: String): TextFieldValue =
     TextFieldValue(text = text, selection = TextRange(text.length))
+
+/**
+ * How far the white front card is shifted right so the label-color back layer
+ * peeks as a rounded left tab.
+ */
+private val LeftAccentPeekWidth = 10.dp
 
 @Composable
 fun HabitCard(
@@ -88,111 +95,127 @@ fun HabitCard(
         }
     }
 
-    // Determine card background color from first label, or use default
-    val cardBackgroundColor = if (labels.isNotEmpty()) {
-        parseLabelColor(labels.first().color)
-    } else {
-        MaterialTheme.colors.surface  // Use MaterialTheme for default since we're in composable context
-    }
-    
-    Surface(
+    // Step 6.10: label-color back plate peeks under a white front card shifted right.
+    val leftAccentColor = labels.firstOrNull()?.let { parseLabelColor(it.color) }
+    val hasAccent = leftAccentColor != null
+
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(AppSpacing.cardPadding)
             .clickable {
                 if (isNoteFieldVisible) commitAndDismiss()
                 onCardClicked()
-            },
-        shape = AppShapes.cardShape,
-        color = cardBackgroundColor,
-        elevation = 4.dp
+            }
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(AppSpacing.standardRowHeight)
-                    .padding(horizontal = AppSpacing.standardSpacing),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = habitName,
-                    style = MaterialTheme.typography.h6,
-                    modifier = Modifier.weight(1f),
-                    fontSize = 20.sp
-                )
-                
+        // Back: full-size label-color rounded rect (same height/radius as the card).
+        if (leftAccentColor != null) {
+            Surface(
+                modifier = Modifier.matchParentSize(),
+                shape = AppShapes.cardShape,
+                color = leftAccentColor,
+                elevation = 4.dp
+            ) {}
+        }
+
+        // Front: white/surface card with thin border; inset when labeled so color peeks left.
+        // Seam = this card’s left rounded edge (not a flat cut, not scallops).
+        Surface(
+            modifier = Modifier
+                .padding(start = if (hasAccent) LeftAccentPeekWidth else 0.dp)
+                .fillMaxWidth(),
+            shape = AppShapes.cardShape,
+            color = MaterialTheme.colors.surface,
+            border = BorderStroke(1.dp, AppColors.borderLight),
+            elevation = if (hasAccent) 0.dp else 4.dp
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing),
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(AppSpacing.standardRowHeight)
+                        .padding(horizontal = AppSpacing.standardSpacing),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.Edit,
-                        contentDescription = "Edit",
-                        modifier = Modifier
-                            .size(28.dp)
-                            .clickable {
-                                if (isNoteFieldVisible) commitAndDismiss()
-                                onEditClicked()
-                            }
+                    Text(
+                        text = habitName,
+                        style = MaterialTheme.typography.h6,
+                        modifier = Modifier.weight(1f),
+                        fontSize = 20.sp
                     )
-                    
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_add_notes),
-                        contentDescription = if (isNoteFieldVisible) "Close Note" else "Add Note",
-                        modifier = Modifier
-                            .size(32.dp)
-                            .clickable {
-                                if (isNoteFieldVisible) {
-                                    // Re-tap collapses and auto-saves (same as tap-elsewhere).
-                                    commitAndDismiss()
-                                } else {
-                                    onAddNoteClicked()
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Edit,
+                            contentDescription = "Edit",
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clickable {
+                                    if (isNoteFieldVisible) commitAndDismiss()
+                                    onEditClicked()
                                 }
-                            }
-                    )
-                    
-                    Icon(
-                        imageVector = if (isComplete) Icons.Filled.CheckBox else Icons.Filled.CheckBoxOutlineBlank,
-                        contentDescription = if (isComplete) "Completed" else "Incomplete",
+                        )
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_add_notes),
+                            contentDescription = if (isNoteFieldVisible) "Close Note" else "Add Note",
+                            modifier = Modifier
+                                .size(32.dp)
+                                .clickable {
+                                    if (isNoteFieldVisible) {
+                                        // Re-tap collapses and auto-saves (same as tap-elsewhere).
+                                        commitAndDismiss()
+                                    } else {
+                                        onAddNoteClicked()
+                                    }
+                                }
+                        )
+
+                        Icon(
+                            imageVector = if (isComplete) Icons.Filled.CheckBox else Icons.Filled.CheckBoxOutlineBlank,
+                            contentDescription = if (isComplete) "Completed" else "Incomplete",
+                            modifier = Modifier
+                                .size(32.dp)
+                                .clickable {
+                                    if (isNoteFieldVisible) commitAndDismiss()
+                                    onCheckClicked()
+                                }
+                        )
+                    }
+                }
+
+                if (isNoteFieldVisible) {
+                    OutlinedTextField(
+                        value = draftNote,
+                        onValueChange = { draftNote = it },
+                        label = { Text("Today's Notes") },
+                        shape = AppShapes.inputShape,
                         modifier = Modifier
-                            .size(32.dp)
-                            .clickable {
-                                if (isNoteFieldVisible) commitAndDismiss()
-                                onCheckClicked()
+                            .fillMaxWidth()
+                            .padding(AppSpacing.standardSpacing)
+                            .focusRequester(focusRequester)
+                            .onFocusChanged { focusState: FocusState ->
+                                if (focusState.isFocused) {
+                                    // On first focus after open, place caret at end (TextField can
+                                    // otherwise reset selection to the start when focus is requested).
+                                    if (!noteHadFocus) {
+                                        draftNote = draftNote.copy(
+                                            selection = TextRange(draftNote.text.length)
+                                        )
+                                    }
+                                    noteHadFocus = true
+                                } else if (noteHadFocus && isNoteFieldVisible) {
+                                    // Tap-elsewhere / clearFocus: auto-save and collapse.
+                                    noteHadFocus = false
+                                    commitAndDismiss()
+                                }
                             }
                     )
                 }
-            }
-            
-            if (isNoteFieldVisible) {
-                OutlinedTextField(
-                    value = draftNote,
-                    onValueChange = { draftNote = it },
-                    label = { Text("Today's Notes") },
-                    shape = AppShapes.inputShape,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(AppSpacing.standardSpacing)
-                        .focusRequester(focusRequester)
-                        .onFocusChanged { focusState: FocusState ->
-                            if (focusState.isFocused) {
-                                // On first focus after open, place caret at end (TextField can
-                                // otherwise reset selection to the start when focus is requested).
-                                if (!noteHadFocus) {
-                                    draftNote = draftNote.copy(
-                                        selection = TextRange(draftNote.text.length)
-                                    )
-                                }
-                                noteHadFocus = true
-                            } else if (noteHadFocus && isNoteFieldVisible) {
-                                // Tap-elsewhere / clearFocus: auto-save and collapse.
-                                noteHadFocus = false
-                                commitAndDismiss()
-                            }
-                        }
-                )
             }
         }
     }
@@ -222,11 +245,27 @@ fun HabitCardPreview() {
             noteText = note,
             onNoteTextChange = { note = it },
             isNoteFieldVisible = isNoteFieldVisible,
+            labels = listOf(Label(id = 1, name = "Learning", color = "#BAE1FF")),
             onCardClicked = {},
             onCheckClicked = {},
             onAddNoteClicked = { isNoteFieldVisible = true },
             onEditClicked = {},
             onNoteDismiss = { isNoteFieldVisible = false }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HabitCardPreviewNoLabel() {
+    MaterialTheme {
+        HabitCard(
+            habitName = "Meditate",
+            isComplete = false,
+            noteText = "",
+            onNoteTextChange = {},
+            isNoteFieldVisible = false,
+            labels = emptyList()
         )
     }
 }

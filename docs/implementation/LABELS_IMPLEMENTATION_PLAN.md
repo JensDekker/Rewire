@@ -3719,45 +3719,33 @@ If Material 3 ColorPicker is available, integrate it for custom color selection.
 - [x] HabitHomeScreen passes labels to HabitCard instances (both "Today's Habits" and "All Other Habits" sections)
 - [x] Labels are converted from LabelEntity to Label using toCore() extension function
 
-#### Step 6.10: Creative Visual Display of Label Color on HabitCard
+#### Step 6.10: Creative Visual Display of Label Color on HabitCard ✅ COMPLETE
 
 **Objective**: Design and implement a creative way to visually display the label color association on the HabitCard, beyond just the background color change from Step 6.9.
 
+**Status**: HabitCard uses two stacked rounded rects — label-color back plate + white front card shifted right so color peeks as a rounded left tab (v2 mockup / approved PR #9 design). No scalloped Canvas path; no flat vertical cut. Full-card tint from Step 6.9 remains replaced.
+
 **File**: `app/src/main/kotlin/ui/components/HabitCard.kt`
 
-**Note**: This step focuses on visual design enhancements. Step 6.9 should be completed first, which changes the entire card background. This step explores additional creative ways to display the label color relationship.
+**Chosen Approach**: Stacked rounded rectangles (peek tab)
+- **Back:** `Surface` with `AppShapes.cardShape` and first-label color, `matchParentSize()` to the card height
+- **Front:** white/surface `Surface` with thin `AppColors.borderLight` border, same corner radius, `padding(start = 10.dp)` so color peeks on the left as a narrow rounded tab
+- Seam = white card’s **left rounded edge** (curved), not a flat divider and not scalloped lobes
+- Content only on the front layer; no labels → no back layer (plain bordered card)
+- Click target wraps both layers
 
-**Possible Implementation Approaches** (to be decided):
-- Colored border or accent line on the card
-- Gradient backgrounds with label color
-- Colored shadow or elevation effect
-- Colored indicator dot or stripe
-- Subtle color overlay with opacity
-- Colored corner accent
-- Combination of background color (from Step 6.9) with additional visual elements
-
-**Changes Required**:
-- Explore visual design options that complement the background color change
-- Implement chosen design approach
-- Ensure the design is visually appealing and enhances user experience
-- Maintain readability and accessibility
-
-**Implementation Notes**:
-- This step is intentionally open-ended to allow for creative exploration
-- Consider user experience and visual hierarchy
-- Ensure the design doesn't overwhelm the card content
-- Test with various label colors to ensure consistency
-- Consider Material Design principles and app theme consistency
+**Design Choice vs Step 6.9**: Prefer surface front + label-color peek over full-card tint.
 
 **Validation Checklist:**
-- [ ] Creative visual design is implemented
-- [ ] Design complements the background color change from Step 6.9
-- [ ] Visual design is consistent across all label colors
-- [ ] Card remains readable and accessible
-- [ ] Design enhances rather than clutters the card appearance
-- [ ] Implementation follows app design system and Material Design principles
-- [ ] No performance regressions introduced
-- [ ] Visual design works well with cards that have no labels (default state)
+- [x] Creative visual design is implemented (stacked peek-tab accent)
+- [x] Design complements / supersedes full-card tint from Step 6.9
+- [x] Visual design is consistent across all label colors (parseLabelColor on first label)
+- [x] Card remains readable and accessible (white/surface front, unchanged text)
+- [x] Design enhances rather than clutters the card appearance (10.dp peek tab)
+- [x] Implementation follows app design system (AppShapes.cardShape, AppColors.borderLight/surface)
+- [x] No performance regressions introduced (two Surfaces in a Box)
+- [x] Visual design works well with cards that have no labels (default surface, no back layer)
+- [x] Seam is the front card’s left rounded edge (not flat cut, not scalloped lobes)
 
 ## Database Migration Strategy
 
