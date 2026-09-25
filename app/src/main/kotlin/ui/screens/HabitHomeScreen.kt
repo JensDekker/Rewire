@@ -221,13 +221,13 @@ fun HabitHomeScreen(
                             // Wide outer ambient falloff (larger halo / softer blur)
                             Box(
                                 modifier = Modifier
-                                    .size(56.dp)
+                                    .size(72.dp)
                                     .background(
                                         brush = Brush.radialGradient(
                                             colors = listOf(
-                                                AppColors.primary.copy(alpha = 0.20f),
+                                                AppColors.primary.copy(alpha = 0.18f),
                                                 AppColors.primary.copy(alpha = 0.10f),
-                                                AppColors.primary.copy(alpha = 0.03f),
+                                                AppColors.primary.copy(alpha = 0.04f),
                                                 Color.Transparent
                                             )
                                         ),
@@ -237,11 +237,11 @@ fun HabitHomeScreen(
                             // Mid glow
                             Box(
                                 modifier = Modifier
-                                    .size(40.dp)
+                                    .size(48.dp)
                                     .background(
                                         brush = Brush.radialGradient(
                                             colors = listOf(
-                                                AppColors.primary.copy(alpha = 0.32f),
+                                                AppColors.primary.copy(alpha = 0.30f),
                                                 AppColors.primary.copy(alpha = 0.12f),
                                                 Color.Transparent
                                             )
@@ -252,7 +252,7 @@ fun HabitHomeScreen(
                             // Inner glow near the glyph
                             Box(
                                 modifier = Modifier
-                                    .size(26.dp)
+                                    .size(30.dp)
                                     .background(
                                         brush = Brush.radialGradient(
                                             colors = listOf(
