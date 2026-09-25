@@ -175,8 +175,12 @@ fun HabitHomeScreen(
         
         // Custom header row
         val hasLabelsToFilter = allAvailableLabels.isNotEmpty()
-        // Balance title against trailing icons (filter + settings when labels exist)
-        val trailingIconCount = if (hasLabelsToFilter) 2 else 1
+        // Keep the same trailing footprint as two 48.dp IconButtons so the gear stays
+        // at the same end position; pull the filter in via reduced end inset.
+        val trailingSlotWidth = if (hasLabelsToFilter) 96.dp else 48.dp
+        // Default adjacent IconButtons leave ~48.dp between centers; smaller inset
+        // pulls the filter glyph toward the gear without moving the gear.
+        val filterEndInset = 32.dp
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -185,7 +189,7 @@ fun HabitHomeScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Spacer to balance trailing icons on the right
-            Spacer(modifier = Modifier.width(48.dp * trailingIconCount))
+            Spacer(modifier = Modifier.width(trailingSlotWidth))
             
             // Centered title
             Text(
@@ -198,46 +202,54 @@ fun HabitHomeScreen(
                 textAlign = TextAlign.Center
             )
             
-            // Filter icon (left of settings) — only when labels exist to filter by
-            if (hasLabelsToFilter) {
-                IconButton(onClick = { showLabelFilter = !showLabelFilter }) {
-                    Icon(
-                        imageVector = Icons.Default.FilterList,
-                        contentDescription = if (showLabelFilter) "Hide label filters" else "Show label filters",
-                        tint = if (showLabelFilter || selectedFilterLabelIds.isNotEmpty()) {
-                            AppColors.primary
-                        } else {
-                            LocalContentColor.current
-                        }
-                    )
-                }
-            }
-            
-            // Settings icon button
-            Box {
-                IconButton(onClick = { showMenu = true }) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Settings"
-                    )
+            // Trailing actions: settings pinned to the end; filter inset toward it
+            Box(modifier = Modifier.width(trailingSlotWidth)) {
+                // Filter icon (left of settings) — only when labels exist to filter by
+                if (hasLabelsToFilter) {
+                    IconButton(
+                        onClick = { showLabelFilter = !showLabelFilter },
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = filterEndInset)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.FilterList,
+                            contentDescription = if (showLabelFilter) "Hide label filters" else "Show label filters",
+                            tint = if (showLabelFilter || selectedFilterLabelIds.isNotEmpty()) {
+                                AppColors.primary
+                            } else {
+                                LocalContentColor.current
+                            }
+                        )
+                    }
                 }
                 
-                // Dropdown menu (positioned relative to settings icon)
-                DropdownMenu(
-                    expanded = showMenu,
-                    onDismissRequest = { showMenu = false }
-                ) {
-                    DropdownMenuItem(
-                        onClick = {
-                            showMenu = false
-                            navController?.navigate("label_management")
-                        }
-                    ) {
-                        Text("Manage Labels")
+                // Settings on top / at trailing edge so its hit target stays reliable
+                Box(modifier = Modifier.align(Alignment.CenterEnd)) {
+                    IconButton(onClick = { showMenu = true }) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings"
+                        )
                     }
-                    // Future menu items can be added here:
-                    // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
-                    // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+                    
+                    // Dropdown menu (positioned relative to settings icon)
+                    DropdownMenu(
+                        expanded = showMenu,
+                        onDismissRequest = { showMenu = false }
+                    ) {
+                        DropdownMenuItem(
+                            onClick = {
+                                showMenu = false
+                                navController?.navigate("label_management")
+                            }
+                        ) {
+                            Text("Manage Labels")
+                        }
+                        // Future menu items can be added here:
+                        // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
+                        // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+                    }
                 }
             }
         }
@@ -653,20 +665,28 @@ fun HabitHomeScreenPreview() {
                     textAlign = TextAlign.Center
                 )
                 
-                // Filter icon (left of settings)
-                IconButton(onClick = { }) {
-                    Icon(
-                        imageVector = Icons.Default.FilterList,
-                        contentDescription = "Show label filters"
-                    )
-                }
-                
-                // Settings icon button
-                IconButton(onClick = { }) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Settings"
-                    )
+                // Trailing actions preview (filter inset toward fixed gear)
+                Box(modifier = Modifier.width(96.dp)) {
+                    IconButton(
+                        onClick = { },
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings"
+                        )
+                    }
+                    IconButton(
+                        onClick = { },
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = 32.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.FilterList,
+                            contentDescription = "Show label filters"
+                        )
+                    }
                 }
             }
             
