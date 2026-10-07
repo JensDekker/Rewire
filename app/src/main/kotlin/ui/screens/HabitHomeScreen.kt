@@ -8,14 +8,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -67,6 +71,9 @@ fun HabitHomeScreen(
     
     // Filter state - selected label IDs for filtering
     var selectedFilterLabelIds by remember { mutableStateOf<Set<Long>>(emptySet()) }
+    
+    // Whether the label filter chip list is visible (toggled via Filter in the menu)
+    var showLabelFilter by remember { mutableStateOf(false) }
     
     // All available labels for filter UI
     var allAvailableLabels by remember { mutableStateOf<List<LabelEntity>>(emptyList()) }
@@ -187,7 +194,9 @@ fun HabitHomeScreen(
         // Top spacer for title header
         Spacer(modifier = Modifier.height(topSpacing))
         
-        // Custom header row
+        // Custom header row — single hamburger at the trailing edge
+        val hasLabelsToFilter = allAvailableLabels.isNotEmpty()
+        val isFilterActive = showLabelFilter || selectedFilterLabelIds.isNotEmpty()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -195,8 +204,8 @@ fun HabitHomeScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Spacer to balance the settings icon on the right
-            Spacer(modifier = Modifier.width(48.dp)) // Width of IconButton for centering
+            // Spacer to balance the hamburger on the right
+            Spacer(modifier = Modifier.width(48.dp))
             
             // Centered title
             Text(
@@ -209,30 +218,110 @@ fun HabitHomeScreen(
                 textAlign = TextAlign.Center
             )
             
-            // Settings icon button
-            IconButton(onClick = { showMenu = true }) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Settings"
-                )
-            }
-            
-            // Dropdown menu (positioned relative to settings icon)
-            DropdownMenu(
-                expanded = showMenu,
-                onDismissRequest = { showMenu = false }
-            ) {
-                DropdownMenuItem(
-                    onClick = {
-                        showMenu = false
-                        navController?.navigate("label_management")
+            // Hamburger opens a compact anchored popup (DropdownMenu — no scrim/dim)
+            Box {
+                IconButton(onClick = { showMenu = true }) {
+                    Box(contentAlignment = Alignment.Center) {
+                        // Subtle active indicator on the hamburger when filters are in use
+                        if (isFilterActive) {
+                            Box(
+                                modifier = Modifier
+                                    .size(36.dp)
+                                    .background(
+                                        brush = Brush.radialGradient(
+                                            colors = listOf(
+                                                AppColors.primary.copy(alpha = 0.28f),
+                                                AppColors.primary.copy(alpha = 0.08f),
+                                                Color.Transparent
+                                            )
+                                        ),
+                                        shape = CircleShape
+                                    )
+                            )
+                        }
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = "Menu",
+                            tint = if (isFilterActive) {
+                                AppColors.primary
+                            } else {
+                                LocalContentColor.current
+                            }
+                        )
                     }
-                ) {
-                    Text("Manage Labels")
                 }
-                // Future menu items can be added here:
-                // DropdownMenuItem(onClick = { ... }) { Text("Settings") }
-                // DropdownMenuItem(onClick = { ... }) { Text("Statistics") }
+                
+                DropdownMenu(
+                    expanded = showMenu,
+                    onDismissRequest = { showMenu = false }
+                ) {
+                    if (hasLabelsToFilter) {
+                        DropdownMenuItem(
+                            onClick = {
+                                showMenu = false
+                                showLabelFilter = !showLabelFilter
+                            }
+                        ) {
+                            Box(
+                                modifier = Modifier.size(40.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                if (isFilterActive) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(36.dp)
+                                            .background(
+                                                brush = Brush.radialGradient(
+                                                    colors = listOf(
+                                                        AppColors.primary.copy(alpha = 0.35f),
+                                                        AppColors.primary.copy(alpha = 0.10f),
+                                                        Color.Transparent
+                                                    )
+                                                ),
+                                                shape = CircleShape
+                                            )
+                                    )
+                                }
+                                Icon(
+                                    imageVector = Icons.Default.FilterList,
+                                    contentDescription = null,
+                                    tint = if (isFilterActive) {
+                                        AppColors.primary
+                                    } else {
+                                        LocalContentColor.current
+                                    }
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                text = if (showLabelFilter) "Hide filters" else "Filter",
+                                style = AppTypography.materialTypography.body1
+                            )
+                        }
+                    }
+                    
+                    DropdownMenuItem(
+                        onClick = {
+                            showMenu = false
+                            navController?.navigate("label_management")
+                        }
+                    ) {
+                        Box(
+                            modifier = Modifier.size(40.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = null
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Settings",
+                            style = AppTypography.materialTypography.body1
+                        )
+                    }
+                }
             }
         }
         
@@ -258,34 +347,25 @@ fun HabitHomeScreen(
                 ),
             verticalArrangement = Arrangement.spacedBy(AppSpacing.smallSpacing)
         ) {
-            // Filter UI Section
-            if (allAvailableLabels.isNotEmpty()) {
+            // Filter UI Section — chips hidden by default; toggled via Filter in the menu
+            if (showLabelFilter && allAvailableLabels.isNotEmpty()) {
                 item {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = AppSpacing.smallSpacing)
                     ) {
-                        // Filter header with clear button
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = if (selectedFilterLabelIds.isEmpty()) {
-                                    "Filter by Label"
-                                } else {
-                                    "Filtered by ${selectedFilterLabelIds.size} ${if (selectedFilterLabelIds.size == 1) "label" else "labels"}"
-                                },
-                                style = AppTypography.materialTypography.subtitle2,
-                                modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
-                            )
-                            
-                            if (selectedFilterLabelIds.isNotEmpty()) {
+                        // Clear button when filters are active (no "Filter by Label" heading)
+                        if (selectedFilterLabelIds.isNotEmpty()) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = AppSpacing.smallSpacing),
+                                horizontalArrangement = Arrangement.End,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 TextButton(
-                                    onClick = { selectedFilterLabelIds = emptySet() },
-                                    modifier = Modifier.padding(bottom = AppSpacing.smallSpacing)
+                                    onClick = { selectedFilterLabelIds = emptySet() }
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Close,
@@ -624,7 +704,7 @@ fun HabitHomeScreenPreview() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Spacer to balance the settings icon on the right
+                // Spacer to balance the hamburger on the right
                 Spacer(modifier = Modifier.width(48.dp))
                 
                 // Centered title
@@ -638,11 +718,11 @@ fun HabitHomeScreenPreview() {
                     textAlign = TextAlign.Center
                 )
                 
-                // Settings icon button
+                // Hamburger menu preview
                 IconButton(onClick = { }) {
                     Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Settings"
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = "Menu"
                     )
                 }
             }
